@@ -1,0 +1,668 @@
+0	12:31:27.756	Compiling 'EA Start Code'
+0	12:31:27.756	Compiling 'NTI_RunTests'
+0	12:31:27.756	Compiling 'PATITradingAssistant'
+0	12:31:31.743	Compiling 'NewTradeIndicator'
+0	12:31:36.689	Custom indicator i-Sessions AUDJPY,M15: loaded successfully
+0	12:31:36.704	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: loaded successfully
+0	12:31:36.720	Custom indicator NewTradeIndicator AUDJPY,M15: loaded successfully
+0	12:31:36.747	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	12:31:36.748	PATITradingAssistant AUDJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	12:31:36.764	i-Sessions AUDJPY,M15: initialized
+0	12:31:36.772	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: initialized
+0	12:31:36.791	NewTradeIndicator AUDJPY,M15: Setting Global Variable NTI_EURUSD1LastOrderId to zero in ZeroGlobalVariables
+0	12:31:36.797	NewTradeIndicator AUDJPY,M15: initialized
+0	12:31:36.844	Custom indicator i-Sessions AUDUSD,M15: loaded successfully
+0	12:31:36.858	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: loaded successfully
+0	12:31:36.873	Custom indicator NewTradeIndicator AUDUSD,M15: loaded successfully
+0	12:31:36.901	Expert PATITradingAssistant AUDUSD,M15: loaded successfully
+0	12:31:36.901	PATITradingAssistant AUDUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	12:31:36.913	i-Sessions AUDUSD,M15: initialized
+0	12:31:36.921	Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: initialized
+0	12:31:36.937	NewTradeIndicator AUDUSD,M15: Setting Global Variable NTI_EURUSD1LastOrderId to zero in ZeroGlobalVariables
+0	12:31:36.942	NewTradeIndicator AUDUSD,M15: initialized
+0	12:31:36.991	Custom indicator i-Sessions CADJPY,M15: loaded successfully
+0	12:31:37.007	Custom indicator Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: loaded successfully
+0	12:31:37.024	Custom indicator NewTradeIndicator CADJPY,M15: loaded successfully
+0	12:31:37.057	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	12:31:37.057	PATITradingAssistant CADJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	12:31:37.072	i-Sessions CADJPY,M15: initialized
+0	12:31:37.081	Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: initialized
+0	12:31:37.102	NewTradeIndicator CADJPY,M15: Setting Global Variable NTI_EURUSD1LastOrderId to zero in ZeroGlobalVariables
+0	12:31:37.109	NewTradeIndicator CADJPY,M15: initialized
+0	12:31:37.179	Custom indicator i-Sessions EURUSD,M15: loaded successfully
+0	12:31:37.195	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: loaded successfully
+0	12:31:37.211	Custom indicator NewTradeIndicator EURUSD,M15: loaded successfully
+0	12:31:37.242	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	12:31:37.242	PATITradingAssistant EURUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	12:31:37.257	i-Sessions EURUSD,M15: initialized
+0	12:31:37.266	Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: initialized
+0	12:31:37.284	NewTradeIndicator EURUSD,M15: Setting Global Variable NTI_EURUSD1LastOrderId to zero in ZeroGlobalVariables
+0	12:31:37.291	NewTradeIndicator EURUSD,M15: initialized
+0	12:31:37.375	Custom indicator i-Sessions GBPJPY,M15: loaded successfully
+0	12:31:37.392	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: loaded successfully
+0	12:31:37.410	Custom indicator NewTradeIndicator GBPJPY,M15: loaded successfully
+0	12:31:37.451	Expert PATITradingAssistant GBPJPY,M15: loaded successfully
+0	12:31:37.451	PATITradingAssistant GBPJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	12:31:37.467	i-Sessions GBPJPY,M15: initialized
+0	12:31:37.477	Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: initialized
+0	12:31:37.503	NewTradeIndicator GBPJPY,M15: Setting Global Variable NTI_EURUSD1LastOrderId to zero in ZeroGlobalVariables
+0	12:31:37.509	NewTradeIndicator GBPJPY,M15: initialized
+0	12:31:37.587	Custom indicator i-Sessions GBPUSD,M15: loaded successfully
+0	12:31:37.607	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: loaded successfully
+0	12:31:37.629	Custom indicator NewTradeIndicator GBPUSD,M15: loaded successfully
+0	12:31:37.667	Expert PATITradingAssistant GBPUSD,M15: loaded successfully
+0	12:31:37.667	PATITradingAssistant GBPUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	12:31:37.684	i-Sessions GBPUSD,M15: initialized
+0	12:31:37.693	Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: initialized
+0	12:31:37.715	NewTradeIndicator GBPUSD,M15: Setting Global Variable NTI_EURUSD1LastOrderId to zero in ZeroGlobalVariables
+0	12:31:37.722	NewTradeIndicator GBPUSD,M15: initialized
+0	12:31:37.805	Custom indicator i-Sessions NZDUSD,M15: loaded successfully
+0	12:31:37.825	Custom indicator Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: loaded successfully
+0	12:31:37.844	Custom indicator NewTradeIndicator NZDUSD,M15: loaded successfully
+0	12:31:37.884	Expert PATITradingAssistant NZDUSD,M15: loaded successfully
+0	12:31:37.884	PATITradingAssistant NZDUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	12:31:37.905	i-Sessions NZDUSD,M15: initialized
+0	12:31:37.916	Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: initialized
+0	12:31:37.937	NewTradeIndicator NZDUSD,M15: Setting Global Variable NTI_EURUSD1LastOrderId to zero in ZeroGlobalVariables
+0	12:31:37.943	NewTradeIndicator NZDUSD,M15: initialized
+0	12:31:38.019	Custom indicator i-Sessions EURJPY,M15: loaded successfully
+0	12:31:38.035	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: loaded successfully
+0	12:31:38.055	Custom indicator NewTradeIndicator EURJPY,M15: loaded successfully
+0	12:31:38.087	Expert PATITradingAssistant EURJPY,M15: loaded successfully
+0	12:31:38.087	PATITradingAssistant EURJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	12:31:38.102	i-Sessions EURJPY,M15: initialized
+0	12:31:38.111	Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: initialized
+0	12:31:38.129	NewTradeIndicator EURJPY,M15: Setting Global Variable NTI_EURUSD1LastOrderId to zero in ZeroGlobalVariables
+0	12:31:38.135	NewTradeIndicator EURJPY,M15: initialized
+0	12:31:38.210	Custom indicator i-Sessions USDJPY,M15: loaded successfully
+0	12:31:38.224	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: loaded successfully
+0	12:31:38.240	Custom indicator NewTradeIndicator USDJPY,M15: loaded successfully
+0	12:31:38.274	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	12:31:38.274	PATITradingAssistant USDJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	12:31:38.289	i-Sessions USDJPY,M15: initialized
+0	12:31:38.298	Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: initialized
+0	12:31:38.315	NewTradeIndicator USDJPY,M15: Setting Global Variable NTI_EURUSD1LastOrderId to zero in ZeroGlobalVariables
+0	12:31:38.321	NewTradeIndicator USDJPY,M15: initialized
+0	12:31:38.391	Custom indicator i-Sessions USDCHF,M15: loaded successfully
+0	12:31:38.406	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: loaded successfully
+0	12:31:38.421	Custom indicator NewTradeIndicator USDCHF,M15: loaded successfully
+0	12:31:38.450	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	12:31:38.450	PATITradingAssistant USDCHF,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	12:31:38.463	i-Sessions USDCHF,M15: initialized
+0	12:31:38.473	Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: initialized
+0	12:31:38.491	NewTradeIndicator USDCHF,M15: Setting Global Variable NTI_EURUSD1LastOrderId to zero in ZeroGlobalVariables
+0	12:31:38.499	NewTradeIndicator USDCHF,M15: initialized
+0	12:31:38.580	Custom indicator i-Sessions USDCAD,M15: loaded successfully
+0	12:31:38.595	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: loaded successfully
+0	12:31:38.612	Custom indicator NewTradeIndicator USDCAD,M15: loaded successfully
+0	12:31:38.644	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	12:31:38.644	PATITradingAssistant USDCAD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:46:28.604	Custom indicator i-Sessions AUDJPY,M15: loaded successfully
+0	13:46:28.620	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: loaded successfully
+0	13:46:28.620	Custom indicator NewTradeIndicator AUDJPY,M15: loaded successfully
+0	13:46:28.651	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	13:46:28.651	PATITradingAssistant AUDJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:46:28.729	i-Sessions AUDJPY,M15: initialized
+0	13:46:28.729	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: initialized
+0	13:46:28.776	NewTradeIndicator AUDJPY,M15: initialized
+0	13:46:28.838	Custom indicator i-Sessions AUDUSD,M15: loaded successfully
+0	13:46:28.854	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: loaded successfully
+0	13:46:28.870	Custom indicator NewTradeIndicator AUDUSD,M15: loaded successfully
+0	13:46:28.901	Expert PATITradingAssistant AUDUSD,M15: loaded successfully
+0	13:46:28.901	PATITradingAssistant AUDUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:46:28.932	i-Sessions AUDUSD,M15: initialized
+0	13:46:28.932	Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: initialized
+0	13:46:28.948	NewTradeIndicator AUDUSD,M15: initialized
+0	13:46:29.010	Custom indicator i-Sessions CADJPY,M15: loaded successfully
+0	13:46:29.026	Custom indicator Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: loaded successfully
+0	13:46:29.026	Custom indicator NewTradeIndicator CADJPY,M15: loaded successfully
+0	13:46:29.057	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	13:46:29.057	PATITradingAssistant CADJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:46:29.104	i-Sessions CADJPY,M15: initialized
+0	13:46:29.104	Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: initialized
+0	13:46:29.120	NewTradeIndicator CADJPY,M15: initialized
+0	13:46:29.198	Custom indicator i-Sessions EURUSD,M15: loaded successfully
+0	13:46:29.213	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: loaded successfully
+0	13:46:29.229	Custom indicator NewTradeIndicator EURUSD,M15: loaded successfully
+0	13:46:29.245	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	13:46:29.245	PATITradingAssistant EURUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:46:29.276	i-Sessions EURUSD,M15: initialized
+0	13:46:29.276	Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: initialized
+0	13:46:29.292	NewTradeIndicator EURUSD,M15: initialized
+0	13:46:29.370	Custom indicator i-Sessions GBPJPY,M15: loaded successfully
+0	13:46:29.385	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: loaded successfully
+0	13:46:29.401	Custom indicator NewTradeIndicator GBPJPY,M15: loaded successfully
+0	13:46:29.417	Expert PATITradingAssistant GBPJPY,M15: loaded successfully
+0	13:46:29.417	PATITradingAssistant GBPJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:46:29.448	i-Sessions GBPJPY,M15: initialized
+0	13:46:29.463	Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: initialized
+0	13:46:29.479	NewTradeIndicator GBPJPY,M15: initialized
+0	13:46:29.542	Custom indicator i-Sessions GBPUSD,M15: loaded successfully
+0	13:46:29.557	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: loaded successfully
+0	13:46:29.573	Custom indicator NewTradeIndicator GBPUSD,M15: loaded successfully
+0	13:46:29.588	Expert PATITradingAssistant GBPUSD,M15: loaded successfully
+0	13:46:29.588	PATITradingAssistant GBPUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:46:29.620	i-Sessions GBPUSD,M15: initialized
+0	13:46:29.635	Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: initialized
+0	13:46:29.651	NewTradeIndicator GBPUSD,M15: initialized
+0	13:46:29.729	Custom indicator i-Sessions NZDUSD,M15: loaded successfully
+0	13:46:29.745	Custom indicator Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: loaded successfully
+0	13:46:29.745	Custom indicator NewTradeIndicator NZDUSD,M15: loaded successfully
+0	13:46:29.776	Expert PATITradingAssistant NZDUSD,M15: loaded successfully
+0	13:46:29.776	PATITradingAssistant NZDUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:46:29.807	i-Sessions NZDUSD,M15: initialized
+0	13:46:29.823	Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: initialized
+0	13:46:29.838	NewTradeIndicator NZDUSD,M15: initialized
+0	13:46:29.917	Custom indicator i-Sessions EURJPY,M15: loaded successfully
+0	13:46:29.917	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: loaded successfully
+0	13:46:29.932	Custom indicator NewTradeIndicator EURJPY,M15: loaded successfully
+0	13:46:29.964	Expert PATITradingAssistant EURJPY,M15: loaded successfully
+0	13:46:29.964	PATITradingAssistant EURJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:46:29.995	i-Sessions EURJPY,M15: initialized
+0	13:46:30.010	Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: initialized
+0	13:46:30.026	NewTradeIndicator EURJPY,M15: initialized
+0	13:46:30.088	Custom indicator i-Sessions USDJPY,M15: loaded successfully
+0	13:46:30.104	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: loaded successfully
+0	13:46:30.104	Custom indicator NewTradeIndicator USDJPY,M15: loaded successfully
+0	13:46:30.135	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	13:46:30.135	PATITradingAssistant USDJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:46:30.167	i-Sessions USDJPY,M15: initialized
+0	13:46:30.182	Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: initialized
+0	13:46:30.198	NewTradeIndicator USDJPY,M15: initialized
+0	13:46:30.276	Custom indicator i-Sessions USDCHF,M15: loaded successfully
+0	13:46:30.292	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: loaded successfully
+0	13:46:30.307	Custom indicator NewTradeIndicator USDCHF,M15: loaded successfully
+0	13:46:30.339	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	13:46:30.339	PATITradingAssistant USDCHF,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:46:30.354	i-Sessions USDCHF,M15: initialized
+0	13:46:30.370	Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: initialized
+0	13:46:30.385	NewTradeIndicator USDCHF,M15: initialized
+0	13:46:30.464	Custom indicator i-Sessions USDCAD,M15: loaded successfully
+0	13:46:30.479	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: loaded successfully
+0	13:46:30.495	Custom indicator NewTradeIndicator USDCAD,M15: loaded successfully
+0	13:46:30.526	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	13:46:30.526	PATITradingAssistant USDCAD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:46:30.557	i-Sessions USDCAD,M15: initialized
+0	13:46:30.573	Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: initialized
+0	13:46:30.589	NewTradeIndicator USDCAD,M15: initialized
+0	13:46:33.230	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	13:46:33.230	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	13:46:33.230	PATITradingAssistant AUDUSD,M15: ---------------------------------------------------------
+0	13:46:33.230	PATITradingAssistant AUDUSD,M15: -----PATI Trading Assistant v0.34 Initializing AUDUSD-----
+0	13:46:33.245	PATITradingAssistant NZDUSD,M15: ---------------------------------------------------------
+0	13:46:33.245	PATITradingAssistant NZDUSD,M15: -----PATI Trading Assistant v0.34 Initializing NZDUSD-----
+0	13:46:33.245	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	13:46:33.245	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	13:46:33.276	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	13:46:33.276	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	13:46:33.292	PATITradingAssistant EURJPY,M15: ---------------------------------------------------------
+0	13:46:33.292	PATITradingAssistant EURJPY,M15: -----PATI Trading Assistant v0.34 Initializing EURJPY-----
+0	13:46:33.292	PATITradingAssistant GBPUSD,M15: ---------------------------------------------------------
+0	13:46:33.292	PATITradingAssistant GBPUSD,M15: -----PATI Trading Assistant v0.34 Initializing GBPUSD-----
+0	13:46:33.308	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	13:46:33.308	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	13:46:33.323	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	13:46:33.323	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	13:46:33.339	PATITradingAssistant GBPUSD,M15: initialized
+0	13:46:33.339	PATITradingAssistant EURJPY,M15: initialized
+0	13:46:33.339	PATITradingAssistant USDCHF,M15: initialized
+0	13:46:33.339	PATITradingAssistant AUDJPY,M15: initialized
+0	13:46:33.339	PATITradingAssistant EURUSD,M15: initialized
+0	13:46:33.339	PATITradingAssistant CADJPY,M15: initialized
+0	13:46:33.339	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	13:46:33.339	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	13:46:33.339	PATITradingAssistant NZDUSD,M15: initialized
+0	13:46:33.339	PATITradingAssistant USDCAD,M15: initialized
+0	13:46:33.339	PATITradingAssistant AUDUSD,M15: initialized
+0	13:46:33.355	PATITradingAssistant GBPJPY,M15: ---------------------------------------------------------
+0	13:46:33.355	PATITradingAssistant GBPJPY,M15: -----PATI Trading Assistant v0.34 Initializing GBPJPY-----
+0	13:46:33.355	PATITradingAssistant USDJPY,M15: initialized
+0	13:46:33.355	PATITradingAssistant GBPJPY,M15: initialized
+0	13:52:08.855	Custom indicator NewTradeIndicator EURUSD,M15: loaded successfully
+0	13:52:13.731	Custom indicator NewTradeIndicator EURUSD,M15: removed
+0	13:52:23.605	Custom indicator NewTradeIndicator EURUSD,M15: loaded successfully
+0	13:52:26.370	NewTradeIndicator EURUSD,M15: initialized
+0	13:53:11.610	PATITradingAssistant EURUSD,M15: uninit reason 1
+0	13:53:11.625	Expert PATITradingAssistant EURUSD,M15: removed
+0	13:53:11.641	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	13:53:14.266	PATITradingAssistant EURUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=false; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:53:14.313	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	13:53:14.313	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	13:53:14.313	PATITradingAssistant EURUSD,M15: initialized
+0	13:55:13.593	PATITradingAssistant AUDJPY,M15: uninit reason 9
+0	13:55:13.593	i-Sessions AUDJPY,M15: uninit reason 9
+0	13:55:13.593	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: uninit reason 9
+0	13:55:13.593	NewTradeIndicator AUDJPY,M15: uninit reason 9
+0	13:55:13.593	PATITradingAssistant AUDUSD,M15: uninit reason 9
+0	13:55:13.593	i-Sessions AUDUSD,M15: uninit reason 9
+0	13:55:13.593	Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: uninit reason 9
+0	13:55:13.593	NewTradeIndicator AUDUSD,M15: uninit reason 9
+0	13:55:13.593	PATITradingAssistant CADJPY,M15: uninit reason 9
+0	13:55:13.593	i-Sessions CADJPY,M15: uninit reason 9
+0	13:55:13.593	Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: uninit reason 9
+0	13:55:13.593	NewTradeIndicator CADJPY,M15: uninit reason 9
+0	13:55:13.593	PATITradingAssistant EURUSD,M15: uninit reason 9
+0	13:55:13.593	i-Sessions EURUSD,M15: uninit reason 9
+0	13:55:13.593	Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: uninit reason 9
+0	13:55:13.593	NewTradeIndicator EURUSD,M15: uninit reason 9
+0	13:55:13.593	NewTradeIndicator EURUSD,M15: uninit reason 9
+0	13:55:13.593	PATITradingAssistant GBPJPY,M15: uninit reason 9
+0	13:55:13.593	i-Sessions GBPJPY,M15: uninit reason 9
+0	13:55:13.593	Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: uninit reason 9
+0	13:55:13.593	NewTradeIndicator GBPJPY,M15: uninit reason 9
+0	13:55:13.593	PATITradingAssistant GBPUSD,M15: uninit reason 9
+0	13:55:13.593	i-Sessions GBPUSD,M15: uninit reason 9
+0	13:55:13.593	Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: uninit reason 9
+0	13:55:13.593	NewTradeIndicator GBPUSD,M15: uninit reason 9
+0	13:55:13.593	PATITradingAssistant NZDUSD,M15: uninit reason 9
+0	13:55:13.593	i-Sessions NZDUSD,M15: uninit reason 9
+0	13:55:13.609	Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: uninit reason 9
+0	13:55:13.609	NewTradeIndicator NZDUSD,M15: uninit reason 9
+0	13:55:13.609	PATITradingAssistant EURJPY,M15: uninit reason 9
+0	13:55:13.609	i-Sessions EURJPY,M15: uninit reason 9
+0	13:55:13.609	Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: uninit reason 9
+0	13:55:13.609	NewTradeIndicator EURJPY,M15: uninit reason 9
+0	13:55:13.609	PATITradingAssistant USDJPY,M15: uninit reason 9
+0	13:55:13.609	i-Sessions USDJPY,M15: uninit reason 9
+0	13:55:13.609	Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: uninit reason 9
+0	13:55:13.609	NewTradeIndicator USDJPY,M15: uninit reason 9
+0	13:55:13.609	PATITradingAssistant USDCHF,M15: uninit reason 9
+0	13:55:13.609	i-Sessions USDCHF,M15: uninit reason 9
+0	13:55:13.609	Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: uninit reason 9
+0	13:55:13.609	NewTradeIndicator USDCHF,M15: uninit reason 9
+0	13:55:13.609	PATITradingAssistant USDCAD,M15: uninit reason 9
+0	13:55:13.609	i-Sessions USDCAD,M15: uninit reason 9
+0	13:55:13.609	Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: uninit reason 9
+0	13:55:13.609	NewTradeIndicator USDCAD,M15: uninit reason 9
+0	13:55:13.702	Expert PATITradingAssistant AUDJPY,M15: removed
+0	13:55:13.702	Custom indicator i-Sessions AUDJPY,M15: removed
+0	13:55:13.702	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: removed
+0	13:55:13.702	Custom indicator NewTradeIndicator AUDJPY,M15: removed
+0	13:55:13.702	Expert PATITradingAssistant AUDUSD,M15: removed
+0	13:55:13.702	Custom indicator i-Sessions AUDUSD,M15: removed
+0	13:55:13.702	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: removed
+0	13:55:13.702	Custom indicator NewTradeIndicator AUDUSD,M15: removed
+0	13:55:13.718	Expert PATITradingAssistant CADJPY,M15: removed
+0	13:55:13.718	Custom indicator i-Sessions CADJPY,M15: removed
+0	13:55:13.718	Custom indicator Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: removed
+0	13:55:13.718	Custom indicator NewTradeIndicator CADJPY,M15: removed
+0	13:55:13.734	Expert PATITradingAssistant EURUSD,M15: removed
+0	13:55:13.734	Custom indicator i-Sessions EURUSD,M15: removed
+0	13:55:13.734	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: removed
+0	13:55:13.749	Custom indicator NewTradeIndicator EURUSD,M15: removed
+0	13:55:13.749	Custom indicator NewTradeIndicator EURUSD,M15: removed
+0	13:55:13.749	Expert PATITradingAssistant GBPJPY,M15: removed
+0	13:55:13.749	Custom indicator i-Sessions GBPJPY,M15: removed
+0	13:55:13.749	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: removed
+0	13:55:13.749	Custom indicator NewTradeIndicator GBPJPY,M15: removed
+0	13:55:13.765	Expert PATITradingAssistant GBPUSD,M15: removed
+0	13:55:13.765	Custom indicator i-Sessions GBPUSD,M15: removed
+0	13:55:13.765	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: removed
+0	13:55:13.765	Custom indicator NewTradeIndicator GBPUSD,M15: removed
+0	13:55:13.765	Expert PATITradingAssistant NZDUSD,M15: removed
+0	13:55:13.765	Custom indicator i-Sessions NZDUSD,M15: removed
+0	13:55:13.765	Custom indicator Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: removed
+0	13:55:13.765	Custom indicator NewTradeIndicator NZDUSD,M15: removed
+0	13:55:13.781	Expert PATITradingAssistant EURJPY,M15: removed
+0	13:55:13.796	Custom indicator i-Sessions EURJPY,M15: removed
+0	13:55:13.796	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: removed
+0	13:55:13.796	Custom indicator NewTradeIndicator EURJPY,M15: removed
+0	13:55:13.812	Expert PATITradingAssistant USDJPY,M15: removed
+0	13:55:13.812	Custom indicator i-Sessions USDJPY,M15: removed
+0	13:55:13.812	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: removed
+0	13:55:13.812	Custom indicator NewTradeIndicator USDJPY,M15: removed
+0	13:55:13.827	Expert PATITradingAssistant USDCHF,M15: removed
+0	13:55:13.827	Custom indicator i-Sessions USDCHF,M15: removed
+0	13:55:13.827	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: removed
+0	13:55:13.827	Custom indicator NewTradeIndicator USDCHF,M15: removed
+0	13:55:13.843	Expert PATITradingAssistant USDCAD,M15: removed
+0	13:55:13.843	Custom indicator i-Sessions USDCAD,M15: removed
+0	13:55:13.843	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: removed
+0	13:55:13.843	Custom indicator NewTradeIndicator USDCAD,M15: removed
+0	13:55:20.906	Custom indicator i-Sessions AUDJPY,M15: loaded successfully
+0	13:55:20.922	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: loaded successfully
+3	13:55:20.922	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:55:20.922	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+0	13:55:20.938	i-Sessions AUDJPY,M15: initialized
+0	13:55:20.953	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: initialized
+0	13:55:20.984	Custom indicator i-Sessions AUDUSD,M15: loaded successfully
+0	13:55:21.000	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: loaded successfully
+3	13:55:21.000	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:55:21.000	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+0	13:55:21.000	i-Sessions AUDUSD,M15: initialized
+0	13:55:21.016	Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: initialized
+0	13:55:21.047	Custom indicator i-Sessions CADJPY,M15: loaded successfully
+0	13:55:21.063	Custom indicator Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: loaded successfully
+3	13:55:21.063	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:55:21.063	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+0	13:55:21.078	i-Sessions CADJPY,M15: initialized
+0	13:55:21.094	Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: initialized
+0	13:55:21.125	Custom indicator i-Sessions EURUSD,M15: loaded successfully
+0	13:55:21.141	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: loaded successfully
+3	13:55:21.141	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:55:21.141	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:55:21.141	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+0	13:55:21.156	i-Sessions EURUSD,M15: initialized
+0	13:55:21.156	Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: initialized
+0	13:55:21.219	Custom indicator i-Sessions GBPJPY,M15: loaded successfully
+0	13:55:21.235	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: loaded successfully
+3	13:55:21.235	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:55:21.235	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+0	13:55:21.250	i-Sessions GBPJPY,M15: initialized
+0	13:55:21.250	Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: initialized
+0	13:55:21.313	Custom indicator i-Sessions GBPUSD,M15: loaded successfully
+0	13:55:21.328	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: loaded successfully
+3	13:55:21.328	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:55:21.328	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+0	13:55:21.344	i-Sessions GBPUSD,M15: initialized
+0	13:55:21.360	Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: initialized
+0	13:55:21.406	Custom indicator i-Sessions NZDUSD,M15: loaded successfully
+0	13:55:21.422	Custom indicator Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: loaded successfully
+3	13:55:21.422	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:55:21.422	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+0	13:55:21.438	i-Sessions NZDUSD,M15: initialized
+0	13:55:21.453	Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: initialized
+0	13:55:21.516	Custom indicator i-Sessions EURJPY,M15: loaded successfully
+0	13:55:21.531	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: loaded successfully
+3	13:55:21.531	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:55:21.531	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+0	13:55:21.531	i-Sessions EURJPY,M15: initialized
+0	13:55:21.547	Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: initialized
+0	13:55:21.610	Custom indicator i-Sessions USDJPY,M15: loaded successfully
+0	13:55:21.625	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: loaded successfully
+3	13:55:21.625	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:55:21.625	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+0	13:55:21.641	i-Sessions USDJPY,M15: initialized
+0	13:55:21.641	Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: initialized
+0	13:55:21.703	Custom indicator i-Sessions USDCHF,M15: loaded successfully
+0	13:55:21.719	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: loaded successfully
+3	13:55:21.719	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:55:21.719	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+0	13:55:21.735	i-Sessions USDCHF,M15: initialized
+0	13:55:21.750	Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: initialized
+0	13:55:21.813	Custom indicator i-Sessions USDCAD,M15: loaded successfully
+0	13:55:21.813	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: loaded successfully
+3	13:55:21.828	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:55:21.828	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+0	13:55:21.828	i-Sessions USDCAD,M15: initialized
+0	13:55:21.844	Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: initialized
+3	13:55:52.591	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:55:55.466	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\indicators\NewTradeIndicator.ex4' [2]
+3	13:58:43.790	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+3	14:06:19.604	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+3	14:06:51.778	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+3	14:06:56.562	cannot open file 'C:\Users\justa\AppData\Roaming\MetaQuotes\Terminal\6BCF14A3917E5BC71FD48812B8ED0586\MQL4\Experts\PATITradingAssistant.ex4' [2]
+0	14:30:56.434	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	14:31:17.622	PATITradingAssistant EURUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	14:31:17.684	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	14:31:17.684	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	14:31:17.684	PATITradingAssistant EURUSD,M15: initialized
+0	14:31:21.042	PATITradingAssistant EURUSD,M15: ****OR:attempted OP_BUYSTOP 0.11 lots @1.1836 sl:0 tp:0
+0	14:31:21.214	PATITradingAssistant EURUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	14:31:21.214	PATITradingAssistant EURUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	14:31:21.214	PATITradingAssistant EURUSD,M15: ****OR:failed trade: OP_BUYSTOP EURUSD@1.1836 tp@0 sl@0
+0	14:31:21.214	PATITradingAssistant EURUSD,M15: ****OR:last error: 133:trade is disabled
+0	14:31:21.214	PATITradingAssistant EURUSD,M15: ****OR:attempted OP_SELLSTOP 0.11 lots @1.1771 sl:0 tp:0
+0	14:31:21.370	PATITradingAssistant EURUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	14:31:21.370	PATITradingAssistant EURUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	14:31:21.370	PATITradingAssistant EURUSD,M15: ****OR:failed trade: OP_SELLSTOP EURUSD@1.1771 tp@0 sl@0
+0	14:31:21.370	PATITradingAssistant EURUSD,M15: ****OR:last error: 133:trade is disabled
+0	14:31:50.847	PATITradingAssistant EURUSD,M15: ****OR:attempted OP_BUYSTOP 0.11 lots @1.1836 sl:0 tp:0
+0	14:31:51.004	PATITradingAssistant EURUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	14:31:51.004	PATITradingAssistant EURUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	14:31:51.004	PATITradingAssistant EURUSD,M15: ****OR:failed trade: OP_BUYSTOP EURUSD@1.1836 tp@0 sl@0
+0	14:31:51.004	PATITradingAssistant EURUSD,M15: ****OR:last error: 133:trade is disabled
+0	14:31:51.004	PATITradingAssistant EURUSD,M15: ****OR:attempted OP_SELLSTOP 0.11 lots @1.1771 sl:0 tp:0
+0	14:31:51.176	PATITradingAssistant EURUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	14:31:51.176	PATITradingAssistant EURUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	14:31:51.176	PATITradingAssistant EURUSD,M15: ****OR:failed trade: OP_SELLSTOP EURUSD@1.1771 tp@0 sl@0
+0	14:31:51.176	PATITradingAssistant EURUSD,M15: ****OR:last error: 133:trade is disabled
+0	14:32:18.413	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	14:32:29.963	PATITradingAssistant CADJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	14:32:30.026	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	14:32:30.026	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	14:32:30.041	PATITradingAssistant CADJPY,M15: initialized
+0	14:32:33.510	PATITradingAssistant CADJPY,M15: Alert: Trade with zero lot size cannot be entered.
+0	14:32:33.510	PATITradingAssistant CADJPY,M15: Alert: Trade with zero lot size cannot be entered.
+0	14:37:13.929	i-Sessions AUDJPY,M15: uninit reason 9
+0	14:37:13.929	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: uninit reason 9
+0	14:37:13.929	i-Sessions AUDUSD,M15: uninit reason 9
+0	14:37:13.929	Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: uninit reason 9
+0	14:37:13.929	PATITradingAssistant CADJPY,M15: uninit reason 9
+0	14:37:13.929	i-Sessions CADJPY,M15: uninit reason 9
+0	14:37:13.929	Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: uninit reason 9
+0	14:37:13.929	PATITradingAssistant EURUSD,M15: uninit reason 9
+0	14:37:13.929	i-Sessions EURUSD,M15: uninit reason 9
+0	14:37:13.929	Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: uninit reason 9
+0	14:37:13.929	i-Sessions GBPJPY,M15: uninit reason 9
+0	14:37:13.929	Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: uninit reason 9
+0	14:37:13.929	i-Sessions GBPUSD,M15: uninit reason 9
+0	14:37:13.929	Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: uninit reason 9
+0	14:37:13.929	i-Sessions NZDUSD,M15: uninit reason 9
+0	14:37:13.929	Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: uninit reason 9
+0	14:37:13.929	i-Sessions EURJPY,M15: uninit reason 9
+0	14:37:13.929	Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: uninit reason 9
+0	14:37:13.929	i-Sessions USDJPY,M15: uninit reason 9
+0	14:37:13.929	Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: uninit reason 9
+0	14:37:13.929	i-Sessions USDCHF,M15: uninit reason 9
+0	14:37:13.929	Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: uninit reason 9
+0	14:37:13.929	i-Sessions USDCAD,M15: uninit reason 9
+0	14:37:13.929	Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: uninit reason 9
+0	14:37:14.042	Custom indicator i-Sessions AUDJPY,M15: removed
+0	14:37:14.044	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: removed
+0	14:37:14.051	Custom indicator i-Sessions AUDUSD,M15: removed
+0	14:37:14.052	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: removed
+0	14:37:14.066	Expert PATITradingAssistant CADJPY,M15: removed
+0	14:37:14.066	Custom indicator i-Sessions CADJPY,M15: removed
+0	14:37:14.066	Custom indicator Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: removed
+0	14:37:14.082	Expert PATITradingAssistant EURUSD,M15: removed
+0	14:37:14.082	Custom indicator i-Sessions EURUSD,M15: removed
+0	14:37:14.082	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: removed
+0	14:37:14.097	Custom indicator i-Sessions GBPJPY,M15: removed
+0	14:37:14.097	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: removed
+0	14:37:14.097	Custom indicator i-Sessions GBPUSD,M15: removed
+0	14:37:14.097	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: removed
+0	14:37:14.097	Custom indicator i-Sessions NZDUSD,M15: removed
+0	14:37:14.113	Custom indicator Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: removed
+0	14:37:14.128	Custom indicator i-Sessions EURJPY,M15: removed
+0	14:37:14.128	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: removed
+0	14:37:14.144	Custom indicator i-Sessions USDJPY,M15: removed
+0	14:37:14.144	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: removed
+0	14:37:14.160	Custom indicator i-Sessions USDCHF,M15: removed
+0	14:37:14.160	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: removed
+0	14:37:14.160	Custom indicator i-Sessions USDCAD,M15: removed
+0	14:37:14.160	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: removed
+0	15:07:13.288	Custom indicator i-Sessions AUDJPY,M15: loaded successfully
+0	15:07:13.303	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: loaded successfully
+0	15:07:13.317	i-Sessions AUDJPY,M15: initialized
+0	15:07:13.324	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: initialized
+0	15:07:13.364	Custom indicator i-Sessions AUDUSD,M15: loaded successfully
+0	15:07:13.378	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: loaded successfully
+0	15:07:13.389	i-Sessions AUDUSD,M15: initialized
+0	15:07:13.396	Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: initialized
+0	15:07:13.437	Custom indicator i-Sessions CADJPY,M15: loaded successfully
+0	15:07:13.451	Custom indicator Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: loaded successfully
+0	15:07:13.477	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	15:07:13.477	PATITradingAssistant CADJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	15:07:13.488	i-Sessions CADJPY,M15: initialized
+0	15:07:13.495	Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: initialized
+0	15:07:13.549	Custom indicator i-Sessions EURUSD,M15: loaded successfully
+0	15:07:13.562	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: loaded successfully
+0	15:07:13.588	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	15:07:13.588	PATITradingAssistant EURUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	15:07:13.599	i-Sessions EURUSD,M15: initialized
+0	15:07:13.605	Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: initialized
+0	15:07:13.665	Custom indicator i-Sessions GBPJPY,M15: loaded successfully
+0	15:07:13.678	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: loaded successfully
+0	15:07:13.689	i-Sessions GBPJPY,M15: initialized
+0	15:07:13.696	Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: initialized
+0	15:07:13.756	Custom indicator i-Sessions GBPUSD,M15: loaded successfully
+0	15:07:13.769	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: loaded successfully
+0	15:07:13.781	i-Sessions GBPUSD,M15: initialized
+0	15:07:13.788	Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: initialized
+0	15:07:13.848	Custom indicator i-Sessions NZDUSD,M15: loaded successfully
+0	15:07:13.861	Custom indicator Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: loaded successfully
+0	15:07:13.873	i-Sessions NZDUSD,M15: initialized
+0	15:07:13.881	Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: initialized
+0	15:07:13.941	Custom indicator i-Sessions EURJPY,M15: loaded successfully
+0	15:07:13.955	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: loaded successfully
+0	15:07:13.967	i-Sessions EURJPY,M15: initialized
+0	15:07:13.974	Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: initialized
+0	15:07:14.036	Custom indicator i-Sessions USDJPY,M15: loaded successfully
+0	15:07:14.051	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: loaded successfully
+0	15:07:14.063	i-Sessions USDJPY,M15: initialized
+0	15:07:14.071	Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: initialized
+0	15:07:14.135	Custom indicator i-Sessions USDCHF,M15: loaded successfully
+0	15:07:14.149	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: loaded successfully
+0	15:07:14.162	i-Sessions USDCHF,M15: initialized
+0	15:07:14.170	Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: initialized
+0	15:07:14.236	Custom indicator i-Sessions USDCAD,M15: loaded successfully
+0	15:07:14.251	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: loaded successfully
+0	15:07:14.264	i-Sessions USDCAD,M15: initialized
+0	15:07:14.272	Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: initialized
+0	15:07:16.826	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	15:07:16.826	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	15:07:16.827	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	15:07:16.827	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	15:07:16.835	PATITradingAssistant EURUSD,M15: initialized
+0	15:07:16.835	PATITradingAssistant CADJPY,M15: initialized
+0	15:07:26.311	i-Sessions AUDJPY,M15: uninit reason 9
+0	15:07:26.311	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: uninit reason 9
+0	15:07:26.311	i-Sessions AUDUSD,M15: uninit reason 9
+0	15:07:26.311	Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: uninit reason 9
+0	15:07:26.311	PATITradingAssistant CADJPY,M15: uninit reason 9
+0	15:07:26.313	i-Sessions CADJPY,M15: uninit reason 9
+0	15:07:26.313	Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: uninit reason 9
+0	15:07:26.313	PATITradingAssistant EURUSD,M15: uninit reason 9
+0	15:07:26.314	i-Sessions EURUSD,M15: uninit reason 9
+0	15:07:26.315	Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: uninit reason 9
+0	15:07:26.315	i-Sessions GBPJPY,M15: uninit reason 9
+0	15:07:26.315	Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: uninit reason 9
+0	15:07:26.315	i-Sessions GBPUSD,M15: uninit reason 9
+0	15:07:26.315	Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: uninit reason 9
+0	15:07:26.315	i-Sessions NZDUSD,M15: uninit reason 9
+0	15:07:26.315	Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: uninit reason 9
+0	15:07:26.315	i-Sessions EURJPY,M15: uninit reason 9
+0	15:07:26.315	Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: uninit reason 9
+0	15:07:26.315	i-Sessions USDJPY,M15: uninit reason 9
+0	15:07:26.315	Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: uninit reason 9
+0	15:07:26.315	i-Sessions USDCHF,M15: uninit reason 9
+0	15:07:26.315	Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: uninit reason 9
+0	15:07:26.315	i-Sessions USDCAD,M15: uninit reason 9
+0	15:07:26.315	Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: uninit reason 9
+0	15:07:26.414	Custom indicator i-Sessions AUDJPY,M15: removed
+0	15:07:26.416	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: removed
+0	15:07:26.423	Custom indicator i-Sessions AUDUSD,M15: removed
+0	15:07:26.424	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: removed
+0	15:07:26.446	Expert PATITradingAssistant CADJPY,M15: removed
+0	15:07:26.450	Custom indicator i-Sessions CADJPY,M15: removed
+0	15:07:26.451	Custom indicator Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: removed
+0	15:07:26.472	Expert PATITradingAssistant EURUSD,M15: removed
+0	15:07:26.474	Custom indicator i-Sessions EURUSD,M15: removed
+0	15:07:26.475	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: removed
+0	15:07:26.480	Custom indicator i-Sessions GBPJPY,M15: removed
+0	15:07:26.481	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: removed
+0	15:07:26.487	Custom indicator i-Sessions GBPUSD,M15: removed
+0	15:07:26.488	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: removed
+0	15:07:26.492	Custom indicator i-Sessions NZDUSD,M15: removed
+0	15:07:26.493	Custom indicator Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: removed
+0	15:07:26.511	Custom indicator i-Sessions EURJPY,M15: removed
+0	15:07:26.512	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: removed
+0	15:07:26.529	Custom indicator i-Sessions USDJPY,M15: removed
+0	15:07:26.530	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: removed
+0	15:07:26.545	Custom indicator i-Sessions USDCHF,M15: removed
+0	15:07:26.546	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: removed
+0	15:07:26.555	Custom indicator i-Sessions USDCAD,M15: removed
+0	15:07:26.556	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: removed
+0	15:07:48.318	Custom indicator i-Sessions AUDJPY,M15: loaded successfully
+0	15:07:48.332	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: loaded successfully
+0	15:07:48.345	i-Sessions AUDJPY,M15: initialized
+0	15:07:48.353	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: initialized
+0	15:07:48.388	Custom indicator i-Sessions AUDUSD,M15: loaded successfully
+0	15:07:48.402	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: loaded successfully
+0	15:07:48.414	i-Sessions AUDUSD,M15: initialized
+0	15:07:48.422	Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: initialized
+0	15:07:48.462	Custom indicator i-Sessions CADJPY,M15: loaded successfully
+0	15:07:48.476	Custom indicator Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: loaded successfully
+0	15:07:48.505	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	15:07:48.505	PATITradingAssistant CADJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	15:07:48.517	i-Sessions CADJPY,M15: initialized
+0	15:07:48.525	Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: initialized
+0	15:07:48.576	Custom indicator i-Sessions EURUSD,M15: loaded successfully
+0	15:07:48.591	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: loaded successfully
+0	15:07:48.619	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	15:07:48.619	PATITradingAssistant EURUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	15:07:48.632	i-Sessions EURUSD,M15: initialized
+0	15:07:48.641	Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: initialized
+0	15:07:48.695	Custom indicator i-Sessions GBPJPY,M15: loaded successfully
+0	15:07:48.710	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: loaded successfully
+0	15:07:48.724	i-Sessions GBPJPY,M15: initialized
+0	15:07:48.732	Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: initialized
+0	15:07:48.788	Custom indicator i-Sessions GBPUSD,M15: loaded successfully
+0	15:07:48.803	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: loaded successfully
+0	15:07:48.816	i-Sessions GBPUSD,M15: initialized
+0	15:07:48.825	Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: initialized
+0	15:07:48.882	Custom indicator i-Sessions NZDUSD,M15: loaded successfully
+0	15:07:48.897	Custom indicator Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: loaded successfully
+0	15:07:48.911	i-Sessions NZDUSD,M15: initialized
+0	15:07:48.918	Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: initialized
+0	15:07:48.976	Custom indicator i-Sessions EURJPY,M15: loaded successfully
+0	15:07:48.991	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: loaded successfully
+0	15:07:49.005	i-Sessions EURJPY,M15: initialized
+0	15:07:49.013	Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: initialized
+0	15:07:49.071	Custom indicator i-Sessions USDJPY,M15: loaded successfully
+0	15:07:49.086	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: loaded successfully
+0	15:07:49.099	i-Sessions USDJPY,M15: initialized
+0	15:07:49.108	Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: initialized
+0	15:07:49.169	Custom indicator i-Sessions USDCHF,M15: loaded successfully
+0	15:07:49.184	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: loaded successfully
+0	15:07:49.197	i-Sessions USDCHF,M15: initialized
+0	15:07:49.206	Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: initialized
+0	15:07:49.266	Custom indicator i-Sessions USDCAD,M15: loaded successfully
+0	15:07:49.281	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: loaded successfully
+0	15:21:28.229	Custom indicator i-Sessions AUDJPY,M15: loaded successfully
+0	15:21:28.245	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: loaded successfully
+0	15:21:28.260	i-Sessions AUDJPY,M15: initialized
+0	15:21:28.260	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: initialized
+0	15:21:28.292	Custom indicator i-Sessions AUDUSD,M15: loaded successfully
+0	15:21:28.307	Custom indicator Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: loaded successfully
+0	15:21:28.323	i-Sessions AUDUSD,M15: initialized
+0	15:21:28.323	Candle-Closing-Time-Remaining-lCCTRp AUDUSD,M15: initialized
+0	15:21:28.370	Custom indicator i-Sessions CADJPY,M15: loaded successfully
+0	15:21:28.370	Custom indicator Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: loaded successfully
+0	15:21:28.401	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	15:21:28.401	PATITradingAssistant CADJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	15:21:28.417	i-Sessions CADJPY,M15: initialized
+0	15:21:28.417	Candle-Closing-Time-Remaining-lCCTRp CADJPY,M15: initialized
+0	15:21:28.464	Custom indicator i-Sessions EURUSD,M15: loaded successfully
+0	15:21:28.479	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: loaded successfully
+0	15:21:28.495	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	15:21:28.495	PATITradingAssistant EURUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	15:21:28.510	i-Sessions EURUSD,M15: initialized
+0	15:21:28.510	Candle-Closing-Time-Remaining-lCCTRp EURUSD,M15: initialized
+0	15:21:28.573	Custom indicator i-Sessions GBPJPY,M15: loaded successfully
+0	15:21:28.588	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: loaded successfully
+0	15:21:28.588	i-Sessions GBPJPY,M15: initialized
+0	15:21:28.604	Candle-Closing-Time-Remaining-lCCTRp GBPJPY,M15: initialized
+0	15:21:28.667	Custom indicator i-Sessions GBPUSD,M15: loaded successfully
+0	15:21:28.667	Custom indicator Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: loaded successfully
+0	15:21:28.682	i-Sessions GBPUSD,M15: initialized
+0	15:21:28.682	Candle-Closing-Time-Remaining-lCCTRp GBPUSD,M15: initialized
+0	15:21:28.745	Custom indicator i-Sessions NZDUSD,M15: loaded successfully
+0	15:21:28.760	Custom indicator Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: loaded successfully
+0	15:21:28.776	i-Sessions NZDUSD,M15: initialized
+0	15:21:28.776	Candle-Closing-Time-Remaining-lCCTRp NZDUSD,M15: initialized
+0	15:21:28.839	Custom indicator i-Sessions EURJPY,M15: loaded successfully
+0	15:21:28.854	Custom indicator Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: loaded successfully
+0	15:21:28.870	i-Sessions EURJPY,M15: initialized
+0	15:21:28.870	Candle-Closing-Time-Remaining-lCCTRp EURJPY,M15: initialized
+0	15:21:28.932	Custom indicator i-Sessions USDJPY,M15: loaded successfully
+0	15:21:28.948	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: loaded successfully
+0	15:21:28.948	i-Sessions USDJPY,M15: initialized
+0	15:21:28.964	Candle-Closing-Time-Remaining-lCCTRp USDJPY,M15: initialized
+0	15:21:29.028	Custom indicator i-Sessions USDCHF,M15: loaded successfully
+0	15:21:29.036	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: loaded successfully
+0	15:21:29.052	i-Sessions USDCHF,M15: initialized
+0	15:21:29.052	Candle-Closing-Time-Remaining-lCCTRp USDCHF,M15: initialized
+0	15:21:29.114	Custom indicator i-Sessions USDCAD,M15: loaded successfully
+0	15:21:29.130	Custom indicator Candle-Closing-Time-Remaining-lCCTRp USDCAD,M15: loaded successfully
