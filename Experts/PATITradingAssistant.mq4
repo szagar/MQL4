@@ -75,7 +75,7 @@ extern double MinRewardRatio = 1.5;
 extern string ConfigureRangeLines = "===Configure Draw Range Lines feature===";
 extern bool ShowDrawRangeButton = true;
 extern color RangeLinesColor = Yellow;
-extern bool SetPendingOrdersOnRanges = false;
+extern bool SetPendingOrdersOnRanges = true;
 extern double MarginForPendingRangeOrders = 1.0;
 extern bool AccountForSpreadOnPendingBuyOrders = true;
 extern double PendingLotSize = 0.0;
@@ -85,7 +85,9 @@ extern int EndOfDayOffsetHours = 0;
 extern int BeginningOfDayOffsetHours = 0;
 extern string ConfigureScreenShotCapture = "===Configure Screen Shot Capture===";
 extern bool CaptureScreenShotsInFiles = true;
-
+extern string ConfigurePositionSizing = "===Configure Position Sizing===";
+extern bool PositionSizer = true;
+extern double PercentRiskPerPosition = 0.005;
 
 const double  GVUNINIT= -99999999;
 const string LASTUPDATENAME = "NTI_LastUpdateTime";
@@ -1771,6 +1773,7 @@ void CreatePendingOrdersForRange( double triggerPrice, int operation, bool setPe
    trade.OrderType = operation;
    trade.Symbol = broker.NormalizeSymbol(Symbol());
    trade.LotSize = _pendingLotSize;
+   if (PositionSizer) trade.LotSize = CalcTradeSize();      // smz
    if (trade.LotSize == 0) 
    {
       Position * lastTrade = broker.FindLastTrade();
@@ -1915,3 +1918,72 @@ bool ChartForegroundSet(const bool value,const long chart_ID=0)
 //--- successful execution
    return(true);
   }     
+  
+double PipsInUsd(const double pips)
+{
+  return(pips);
+}
+  
+//+---------------------------------------------------------------------------+
+//| The function calculates the amount, in USD, secured with stop losses in   |
+//| open positions.                                                               |
+//+---------------------------------------------------------------------------+
+double LockedIn()
+{
+  return(0.0);
+}
+
+//+---------------------------------------------------------------------------+
+//| The function calculates the postion size based on stop loss level, risk   |
+//| per trade and account balance.                                                               |
+//+---------------------------------------------------------------------------+
+double CalcTradeSize()
+{
+  Alert("Calculating position sizing");
+  //PercentRiskPerPosition
+  Alert("Account equity = " + AccountEquity());
+  Alert("Account free margin = " + AccountFreeMargin());
+  Alert("Account credit= " + AccountCredit());
+  //Alert("Account free margin = " + AccountInfoDouble());
+  //Alert("Account free margin = " + AccountInfoString());
+  //Alert("Account free margin = " + AccountInfoInteger());
+  Alert("Account leverage = " + AccountLeverage());
+  Alert("Account margin = " + AccountMargin());
+  Alert("Account profit = " + AccountProfit());
+  Alert("Account stopout mode = " + AccountStopoutMode());
+  Alert("Account stopout level = " + AccountStopoutLevel());
+  Alert("Account balance = " + AccountBalance());
+  Print("Account balance = ",AccountBalance());
+
+  double dollarRisk = (AccountFreeMargin()+ LockedIn()) * PercentRiskPerPosition;
+
+  double nTickValue=MarketInfo(Symbol(),MODE_TICKVALUE);
+  double LotSize = dollarRisk /(stopLoss * nTickValue);
+  LotSize = LotSize * Point;
+  LotSize=MathRound(LotSize/MarketInfo(Symbol(),MODE_LOTSTEP)) * MarketInfo(Symbol(),MODE_LOTSTEP);
+  int stopLossPips  = stopLoss / Point;
+
+  //If the digits are 3 or 5 we normalize multiplying by 10
+  if(Digits==3 || Digits==5)
+  {
+    nTickValue=nTickValue*10;
+    stopLossPips = stopLossPips / 10;
+  }  
+
+  Alert(stopLossPips + " = " + stopLoss + " / " + Point + " / " + nTickValue);
+  
+  
+  Alert("Account free margin = " + AccountFreeMargin() + "\n"
+        "point value in the quote currency = " + DoubleToString(Point,5) + "\n"
+        "broker lot size = " + string(MarketInfo(Symbol(),MODE_LOTSTEP)) + "\n"
+        "PercentRiskPerPosition = " + string(PercentRiskPerPosition*100.0) + "%" + "\n"
+        "dollarRisk = " + dollarRisk + "\n"
+        "stop loss = " + string(stopLoss) +", " + stopLossPips + " pips" + "\n"
+        "locked in = " + LockedIn() + "\n"
+        "LotSize = " + LotSize + "\n"
+        "Ask = " + Ask + "\n"
+        "Bid = " + Bid + "\n"
+        "Close = " + Close[0] + "\n"
+        "MarketInfo(Symbol(),MODE_TICKVALUE) = " + MarketInfo(Symbol(),MODE_TICKVALUE));
+  return(LotSize);
+}

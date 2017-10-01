@@ -1,0 +1,44 @@
+General====General===
+Testing=false
+PairOffsetWithinSymbol=0
+AlertOnTrade=true
+MakeTickVisible=false
+SaveConfiguration=false
+ConfigureStops====Configure Stop Loss Levels===
+DefaultStopPips=12
+ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10
+SendSLandTPToBroker=true
+SetLimitsOnPendingOrders=true
+AdjustStopOnTriggeredPendingOrders=true
+ConfigureDisplay====Configure Trade Display===
+ShowEntry=true
+ShowInitialStop=true
+ShowExit=true
+ShowTradeTrendLine=true
+EntryIndicator=2
+WinningExitColor=32768
+LosingExitColor=255
+TradeTrendLineColor=16711680
+ConfigureNoEntryZone====Configure No-Entry Zone===
+ShowNoEntryZone=true
+NoEntryZoneColor=11119017
+MinNoEntryPad=15.0
+ConfigureTP====Configure Take Profit Levels===
+UseNextLevelTPRule=true
+MinRewardRatio=1.5
+ConfigureRangeLines====Configure Draw Range Lines feature===
+ShowDrawRangeButton=true
+RangeLinesColor=65535
+SetPendingOrdersOnRanges=true
+MarginForPendingRangeOrders=1.0
+AccountForSpreadOnPendingBuyOrders=true
+PendingLotSize=0.0
+CancelPendingTrades=true
+TimingRelatedVariables====Timing Related Configuration===
+EndOfDayOffsetHours=0
+BeginningOfDayOffsetHours=0
+ConfigureScreenShotCapture====Configure Screen Shot Capture===
+CaptureScreenShotsInFiles=true
+ConfigurePositionSizing====Configure Position Sizing===
+PositionSizer=true
+PercentRiskPerPosition=0.005
