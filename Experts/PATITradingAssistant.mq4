@@ -316,7 +316,7 @@ void DeleteAllObjects()
          bool success = ObjectDelete(name);
          if(!success)
            {
-               Print("Failed to delete object " + name +". Error code = " + GetLastError());
+               Print("Failed to delete object " + name +". Error code = " + string(GetLastError()));
            }
       }
       WindowRedraw();
@@ -766,7 +766,7 @@ void PrintConfigValues()
          bool success = ObjectDelete( rngButtonName);
          if(!success)
            {
-               Print("Failed to delete Range Button (" + rngButtonName +").  Error = " + GetLastError());
+               Print("Failed to delete Range Button (" + rngButtonName +").  Error = " + string(GetLastError()));
            }
         }
       ButtonCreate(
@@ -898,10 +898,10 @@ void HandleNewEntry( int tradeId, bool savedTrade = false, double initialStopPri
      }
    if(CheckPointer(activeTrade) == POINTER_INVALID)
       Alert("INVALID POINTER in Handle New Entry for tradeId %i, initialStopPrice %f", tradeId, initialStopPrice);
-   if (!activeTrade.IsPending && matchesDeletedTrade(activeTrade))
-   {
-      activeTrade.IsPending;
-   }
+   //if (!activeTrade.IsPending && matchesDeletedTrade(activeTrade))       // smz
+   //{
+   //   activeTrade.IsPending;
+   //}
    lastTradeId = tradeId;
    lastTradePending = activeTrade.IsPending;
    if (activeTrade.IsPending && !savedTrade)
@@ -1073,6 +1073,7 @@ void HandleClosedTrade(bool savedTrade = false)
       {
          string objName = Prefix + "Exit";
          color arrowColor;
+         arrowColor = Blue;    // smz
          if(activeTrade.OrderType == OP_BUY)
          {
             objName += "L" + IntegerToString(longTradeNumberForDay);
@@ -1231,7 +1232,7 @@ int CalculateStop(string symbol)
 
 double GetNextLevel(double currentLevel, int direction /* 1 = UP, -1 = down */)
 {
-   double currentBaseLevel;
+   //double currentBaseLevel;
    string baseString;
    double isolatedLevel;
    double nextLevel;
@@ -1941,18 +1942,18 @@ double CalcTradeSize()
 {
   Alert("Calculating position sizing");
   //PercentRiskPerPosition
-  Alert("Account equity = " + AccountEquity());
-  Alert("Account free margin = " + AccountFreeMargin());
-  Alert("Account credit= " + AccountCredit());
+  Alert("Account equity = " + string(AccountEquity()));
+  Alert("Account free margin = " + string(AccountFreeMargin()));
+  Alert("Account credit= " + string(AccountCredit()));
   //Alert("Account free margin = " + AccountInfoDouble());
   //Alert("Account free margin = " + AccountInfoString());
   //Alert("Account free margin = " + AccountInfoInteger());
-  Alert("Account leverage = " + AccountLeverage());
-  Alert("Account margin = " + AccountMargin());
-  Alert("Account profit = " + AccountProfit());
-  Alert("Account stopout mode = " + AccountStopoutMode());
-  Alert("Account stopout level = " + AccountStopoutLevel());
-  Alert("Account balance = " + AccountBalance());
+  Alert("Account leverage = " + string(AccountLeverage()));
+  Alert("Account margin = " + string(AccountMargin()));
+  Alert("Account profit = " + string(AccountProfit()));
+  Alert("Account stopout mode = " + string(AccountStopoutMode()));
+  Alert("Account stopout level = " + string(AccountStopoutLevel()));
+  Alert("Account balance = " + string(AccountBalance()));
   Print("Account balance = ",AccountBalance());
 
   double dollarRisk = (AccountFreeMargin()+ LockedIn()) * PercentRiskPerPosition;
@@ -1970,20 +1971,20 @@ double CalcTradeSize()
     stopLossPips = stopLossPips / 10;
   }  
 
-  Alert(stopLossPips + " = " + stopLoss + " / " + Point + " / " + nTickValue);
+  Alert(string(stopLossPips) + " = " + string(stopLoss) + " / " + string(Point) + " / " + string(nTickValue));
   
   
-  Alert("Account free margin = " + AccountFreeMargin() + "\n"
+  Alert("Account free margin = " + string(AccountFreeMargin()) + "\n"
         "point value in the quote currency = " + DoubleToString(Point,5) + "\n"
         "broker lot size = " + string(MarketInfo(Symbol(),MODE_LOTSTEP)) + "\n"
         "PercentRiskPerPosition = " + string(PercentRiskPerPosition*100.0) + "%" + "\n"
-        "dollarRisk = " + dollarRisk + "\n"
-        "stop loss = " + string(stopLoss) +", " + stopLossPips + " pips" + "\n"
-        "locked in = " + LockedIn() + "\n"
-        "LotSize = " + LotSize + "\n"
-        "Ask = " + Ask + "\n"
-        "Bid = " + Bid + "\n"
-        "Close = " + Close[0] + "\n"
-        "MarketInfo(Symbol(),MODE_TICKVALUE) = " + MarketInfo(Symbol(),MODE_TICKVALUE));
+        "dollarRisk = " + string(dollarRisk) + "\n"
+        "stop loss = " + string(stopLoss) +", " + string(stopLossPips) + " pips" + "\n"
+        "locked in = " + string(LockedIn()) + "\n"
+        "LotSize = " + string(LotSize) + "\n"
+        "Ask = " + string(Ask) + "\n"
+        "Bid = " + string(Bid) + "\n"
+        "Close = " + string(Close[0]) + "\n"
+        "MarketInfo(Symbol(),MODE_TICKVALUE) = " + string(MarketInfo(Symbol(),MODE_TICKVALUE)));
   return(LotSize);
 }

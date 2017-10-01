@@ -3180,4 +3180,998 @@
 0	21:43:43.147	Expert PATITradingAssistant USDCAD,M15: removed
 0	21:43:43.194	Expert PATITradingAssistant USDCAD,M15: loaded successfully
 0	21:43:43.226	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
-0	21:43:43.226	PATITradingAssistant AUDJPY,M15: -----PATI T
+0	21:43:43.226	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	21:43:43.272	PATITradingAssistant AUDJPY,M15: initialized
+0	21:43:43.272	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	21:43:43.272	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	21:43:43.272	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	21:43:43.272	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	21:43:43.272	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	21:43:43.272	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	21:43:43.272	PATITradingAssistant CADJPY,M15: initialized
+0	21:43:43.272	PATITradingAssistant EURUSD,M15: initialized
+0	21:43:43.288	PATITradingAssistant USDJPY,M15: initialized
+0	21:43:43.288	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	21:43:43.288	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	21:43:43.288	PATITradingAssistant USDCAD,M15: initialized
+0	21:43:43.304	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	21:43:43.304	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	21:43:43.304	PATITradingAssistant USDCHF,M15: initialized
+0	21:43:53.748	PATITradingAssistant EURUSD,M15: uninit reason 1
+0	21:43:53.764	Expert PATITradingAssistant EURUSD,M15: removed
+0	21:43:53.795	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	21:44:02.263	PATITradingAssistant EURUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	21:44:02.326	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	21:44:02.326	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	21:44:02.326	PATITradingAssistant EURUSD,M15: initialized
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: Alert: Calculating position sizing
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: Alert: Account equity = 5641.89
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: Alert: Account free margin = 5641.89
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: Alert: Account credit= 0
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: Alert: Account leverage = 200
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: Alert: Account margin = 0
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: Alert: Account profit = 0
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: Alert: Account stopout mode = 0
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: Alert: Account stopout level = 15
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: Alert: Account balance = 5641.89
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: Account balance = 5641.89
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: Alert: 8 = 0.0008 / 1e-05 / 10
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0008, 8 pips\nlocked in = 0\nLotSize = 0.35\nAsk = 1.18154\nBid = 1.18123\nClose = 1.18123\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1
+0	21:44:07.251	PATITradingAssistant EURUSD,M15: ****OR:attempted OP_BUYSTOP 0.35 lots @1.1836 sl:0 tp:0
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: ****OR:failed trade: OP_BUYSTOP EURUSD@1.1836 tp@0 sl@0
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: ****OR:last error: 133:trade is disabled
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: Alert: Calculating position sizing
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: Alert: Account equity = 5641.89
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: Alert: Account free margin = 5641.89
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: Alert: Account credit= 0
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: Alert: Account leverage = 200
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: Alert: Account margin = 0
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: Alert: Account profit = 0
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: Alert: Account stopout mode = 0
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: Alert: Account stopout level = 15
+0	21:44:07.419	PATITradingAssistant EURUSD,M15: Alert: Account balance = 5641.89
+0	21:44:07.420	PATITradingAssistant EURUSD,M15: Account balance = 5641.89
+0	21:44:07.420	PATITradingAssistant EURUSD,M15: Alert: 8 = 0.0008 / 1e-05 / 10
+0	21:44:07.420	PATITradingAssistant EURUSD,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0008, 8 pips\nlocked in = 0\nLotSize = 0.35\nAsk = 1.18154\nBid = 1.18123\nClose = 1.18123\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1
+0	21:44:07.420	PATITradingAssistant EURUSD,M15: ****OR:attempted OP_SELLSTOP 0.35 lots @1.1771 sl:0 tp:0
+0	21:44:07.613	PATITradingAssistant EURUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	21:44:07.613	PATITradingAssistant EURUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	21:44:07.613	PATITradingAssistant EURUSD,M15: ****OR:failed trade: OP_SELLSTOP EURUSD@1.1771 tp@0 sl@0
+0	21:44:07.613	PATITradingAssistant EURUSD,M15: ****OR:last error: 133:trade is disabled
+0	21:44:19.008	PATITradingAssistant CADJPY,M15: uninit reason 1
+0	21:44:19.024	Expert PATITradingAssistant CADJPY,M15: removed
+0	21:44:19.060	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	21:44:45.905	PATITradingAssistant CADJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	21:44:45.983	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	21:44:45.983	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	21:44:45.986	PATITradingAssistant CADJPY,M15: initialized
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: Alert: Calculating position sizing
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: Alert: Account equity = 5641.89
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: Alert: Account free margin = 5641.89
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: Alert: Account credit= 0
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: Alert: Account leverage = 200
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: Alert: Account margin = 0
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: Alert: Account profit = 0
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: Alert: Account stopout mode = 0
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: Alert: Account stopout level = 15
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: Alert: Account balance = 5641.89
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: Account balance = 5641.89
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: Alert: 13 = 0.12 / 0.001 / 8.893315783856853
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 13 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 90.29900000000001\nBid = 90.155\nClose = 90.155\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	21:44:47.657	PATITradingAssistant CADJPY,M15: ****OR:attempted OP_BUYSTOP 0.26 lots @90.79200000000002 sl:0 tp:0
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: ****OR:failed trade: OP_BUYSTOP CADJPY@90.792 tp@0 sl@0
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: ****OR:last error: 133:trade is disabled
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: Alert: Calculating position sizing
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: Alert: Account equity = 5641.89
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: Alert: Account free margin = 5641.89
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: Alert: Account credit= 0
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: Alert: Account leverage = 200
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: Alert: Account margin = 0
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: Alert: Account profit = 0
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: Alert: Account stopout mode = 0
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: Alert: Account stopout level = 15
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: Alert: Account balance = 5641.89
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: Account balance = 5641.89
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: Alert: 13 = 0.12 / 0.001 / 8.893315783856853
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 13 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 90.29900000000001\nBid = 90.155\nClose = 90.155\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	21:44:47.826	PATITradingAssistant CADJPY,M15: ****OR:attempted OP_SELLSTOP 0.26 lots @89.81399999999999 sl:0 tp:0
+0	21:44:48.005	PATITradingAssistant CADJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	21:44:48.005	PATITradingAssistant CADJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	21:44:48.005	PATITradingAssistant CADJPY,M15: ****OR:failed trade: OP_SELLSTOP CADJPY@89.81399999999999 tp@0 sl@0
+0	21:44:48.005	PATITradingAssistant CADJPY,M15: ****OR:last error: 133:trade is disabled
+0	21:48:03.267	PATITradingAssistant AUDJPY,M15: uninit reason 1
+0	21:48:03.283	Expert PATITradingAssistant AUDJPY,M15: removed
+0	21:48:03.314	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	21:48:16.651	PATITradingAssistant AUDJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	21:48:16.713	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	21:48:16.713	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	21:48:16.713	PATITradingAssistant AUDJPY,M15: initialized
+0	21:48:23.246	PATITradingAssistant AUDJPY,M15: Alert: Calculating position sizing
+0	21:48:23.246	PATITradingAssistant AUDJPY,M15: Alert: Account equity = 5641.89
+0	21:48:23.246	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89
+0	21:48:23.246	PATITradingAssistant AUDJPY,M15: Alert: Account credit= 0
+0	21:48:23.246	PATITradingAssistant AUDJPY,M15: Alert: Account leverage = 200
+0	21:48:23.246	PATITradingAssistant AUDJPY,M15: Alert: Account margin = 0
+0	21:48:23.253	PATITradingAssistant AUDJPY,M15: Alert: Account profit = 0
+0	21:48:23.253	PATITradingAssistant AUDJPY,M15: Alert: Account stopout mode = 0
+0	21:48:23.253	PATITradingAssistant AUDJPY,M15: Alert: Account stopout level = 15
+0	21:48:23.254	PATITradingAssistant AUDJPY,M15: Alert: Account balance = 5641.89
+0	21:48:23.254	PATITradingAssistant AUDJPY,M15: Account balance = 5641.89
+0	21:48:23.254	PATITradingAssistant AUDJPY,M15: Alert: 13 = 0.12 / 0.001 / 8.893315783856853
+0	21:48:23.254	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 13 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 88.19\nBid = 88.057\nClose = 88.057\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	21:48:23.254	PATITradingAssistant AUDJPY,M15: ****OR:attempted OP_BUYSTOP 0.26 lots @88.584 sl:0 tp:0
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: ****OR:failed trade: OP_BUYSTOP AUDJPY@88.584 tp@0 sl@0
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: ****OR:last error: 133:trade is disabled
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: Alert: Calculating position sizing
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: Alert: Account equity = 5641.89
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: Alert: Account credit= 0
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: Alert: Account leverage = 200
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: Alert: Account margin = 0
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: Alert: Account profit = 0
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: Alert: Account stopout mode = 0
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: Alert: Account stopout level = 15
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: Alert: Account balance = 5641.89
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: Account balance = 5641.89
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: Alert: 13 = 0.12 / 0.001 / 8.893315783856853
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 13 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 88.19\nBid = 88.057\nClose = 88.057\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	21:48:23.400	PATITradingAssistant AUDJPY,M15: ****OR:attempted OP_SELLSTOP 0.26 lots @88.00099999999999 sl:0 tp:0
+0	21:48:23.575	PATITradingAssistant AUDJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	21:48:23.575	PATITradingAssistant AUDJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	21:48:23.575	PATITradingAssistant AUDJPY,M15: ****OR:failed trade: OP_SELLSTOP AUDJPY@88.001 tp@0 sl@0
+0	21:48:23.575	PATITradingAssistant AUDJPY,M15: ****OR:last error: 133:trade is disabled
+0	21:53:43.286	PATITradingAssistant USDCAD,M15: v0.34 HeartBeat 2017.09.30 21:53
+0	21:53:43.286	PATITradingAssistant USDJPY,M15: v0.34 HeartBeat 2017.09.30 21:53
+0	21:53:43.302	PATITradingAssistant USDCHF,M15: v0.34 HeartBeat 2017.09.30 21:53
+0	21:54:02.333	PATITradingAssistant EURUSD,M15: v0.34 HeartBeat 2017.09.30 21:54
+0	21:54:45.984	PATITradingAssistant CADJPY,M15: v0.34 HeartBeat 2017.09.30 21:54
+0	21:58:16.709	PATITradingAssistant AUDJPY,M15: v0.34 HeartBeat 2017.09.30 21:58
+0	22:40:09.681	PATITradingAssistant AUDJPY,M15: uninit reason 2
+0	22:40:09.684	Expert PATITradingAssistant AUDJPY,M15: removed
+0	22:40:09.716	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	22:40:09.717	PATITradingAssistant CADJPY,M15: uninit reason 2
+0	22:40:09.721	Expert PATITradingAssistant CADJPY,M15: removed
+0	22:40:09.754	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	22:40:09.755	PATITradingAssistant EURUSD,M15: uninit reason 2
+0	22:40:09.759	Expert PATITradingAssistant EURUSD,M15: removed
+0	22:40:09.793	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	22:40:09.794	PATITradingAssistant USDJPY,M15: uninit reason 2
+0	22:40:09.798	Expert PATITradingAssistant USDJPY,M15: removed
+0	22:40:09.806	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	22:40:09.806	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	22:40:09.827	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	22:40:09.827	PATITradingAssistant USDCHF,M15: uninit reason 2
+0	22:40:09.827	Expert PATITradingAssistant USDCHF,M15: removed
+0	22:40:09.842	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	22:40:09.842	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	22:40:09.842	PATITradingAssistant AUDJPY,M15: initialized
+0	22:40:09.858	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	22:40:09.858	PATITradingAssistant USDCAD,M15: uninit reason 2
+0	22:40:09.874	Expert PATITradingAssistant USDCAD,M15: removed
+0	22:40:09.874	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	22:40:09.874	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	22:40:09.874	PATITradingAssistant CADJPY,M15: initialized
+0	22:40:09.905	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	22:40:09.905	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	22:40:09.905	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	22:40:09.905	PATITradingAssistant EURUSD,M15: initialized
+0	22:40:09.921	PATITradingAssistant USDJPY,M15: initialized
+0	22:40:09.936	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	22:40:09.936	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	22:40:09.936	PATITradingAssistant USDCHF,M15: initialized
+0	22:40:09.967	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	22:40:09.967	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	22:40:09.967	PATITradingAssistant USDCAD,M15: initialized
+0	22:40:19.974	PATITradingAssistant AUDJPY,M15: uninit reason 1
+0	22:40:19.989	Expert PATITradingAssistant AUDJPY,M15: removed
+0	22:40:20.020	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	22:40:27.331	PATITradingAssistant AUDJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:40:27.410	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	22:40:27.410	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	22:40:27.410	PATITradingAssistant AUDJPY,M15: initialized
+0	22:40:29.712	PATITradingAssistant AUDJPY,M15: Alert: Calculating position sizing
+0	22:40:29.712	PATITradingAssistant AUDJPY,M15: Alert: Account equity = 5641.89
+0	22:40:29.712	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89
+0	22:40:29.712	PATITradingAssistant AUDJPY,M15: Alert: Account credit= 0
+0	22:40:29.715	PATITradingAssistant AUDJPY,M15: Alert: Account leverage = 200
+0	22:40:29.715	PATITradingAssistant AUDJPY,M15: Alert: Account margin = 0
+0	22:40:29.715	PATITradingAssistant AUDJPY,M15: Alert: Account profit = 0
+0	22:40:29.715	PATITradingAssistant AUDJPY,M15: Alert: Account stopout mode = 0
+0	22:40:29.715	PATITradingAssistant AUDJPY,M15: Alert: Account stopout level = 15
+0	22:40:29.715	PATITradingAssistant AUDJPY,M15: Alert: Account balance = 5641.89
+0	22:40:29.715	PATITradingAssistant AUDJPY,M15: Account balance = 5641.89
+0	22:40:29.715	PATITradingAssistant AUDJPY,M15: Alert: 13 = 0.12 / 0.001 / 8.893315783856853
+0	22:40:29.715	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 13 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 88.19\nBid = 88.057\nClose = 88.057\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:40:29.715	PATITradingAssistant AUDJPY,M15: ****OR:attempted OP_BUYSTOP 0.26 lots @88.584 sl:0 tp:0
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: ****OR:failed trade: OP_BUYSTOP AUDJPY@88.584 tp@0 sl@0
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: Alert: Calculating position sizing
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: Alert: Account equity = 5641.89
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: Alert: Account credit= 0
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: Alert: Account leverage = 200
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: Alert: Account margin = 0
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: Alert: Account profit = 0
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: Alert: Account stopout mode = 0
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: Alert: Account stopout level = 15
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: Alert: Account balance = 5641.89
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: Account balance = 5641.89
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: Alert: 13 = 0.12 / 0.001 / 8.893315783856853
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 13 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 88.19\nBid = 88.057\nClose = 88.057\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:40:29.861	PATITradingAssistant AUDJPY,M15: ****OR:attempted OP_SELLSTOP 0.26 lots @88.00099999999999 sl:0 tp:0
+0	22:40:30.002	PATITradingAssistant AUDJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:40:30.002	PATITradingAssistant AUDJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:40:30.002	PATITradingAssistant AUDJPY,M15: ****OR:failed trade: OP_SELLSTOP AUDJPY@88.001 tp@0 sl@0
+0	22:40:30.002	PATITradingAssistant AUDJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:43:55.637	PATITradingAssistant AUDJPY,M15: uninit reason 2
+0	22:43:55.637	Expert PATITradingAssistant AUDJPY,M15: removed
+0	22:43:55.683	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	22:43:55.684	PATITradingAssistant CADJPY,M15: uninit reason 2
+0	22:43:55.688	Expert PATITradingAssistant CADJPY,M15: removed
+0	22:43:55.723	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	22:43:55.725	PATITradingAssistant EURUSD,M15: uninit reason 2
+0	22:43:55.728	Expert PATITradingAssistant EURUSD,M15: removed
+0	22:43:55.761	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	22:43:55.761	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	22:43:55.769	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	22:43:55.770	PATITradingAssistant USDJPY,M15: uninit reason 2
+0	22:43:55.772	PATITradingAssistant AUDJPY,M15: initialized
+0	22:43:55.774	Expert PATITradingAssistant USDJPY,M15: removed
+0	22:43:55.805	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	22:43:55.805	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	22:43:55.810	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	22:43:55.811	PATITradingAssistant CADJPY,M15: initialized
+0	22:43:55.812	PATITradingAssistant USDCHF,M15: uninit reason 2
+0	22:43:55.815	Expert PATITradingAssistant USDCHF,M15: removed
+0	22:43:55.844	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	22:43:55.844	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	22:43:55.853	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	22:43:55.854	PATITradingAssistant USDCAD,M15: uninit reason 2
+0	22:43:55.856	PATITradingAssistant EURUSD,M15: initialized
+0	22:43:55.858	Expert PATITradingAssistant USDCAD,M15: removed
+0	22:43:55.895	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	22:43:55.897	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	22:43:55.897	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	22:43:55.906	PATITradingAssistant USDJPY,M15: initialized
+0	22:43:55.927	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	22:43:55.927	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	22:43:55.932	PATITradingAssistant USDCHF,M15: initialized
+0	22:43:55.964	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	22:43:55.964	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	22:43:55.965	PATITradingAssistant USDCAD,M15: initialized
+0	22:44:20.787	PATITradingAssistant AUDJPY,M15: uninit reason 1
+0	22:44:20.819	Expert PATITradingAssistant AUDJPY,M15: removed
+0	22:44:20.850	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	22:44:27.077	PATITradingAssistant AUDJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:44:27.116	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	22:44:27.116	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	22:44:27.116	PATITradingAssistant AUDJPY,M15: initialized
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: Alert: Calculating position sizing
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: Alert: Account equity = 5641.89
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: Alert: Account credit= 0
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: Alert: Account leverage = 200
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: Alert: Account margin = 0
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: Alert: Account profit = 0
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: Alert: Account stopout mode = 0
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: Alert: Account stopout level = 15
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: Alert: Account balance = 5641.89
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: Account balance = 5641.89
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: Alert: 1200 = 0.12 / 0.001 / 8.893315783856853
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 1200 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 88.19\nBid = 88.057\nClose = 88.057\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:44:29.487	PATITradingAssistant AUDJPY,M15: ****OR:attempted OP_BUYSTOP 0.26 lots @88.584 sl:0 tp:0
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: ****OR:failed trade: OP_BUYSTOP AUDJPY@88.584 tp@0 sl@0
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: Alert: Calculating position sizing
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: Alert: Account equity = 5641.89
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: Alert: Account credit= 0
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: Alert: Account leverage = 200
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: Alert: Account margin = 0
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: Alert: Account profit = 0
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: Alert: Account stopout mode = 0
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: Alert: Account stopout level = 15
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: Alert: Account balance = 5641.89
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: Account balance = 5641.89
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: Alert: 1200 = 0.12 / 0.001 / 8.893315783856853
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 1200 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 88.19\nBid = 88.057\nClose = 88.057\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:44:29.645	PATITradingAssistant AUDJPY,M15: ****OR:attempted OP_SELLSTOP 0.26 lots @88.00099999999999 sl:0 tp:0
+0	22:44:29.807	PATITradingAssistant AUDJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:44:29.807	PATITradingAssistant AUDJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:44:29.807	PATITradingAssistant AUDJPY,M15: ****OR:failed trade: OP_SELLSTOP AUDJPY@88.001 tp@0 sl@0
+0	22:44:29.807	PATITradingAssistant AUDJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:45:11.963	PATITradingAssistant AUDJPY,M15: uninit reason 2
+0	22:45:11.967	Expert PATITradingAssistant AUDJPY,M15: removed
+0	22:45:12.020	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	22:45:12.025	PATITradingAssistant CADJPY,M15: uninit reason 2
+0	22:45:12.076	Expert PATITradingAssistant CADJPY,M15: removed
+0	22:45:12.325	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	22:45:12.398	PATITradingAssistant EURUSD,M15: uninit reason 2
+0	22:45:12.414	Expert PATITradingAssistant EURUSD,M15: removed
+0	22:45:12.461	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	22:45:12.461	PATITradingAssistant USDJPY,M15: uninit reason 2
+0	22:45:12.461	Expert PATITradingAssistant USDJPY,M15: removed
+0	22:45:12.508	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	22:45:12.508	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	22:45:12.508	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	22:45:12.508	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	22:45:12.508	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	22:45:12.508	PATITradingAssistant USDCHF,M15: uninit reason 2
+0	22:45:12.523	Expert PATITradingAssistant USDCHF,M15: removed
+0	22:45:12.555	PATITradingAssistant CADJPY,M15: initialized
+0	22:45:12.555	PATITradingAssistant AUDJPY,M15: initialized
+0	22:45:12.555	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	22:45:12.555	PATITradingAssistant USDCAD,M15: uninit reason 2
+0	22:45:12.555	Expert PATITradingAssistant USDCAD,M15: removed
+0	22:45:12.633	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	22:45:12.633	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	22:45:12.633	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	22:45:12.664	PATITradingAssistant EURUSD,M15: initialized
+0	22:45:12.664	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	22:45:12.664	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	22:45:12.680	PATITradingAssistant USDJPY,M15: initialized
+0	22:45:12.711	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	22:45:12.711	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	22:45:12.711	PATITradingAssistant USDCHF,M15: initialized
+0	22:45:12.727	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	22:45:12.727	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	22:45:12.727	PATITradingAssistant USDCAD,M15: initialized
+0	22:45:24.414	PATITradingAssistant AUDJPY,M15: uninit reason 1
+0	22:45:24.419	Expert PATITradingAssistant AUDJPY,M15: removed
+0	22:45:24.454	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	22:45:31.593	PATITradingAssistant AUDJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:45:31.657	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	22:45:31.657	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	22:45:31.659	PATITradingAssistant AUDJPY,M15: initialized
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: Alert: Calculating position sizing
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: Alert: Account equity = 5641.89
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: Alert: Account credit= 0
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: Alert: Account leverage = 200
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: Alert: Account margin = 0
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: Alert: Account profit = 0
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: Alert: Account stopout mode = 0
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: Alert: Account stopout level = 15
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: Alert: Account balance = 5641.89
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: Account balance = 5641.89
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: Alert: 12 = 0.12 / 0.001 / 8.893315783856853
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 12 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 88.19\nBid = 88.057\nClose = 88.057\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:45:34.330	PATITradingAssistant AUDJPY,M15: ****OR:attempted OP_BUYSTOP 0.26 lots @88.584 sl:0 tp:0
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: ****OR:failed trade: OP_BUYSTOP AUDJPY@88.584 tp@0 sl@0
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: Alert: Calculating position sizing
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: Alert: Account equity = 5641.89
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: Alert: Account credit= 0
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: Alert: Account leverage = 200
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: Alert: Account margin = 0
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: Alert: Account profit = 0
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: Alert: Account stopout mode = 0
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: Alert: Account stopout level = 15
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: Alert: Account balance = 5641.89
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: Account balance = 5641.89
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: Alert: 12 = 0.12 / 0.001 / 8.893315783856853
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 12 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 88.19\nBid = 88.057\nClose = 88.057\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:45:34.474	PATITradingAssistant AUDJPY,M15: ****OR:attempted OP_SELLSTOP 0.26 lots @88.00099999999999 sl:0 tp:0
+0	22:45:34.632	PATITradingAssistant AUDJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:45:34.632	PATITradingAssistant AUDJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:45:34.632	PATITradingAssistant AUDJPY,M15: ****OR:failed trade: OP_SELLSTOP AUDJPY@88.001 tp@0 sl@0
+0	22:45:34.632	PATITradingAssistant AUDJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:46:14.508	PATITradingAssistant AUDJPY,M15: uninit reason 2
+0	22:46:14.508	Expert PATITradingAssistant AUDJPY,M15: removed
+0	22:46:14.555	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	22:46:14.555	PATITradingAssistant CADJPY,M15: uninit reason 2
+0	22:46:14.633	Expert PATITradingAssistant CADJPY,M15: removed
+0	22:46:14.789	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	22:46:14.789	PATITradingAssistant EURUSD,M15: uninit reason 2
+0	22:46:14.805	Expert PATITradingAssistant EURUSD,M15: removed
+0	22:46:14.836	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	22:46:14.836	PATITradingAssistant USDJPY,M15: uninit reason 2
+0	22:46:14.836	Expert PATITradingAssistant USDJPY,M15: removed
+0	22:46:14.883	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	22:46:14.883	PATITradingAssistant USDCHF,M15: uninit reason 2
+0	22:46:14.883	Expert PATITradingAssistant USDCHF,M15: removed
+0	22:46:14.899	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	22:46:14.899	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	22:46:14.899	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	22:46:14.899	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	22:46:14.914	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	22:46:14.914	PATITradingAssistant USDCAD,M15: uninit reason 2
+0	22:46:14.930	PATITradingAssistant CADJPY,M15: initialized
+0	22:46:14.930	PATITradingAssistant AUDJPY,M15: initialized
+0	22:46:14.930	Expert PATITradingAssistant USDCAD,M15: removed
+0	22:46:14.946	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	22:46:14.946	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	22:46:14.961	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	22:46:14.961	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	22:46:14.961	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	22:46:14.961	PATITradingAssistant EURUSD,M15: initialized
+0	22:46:14.961	PATITradingAssistant USDJPY,M15: initialized
+0	22:46:14.993	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	22:46:14.993	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	22:46:15.008	PATITradingAssistant USDCHF,M15: initialized
+0	22:46:15.024	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	22:46:15.024	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	22:46:15.024	PATITradingAssistant USDCAD,M15: initialized
+0	22:46:23.894	PATITradingAssistant AUDJPY,M15: uninit reason 1
+0	22:46:23.909	Expert PATITradingAssistant AUDJPY,M15: removed
+0	22:46:23.941	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	22:46:25.801	PATITradingAssistant AUDJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:46:25.863	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	22:46:25.863	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	22:46:25.863	PATITradingAssistant AUDJPY,M15: initialized
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: Alert: Calculating position sizing
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: Alert: Account equity = 5641.89
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: Alert: Account credit= 0
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: Alert: Account leverage = 200
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: Alert: Account margin = 0
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: Alert: Account profit = 0
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: Alert: Account stopout mode = 0
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: Alert: Account stopout level = 15
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: Alert: Account balance = 5641.89
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: Account balance = 5641.89
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: Alert: 12 = 0.12 / 0.001 / 8.893315783856853
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 12 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 88.19\nBid = 88.057\nClose = 88.057\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:46:28.529	PATITradingAssistant AUDJPY,M15: ****OR:attempted OP_BUYSTOP 0.26 lots @88.584 sl:0 tp:0
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: ****OR:failed trade: OP_BUYSTOP AUDJPY@88.584 tp@0 sl@0
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: Alert: Calculating position sizing
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: Alert: Account equity = 5641.89
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: Alert: Account credit= 0
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: Alert: Account leverage = 200
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: Alert: Account margin = 0
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: Alert: Account profit = 0
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: Alert: Account stopout mode = 0
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: Alert: Account stopout level = 15
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: Alert: Account balance = 5641.89
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: Account balance = 5641.89
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: Alert: 12 = 0.12 / 0.001 / 8.893315783856853
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 12 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 88.19\nBid = 88.057\nClose = 88.057\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:46:28.687	PATITradingAssistant AUDJPY,M15: ****OR:attempted OP_SELLSTOP 0.26 lots @88.00099999999999 sl:0 tp:0
+0	22:46:28.835	PATITradingAssistant AUDJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:46:28.835	PATITradingAssistant AUDJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:46:28.835	PATITradingAssistant AUDJPY,M15: ****OR:failed trade: OP_SELLSTOP AUDJPY@88.001 tp@0 sl@0
+0	22:46:28.835	PATITradingAssistant AUDJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:46:41.549	Expert PATITradingAssistant AUDUSD,M15: loaded successfully
+0	22:46:46.157	PATITradingAssistant AUDUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:46:46.220	PATITradingAssistant AUDUSD,M15: ---------------------------------------------------------
+0	22:46:46.220	PATITradingAssistant AUDUSD,M15: -----PATI Trading Assistant v0.34 Initializing AUDUSD-----
+0	22:46:46.236	PATITradingAssistant AUDUSD,M15: initialized
+0	22:46:48.915	PATITradingAssistant AUDUSD,M15: Alert: Calculating position sizing
+0	22:46:48.915	PATITradingAssistant AUDUSD,M15: Alert: Account equity = 5641.89
+0	22:46:48.915	PATITradingAssistant AUDUSD,M15: Alert: Account free margin = 5641.89
+0	22:46:48.915	PATITradingAssistant AUDUSD,M15: Alert: Account credit= 0
+0	22:46:48.915	PATITradingAssistant AUDUSD,M15: Alert: Account leverage = 200
+0	22:46:48.915	PATITradingAssistant AUDUSD,M15: Alert: Account margin = 0
+0	22:46:48.931	PATITradingAssistant AUDUSD,M15: Alert: Account profit = 0
+0	22:46:48.931	PATITradingAssistant AUDUSD,M15: Alert: Account stopout mode = 0
+0	22:46:48.931	PATITradingAssistant AUDUSD,M15: Alert: Account stopout level = 15
+0	22:46:48.931	PATITradingAssistant AUDUSD,M15: Alert: Account balance = 5641.89
+0	22:46:48.931	PATITradingAssistant AUDUSD,M15: Account balance = 5641.89
+0	22:46:48.931	PATITradingAssistant AUDUSD,M15: Alert: 10 = 0.001 / 1e-05 / 10
+0	22:46:48.931	PATITradingAssistant AUDUSD,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.001, 10 pips\nlocked in = 0\nLotSize = 0.28\nAsk = 0.78347\nBid = 0.78321\nClose = 0.78321\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1
+0	22:46:48.931	PATITradingAssistant AUDUSD,M15: ****OR:attempted OP_BUYSTOP 0.28 lots @0.786 sl:0 tp:0
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: ****OR:failed trade: OP_BUYSTOP AUDUSD@0.786 tp@0 sl@0
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: ****OR:last error: 133:trade is disabled
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: Alert: Calculating position sizing
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: Alert: Account equity = 5641.89
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: Alert: Account free margin = 5641.89
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: Alert: Account credit= 0
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: Alert: Account leverage = 200
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: Alert: Account margin = 0
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: Alert: Account profit = 0
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: Alert: Account stopout mode = 0
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: Alert: Account stopout level = 15
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: Alert: Account balance = 5641.89
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: Account balance = 5641.89
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: Alert: 10 = 0.001 / 1e-05 / 10
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.001, 10 pips\nlocked in = 0\nLotSize = 0.28\nAsk = 0.78347\nBid = 0.78321\nClose = 0.78321\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1
+0	22:46:49.087	PATITradingAssistant AUDUSD,M15: ****OR:attempted OP_SELLSTOP 0.28 lots @0.78149 sl:0 tp:0
+0	22:46:49.256	PATITradingAssistant AUDUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:46:49.256	PATITradingAssistant AUDUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:46:49.256	PATITradingAssistant AUDUSD,M15: ****OR:failed trade: OP_SELLSTOP AUDUSD@0.78149 tp@0 sl@0
+0	22:46:49.256	PATITradingAssistant AUDUSD,M15: ****OR:last error: 133:trade is disabled
+0	22:47:01.473	PATITradingAssistant CADJPY,M15: uninit reason 1
+0	22:47:01.489	Expert PATITradingAssistant CADJPY,M15: removed
+0	22:47:01.504	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	22:47:03.257	PATITradingAssistant CADJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:47:03.330	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	22:47:03.330	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	22:47:03.331	PATITradingAssistant CADJPY,M15: initialized
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: Alert: Calculating position sizing
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: Alert: Account equity = 5641.89
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: Alert: Account free margin = 5641.89
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: Alert: Account credit= 0
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: Alert: Account leverage = 200
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: Alert: Account margin = 0
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: Alert: Account profit = 0
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: Alert: Account stopout mode = 0
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: Alert: Account stopout level = 15
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: Alert: Account balance = 5641.89
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: Account balance = 5641.89
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: Alert: 12 = 0.12 / 0.001 / 8.893315783856853
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 12 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 90.29900000000001\nBid = 90.155\nClose = 90.155\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:47:09.742	PATITradingAssistant CADJPY,M15: ****OR:attempted OP_BUYSTOP 0.26 lots @90.79200000000002 sl:0 tp:0
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: ****OR:failed trade: OP_BUYSTOP CADJPY@90.792 tp@0 sl@0
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: Alert: Calculating position sizing
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: Alert: Account equity = 5641.89
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: Alert: Account free margin = 5641.89
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: Alert: Account credit= 0
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: Alert: Account leverage = 200
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: Alert: Account margin = 0
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: Alert: Account profit = 0
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: Alert: Account stopout mode = 0
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: Alert: Account stopout level = 15
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: Alert: Account balance = 5641.89
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: Account balance = 5641.89
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: Alert: 12 = 0.12 / 0.001 / 8.893315783856853
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 12 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 90.29900000000001\nBid = 90.155\nClose = 90.155\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:47:09.892	PATITradingAssistant CADJPY,M15: ****OR:attempted OP_SELLSTOP 0.26 lots @89.81399999999999 sl:0 tp:0
+0	22:47:10.063	PATITradingAssistant CADJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:47:10.063	PATITradingAssistant CADJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:47:10.063	PATITradingAssistant CADJPY,M15: ****OR:failed trade: OP_SELLSTOP CADJPY@89.81399999999999 tp@0 sl@0
+0	22:47:10.063	PATITradingAssistant CADJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:47:34.037	PATITradingAssistant EURUSD,M15: uninit reason 1
+0	22:47:34.052	Expert PATITradingAssistant EURUSD,M15: removed
+0	22:47:34.068	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	22:47:35.745	PATITradingAssistant EURUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:47:35.807	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	22:47:35.807	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	22:47:35.823	PATITradingAssistant EURUSD,M15: initialized
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: Alert: Calculating position sizing
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: Alert: Account equity = 5641.89
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: Alert: Account free margin = 5641.89
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: Alert: Account credit= 0
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: Alert: Account leverage = 200
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: Alert: Account margin = 0
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: Alert: Account profit = 0
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: Alert: Account stopout mode = 0
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: Alert: Account stopout level = 15
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: Alert: Account balance = 5641.89
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: Account balance = 5641.89
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: Alert: 8 = 0.0008 / 1e-05 / 10
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0008, 8 pips\nlocked in = 0\nLotSize = 0.35\nAsk = 1.18154\nBid = 1.18123\nClose = 1.18123\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1
+0	22:47:44.464	PATITradingAssistant EURUSD,M15: ****OR:attempted OP_BUYSTOP 0.35 lots @1.1836 sl:0 tp:0
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: ****OR:failed trade: OP_BUYSTOP EURUSD@1.1836 tp@0 sl@0
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: ****OR:last error: 133:trade is disabled
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: Alert: Calculating position sizing
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: Alert: Account equity = 5641.89
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: Alert: Account free margin = 5641.89
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: Alert: Account credit= 0
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: Alert: Account leverage = 200
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: Alert: Account margin = 0
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: Alert: Account profit = 0
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: Alert: Account stopout mode = 0
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: Alert: Account stopout level = 15
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: Alert: Account balance = 5641.89
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: Account balance = 5641.89
+0	22:47:44.615	PATITradingAssistant EURUSD,M15: Alert: 8 = 0.0008 / 1e-05 / 10
+0	22:47:44.633	PATITradingAssistant EURUSD,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0008, 8 pips\nlocked in = 0\nLotSize = 0.35\nAsk = 1.18154\nBid = 1.18123\nClose = 1.18123\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1
+0	22:47:44.633	PATITradingAssistant EURUSD,M15: ****OR:attempted OP_SELLSTOP 0.35 lots @1.1771 sl:0 tp:0
+0	22:47:44.794	PATITradingAssistant EURUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:47:44.795	PATITradingAssistant EURUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:47:44.795	PATITradingAssistant EURUSD,M15: ****OR:failed trade: OP_SELLSTOP EURUSD@1.1771 tp@0 sl@0
+0	22:47:44.795	PATITradingAssistant EURUSD,M15: ****OR:last error: 133:trade is disabled
+0	22:48:17.595	Expert PATITradingAssistant GBPJPY,M15: loaded successfully
+0	22:48:19.231	PATITradingAssistant GBPJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:48:19.293	PATITradingAssistant GBPJPY,M15: ---------------------------------------------------------
+0	22:48:19.293	PATITradingAssistant GBPJPY,M15: -----PATI Trading Assistant v0.34 Initializing GBPJPY-----
+0	22:48:19.293	PATITradingAssistant GBPJPY,M15: initialized
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: Alert: Calculating position sizing
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: Alert: Account equity = 5641.89
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: Alert: Account free margin = 5641.89
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: Alert: Account credit= 0
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: Alert: Account leverage = 200
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: Alert: Account margin = 0
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: Alert: Account profit = 0
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: Alert: Account stopout mode = 0
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: Alert: Account stopout level = 15
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: Alert: Account balance = 5641.89
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: Account balance = 5641.89
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: Alert: 12 = 0.12 / 0.001 / 8.893315783856853
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 12 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 150.762\nBid = 150.58\nClose = 150.58\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:48:21.035	PATITradingAssistant GBPJPY,M15: ****OR:attempted OP_BUYSTOP 0.26 lots @151.463 sl:0 tp:0
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: ****OR:failed trade: OP_BUYSTOP GBPJPY@151.463 tp@0 sl@0
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: Alert: Calculating position sizing
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: Alert: Account equity = 5641.89
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: Alert: Account free margin = 5641.89
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: Alert: Account credit= 0
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: Alert: Account leverage = 200
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: Alert: Account margin = 0
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: Alert: Account profit = 0
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: Alert: Account stopout mode = 0
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: Alert: Account stopout level = 15
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: Alert: Account balance = 5641.89
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: Account balance = 5641.89
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: Alert: 12 = 0.12 / 0.001 / 8.893315783856853
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 12 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 150.762\nBid = 150.58\nClose = 150.58\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:48:21.184	PATITradingAssistant GBPJPY,M15: ****OR:attempted OP_SELLSTOP 0.26 lots @150.181 sl:0 tp:0
+0	22:48:21.339	PATITradingAssistant GBPJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:48:21.339	PATITradingAssistant GBPJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:48:21.339	PATITradingAssistant GBPJPY,M15: ****OR:failed trade: OP_SELLSTOP GBPJPY@150.181 tp@0 sl@0
+0	22:48:21.339	PATITradingAssistant GBPJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: Alert: Calculating position sizing
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: Alert: Account equity = 5641.89
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: Alert: Account free margin = 5641.89
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: Alert: Account credit= 0
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: Alert: Account leverage = 200
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: Alert: Account margin = 0
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: Alert: Account profit = 0
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: Alert: Account stopout mode = 0
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: Alert: Account stopout level = 15
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: Alert: Account balance = 5641.89
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: Account balance = 5641.89
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: Alert: 12 = 0.12 / 0.001 / 8.893315783856853
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 12 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 150.762\nBid = 150.58\nClose = 150.58\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:48:29.183	PATITradingAssistant GBPJPY,M15: ****OR:attempted OP_BUYSTOP 0.26 lots @151.463 sl:0 tp:0
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: ****OR:failed trade: OP_BUYSTOP GBPJPY@151.463 tp@0 sl@0
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: Alert: Calculating position sizing
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: Alert: Account equity = 5641.89
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: Alert: Account free margin = 5641.89
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: Alert: Account credit= 0
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: Alert: Account leverage = 200
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: Alert: Account margin = 0
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: Alert: Account profit = 0
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: Alert: Account stopout mode = 0
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: Alert: Account stopout level = 15
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: Alert: Account balance = 5641.89
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: Account balance = 5641.89
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: Alert: 12 = 0.12 / 0.001 / 8.893315783856853
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.12, 12 pips\nlocked in = 0\nLotSize = 0.26\nAsk = 150.762\nBid = 150.58\nClose = 150.58\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:48:29.373	PATITradingAssistant GBPJPY,M15: ****OR:attempted OP_SELLSTOP 0.26 lots @150.181 sl:0 tp:0
+0	22:48:29.531	PATITradingAssistant GBPJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:48:29.531	PATITradingAssistant GBPJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:48:29.531	PATITradingAssistant GBPJPY,M15: ****OR:failed trade: OP_SELLSTOP GBPJPY@150.181 tp@0 sl@0
+0	22:48:29.531	PATITradingAssistant GBPJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:48:34.263	Expert PATITradingAssistant GBPUSD,M15: loaded successfully
+0	22:48:35.783	PATITradingAssistant GBPUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:48:35.846	PATITradingAssistant GBPUSD,M15: ---------------------------------------------------------
+0	22:48:35.846	PATITradingAssistant GBPUSD,M15: -----PATI Trading Assistant v0.34 Initializing GBPUSD-----
+0	22:48:35.861	PATITradingAssistant GBPUSD,M15: initialized
+0	22:48:38.158	PATITradingAssistant GBPUSD,M15: Alert: Calculating position sizing
+0	22:48:38.158	PATITradingAssistant GBPUSD,M15: Alert: Account equity = 5641.89
+0	22:48:38.158	PATITradingAssistant GBPUSD,M15: Alert: Account free margin = 5641.89
+0	22:48:38.158	PATITradingAssistant GBPUSD,M15: Alert: Account credit= 0
+0	22:48:38.158	PATITradingAssistant GBPUSD,M15: Alert: Account leverage = 200
+0	22:48:38.158	PATITradingAssistant GBPUSD,M15: Alert: Account margin = 0
+0	22:48:38.165	PATITradingAssistant GBPUSD,M15: Alert: Account profit = 0
+0	22:48:38.165	PATITradingAssistant GBPUSD,M15: Alert: Account stopout mode = 0
+0	22:48:38.165	PATITradingAssistant GBPUSD,M15: Alert: Account stopout level = 15
+0	22:48:38.165	PATITradingAssistant GBPUSD,M15: Alert: Account balance = 5641.89
+0	22:48:38.165	PATITradingAssistant GBPUSD,M15: Account balance = 5641.89
+0	22:48:38.165	PATITradingAssistant GBPUSD,M15: Alert: 10 = 0.001 / 1e-05 / 10
+0	22:48:38.165	PATITradingAssistant GBPUSD,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.001, 10 pips\nlocked in = 0\nLotSize = 0.28\nAsk = 1.33999\nBid = 1.33954\nClose = 1.33954\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1
+0	22:48:38.165	PATITradingAssistant GBPUSD,M15: ****OR:attempted OP_BUYSTOP 0.28 lots @1.3447 sl:0 tp:0
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: ****OR:failed trade: OP_BUYSTOP GBPUSD@1.3447 tp@0 sl@0
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: ****OR:last error: 133:trade is disabled
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: Alert: Calculating position sizing
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: Alert: Account equity = 5641.89
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: Alert: Account free margin = 5641.89
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: Alert: Account credit= 0
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: Alert: Account leverage = 200
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: Alert: Account margin = 0
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: Alert: Account profit = 0
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: Alert: Account stopout mode = 0
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: Alert: Account stopout level = 15
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: Alert: Account balance = 5641.89
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: Account balance = 5641.89
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: Alert: 10 = 0.001 / 1e-05 / 10
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.001, 10 pips\nlocked in = 0\nLotSize = 0.28\nAsk = 1.33999\nBid = 1.33954\nClose = 1.33954\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1
+0	22:48:38.373	PATITradingAssistant GBPUSD,M15: ****OR:attempted OP_SELLSTOP 0.28 lots @1.33479 sl:0 tp:0
+0	22:48:38.517	PATITradingAssistant GBPUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:48:38.517	PATITradingAssistant GBPUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:48:38.517	PATITradingAssistant GBPUSD,M15: ****OR:failed trade: OP_SELLSTOP GBPUSD@1.33479 tp@0 sl@0
+0	22:48:38.517	PATITradingAssistant GBPUSD,M15: ****OR:last error: 133:trade is disabled
+0	22:49:01.551	Expert PATITradingAssistant NZDUSD,M15: loaded successfully
+0	22:49:03.311	PATITradingAssistant NZDUSD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:49:03.400	PATITradingAssistant NZDUSD,M15: ---------------------------------------------------------
+0	22:49:03.400	PATITradingAssistant NZDUSD,M15: -----PATI Trading Assistant v0.34 Initializing NZDUSD-----
+0	22:49:03.407	PATITradingAssistant NZDUSD,M15: initialized
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: Alert: Calculating position sizing
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: Alert: Account equity = 5641.89
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: Alert: Account free margin = 5641.89
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: Alert: Account credit= 0
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: Alert: Account leverage = 200
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: Alert: Account margin = 0
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: Alert: Account profit = 0
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: Alert: Account stopout mode = 0
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: Alert: Account stopout level = 15
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: Alert: Account balance = 5641.89
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: Account balance = 5641.89
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: Alert: 12 = 0.0012 / 1e-05 / 10
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0012, 12 pips\nlocked in = 0\nLotSize = 0.24\nAsk = 0.72185\nBid = 0.7208599999999999\nClose = 0.7208599999999999\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1
+0	22:49:05.664	PATITradingAssistant NZDUSD,M15: ****OR:attempted OP_BUYSTOP 0.24 lots @0.72538 sl:0 tp:0
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: ****OR:failed trade: OP_BUYSTOP NZDUSD@0.72538 tp@0 sl@0
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: ****OR:last error: 133:trade is disabled
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: Alert: Calculating position sizing
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: Alert: Account equity = 5641.89
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: Alert: Account free margin = 5641.89
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: Alert: Account credit= 0
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: Alert: Account leverage = 200
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: Alert: Account margin = 0
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: Alert: Account profit = 0
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: Alert: Account stopout mode = 0
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: Alert: Account stopout level = 15
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: Alert: Account balance = 5641.89
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: Account balance = 5641.89
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: Alert: 12 = 0.0012 / 1e-05 / 10
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0012, 12 pips\nlocked in = 0\nLotSize = 0.24\nAsk = 0.72185\nBid = 0.7208599999999999\nClose = 0.7208599999999999\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1
+0	22:49:05.830	PATITradingAssistant NZDUSD,M15: ****OR:attempted OP_SELLSTOP 0.24 lots @0.72039 sl:0 tp:0
+0	22:49:06.007	PATITradingAssistant NZDUSD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:49:06.007	PATITradingAssistant NZDUSD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:49:06.007	PATITradingAssistant NZDUSD,M15: ****OR:failed trade: OP_SELLSTOP NZDUSD@0.72039 tp@0 sl@0
+0	22:49:06.007	PATITradingAssistant NZDUSD,M15: ****OR:last error: 133:trade is disabled
+0	22:49:15.455	Expert PATITradingAssistant EURJPY,M15: loaded successfully
+0	22:49:17.034	PATITradingAssistant EURJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:49:17.097	PATITradingAssistant EURJPY,M15: ---------------------------------------------------------
+0	22:49:17.097	PATITradingAssistant EURJPY,M15: -----PATI Trading Assistant v0.34 Initializing EURJPY-----
+0	22:49:17.097	PATITradingAssistant EURJPY,M15: initialized
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: Alert: Calculating position sizing
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: Alert: Account equity = 5641.89
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: Alert: Account free margin = 5641.89
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: Alert: Account credit= 0
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: Alert: Account leverage = 200
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: Alert: Account margin = 0
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: Alert: Account profit = 0
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: Alert: Account stopout mode = 0
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: Alert: Account stopout level = 15
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: Alert: Account balance = 5641.89
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: Account balance = 5641.89
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: Alert: 10 = 0.1 / 0.001 / 8.893315783856853
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.1, 10 pips\nlocked in = 0\nLotSize = 0.32\nAsk = 132.972\nBid = 132.829\nClose = 132.829\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:49:18.501	PATITradingAssistant EURJPY,M15: ****OR:attempted OP_BUYSTOP 0.32 lots @133.258 sl:0 tp:0
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: ****OR:failed trade: OP_BUYSTOP EURJPY@133.258 tp@0 sl@0
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: Alert: Calculating position sizing
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: Alert: Account equity = 5641.89
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: Alert: Account free margin = 5641.89
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: Alert: Account credit= 0
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: Alert: Account leverage = 200
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: Alert: Account margin = 0
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: Alert: Account profit = 0
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: Alert: Account stopout mode = 0
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: Alert: Account stopout level = 15
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: Alert: Account balance = 5641.89
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: Account balance = 5641.89
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: Alert: 10 = 0.1 / 0.001 / 8.893315783856853
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.1, 10 pips\nlocked in = 0\nLotSize = 0.32\nAsk = 132.972\nBid = 132.829\nClose = 132.829\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:49:18.638	PATITradingAssistant EURJPY,M15: ****OR:attempted OP_SELLSTOP 0.32 lots @132.283 sl:0 tp:0
+0	22:49:18.780	PATITradingAssistant EURJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:49:18.780	PATITradingAssistant EURJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:49:18.780	PATITradingAssistant EURJPY,M15: ****OR:failed trade: OP_SELLSTOP EURJPY@132.283 tp@0 sl@0
+0	22:49:18.780	PATITradingAssistant EURJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:50:13.675	PATITradingAssistant USDJPY,M15: uninit reason 1
+0	22:50:13.691	Expert PATITradingAssistant USDJPY,M15: removed
+0	22:50:13.722	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	22:50:15.673	PATITradingAssistant USDJPY,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:50:15.736	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	22:50:15.736	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	22:50:15.736	PATITradingAssistant USDJPY,M15: initialized
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: Alert: Calculating position sizing
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: Alert: Account equity = 5641.89
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: Alert: Account free margin = 5641.89
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: Alert: Account credit= 0
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: Alert: Account leverage = 200
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: Alert: Account margin = 0
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: Alert: Account profit = 0
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: Alert: Account stopout mode = 0
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: Alert: Account stopout level = 15
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: Alert: Account balance = 5641.89
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: Account balance = 5641.89
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: Alert: 10 = 0.1 / 0.001 / 8.893315783856853
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.1, 10 pips\nlocked in = 0\nLotSize = 0.32\nAsk = 112.54\nBid = 112.444\nClose = 112.444\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:50:17.726	PATITradingAssistant USDJPY,M15: ****OR:attempted OP_BUYSTOP 0.32 lots @112.833 sl:0 tp:0
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: ****OR:failed trade: OP_BUYSTOP USDJPY@112.833 tp@0 sl@0
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: Alert: Calculating position sizing
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: Alert: Account equity = 5641.89
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: Alert: Account free margin = 5641.89
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: Alert: Account credit= 0
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: Alert: Account leverage = 200
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: Alert: Account margin = 0
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: Alert: Account profit = 0
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: Alert: Account stopout mode = 0
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: Alert: Account stopout level = 15
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: Alert: Account balance = 5641.89
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: Account balance = 5641.89
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: Alert: 10 = 0.1 / 0.001 / 8.893315783856853
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00100\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.1, 10 pips\nlocked in = 0\nLotSize = 0.32\nAsk = 112.54\nBid = 112.444\nClose = 112.444\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8893315783856852
+0	22:50:17.875	PATITradingAssistant USDJPY,M15: ****OR:attempted OP_SELLSTOP 0.32 lots @112.196 sl:0 tp:0
+0	22:50:18.042	PATITradingAssistant USDJPY,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:50:18.042	PATITradingAssistant USDJPY,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:50:18.042	PATITradingAssistant USDJPY,M15: ****OR:failed trade: OP_SELLSTOP USDJPY@112.196 tp@0 sl@0
+0	22:50:18.042	PATITradingAssistant USDJPY,M15: ****OR:last error: 133:trade is disabled
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: Alert: Calculating position sizing
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: Alert: Account equity = 5641.89
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: Alert: Account credit= 0
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: Alert: Account leverage = 200
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: Alert: Account margin = 0
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: Alert: Account profit = 0
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: Alert: Account stopout mode = 0
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: Alert: Account stopout level = 15
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: Alert: Account balance = 5641.89
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: Account balance = 5641.89
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: Alert: 12 = 0.0012 / 1e-05 / 10.34265206284195
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0012, 12 pips\nlocked in = 0\nLotSize = 0.23\nAsk = 0.96887\nBid = 0.96687\nClose = 0.96687\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1.034265206284195
+0	22:50:25.978	PATITradingAssistant USDCHF,M15: ****OR:attempted OP_BUYSTOP 0.23 lots @0.97412 sl:0 tp:0
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: ****OR:failed trade: OP_BUYSTOP USDCHF@0.97412 tp@0 sl@0
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: ****OR:last error: 133:trade is disabled
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: Alert: Calculating position sizing
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: Alert: Account equity = 5641.89
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: Alert: Account credit= 0
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: Alert: Account leverage = 200
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: Alert: Account margin = 0
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: Alert: Account profit = 0
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: Alert: Account stopout mode = 0
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: Alert: Account stopout level = 15
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: Alert: Account balance = 5641.89
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: Account balance = 5641.89
+0	22:50:26.125	PATITradingAssistant USDCHF,M15: Alert: 12 = 0.0012 / 1e-05 / 10.34265206284195
+0	22:50:26.126	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0012, 12 pips\nlocked in = 0\nLotSize = 0.23\nAsk = 0.96887\nBid = 0.96687\nClose = 0.96687\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1.034265206284195
+0	22:50:26.126	PATITradingAssistant USDCHF,M15: ****OR:attempted OP_SELLSTOP 0.23 lots @0.96684 sl:0 tp:0
+0	22:50:26.282	PATITradingAssistant USDCHF,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:50:26.282	PATITradingAssistant USDCHF,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:50:26.282	PATITradingAssistant USDCHF,M15: ****OR:failed trade: OP_SELLSTOP USDCHF@0.96684 tp@0 sl@0
+0	22:50:26.282	PATITradingAssistant USDCHF,M15: ****OR:last error: 133:trade is disabled
+0	22:50:31.721	PATITradingAssistant USDCHF,M15: uninit reason 1
+0	22:50:31.736	Expert PATITradingAssistant USDCHF,M15: removed
+0	22:50:31.768	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	22:50:33.578	PATITradingAssistant USDCHF,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:50:33.640	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	22:50:33.640	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	22:50:33.640	PATITradingAssistant USDCHF,M15: initialized
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: Alert: Calculating position sizing
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: Alert: Account equity = 5641.89
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: Alert: Account credit= 0
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: Alert: Account leverage = 200
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: Alert: Account margin = 0
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: Alert: Account profit = 0
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: Alert: Account stopout mode = 0
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: Alert: Account stopout level = 15
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: Alert: Account balance = 5641.89
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: Account balance = 5641.89
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: Alert: 12 = 0.0012 / 1e-05 / 10.34265206284195
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0012, 12 pips\nlocked in = 0\nLotSize = 0.23\nAsk = 0.96887\nBid = 0.96687\nClose = 0.96687\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1.034265206284195
+0	22:50:36.829	PATITradingAssistant USDCHF,M15: ****OR:attempted OP_BUYSTOP 0.23 lots @0.97412 sl:0 tp:0
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: ****OR:failed trade: OP_BUYSTOP USDCHF@0.97412 tp@0 sl@0
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: ****OR:last error: 133:trade is disabled
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: Alert: Calculating position sizing
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: Alert: Account equity = 5641.89
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: Alert: Account credit= 0
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: Alert: Account leverage = 200
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: Alert: Account margin = 0
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: Alert: Account profit = 0
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: Alert: Account stopout mode = 0
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: Alert: Account stopout level = 15
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: Alert: Account balance = 5641.89
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: Account balance = 5641.89
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: Alert: 12 = 0.0012 / 1e-05 / 10.34265206284195
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0012, 12 pips\nlocked in = 0\nLotSize = 0.23\nAsk = 0.96887\nBid = 0.96687\nClose = 0.96687\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1.034265206284195
+0	22:50:36.992	PATITradingAssistant USDCHF,M15: ****OR:attempted OP_SELLSTOP 0.23 lots @0.96684 sl:0 tp:0
+0	22:50:37.166	PATITradingAssistant USDCHF,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:50:37.166	PATITradingAssistant USDCHF,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:50:37.166	PATITradingAssistant USDCHF,M15: ****OR:failed trade: OP_SELLSTOP USDCHF@0.96684 tp@0 sl@0
+0	22:50:37.166	PATITradingAssistant USDCHF,M15: ****OR:last error: 133:trade is disabled
+0	22:51:03.378	PATITradingAssistant USDCAD,M15: uninit reason 1
+0	22:51:03.394	Expert PATITradingAssistant USDCAD,M15: removed
+0	22:51:03.425	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	22:51:04.920	PATITradingAssistant USDCAD,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	22:51:05.001	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	22:51:05.001	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	22:51:05.003	PATITradingAssistant USDCAD,M15: initialized
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: Alert: Calculating position sizing
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: Alert: Account equity = 5641.89
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: Alert: Account free margin = 5641.89
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: Alert: Account credit= 0
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: Alert: Account leverage = 200
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: Alert: Account margin = 0
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: Alert: Account profit = 0
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: Alert: Account stopout mode = 0
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: Alert: Account stopout level = 15
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: Alert: Account balance = 5641.89
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: Account balance = 5641.89
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: Alert: 10 = 0.001 / 1e-05 / 8.024973718211072
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.001, 10 pips\nlocked in = 0\nLotSize = 0.35\nAsk = 1.24741\nBid = 1.24611\nClose = 1.24611\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8024973718211073
+0	22:51:06.463	PATITradingAssistant USDCAD,M15: ****OR:attempted OP_BUYSTOP 0.35 lots @1.25455 sl:0 tp:0
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: ****OR:failed trade: OP_BUYSTOP USDCAD@1.25455 tp@0 sl@0
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: ****OR:last error: 133:trade is disabled
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: Alert: Calculating position sizing
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: Alert: Account equity = 5641.89
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: Alert: Account free margin = 5641.89
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: Alert: Account credit= 0
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: Alert: Account leverage = 200
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: Alert: Account margin = 0
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: Alert: Account profit = 0
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: Alert: Account stopout mode = 0
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: Alert: Account stopout level = 15
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: Alert: Account balance = 5641.89
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: Account balance = 5641.89
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: Alert: 10 = 0.001 / 1e-05 / 8.024973718211072
+0	22:51:06.620	PATITradingAssistant USDCAD,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.001, 10 pips\nlocked in = 0\nLotSize = 0.35\nAsk = 1.24741\nBid = 1.24611\nClose = 1.24611\nMarketInfo(Symbol(),MODE_TICKVALUE) = 0.8024973718211073
+0	22:51:06.621	PATITradingAssistant USDCAD,M15: ****OR:attempted OP_SELLSTOP 0.35 lots @1.24149 sl:0 tp:0
+0	22:51:06.791	PATITradingAssistant USDCAD,M15: ****OR:non-retryable error: 133:trade is disabled
+0	22:51:06.791	PATITradingAssistant USDCAD,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	22:51:06.791	PATITradingAssistant USDCAD,M15: ****OR:failed trade: OP_SELLSTOP USDCAD@1.24149 tp@0 sl@0
+0	22:51:06.791	PATITradingAssistant USDCAD,M15: ****OR:last error: 133:trade is disabled
+0	22:56:25.862	PATITradingAssistant AUDJPY,M15: v0.34 HeartBeat 2017.09.30 22:56
+0	22:56:31.615	PATITradingAssistant AUDJPY,M15: uninit reason 3
+0	22:56:31.634	i-Sessions AUDJPY,M15: uninit reason 3
+0	22:56:31.634	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: uninit reason 3
+0	22:56:31.635	i-Sessions AUDJPY,Daily: initialized
+0	22:56:31.635	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,Daily: initialized
+0	22:56:31.763	PATITradingAssistant AUDJPY,Daily: ---------------------------------------------------------
+0	22:56:31.763	PATITradingAssistant AUDJPY,Daily: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	22:56:31.763	PATITradingAssistant AUDJPY,Daily: initialized
+0	22:56:35.433	PATITradingAssistant AUDJPY,Daily: uninit reason 3
+0	22:56:35.449	i-Sessions AUDJPY,Daily: uninit reason 3
+0	22:56:35.449	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,Daily: uninit reason 3
+0	22:56:35.449	i-Sessions AUDJPY,H4: initialized
+0	22:56:35.449	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,H4: initialized
+0	22:56:35.511	PATITradingAssistant AUDJPY,H4: ---------------------------------------------------------
+0	22:56:35.511	PATITradingAssistant AUDJPY,H4: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	22:56:35.511	PATITradingAssistant AUDJPY,H4: initialized
+0	22:56:42.457	PATITradingAssistant AUDJPY,H4: uninit reason 3
+0	22:56:42.459	i-Sessions AUDJPY,H4: uninit reason 3
+0	22:56:42.459	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,H4: uninit reason 3
+0	22:56:42.459	i-Sessions AUDJPY,M15: initialized
+0	22:56:42.459	Candle-Closing-Time-Remaining-lCCTRp AUDJPY,M15: initialized
+0	22:56:42.460	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	22:56:42.460	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	22:56:42.463	PATITradingAssistant AUDJPY,M15: initialized
+0	22:56:46.244	PATITradingAssistant AUDUSD,M15: v0.34 HeartBeat 2017.09.30 22:56
+0	22:57:03.330	PATITradingAssistant CADJPY,M15: v0.34 HeartBeat 2017.09.30 22:57
+0	22:57:35.814	PATITradingAssistant EURUSD,M15: v0.34 HeartBeat 2017.09.30 22:57
+0	22:58:19.282	PATITradingAssistant GBPJPY,M15: v0.34 HeartBeat 2017.09.30 22:58
+0	22:58:35.961	PATITradingAssistant GBPUSD,M15: v0.34 HeartBeat 2017.09.30 22:58
+0	22:59:03.429	PATITradingAssistant NZDUSD,M15: v0.34 HeartBeat 2017.09.30 22:59
+0	22:59:17.198	PATITradingAssistant EURJPY,M15: v0.34 HeartBeat 2017.09.30 22:59
+0	23:00:15.739	PATITradingAssistant USDJPY,M15: v0.34 HeartBeat 2017.09.30 23:00
+0	23:00:33.661	PATITradingAssistant USDCHF,M15: v0.34 HeartBeat 2017.09.30 23:00
+0	23:01:05.005	PATITradingAssistant USDCAD,M15: v0.34 HeartBeat 2017.09.30 23:01

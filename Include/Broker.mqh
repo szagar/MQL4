@@ -119,7 +119,7 @@ public:
                     {
                         for(int ix=OrdersHistoryTotal()-1;ix>=0;ix--)
                           {
-                              OrderSelect(ix, SELECT_BY_POS, MODE_HISTORY); 
+                              if(OrderSelect(ix, SELECT_BY_POS, MODE_HISTORY) != true) return(NULL); 
                               if(OrderSymbol() == Symbol()) return GetPosition();
                                
                           }
