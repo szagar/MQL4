@@ -88,6 +88,7 @@ extern bool CaptureScreenShotsInFiles = true;
 extern string ConfigurePositionSizing = "===Configure Position Sizing===";
 extern bool PositionSizer = true;
 extern double PercentRiskPerPosition = 0.005;
+extern bool CalcLockIn = true;
 
 const double  GVUNINIT= -99999999;
 const string LASTUPDATENAME = "NTI_LastUpdateTime";
@@ -105,6 +106,7 @@ color _noEntryZoneColor;
 double _minNoEntryPad;
 int _entryIndicator;
 bool _showInitialStop;
+bool _calcLockIn;
 bool _showExit;
 color _winningExitColor;
 color _losingExitColor;
@@ -377,7 +379,7 @@ void HeartBeat(int TimeFrame=PERIOD_H1)
 
    if(HeartBeat)
       { 
-      CurrentTime = iTime(NULL,TimeFrame,0);
+      CurrentTime = iTime(NULL,TimeFrame,0);     // NULL: current symbol
       if(CurrentTime > LastHeartBeat)
          {
          Print(Version," HeartBeat ",TimeToStr(TimeLocal(),TIME_DATE|TIME_MINUTES));
@@ -488,6 +490,7 @@ void CopyInitialConfigVariables()
    _minNoEntryPad = MinNoEntryPad;
    _entryIndicator = EntryIndicator;
    _showInitialStop = ShowInitialStop;
+   _calcLockIn = CalcLockIn;
    _showExit = ShowExit;
    _winningExitColor = WinningExitColor;
    _losingExitColor = LosingExitColor;
@@ -589,6 +592,10 @@ void ApplyConfiguration(string fileName)
          else if(var == "ShowInitialStop")
                 {
                   _showInitialStop = (bool) StringToInteger(value);
+                }
+         else if(var == "CalcLockIn")
+                {
+                  _calcLockIn = (bool) StringToInteger(value);
                 }
          else if(var == "ShowExit")
                 {
@@ -696,6 +703,7 @@ void SaveConfigurationFile()
    FileWriteString(fileHandle, "MinNoEntryPad: " + IntegerToString(_minNoEntryPad) + "\r\n");
    FileWriteString(fileHandle, "EntryIndicator: " + IntegerToString(_entryIndicator) + "\r\n");
    FileWriteString(fileHandle, "ShowInitialStop: " + IntegerToString((int) _showInitialStop) + "\r\n");
+   FileWriteString(fileHandle, "CalcLockIn: " + IntegerToString((int) _calcLockIn) + "\r\n");
    FileWriteString(fileHandle, "ShowExit: " + IntegerToString((int) _showExit) + "\r\n");
    FileWriteString(fileHandle, "WinningExitColor: " + (string) _winningExitColor + "\r\n");
    FileWriteString(fileHandle, "LosingExitColor: " + (string) _losingExitColor + "\r\n");
@@ -735,6 +743,7 @@ void PrintConfigValues()
    Print( "MinNoEntryPad: " + IntegerToString(_minNoEntryPad) + "\r\n");
    Print( "EntryIndicator: " + IntegerToString(_entryIndicator) + "\r\n");
    Print( "ShowInitialStop: " + IntegerToString((int) _showInitialStop) + "\r\n");
+   Print( "CalcLockIn: " + IntegerToString((int) _calcLockIn) + "\r\n");
    Print( "ShowExit: " + IntegerToString((int) _showExit) + "\r\n");
    Print( "WinningExitColor: " + (string) _winningExitColor + "\r\n");
    Print( "LosingExitColor: " + (string) _losingExitColor + "\r\n");
@@ -997,6 +1006,8 @@ void HandleTradeEntry(bool wasPending, bool savedTrade = false)
       ObjectSetInteger(0, objectName, OBJPROP_COLOR, Red);
    }
    if(!savedTrade) CaptureScreenShot();
+   
+   if(_calcLockIn) ShowTradeInfo(activeTrade);
 
 }
 
@@ -1924,7 +1935,15 @@ double PipsInUsd(const double pips)
 {
   return(pips);
 }
-  
+
+//+---------------------------------------------------------------------------+
+//| Set lock in for open position but trade ID                                |  
+//+---------------------------------------------------------------------------+
+void SetLockIn(Position *trade)
+{
+  //trade.StopPrice
+}
+
 //+---------------------------------------------------------------------------+
 //| The function calculates the amount, in USD, secured with stop losses in   |
 //| open positions.                                                               |
@@ -1987,4 +2006,26 @@ double CalcTradeSize()
         "Close = " + string(Close[0]) + "\n"
         "MarketInfo(Symbol(),MODE_TICKVALUE) = " + string(MarketInfo(Symbol(),MODE_TICKVALUE)));
   return(LotSize);
+}
+
+// show trade info for dev info
+//
+
+void ShowTradeInfo(Position *trade)
+{
+  printf("Account leverage = %f\n",AccountLeverage());
+  printf("Account margin = %f\n",AccountMargin());
+  Alert(
+    "TicketId        = " + string(trade.TicketId) + "\n" +     // = OrderTicket();
+    "OrderType       = " + string(trade.OrderType) + "\n"      // = OrderType();
+    "IsPending       = " + string(trade.IsPending) + "\n"      // = newTrade.OrderType != OP_BUY && newTrade.OrderType != OP_SELL;
+    "Symbol          = " + trade.Symbol + "\n"      // = NormalizeSymbol(OrderSymbol());
+    "OrderOpened     = " + string(trade.OrderOpened) + "\n"      // = OrderOpenTime();
+    "OpenPrice       = " + string(trade.OpenPrice) + "\n"      // = OrderOpenPrice();
+    "ClosePrice      = " + string(trade.ClosePrice) + "\n"      // = OrderClosePrice();
+    "OrderClosed     = " + string(trade.OrderClosed) + "\n"      // = OrderCloseTime();
+    "StopPrice       = " + string(trade.StopPrice) + "\n"      // = OrderStopLoss();
+    "TakeProfitPrice = " + string(trade.TakeProfitPrice) + "\n"      // = OrderTakeProfit();
+    "LotSize         = " + string(trade.LotSize) + "\n" );     // = OrderLots();
+  return;
 }

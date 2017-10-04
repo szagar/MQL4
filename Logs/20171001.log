@@ -3195,4 +3195,939 @@
 0	13:19:31.595	Expert PATITradingAssistant EURUSD,M15: loaded successfully
 0	13:19:31.595	PATITradingAssistant AUDUSD,M15: initialized
 0	13:19:31.595	PATITradingAssistant GBPJPY,M15: uninit reason 2
-0	13:19:31.595	Expert PATITradingAssis
+0	13:19:31.595	Expert PATITradingAssistant GBPJPY,M15: removed
+0	13:19:31.611	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	13:19:31.611	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	13:19:31.642	Expert PATITradingAssistant GBPJPY,M15: loaded successfully
+0	13:19:31.642	PATITradingAssistant CADJPY,M15: initialized
+0	13:19:31.642	PATITradingAssistant GBPUSD,M15: uninit reason 2
+0	13:19:31.642	Expert PATITradingAssistant GBPUSD,M15: removed
+0	13:19:31.673	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	13:19:31.673	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	13:19:31.673	Expert PATITradingAssistant GBPUSD,M15: loaded successfully
+0	13:19:31.673	PATITradingAssistant EURUSD,M15: initialized
+0	13:19:31.673	PATITradingAssistant NZDUSD,M15: uninit reason 2
+0	13:19:31.673	Expert PATITradingAssistant NZDUSD,M15: removed
+0	13:19:31.704	PATITradingAssistant GBPJPY,M15: ---------------------------------------------------------
+0	13:19:31.704	PATITradingAssistant GBPJPY,M15: -----PATI Trading Assistant v0.34 Initializing GBPJPY-----
+0	13:19:31.720	Expert PATITradingAssistant NZDUSD,M15: loaded successfully
+0	13:19:31.720	PATITradingAssistant GBPJPY,M15: initialized
+0	13:19:31.720	PATITradingAssistant EURJPY,M15: uninit reason 2
+0	13:19:31.720	Expert PATITradingAssistant EURJPY,M15: removed
+0	13:19:31.751	PATITradingAssistant GBPUSD,M15: ---------------------------------------------------------
+0	13:19:31.751	PATITradingAssistant GBPUSD,M15: -----PATI Trading Assistant v0.34 Initializing GBPUSD-----
+0	13:19:31.751	Expert PATITradingAssistant EURJPY,M15: loaded successfully
+0	13:19:31.751	PATITradingAssistant GBPUSD,M15: initialized
+0	13:19:31.751	PATITradingAssistant USDJPY,M15: uninit reason 2
+0	13:19:31.751	Expert PATITradingAssistant USDJPY,M15: removed
+0	13:19:31.783	PATITradingAssistant NZDUSD,M15: ---------------------------------------------------------
+0	13:19:31.783	PATITradingAssistant NZDUSD,M15: -----PATI Trading Assistant v0.34 Initializing NZDUSD-----
+0	13:19:31.798	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	13:19:31.798	PATITradingAssistant NZDUSD,M15: initialized
+0	13:19:31.798	PATITradingAssistant USDCHF,M15: uninit reason 2
+0	13:19:31.798	Expert PATITradingAssistant USDCHF,M15: removed
+0	13:19:31.814	PATITradingAssistant EURJPY,M15: ---------------------------------------------------------
+0	13:19:31.814	PATITradingAssistant EURJPY,M15: -----PATI Trading Assistant v0.34 Initializing EURJPY-----
+0	13:19:31.829	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	13:19:31.829	PATITradingAssistant EURJPY,M15: initialized
+0	13:19:31.829	PATITradingAssistant USDCAD,M15: uninit reason 2
+0	13:19:31.845	Expert PATITradingAssistant USDCAD,M15: removed
+0	13:19:31.861	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	13:19:31.861	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	13:19:31.876	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	13:19:31.876	PATITradingAssistant USDJPY,M15: initialized
+0	13:19:31.892	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	13:19:31.892	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	13:19:31.908	PATITradingAssistant USDCHF,M15: initialized
+0	13:19:31.923	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	13:19:31.923	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	13:19:31.923	PATITradingAssistant USDCAD,M15: initialized
+0	13:21:08.630	PATITradingAssistant AUDJPY,M15: uninit reason 2
+0	13:21:08.646	Expert PATITradingAssistant AUDJPY,M15: removed
+0	13:21:08.677	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	13:21:08.677	PATITradingAssistant AUDUSD,M15: uninit reason 2
+0	13:21:08.692	Expert PATITradingAssistant AUDUSD,M15: removed
+0	13:21:08.724	Expert PATITradingAssistant AUDUSD,M15: loaded successfully
+0	13:21:08.724	PATITradingAssistant CADJPY,M15: uninit reason 2
+0	13:21:08.739	Expert PATITradingAssistant CADJPY,M15: removed
+0	13:21:08.771	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	13:21:08.771	PATITradingAssistant EURUSD,M15: uninit reason 2
+0	13:21:08.771	Expert PATITradingAssistant EURUSD,M15: removed
+0	13:21:08.849	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	13:21:08.896	PATITradingAssistant GBPJPY,M15: uninit reason 2
+0	13:21:08.896	Expert PATITradingAssistant GBPJPY,M15: removed
+0	13:21:09.083	Expert PATITradingAssistant GBPJPY,M15: loaded successfully
+0	13:21:09.099	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	13:21:09.099	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	13:21:09.099	PATITradingAssistant GBPUSD,M15: uninit reason 2
+0	13:21:09.099	Expert PATITradingAssistant GBPUSD,M15: removed
+0	13:21:09.114	PATITradingAssistant AUDUSD,M15: ---------------------------------------------------------
+0	13:21:09.114	PATITradingAssistant AUDUSD,M15: -----PATI Trading Assistant v0.34 Initializing AUDUSD-----
+0	13:21:09.146	Expert PATITradingAssistant GBPUSD,M15: loaded successfully
+0	13:21:09.146	PATITradingAssistant NZDUSD,M15: uninit reason 2
+0	13:21:09.146	Expert PATITradingAssistant NZDUSD,M15: removed
+0	13:21:09.161	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	13:21:09.161	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	13:21:09.161	PATITradingAssistant AUDJPY,M15: initialized
+0	13:21:09.177	PATITradingAssistant AUDUSD,M15: initialized
+0	13:21:09.177	Expert PATITradingAssistant NZDUSD,M15: loaded successfully
+0	13:21:09.193	PATITradingAssistant EURJPY,M15: uninit reason 2
+0	13:21:09.193	Expert PATITradingAssistant EURJPY,M15: removed
+0	13:21:09.224	Expert PATITradingAssistant EURJPY,M15: loaded successfully
+0	13:21:09.224	PATITradingAssistant USDJPY,M15: uninit reason 2
+0	13:21:09.224	Expert PATITradingAssistant USDJPY,M15: removed
+0	13:21:09.255	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	13:21:09.255	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	13:21:09.255	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	13:21:09.255	PATITradingAssistant USDCHF,M15: uninit reason 2
+0	13:21:09.271	Expert PATITradingAssistant USDCHF,M15: removed
+0	13:21:09.302	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	13:21:09.302	PATITradingAssistant USDCAD,M15: uninit reason 2
+0	13:21:09.302	Expert PATITradingAssistant USDCAD,M15: removed
+0	13:21:09.349	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	13:21:09.349	PATITradingAssistant GBPJPY,M15: ---------------------------------------------------------
+0	13:21:09.349	PATITradingAssistant GBPJPY,M15: -----PATI Trading Assistant v0.34 Initializing GBPJPY-----
+0	13:21:09.380	PATITradingAssistant CADJPY,M15: initialized
+0	13:21:09.474	PATITradingAssistant EURUSD,M15: initialized
+0	13:21:09.489	PATITradingAssistant NZDUSD,M15: ---------------------------------------------------------
+0	13:21:09.489	PATITradingAssistant NZDUSD,M15: -----PATI Trading Assistant v0.34 Initializing NZDUSD-----
+0	13:21:09.505	PATITradingAssistant GBPUSD,M15: ---------------------------------------------------------
+0	13:21:09.505	PATITradingAssistant GBPUSD,M15: -----PATI Trading Assistant v0.34 Initializing GBPUSD-----
+0	13:21:09.505	PATITradingAssistant GBPJPY,M15: initialized
+0	13:21:09.521	PATITradingAssistant EURJPY,M15: ---------------------------------------------------------
+0	13:21:09.521	PATITradingAssistant EURJPY,M15: -----PATI Trading Assistant v0.34 Initializing EURJPY-----
+0	13:21:09.536	PATITradingAssistant NZDUSD,M15: initialized
+0	13:21:09.536	PATITradingAssistant GBPUSD,M15: initialized
+0	13:21:09.552	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	13:21:09.552	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	13:21:09.552	PATITradingAssistant EURJPY,M15: initialized
+0	13:21:09.552	PATITradingAssistant USDJPY,M15: initialized
+0	13:21:09.552	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	13:21:09.552	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	13:21:09.568	PATITradingAssistant USDCAD,M15: initialized
+0	13:21:09.568	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	13:21:09.568	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	13:21:09.568	PATITradingAssistant USDCHF,M15: initialized
+0	13:31:09.153	PATITradingAssistant AUDUSD,M15: v0.34 HeartBeat 2017.10.01 13:31
+0	13:31:09.153	PATITradingAssistant AUDJPY,M15: v0.34 HeartBeat 2017.10.01 13:31
+0	13:31:09.263	PATITradingAssistant CADJPY,M15: v0.34 HeartBeat 2017.10.01 13:31
+0	13:31:09.372	PATITradingAssistant EURUSD,M15: v0.34 HeartBeat 2017.10.01 13:31
+0	13:31:09.466	PATITradingAssistant GBPJPY,M15: v0.34 HeartBeat 2017.10.01 13:31
+0	13:31:09.544	PATITradingAssistant EURJPY,M15: v0.34 HeartBeat 2017.10.01 13:31
+0	13:31:09.544	PATITradingAssistant NZDUSD,M15: v0.34 HeartBeat 2017.10.01 13:31
+0	13:31:09.544	PATITradingAssistant GBPUSD,M15: v0.34 HeartBeat 2017.10.01 13:31
+0	13:31:09.544	PATITradingAssistant USDJPY,M15: v0.34 HeartBeat 2017.10.01 13:31
+0	13:31:09.560	PATITradingAssistant USDCHF,M15: v0.34 HeartBeat 2017.10.01 13:31
+0	13:31:09.560	PATITradingAssistant USDCAD,M15: v0.34 HeartBeat 2017.10.01 13:31
+0	13:33:14.761	PATITradingAssistant AUDJPY,M15: uninit reason 2
+0	13:33:14.761	Expert PATITradingAssistant AUDJPY,M15: removed
+0	13:33:14.823	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	13:33:14.823	PATITradingAssistant AUDUSD,M15: uninit reason 2
+0	13:33:14.839	Expert PATITradingAssistant AUDUSD,M15: removed
+0	13:33:14.964	Expert PATITradingAssistant AUDUSD,M15: loaded successfully
+0	13:33:14.995	PATITradingAssistant CADJPY,M15: uninit reason 2
+0	13:33:14.995	Expert PATITradingAssistant CADJPY,M15: removed
+0	13:33:15.027	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	13:33:15.042	PATITradingAssistant EURUSD,M15: uninit reason 2
+0	13:33:15.042	Expert PATITradingAssistant EURUSD,M15: removed
+0	13:33:15.073	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	13:33:15.073	PATITradingAssistant GBPJPY,M15: uninit reason 2
+0	13:33:15.073	Expert PATITradingAssistant GBPJPY,M15: removed
+0	13:33:15.089	PATITradingAssistant AUDUSD,M15: ---------------------------------------------------------
+0	13:33:15.089	PATITradingAssistant AUDUSD,M15: -----PATI Trading Assistant v0.34 Initializing AUDUSD-----
+0	13:33:15.105	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	13:33:15.105	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	13:33:15.105	Expert PATITradingAssistant GBPJPY,M15: loaded successfully
+0	13:33:15.120	PATITradingAssistant GBPUSD,M15: uninit reason 2
+0	13:33:15.120	Expert PATITradingAssistant GBPUSD,M15: removed
+0	13:33:15.120	PATITradingAssistant AUDJPY,M15: initialized
+0	13:33:15.120	PATITradingAssistant AUDUSD,M15: initialized
+0	13:33:15.120	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	13:33:15.120	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	13:33:15.152	Expert PATITradingAssistant GBPUSD,M15: loaded successfully
+0	13:33:15.152	PATITradingAssistant NZDUSD,M15: uninit reason 2
+0	13:33:15.152	Expert PATITradingAssistant NZDUSD,M15: removed
+0	13:33:15.167	PATITradingAssistant CADJPY,M15: initialized
+0	13:33:15.167	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	13:33:15.167	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	13:33:15.183	Expert PATITradingAssistant NZDUSD,M15: loaded successfully
+0	13:33:15.183	PATITradingAssistant EURJPY,M15: uninit reason 2
+0	13:33:15.183	PATITradingAssistant EURUSD,M15: initialized
+0	13:33:15.198	Expert PATITradingAssistant EURJPY,M15: removed
+0	13:33:15.198	PATITradingAssistant GBPJPY,M15: ---------------------------------------------------------
+0	13:33:15.198	PATITradingAssistant GBPJPY,M15: -----PATI Trading Assistant v0.34 Initializing GBPJPY-----
+0	13:33:15.230	Expert PATITradingAssistant EURJPY,M15: loaded successfully
+0	13:33:15.230	PATITradingAssistant USDJPY,M15: uninit reason 2
+0	13:33:15.230	Expert PATITradingAssistant USDJPY,M15: removed
+0	13:33:15.230	PATITradingAssistant GBPJPY,M15: initialized
+0	13:33:15.230	PATITradingAssistant GBPUSD,M15: ---------------------------------------------------------
+0	13:33:15.230	PATITradingAssistant GBPUSD,M15: -----PATI Trading Assistant v0.34 Initializing GBPUSD-----
+0	13:33:15.261	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	13:33:15.261	PATITradingAssistant USDCHF,M15: uninit reason 2
+0	13:33:15.261	PATITradingAssistant NZDUSD,M15: ---------------------------------------------------------
+0	13:33:15.261	PATITradingAssistant NZDUSD,M15: -----PATI Trading Assistant v0.34 Initializing NZDUSD-----
+0	13:33:15.261	PATITradingAssistant GBPUSD,M15: initialized
+0	13:33:15.261	Expert PATITradingAssistant USDCHF,M15: removed
+0	13:33:15.308	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	13:33:15.308	PATITradingAssistant USDCAD,M15: uninit reason 2
+0	13:33:15.308	Expert PATITradingAssistant USDCAD,M15: removed
+0	13:33:15.339	PATITradingAssistant NZDUSD,M15: initialized
+0	13:33:15.339	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	13:33:15.370	PATITradingAssistant EURJPY,M15: ---------------------------------------------------------
+0	13:33:15.370	PATITradingAssistant EURJPY,M15: -----PATI Trading Assistant v0.34 Initializing EURJPY-----
+0	13:33:15.386	PATITradingAssistant EURJPY,M15: initialized
+0	13:33:15.386	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	13:33:15.386	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	13:33:15.386	PATITradingAssistant USDJPY,M15: initialized
+0	13:33:15.410	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	13:33:15.410	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	13:33:15.410	PATITradingAssistant USDCHF,M15: initialized
+0	13:33:15.442	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	13:33:15.442	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	13:33:15.442	PATITradingAssistant USDCAD,M15: initialized
+0	13:34:48.055	PATITradingAssistant AUDJPY,M15: uninit reason 2
+0	13:34:48.055	Expert PATITradingAssistant AUDJPY,M15: removed
+0	13:34:48.079	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	13:34:48.079	PATITradingAssistant AUDUSD,M15: uninit reason 2
+0	13:34:48.095	Expert PATITradingAssistant AUDUSD,M15: removed
+0	13:34:48.111	Expert PATITradingAssistant AUDUSD,M15: loaded successfully
+0	13:34:48.126	PATITradingAssistant CADJPY,M15: uninit reason 2
+0	13:34:48.126	Expert PATITradingAssistant CADJPY,M15: removed
+0	13:34:48.142	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	13:34:48.142	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	13:34:48.157	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	13:34:48.157	PATITradingAssistant AUDJPY,M15: initialized
+0	13:34:48.157	PATITradingAssistant EURUSD,M15: uninit reason 2
+0	13:34:48.157	Expert PATITradingAssistant EURUSD,M15: removed
+0	13:34:48.189	PATITradingAssistant AUDUSD,M15: ---------------------------------------------------------
+0	13:34:48.189	PATITradingAssistant AUDUSD,M15: -----PATI Trading Assistant v0.34 Initializing AUDUSD-----
+0	13:34:48.189	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	13:34:48.189	PATITradingAssistant GBPJPY,M15: uninit reason 2
+0	13:34:48.189	Expert PATITradingAssistant GBPJPY,M15: removed
+0	13:34:48.204	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	13:34:48.204	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	13:34:48.236	Expert PATITradingAssistant GBPJPY,M15: loaded successfully
+0	13:34:48.236	PATITradingAssistant AUDUSD,M15: initialized
+0	13:34:48.236	PATITradingAssistant GBPUSD,M15: uninit reason 2
+0	13:34:48.236	PATITradingAssistant CADJPY,M15: initialized
+0	13:34:48.236	Expert PATITradingAssistant GBPUSD,M15: removed
+0	13:34:48.251	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	13:34:48.251	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	13:34:48.267	Expert PATITradingAssistant GBPUSD,M15: loaded successfully
+0	13:34:48.267	PATITradingAssistant EURUSD,M15: initialized
+0	13:34:48.267	PATITradingAssistant NZDUSD,M15: uninit reason 2
+0	13:34:48.267	Expert PATITradingAssistant NZDUSD,M15: removed
+0	13:34:48.282	PATITradingAssistant GBPJPY,M15: ---------------------------------------------------------
+0	13:34:48.282	PATITradingAssistant GBPJPY,M15: -----PATI Trading Assistant v0.34 Initializing GBPJPY-----
+0	13:34:48.298	Expert PATITradingAssistant NZDUSD,M15: loaded successfully
+0	13:34:48.298	PATITradingAssistant GBPJPY,M15: initialized
+0	13:34:48.298	PATITradingAssistant EURJPY,M15: uninit reason 2
+0	13:34:48.314	Expert PATITradingAssistant EURJPY,M15: removed
+0	13:34:48.329	PATITradingAssistant GBPUSD,M15: ---------------------------------------------------------
+0	13:34:48.329	PATITradingAssistant GBPUSD,M15: -----PATI Trading Assistant v0.34 Initializing GBPUSD-----
+0	13:34:48.345	Expert PATITradingAssistant EURJPY,M15: loaded successfully
+0	13:34:48.345	PATITradingAssistant GBPUSD,M15: initialized
+0	13:34:48.345	PATITradingAssistant USDJPY,M15: uninit reason 2
+0	13:34:48.345	Expert PATITradingAssistant USDJPY,M15: removed
+0	13:34:48.361	PATITradingAssistant NZDUSD,M15: ---------------------------------------------------------
+0	13:34:48.361	PATITradingAssistant NZDUSD,M15: -----PATI Trading Assistant v0.34 Initializing NZDUSD-----
+0	13:34:48.376	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	13:34:48.376	PATITradingAssistant USDCHF,M15: uninit reason 2
+0	13:34:48.376	Expert PATITradingAssistant USDCHF,M15: removed
+0	13:34:48.408	PATITradingAssistant EURJPY,M15: ---------------------------------------------------------
+0	13:34:48.408	PATITradingAssistant EURJPY,M15: -----PATI Trading Assistant v0.34 Initializing EURJPY-----
+0	13:34:48.408	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	13:34:48.408	PATITradingAssistant NZDUSD,M15: initialized
+0	13:34:48.408	PATITradingAssistant USDCAD,M15: uninit reason 2
+0	13:34:48.408	PATITradingAssistant EURJPY,M15: initialized
+0	13:34:48.408	Expert PATITradingAssistant USDCAD,M15: removed
+0	13:34:48.439	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	13:34:48.439	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	13:34:48.439	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	13:34:48.439	PATITradingAssistant USDJPY,M15: initialized
+0	13:34:48.470	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	13:34:48.470	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	13:34:48.470	PATITradingAssistant USDCHF,M15: initialized
+0	13:34:48.501	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	13:34:48.501	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	13:34:48.501	PATITradingAssistant USDCAD,M15: initialized
+0	13:35:59.166	PATITradingAssistant AUDJPY,M15: uninit reason 2
+0	13:35:59.166	Expert PATITradingAssistant AUDJPY,M15: removed
+0	13:35:59.198	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	13:35:59.198	PATITradingAssistant AUDUSD,M15: uninit reason 2
+0	13:35:59.213	Expert PATITradingAssistant AUDUSD,M15: removed
+0	13:35:59.229	Expert PATITradingAssistant AUDUSD,M15: loaded successfully
+0	13:35:59.244	PATITradingAssistant CADJPY,M15: uninit reason 2
+0	13:35:59.244	Expert PATITradingAssistant CADJPY,M15: removed
+0	13:35:59.260	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	13:35:59.260	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	13:35:59.276	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	13:35:59.276	PATITradingAssistant AUDJPY,M15: initialized
+0	13:35:59.276	PATITradingAssistant EURUSD,M15: uninit reason 2
+0	13:35:59.276	Expert PATITradingAssistant EURUSD,M15: removed
+0	13:35:59.311	PATITradingAssistant AUDUSD,M15: ---------------------------------------------------------
+0	13:35:59.311	PATITradingAssistant AUDUSD,M15: -----PATI Trading Assistant v0.34 Initializing AUDUSD-----
+0	13:35:59.311	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	13:35:59.311	PATITradingAssistant AUDUSD,M15: initialized
+0	13:35:59.311	PATITradingAssistant GBPJPY,M15: uninit reason 2
+0	13:35:59.311	Expert PATITradingAssistant GBPJPY,M15: removed
+0	13:35:59.342	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	13:35:59.342	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	13:35:59.358	Expert PATITradingAssistant GBPJPY,M15: loaded successfully
+0	13:35:59.358	PATITradingAssistant CADJPY,M15: initialized
+0	13:35:59.358	PATITradingAssistant GBPUSD,M15: uninit reason 2
+0	13:35:59.358	Expert PATITradingAssistant GBPUSD,M15: removed
+0	13:35:59.373	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	13:35:59.373	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	13:35:59.389	Expert PATITradingAssistant GBPUSD,M15: loaded successfully
+0	13:35:59.389	PATITradingAssistant EURUSD,M15: initialized
+0	13:35:59.404	PATITradingAssistant NZDUSD,M15: uninit reason 2
+0	13:35:59.404	Expert PATITradingAssistant NZDUSD,M15: removed
+0	13:35:59.420	PATITradingAssistant GBPJPY,M15: ---------------------------------------------------------
+0	13:35:59.420	PATITradingAssistant GBPJPY,M15: -----PATI Trading Assistant v0.34 Initializing GBPJPY-----
+0	13:35:59.436	Expert PATITradingAssistant NZDUSD,M15: loaded successfully
+0	13:35:59.436	PATITradingAssistant GBPJPY,M15: initialized
+0	13:35:59.436	PATITradingAssistant EURJPY,M15: uninit reason 2
+0	13:35:59.436	Expert PATITradingAssistant EURJPY,M15: removed
+0	13:35:59.467	PATITradingAssistant GBPUSD,M15: ---------------------------------------------------------
+0	13:35:59.467	PATITradingAssistant GBPUSD,M15: -----PATI Trading Assistant v0.34 Initializing GBPUSD-----
+0	13:35:59.467	Expert PATITradingAssistant EURJPY,M15: loaded successfully
+0	13:35:59.467	PATITradingAssistant GBPUSD,M15: initialized
+0	13:35:59.467	PATITradingAssistant USDJPY,M15: uninit reason 2
+0	13:35:59.467	Expert PATITradingAssistant USDJPY,M15: removed
+0	13:35:59.483	PATITradingAssistant NZDUSD,M15: ---------------------------------------------------------
+0	13:35:59.483	PATITradingAssistant NZDUSD,M15: -----PATI Trading Assistant v0.34 Initializing NZDUSD-----
+0	13:35:59.498	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	13:35:59.498	PATITradingAssistant NZDUSD,M15: initialized
+0	13:35:59.498	PATITradingAssistant USDCHF,M15: uninit reason 2
+0	13:35:59.514	Expert PATITradingAssistant USDCHF,M15: removed
+0	13:35:59.514	PATITradingAssistant EURJPY,M15: ---------------------------------------------------------
+0	13:35:59.514	PATITradingAssistant EURJPY,M15: -----PATI Trading Assistant v0.34 Initializing EURJPY-----
+0	13:35:59.545	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	13:35:59.545	PATITradingAssistant EURJPY,M15: initialized
+0	13:35:59.545	PATITradingAssistant USDCAD,M15: uninit reason 2
+0	13:35:59.545	Expert PATITradingAssistant USDCAD,M15: removed
+0	13:35:59.561	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	13:35:59.561	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	13:35:59.576	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	13:35:59.576	PATITradingAssistant USDJPY,M15: initialized
+0	13:35:59.608	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	13:35:59.608	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	13:35:59.608	PATITradingAssistant USDCHF,M15: initialized
+0	13:35:59.639	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	13:35:59.639	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	13:35:59.639	PATITradingAssistant USDCAD,M15: initialized
+0	13:36:46.830	PATITradingAssistant AUDJPY,M15: uninit reason 2
+0	13:36:46.845	Expert PATITradingAssistant AUDJPY,M15: removed
+0	13:36:46.861	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	13:36:46.877	PATITradingAssistant AUDUSD,M15: uninit reason 2
+0	13:36:46.877	Expert PATITradingAssistant AUDUSD,M15: removed
+0	13:36:46.908	Expert PATITradingAssistant AUDUSD,M15: loaded successfully
+0	13:36:46.908	PATITradingAssistant CADJPY,M15: uninit reason 2
+0	13:36:46.908	Expert PATITradingAssistant CADJPY,M15: removed
+0	13:36:46.939	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	13:36:46.939	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	13:36:46.939	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	13:36:46.939	PATITradingAssistant AUDJPY,M15: initialized
+0	13:36:46.939	PATITradingAssistant EURUSD,M15: uninit reason 2
+0	13:36:46.939	Expert PATITradingAssistant EURUSD,M15: removed
+0	13:36:46.955	PATITradingAssistant AUDUSD,M15: ---------------------------------------------------------
+0	13:36:46.955	PATITradingAssistant AUDUSD,M15: -----PATI Trading Assistant v0.34 Initializing AUDUSD-----
+0	13:36:46.970	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	13:36:46.970	PATITradingAssistant AUDUSD,M15: initialized
+0	13:36:46.986	PATITradingAssistant GBPJPY,M15: uninit reason 2
+0	13:36:46.986	Expert PATITradingAssistant GBPJPY,M15: removed
+0	13:36:47.017	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	13:36:47.017	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	13:36:47.017	Expert PATITradingAssistant GBPJPY,M15: loaded successfully
+0	13:36:47.017	PATITradingAssistant CADJPY,M15: initialized
+0	13:36:47.017	PATITradingAssistant GBPUSD,M15: uninit reason 2
+0	13:36:47.017	Expert PATITradingAssistant GBPUSD,M15: removed
+0	13:36:47.033	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	13:36:47.033	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	13:36:47.063	Expert PATITradingAssistant GBPUSD,M15: loaded successfully
+0	13:36:47.063	PATITradingAssistant EURUSD,M15: initialized
+0	13:36:47.063	PATITradingAssistant NZDUSD,M15: uninit reason 2
+0	13:36:47.063	Expert PATITradingAssistant NZDUSD,M15: removed
+0	13:36:47.094	PATITradingAssistant GBPJPY,M15: ---------------------------------------------------------
+0	13:36:47.094	PATITradingAssistant GBPJPY,M15: -----PATI Trading Assistant v0.34 Initializing GBPJPY-----
+0	13:36:47.094	Expert PATITradingAssistant NZDUSD,M15: loaded successfully
+0	13:36:47.094	PATITradingAssistant GBPJPY,M15: initialized
+0	13:36:47.094	PATITradingAssistant EURJPY,M15: uninit reason 2
+0	13:36:47.094	Expert PATITradingAssistant EURJPY,M15: removed
+0	13:36:47.125	PATITradingAssistant GBPUSD,M15: ---------------------------------------------------------
+0	13:36:47.125	PATITradingAssistant GBPUSD,M15: -----PATI Trading Assistant v0.34 Initializing GBPUSD-----
+0	13:36:47.125	Expert PATITradingAssistant EURJPY,M15: loaded successfully
+0	13:36:47.125	PATITradingAssistant GBPUSD,M15: initialized
+0	13:36:47.125	PATITradingAssistant USDJPY,M15: uninit reason 2
+0	13:36:47.141	Expert PATITradingAssistant USDJPY,M15: removed
+0	13:36:47.172	PATITradingAssistant NZDUSD,M15: ---------------------------------------------------------
+0	13:36:47.172	PATITradingAssistant NZDUSD,M15: -----PATI Trading Assistant v0.34 Initializing NZDUSD-----
+0	13:36:47.172	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	13:36:47.172	PATITradingAssistant NZDUSD,M15: initialized
+0	13:36:47.172	PATITradingAssistant USDCHF,M15: uninit reason 2
+0	13:36:47.172	Expert PATITradingAssistant USDCHF,M15: removed
+0	13:36:47.188	PATITradingAssistant EURJPY,M15: ---------------------------------------------------------
+0	13:36:47.188	PATITradingAssistant EURJPY,M15: -----PATI Trading Assistant v0.34 Initializing EURJPY-----
+0	13:36:47.203	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	13:36:47.203	PATITradingAssistant EURJPY,M15: initialized
+0	13:36:47.203	PATITradingAssistant USDCAD,M15: uninit reason 2
+0	13:36:47.203	Expert PATITradingAssistant USDCAD,M15: removed
+0	13:36:47.235	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	13:36:47.235	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	13:36:47.250	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	13:36:47.250	PATITradingAssistant USDJPY,M15: initialized
+0	13:36:47.266	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	13:36:47.266	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	13:36:47.266	PATITradingAssistant USDCHF,M15: initialized
+0	13:36:47.297	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	13:36:47.297	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	13:36:47.297	PATITradingAssistant USDCAD,M15: initialized
+0	13:39:21.484	PATITradingAssistant AUDJPY,M15: uninit reason 2
+0	13:39:21.484	Expert PATITradingAssistant AUDJPY,M15: removed
+0	13:39:21.515	Expert PATITradingAssistant AUDJPY,M15: loaded successfully
+0	13:39:21.515	PATITradingAssistant AUDUSD,M15: uninit reason 2
+0	13:39:21.515	Expert PATITradingAssistant AUDUSD,M15: removed
+0	13:39:21.546	Expert PATITradingAssistant AUDUSD,M15: loaded successfully
+0	13:39:21.546	PATITradingAssistant CADJPY,M15: uninit reason 2
+0	13:39:21.546	Expert PATITradingAssistant CADJPY,M15: removed
+0	13:39:21.577	Expert PATITradingAssistant CADJPY,M15: loaded successfully
+0	13:39:21.577	PATITradingAssistant EURUSD,M15: uninit reason 2
+0	13:39:21.577	PATITradingAssistant AUDJPY,M15: ---------------------------------------------------------
+0	13:39:21.577	PATITradingAssistant AUDJPY,M15: -----PATI Trading Assistant v0.34 Initializing AUDJPY-----
+0	13:39:21.593	Expert PATITradingAssistant EURUSD,M15: removed
+0	13:39:21.624	Expert PATITradingAssistant EURUSD,M15: loaded successfully
+0	13:39:21.624	PATITradingAssistant AUDUSD,M15: ---------------------------------------------------------
+0	13:39:21.624	PATITradingAssistant AUDUSD,M15: -----PATI Trading Assistant v0.34 Initializing AUDUSD-----
+0	13:39:21.624	PATITradingAssistant GBPJPY,M15: uninit reason 2
+0	13:39:21.624	PATITradingAssistant AUDJPY,M15: initialized
+0	13:39:21.624	Expert PATITradingAssistant GBPJPY,M15: removed
+0	13:39:21.656	Expert PATITradingAssistant GBPJPY,M15: loaded successfully
+0	13:39:21.656	PATITradingAssistant GBPUSD,M15: uninit reason 2
+0	13:39:21.656	PATITradingAssistant CADJPY,M15: ---------------------------------------------------------
+0	13:39:21.656	PATITradingAssistant CADJPY,M15: -----PATI Trading Assistant v0.34 Initializing CADJPY-----
+0	13:39:21.656	PATITradingAssistant AUDUSD,M15: initialized
+0	13:39:21.656	Expert PATITradingAssistant GBPUSD,M15: removed
+0	13:39:21.687	PATITradingAssistant EURUSD,M15: ---------------------------------------------------------
+0	13:39:21.687	PATITradingAssistant EURUSD,M15: -----PATI Trading Assistant v0.34 Initializing EURUSD-----
+0	13:39:21.702	Expert PATITradingAssistant GBPUSD,M15: loaded successfully
+0	13:39:21.702	PATITradingAssistant CADJPY,M15: initialized
+0	13:39:21.702	PATITradingAssistant NZDUSD,M15: uninit reason 2
+0	13:39:21.702	PATITradingAssistant EURUSD,M15: initialized
+0	13:39:21.702	Expert PATITradingAssistant NZDUSD,M15: removed
+0	13:39:21.734	PATITradingAssistant GBPJPY,M15: ---------------------------------------------------------
+0	13:39:21.734	PATITradingAssistant GBPJPY,M15: -----PATI Trading Assistant v0.34 Initializing GBPJPY-----
+0	13:39:21.734	Expert PATITradingAssistant NZDUSD,M15: loaded successfully
+0	13:39:21.734	PATITradingAssistant EURJPY,M15: uninit reason 2
+0	13:39:21.749	PATITradingAssistant GBPJPY,M15: initialized
+0	13:39:21.749	Expert PATITradingAssistant EURJPY,M15: removed
+0	13:39:21.765	Expert PATITradingAssistant EURJPY,M15: loaded successfully
+0	13:39:21.765	PATITradingAssistant USDJPY,M15: uninit reason 2
+0	13:39:21.781	Expert PATITradingAssistant USDJPY,M15: removed
+0	13:39:21.781	PATITradingAssistant GBPUSD,M15: ---------------------------------------------------------
+0	13:39:21.781	PATITradingAssistant GBPUSD,M15: -----PATI Trading Assistant v0.34 Initializing GBPUSD-----
+0	13:39:21.812	Expert PATITradingAssistant USDJPY,M15: loaded successfully
+0	13:39:21.812	PATITradingAssistant USDCHF,M15: uninit reason 2
+0	13:39:21.812	PATITradingAssistant NZDUSD,M15: ---------------------------------------------------------
+0	13:39:21.812	PATITradingAssistant NZDUSD,M15: -----PATI Trading Assistant v0.34 Initializing NZDUSD-----
+0	13:39:21.827	PATITradingAssistant GBPUSD,M15: initialized
+0	13:39:21.827	Expert PATITradingAssistant USDCHF,M15: removed
+0	13:39:21.843	PATITradingAssistant EURJPY,M15: ---------------------------------------------------------
+0	13:39:21.843	PATITradingAssistant EURJPY,M15: -----PATI Trading Assistant v0.34 Initializing EURJPY-----
+0	13:39:21.859	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	13:39:21.859	PATITradingAssistant NZDUSD,M15: initialized
+0	13:39:21.859	PATITradingAssistant USDCAD,M15: uninit reason 2
+0	13:39:21.859	PATITradingAssistant EURJPY,M15: initialized
+0	13:39:21.859	Expert PATITradingAssistant USDCAD,M15: removed
+0	13:39:21.906	Expert PATITradingAssistant USDCAD,M15: loaded successfully
+0	13:39:21.906	PATITradingAssistant USDJPY,M15: ---------------------------------------------------------
+0	13:39:21.906	PATITradingAssistant USDJPY,M15: -----PATI Trading Assistant v0.34 Initializing USDJPY-----
+0	13:39:21.906	PATITradingAssistant USDJPY,M15: initialized
+0	13:39:21.921	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	13:39:21.921	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	13:39:21.937	PATITradingAssistant USDCHF,M15: initialized
+0	13:39:21.968	PATITradingAssistant USDCAD,M15: ---------------------------------------------------------
+0	13:39:21.968	PATITradingAssistant USDCAD,M15: -----PATI Trading Assistant v0.34 Initializing USDCAD-----
+0	13:39:21.968	PATITradingAssistant USDCAD,M15: initialized
+0	13:39:32.948	PATITradingAssistant USDCHF,M15: uninit reason 1
+0	13:39:32.964	Expert PATITradingAssistant USDCHF,M15: removed
+0	13:39:32.995	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	13:39:34.669	PATITradingAssistant USDCHF,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:39:34.732	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	13:39:34.732	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	13:39:34.732	PATITradingAssistant USDCHF,M15: initialized
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: Alert: Calculating position sizing
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: Alert: Account equity = 5641.89
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: Alert: Account credit= 0
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: Alert: Account leverage = 200
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: Alert: Account margin = 0
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: Alert: Account profit = 0
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: Alert: Account stopout mode = 0
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: Alert: Account stopout level = 15
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: Alert: Account balance = 5641.89
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: Account balance = 5641.89
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: Alert: 12 = 0.0012 / 1e-05 / 10.34265206284195
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0012, 12 pips\nlocked in = 0\nLotSize = 0.23\nAsk = 0.96887\nBid = 0.96687\nClose = 0.96687\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1.034265206284195
+0	13:39:36.358	PATITradingAssistant USDCHF,M15: ****OR:attempted OP_BUYSTOP 0.23 lots @0.97412 sl:0 tp:0
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: ****OR:non-retryable error: 133:trade is disabled
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: ****OR:failed trade: OP_BUYSTOP USDCHF@0.97412 tp@0 sl@0
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: ****OR:last error: 133:trade is disabled
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: Alert: Calculating position sizing
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: Alert: Account equity = 5641.89
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: Alert: Account credit= 0
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: Alert: Account leverage = 200
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: Alert: Account margin = 0
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: Alert: Account profit = 0
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: Alert: Account stopout mode = 0
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: Alert: Account stopout level = 15
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: Alert: Account balance = 5641.89
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: Account balance = 5641.89
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: Alert: 12 = 0.0012 / 1e-05 / 10.34265206284195
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0012, 12 pips\nlocked in = 0\nLotSize = 0.23\nAsk = 0.96887\nBid = 0.96687\nClose = 0.96687\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1.034265206284195
+0	13:39:36.529	PATITradingAssistant USDCHF,M15: ****OR:attempted OP_SELLSTOP 0.23 lots @0.96684 sl:0 tp:0
+0	13:39:36.717	PATITradingAssistant USDCHF,M15: ****OR:non-retryable error: 133:trade is disabled
+0	13:39:36.717	PATITradingAssistant USDCHF,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	13:39:36.717	PATITradingAssistant USDCHF,M15: ****OR:failed trade: OP_SELLSTOP USDCHF@0.96684 tp@0 sl@0
+0	13:39:36.717	PATITradingAssistant USDCHF,M15: ****OR:last error: 133:trade is disabled
+0	13:46:17.129	PATITradingAssistant USDCHF,M15: uninit reason 1
+0	13:46:17.145	Expert PATITradingAssistant USDCHF,M15: removed
+0	13:46:17.176	Expert PATITradingAssistant USDCHF,M15: loaded successfully
+0	13:46:20.367	PATITradingAssistant USDCHF,M15 inputs: General====General===; Testing=false; PairOffsetWithinSymbol=0; AlertOnTrade=true; MakeTickVisible=false; SaveConfiguration=false; ConfigureStops====Configure Stop Loss Levels===; DefaultStopPips=12; ExceptionPairs=EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10; SendSLandTPToBroker=true; SetLimitsOnPendingOrders=true; AdjustStopOnTriggeredPendingOrders=true; ConfigureDisplay====Configure Trade Display===; ShowEntry=true; ShowInitialStop=true; ShowExit=true; ShowTradeTrendLine=true; EntryIndicator=2; WinningExitColor=32768; LosingExitColor=255; TradeTrendLineColor=16711680; ConfigureNoEntryZone====Configure No-Entry Zone===; ShowNoEntryZone=true; NoEntryZoneColor=11119017; MinNoEntryPad=15.0; ConfigureTP====Configure Take Profit Levels===; UseNextLevelTPRule=true; MinRewardRatio=1.5; ConfigureRangeLines====Configure Draw Range Lines feature===; ShowDrawRangeButton=true; RangeLinesColor=65535; SetPendingOrdersOnRanges=true; MarginForPendingRangeOrders=1.0; AccountForSpreadOnPendingBuyOrders=true; 
+0	13:46:20.430	PATITradingAssistant USDCHF,M15: ---------------------------------------------------------
+0	13:46:20.430	PATITradingAssistant USDCHF,M15: -----PATI Trading Assistant v0.34 Initializing USDCHF-----
+0	13:46:20.430	PATITradingAssistant USDCHF,M15: initialized
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: Alert: Calculating position sizing
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: Alert: Account equity = 5641.89
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: Alert: Account credit= 0
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: Alert: Account leverage = 200
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: Alert: Account margin = 0
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: Alert: Account profit = 0
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: Alert: Account stopout mode = 0
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: Alert: Account stopout level = 15
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: Alert: Account balance = 5641.89
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: Account balance = 5641.89
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: Alert: 12 = 0.0012 / 1e-05 / 10.34265206284195
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0012, 12 pips\nlocked in = 0\nLotSize = 0.23\nAsk = 0.96887\nBid = 0.96687\nClose = 0.96687\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1.034265206284195
+0	13:46:23.260	PATITradingAssistant USDCHF,M15: ****OR:attempted OP_BUYSTOP 0.23 lots @0.97412 sl:0 tp:0
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: ****OR:non-retryable error: 133:trade is disabled
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: ****OR:failed trade: OP_BUYSTOP USDCHF@0.97412 tp@0 sl@0
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: ****OR:last error: 133:trade is disabled
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: Alert: Calculating position sizing
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: Alert: Account equity = 5641.89
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: Alert: Account credit= 0
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: Alert: Account leverage = 200
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: Alert: Account margin = 0
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: Alert: Account profit = 0
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: Alert: Account stopout mode = 0
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: Alert: Account stopout level = 15
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: Alert: Account balance = 5641.89
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: Account balance = 5641.89
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: Alert: 12 = 0.0012 / 1e-05 / 10.34265206284195
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: Alert: Account free margin = 5641.89\npoint value in the quote currency = 0.00001\nbroker lot size = 0.01\nPercentRiskPerPosition = 0.5%\ndollarRisk = 28.20945\nstop loss = 0.0012, 12 pips\nlocked in = 0\nLotSize = 0.23\nAsk = 0.96887\nBid = 0.96687\nClose = 0.96687\nMarketInfo(Symbol(),MODE_TICKVALUE) = 1.034265206284195
+0	13:46:23.436	PATITradingAssistant USDCHF,M15: ****OR:attempted OP_SELLSTOP 0.23 lots @0.96684 sl:0 tp:0
+0	13:46:23.610	PATITradingAssistant USDCHF,M15: ****OR:non-retryable error: 133:trade is disabled
+0	13:46:23.610	PATITradingAssistant USDCHF,M15: ****OR:failed to execute stop or limit order after 0 retries
+0	13:46:23.610	PATITradingAssistant USDCHF,M15: ****OR:failed trade: OP_SELLSTOP USDCHF@0.96684 tp@0 sl@0
+0	13:46:23.610	PATITradingAssistant USDCHF,M15: ****OR:last error: 133:trade is disabled
+0	13:49:21.646	PATITradingAssistant AUDJPY,M15: v0.34 HeartBeat 2017.10.01 13:49
+0	13:49:21.678	PATITradingAssistant AUDUSD,M15: v0.34 HeartBeat 2017.10.01 13:49
+0	13:49:21.756	PATITradingAssistant GBPJPY,M15: v0.34 HeartBeat 2017.10.01 13:49
+0	13:49:21.756	PATITradingAssistant CADJPY,M15: v0.34 HeartBeat 2017.10.01 13:49
+0	13:49:21.756	PATITradingAssistant EURUSD,M15: v0.34 HeartBeat 2017.10.01 13:49
+0	13:49:21.849	PATITradingAssistant GBPUSD,M15: v0.34 HeartBeat 2017.10.01 13:49
+0	13:49:21.881	PATITradingAssistant EURJPY,M15: v0.34 HeartBeat 2017.10.01 13:49
+0	13:49:21.881	PATITradingAssistant NZDUSD,M15: v0.34 HeartBeat 2017.10.01 13:49
+0	13:49:21.959	PATITradingAssistant USDJPY,M15: v0.34 HeartBeat 2017.10.01 13:49
+0	13:49:21.990	PATITradingAssistant USDCAD,M15: v0.34 HeartBeat 2017.10.01 13:49
+0	13:56:20.434	PATITradingAssistant USDCHF,M15: v0.34 HeartBeat 2017.10.01 13:56
+0	17:00:03.755	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:00:03.802	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:00:03.802	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:00:04.673	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:00:06.727	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:00:07.380	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:00:07.382	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:00:07.387	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:00:11.945	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:00:14.872	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	17:00:15.295	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:09:24.733	PATITradingAssistant AUDJPY,M15: v0.34 HeartBeat 2017.10.01 17:09
+0	17:09:24.733	PATITradingAssistant EURUSD,M15: v0.34 HeartBeat 2017.10.01 17:09
+0	17:09:24.733	PATITradingAssistant AUDUSD,M15: v0.34 HeartBeat 2017.10.01 17:09
+0	17:09:24.733	PATITradingAssistant CADJPY,M15: v0.34 HeartBeat 2017.10.01 17:09
+0	17:09:24.979	PATITradingAssistant GBPJPY,M15: v0.34 HeartBeat 2017.10.01 17:09
+0	17:09:24.979	PATITradingAssistant EURJPY,M15: v0.34 HeartBeat 2017.10.01 17:09
+0	17:09:24.979	PATITradingAssistant USDJPY,M15: v0.34 HeartBeat 2017.10.01 17:09
+0	17:09:24.979	PATITradingAssistant GBPUSD,M15: v0.34 HeartBeat 2017.10.01 17:09
+0	17:09:24.979	PATITradingAssistant NZDUSD,M15: v0.34 HeartBeat 2017.10.01 17:09
+0	17:09:25.120	PATITradingAssistant USDCAD,M15: v0.34 HeartBeat 2017.10.01 17:09
+0	17:15:00.142	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:15:00.142	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:15:00.142	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:15:00.142	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:15:00.188	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:15:02.121	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	17:15:07.020	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:15:10.769	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:15:10.770	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:15:11.184	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:15:14.127	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:16:23.599	PATITradingAssistant USDCHF,M15: v0.34 HeartBeat 2017.10.01 17:16
+0	17:30:00.189	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:30:00.189	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:30:00.189	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	17:30:00.251	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:30:01.137	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:30:01.155	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:30:02.015	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:30:05.100	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:30:05.115	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:30:17.266	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:30:29.676	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:45:00.148	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:45:00.226	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:45:00.257	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:45:00.384	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:45:00.384	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:45:00.976	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:45:04.662	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:45:04.662	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	17:45:05.101	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	17:45:23.560	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	17:46:05.174	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:00:00.181	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:00:00.181	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:00:00.322	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:00:00.322	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:00:00.322	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:00:00.322	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:00:00.322	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:00:00.322	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:00:00.322	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:00:00.338	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:00:00.533	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	18:06:23.616	PATITradingAssistant USDCHF,M15: v0.34 HeartBeat 2017.10.01 18:06
+0	18:09:24.744	PATITradingAssistant AUDJPY,M15: v0.34 HeartBeat 2017.10.01 18:09
+0	18:09:24.744	PATITradingAssistant EURUSD,M15: v0.34 HeartBeat 2017.10.01 18:09
+0	18:09:24.744	PATITradingAssistant AUDUSD,M15: v0.34 HeartBeat 2017.10.01 18:09
+0	18:09:24.744	PATITradingAssistant CADJPY,M15: v0.34 HeartBeat 2017.10.01 18:09
+0	18:09:24.994	PATITradingAssistant EURJPY,M15: v0.34 HeartBeat 2017.10.01 18:09
+0	18:09:24.994	PATITradingAssistant GBPUSD,M15: v0.34 HeartBeat 2017.10.01 18:09
+0	18:09:24.994	PATITradingAssistant NZDUSD,M15: v0.34 HeartBeat 2017.10.01 18:09
+0	18:09:24.994	PATITradingAssistant GBPJPY,M15: v0.34 HeartBeat 2017.10.01 18:09
+0	18:09:24.994	PATITradingAssistant USDJPY,M15: v0.34 HeartBeat 2017.10.01 18:09
+0	18:09:25.181	PATITradingAssistant USDCAD,M15: v0.34 HeartBeat 2017.10.01 18:09
+0	18:15:00.124	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:15:00.202	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:15:00.202	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:15:00.202	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:15:00.328	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:15:00.542	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:15:00.812	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:15:01.241	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:15:01.888	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:15:01.960	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	18:15:25.293	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:30:00.214	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:30:00.230	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:30:00.261	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:30:00.308	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:30:00.308	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:30:00.326	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:30:00.326	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	18:30:00.634	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:30:00.956	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:30:03.218	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:30:07.274	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:45:00.123	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:45:00.123	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:45:00.123	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:45:00.123	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:45:00.154	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:45:00.185	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:45:00.232	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	18:45:00.248	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:45:03.312	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:45:03.693	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	18:45:07.325	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	19:00:00.128	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:00:00.128	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:00:00.253	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:00:00.253	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:00:00.253	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:00:00.253	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:00:00.268	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:00:00.333	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:00:00.695	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:00:00.840	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	19:00:00.868	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:09:24.743	PATITradingAssistant AUDJPY,M15: v0.34 HeartBeat 2017.10.01 19:09
+0	19:09:24.743	PATITradingAssistant CADJPY,M15: v0.34 HeartBeat 2017.10.01 19:09
+0	19:09:24.743	PATITradingAssistant EURUSD,M15: v0.34 HeartBeat 2017.10.01 19:09
+0	19:09:24.743	PATITradingAssistant AUDUSD,M15: v0.34 HeartBeat 2017.10.01 19:09
+0	19:09:24.993	PATITradingAssistant GBPUSD,M15: v0.34 HeartBeat 2017.10.01 19:09
+0	19:09:24.993	PATITradingAssistant NZDUSD,M15: v0.34 HeartBeat 2017.10.01 19:09
+0	19:09:24.993	PATITradingAssistant GBPJPY,M15: v0.34 HeartBeat 2017.10.01 19:09
+0	19:09:24.993	PATITradingAssistant EURJPY,M15: v0.34 HeartBeat 2017.10.01 19:09
+0	19:09:24.993	PATITradingAssistant USDJPY,M15: v0.34 HeartBeat 2017.10.01 19:09
+0	19:09:25.227	PATITradingAssistant USDCAD,M15: v0.34 HeartBeat 2017.10.01 19:09
+0	19:15:00.190	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:15:00.283	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:15:01.429	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:15:01.429	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:15:01.619	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:15:02.152	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:15:02.168	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:15:02.171	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:15:02.172	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	19:15:02.225	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:15:06.821	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:16:23.631	PATITradingAssistant USDCHF,M15: v0.34 HeartBeat 2017.10.01 19:16
+0	19:30:00.157	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:30:00.235	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:30:00.235	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:30:00.235	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:30:00.235	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:30:01.177	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:30:01.179	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	19:30:02.121	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:30:02.986	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:30:04.132	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:30:16.594	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:45:00.110	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:45:00.110	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:45:00.125	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:45:00.156	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:45:00.188	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:45:00.336	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	19:45:00.407	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:45:00.479	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:45:00.535	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:45:01.215	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	19:45:23.375	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	20:00:00.162	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:00:00.240	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:00:00.255	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:00:00.255	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:00:00.255	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:00:00.255	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:00:00.271	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:00:00.271	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:00:00.432	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:00:02.171	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:00:03.364	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	20:09:24.773	PATITradingAssistant AUDJPY,M15: v0.34 HeartBeat 2017.10.01 20:09
+0	20:09:24.773	PATITradingAssistant AUDUSD,M15: v0.34 HeartBeat 2017.10.01 20:09
+0	20:09:24.773	PATITradingAssistant CADJPY,M15: v0.34 HeartBeat 2017.10.01 20:09
+0	20:09:24.773	PATITradingAssistant EURUSD,M15: v0.34 HeartBeat 2017.10.01 20:09
+0	20:09:25.023	PATITradingAssistant EURJPY,M15: v0.34 HeartBeat 2017.10.01 20:09
+0	20:09:25.023	PATITradingAssistant GBPUSD,M15: v0.34 HeartBeat 2017.10.01 20:09
+0	20:09:25.023	PATITradingAssistant NZDUSD,M15: v0.34 HeartBeat 2017.10.01 20:09
+0	20:09:25.023	PATITradingAssistant USDJPY,M15: v0.34 HeartBeat 2017.10.01 20:09
+0	20:09:25.023	PATITradingAssistant GBPJPY,M15: v0.34 HeartBeat 2017.10.01 20:09
+0	20:09:25.242	PATITradingAssistant USDCAD,M15: v0.34 HeartBeat 2017.10.01 20:09
+0	20:15:00.137	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:15:00.343	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:15:00.461	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:15:00.502	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:15:00.919	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:15:00.936	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:15:01.247	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:15:01.263	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	20:15:01.287	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:15:01.318	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:15:03.561	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:16:23.709	PATITradingAssistant USDCHF,M15: v0.34 HeartBeat 2017.10.01 20:16
+0	20:30:00.086	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:30:00.148	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:30:00.195	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:30:00.274	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:30:00.419	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	20:30:00.471	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:30:00.495	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:30:00.495	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:30:01.063	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:30:01.628	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:30:07.105	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:45:00.025	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:45:00.056	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:45:00.118	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:45:00.150	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:45:00.165	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:45:00.181	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:45:00.689	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:45:01.109	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	20:45:01.147	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	20:45:01.437	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	20:45:01.863	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:00:00.033	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:00:00.033	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:00:00.033	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:00:00.048	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:00:00.064	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:00:00.064	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	21:00:00.126	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:00:00.224	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:00:00.290	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:00:00.413	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:00:00.413	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:06:23.708	PATITradingAssistant USDCHF,M15: v0.34 HeartBeat 2017.10.01 21:06
+0	21:09:24.825	PATITradingAssistant AUDJPY,M15: v0.34 HeartBeat 2017.10.01 21:09
+0	21:09:24.825	PATITradingAssistant EURUSD,M15: v0.34 HeartBeat 2017.10.01 21:09
+0	21:09:24.825	PATITradingAssistant AUDUSD,M15: v0.34 HeartBeat 2017.10.01 21:09
+0	21:09:24.825	PATITradingAssistant CADJPY,M15: v0.34 HeartBeat 2017.10.01 21:09
+0	21:09:25.075	PATITradingAssistant EURJPY,M15: v0.34 HeartBeat 2017.10.01 21:09
+0	21:09:25.075	PATITradingAssistant GBPUSD,M15: v0.34 HeartBeat 2017.10.01 21:09
+0	21:09:25.075	PATITradingAssistant NZDUSD,M15: v0.34 HeartBeat 2017.10.01 21:09
+0	21:09:25.075	PATITradingAssistant GBPJPY,M15: v0.34 HeartBeat 2017.10.01 21:09
+0	21:09:25.075	PATITradingAssistant USDJPY,M15: v0.34 HeartBeat 2017.10.01 21:09
+0	21:09:25.231	PATITradingAssistant USDCAD,M15: v0.34 HeartBeat 2017.10.01 21:09
+0	21:15:00.043	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:15:00.043	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:15:00.264	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:15:00.350	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	21:15:00.399	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:15:00.399	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:15:00.458	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:15:00.765	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:15:02.519	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:15:05.831	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:15:11.092	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:30:00.124	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:30:00.139	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:30:00.233	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:30:00.610	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:30:00.612	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:30:00.639	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	21:30:00.670	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:30:00.720	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:30:00.751	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:30:01.774	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:30:03.874	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:45:00.118	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:45:00.388	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:45:00.389	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:45:00.395	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:45:00.880	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	21:45:01.266	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:45:02.330	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	21:45:02.392	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:45:04.406	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:45:05.319	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	21:45:09.188	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:00:00.151	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:00:00.197	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:00:00.197	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:00:00.229	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:00:00.260	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:00:00.260	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:00:00.369	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:00:00.651	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:00:01.889	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:00:04.319	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	22:00:04.618	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:09:24.870	PATITradingAssistant AUDJPY,M15: v0.34 HeartBeat 2017.10.01 22:09
+0	22:09:24.870	PATITradingAssistant AUDUSD,M15: v0.34 HeartBeat 2017.10.01 22:09
+0	22:09:24.870	PATITradingAssistant CADJPY,M15: v0.34 HeartBeat 2017.10.01 22:09
+0	22:09:24.870	PATITradingAssistant EURUSD,M15: v0.34 HeartBeat 2017.10.01 22:09
+0	22:09:25.105	PATITradingAssistant GBPJPY,M15: v0.34 HeartBeat 2017.10.01 22:09
+0	22:09:25.105	PATITradingAssistant EURJPY,M15: v0.34 HeartBeat 2017.10.01 22:09
+0	22:09:25.105	PATITradingAssistant NZDUSD,M15: v0.34 HeartBeat 2017.10.01 22:09
+0	22:09:25.105	PATITradingAssistant GBPUSD,M15: v0.34 HeartBeat 2017.10.01 22:09
+0	22:09:25.105	PATITradingAssistant USDJPY,M15: v0.34 HeartBeat 2017.10.01 22:09
+0	22:09:25.271	PATITradingAssistant USDCAD,M15: v0.34 HeartBeat 2017.10.01 22:09
+0	22:15:00.149	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:15:00.180	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:15:00.196	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:15:00.875	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:15:00.925	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:15:01.060	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:15:02.509	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	22:15:03.289	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:15:03.676	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:15:04.452	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:15:05.462	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:16:23.731	PATITradingAssistant USDCHF,M15: v0.34 HeartBeat 2017.10.01 22:16
+0	22:30:00.115	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:30:00.428	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:30:00.660	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:30:00.756	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:30:00.757	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:30:00.791	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:30:01.825	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	22:30:02.706	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:30:03.081	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:30:03.096	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:30:05.514	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:45:00.033	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:45:00.096	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:45:00.350	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:45:00.641	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:45:00.644	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:45:01.088	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	22:45:01.118	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:45:01.381	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:45:02.596	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	22:45:06.111	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	22:45:07.727	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:00:00.153	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:00:00.184	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:00:00.199	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:00:00.423	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:00:00.668	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:00:00.804	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:00:00.820	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:00:00.870	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	23:00:03.006	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:00:04.528	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:00:17.029	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:06:23.733	PATITradingAssistant USDCHF,M15: v0.34 HeartBeat 2017.10.01 23:06
+0	23:09:24.912	PATITradingAssistant AUDJPY,M15: v0.34 HeartBeat 2017.10.01 23:09
+0	23:09:24.912	PATITradingAssistant AUDUSD,M15: v0.34 HeartBeat 2017.10.01 23:09
+0	23:09:24.912	PATITradingAssistant EURUSD,M15: v0.34 HeartBeat 2017.10.01 23:09
+0	23:09:24.912	PATITradingAssistant CADJPY,M15: v0.34 HeartBeat 2017.10.01 23:09
+0	23:09:25.146	PATITradingAssistant GBPJPY,M15: v0.34 HeartBeat 2017.10.01 23:09
+0	23:09:25.146	PATITradingAssistant EURJPY,M15: v0.34 HeartBeat 2017.10.01 23:09
+0	23:09:25.146	PATITradingAssistant NZDUSD,M15: v0.34 HeartBeat 2017.10.01 23:09
+0	23:09:25.146	PATITradingAssistant GBPUSD,M15: v0.34 HeartBeat 2017.10.01 23:09
+0	23:09:25.146	PATITradingAssistant USDJPY,M15: v0.34 HeartBeat 2017.10.01 23:09
+0	23:09:25.336	PATITradingAssistant USDCAD,M15: v0.34 HeartBeat 2017.10.01 23:09
+0	23:15:00.158	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:15:00.996	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:15:01.065	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:15:01.550	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:15:02.581	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:15:02.581	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:15:02.581	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	23:15:03.717	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:15:07.527	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:15:08.054	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:15:14.673	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:30:00.060	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:30:00.138	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:30:00.153	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:30:00.153	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:30:00.219	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:30:00.351	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:30:01.376	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	23:30:01.520	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:30:04.721	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:30:09.401	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:30:09.575	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:44:59.994	PATITradingAssistant CADJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:44:59.994	PATITradingAssistant USDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:45:00.025	PATITradingAssistant GBPJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:45:00.025	PATITradingAssistant EURJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:45:00.057	PATITradingAssistant AUDJPY,M15: Alert: NewTradeIndicator has stopped updating
+0	23:45:00.260	PATITradingAssistant GBPUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:45:00.470	PATITradingAssistant EURUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:45:00.472	PATITradingAssistant USDCHF,M15: Alert: NewTradeIndicator has stopped updating
+0	23:45:00.631	PATITradingAssistant NZDUSD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:45:23.165	PATITradingAssistant USDCAD,M15: Alert: NewTradeIndicator has stopped updating
+0	23:46:38.871	PATITradingAssistant AUDUSD,M15: Alert: NewTradeIndicator has stopped updating
