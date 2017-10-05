@@ -35,3 +35,5 @@
 *.png
 **/*.log
 Files/**
+Files/PTA_AUDJPY_SaveFile.txt
+Files/PTA_AUDUSD_SaveFile.txt
