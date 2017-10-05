@@ -25,7 +25,7 @@ NoEntryZoneColor=11119017
 MinNoEntryPad=15.0
 ConfigureTP====Configure Take Profit Levels===
 UseNextLevelTPRule=true
-MinRewardRatio=1.5
+MinRewardRatio=1.75
 ConfigureRangeLines====Configure Draw Range Lines feature===
 ShowDrawRangeButton=true
 RangeLinesColor=65535
@@ -42,3 +42,4 @@ CaptureScreenShotsInFiles=true
 ConfigurePositionSizing====Configure Position Sizing===
 PositionSizer=true
 PercentRiskPerPosition=0.005
+CalcLockIn=true
