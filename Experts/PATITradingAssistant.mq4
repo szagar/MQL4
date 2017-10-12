@@ -15,10 +15,14 @@
 #include <Position.mqh>
 #include <Broker.mqh>
 #include "PTA_Runtests.mqh"
+#include <zts\daily_pips.mqh>
+#include <zts\daily_pnl.mqh>
+#include <zts\trade_tools.mqh>
+#include <zts\position_sizing.mqh>
 
 string Title="PATI Trading Assistant"; 
 string Prefix="PTA_";
-string Version="v0.34";
+string Version="v0.34z0";
 string NTIPrefix = "NTI_";
 int DFVersion = 2;
 
@@ -65,6 +69,7 @@ extern int EntryIndicator = 2;
 extern color WinningExitColor = Green;
 extern color LosingExitColor = Red;
 extern color TradeTrendLineColor = Blue;
+extern bool WriteFileTradeStats = true;
 extern string ConfigureNoEntryZone = "===Configure No-Entry Zone===";
 extern bool ShowNoEntryZone = true;
 extern color NoEntryZoneColor = DarkGray;
@@ -108,6 +113,7 @@ int _entryIndicator;
 bool _showInitialStop;
 bool _calcLockIn;
 bool _showExit;
+bool _writeFileTradeStats;
 color _winningExitColor;
 color _losingExitColor;
 bool _showTradeTrendLine;
@@ -163,7 +169,9 @@ int newTradesArraySize = 0;
 double dayHi;
 double dayLo;
 int tickNumber = 0;
-
+//int fh1;                // smz: filehandle for trade stats
+double RealizedPipsAllPairs = 0.0;
+       
 datetime dayHiTime;
 datetime dayLoTime;
 //+------------------------------------------------------------------+
@@ -181,8 +189,6 @@ int OnInit()
    DrawVersion(); 
    UpdateGV();
    CopyInitialConfigVariables();
-
-   
 
    
 //--- create timer
@@ -214,6 +220,8 @@ void OnDeinit(const int reason)
      }
    if (CheckPointer(activeTrade) == POINTER_DYNAMIC) delete activeTrade;
    if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
+   
+   //FileClose(fh1);
    //----
    return;
       
@@ -400,6 +408,22 @@ void Initialize()
     GlobalVariableGet(LASTUPDATENAME, updateVar);
     lastUpdateTime = (datetime) (int) updateVar;
   }
+     
+  //if (fh1 < 0 )
+  //{
+  //  string fileName= TimeToStr(TimeCurrent(), TIME_DATE | TIME_MINUTES) +
+  //        "_" + "trade_stats";
+  //  StringReplace(fileName, ":", "_");
+  //  fileName += ".csv";
+  //  Alert("Open file " + fileName);
+  //  fh1=FileOpen(fileName,FILE_WRITE|FILE_CSV);
+  //  if(fh1 < 1)
+  //  {
+  //    int iErrorCode = GetLastError();
+  //    Print("Error updating file: ",iErrorCode);
+  //  }
+  //}
+
   broker = new Broker(_pairOffsetWithinSymbol);
   GVPrefix = NTIPrefix + broker.NormalizeSymbol(Symbol());
   configFileName = Prefix + Symbol() + "_Configuration.txt";
@@ -492,6 +516,7 @@ void CopyInitialConfigVariables()
    _showInitialStop = ShowInitialStop;
    _calcLockIn = CalcLockIn;
    _showExit = ShowExit;
+   _writeFileTradeStats = WriteFileTradeStats;
    _winningExitColor = WinningExitColor;
    _losingExitColor = LosingExitColor;
    _showTradeTrendLine = ShowTradeTrendLine;
@@ -601,6 +626,10 @@ void ApplyConfiguration(string fileName)
                 {
                   _showExit = (bool) StringToInteger(value);
                 }
+         else if(var == "WriteFileTradeStats")
+                {
+                  _writeFileTradeStats = (bool) StringToInteger(value);
+                }
          else if(var == "WinningExitColor")
                 {
                   _winningExitColor = StringToColor(value);
@@ -705,6 +734,7 @@ void SaveConfigurationFile()
    FileWriteString(fileHandle, "ShowInitialStop: " + IntegerToString((int) _showInitialStop) + "\r\n");
    FileWriteString(fileHandle, "CalcLockIn: " + IntegerToString((int) _calcLockIn) + "\r\n");
    FileWriteString(fileHandle, "ShowExit: " + IntegerToString((int) _showExit) + "\r\n");
+   FileWriteString(fileHandle, "WriteFileTradeStats: " + IntegerToString((int) _writeFileTradeStats) + "\r\n");
    FileWriteString(fileHandle, "WinningExitColor: " + (string) _winningExitColor + "\r\n");
    FileWriteString(fileHandle, "LosingExitColor: " + (string) _losingExitColor + "\r\n");
    FileWriteString(fileHandle, "ShowTradeTrendLine: " + IntegerToString((int) _showTradeTrendLine) + "\r\n");
@@ -745,6 +775,7 @@ void PrintConfigValues()
    Print( "ShowInitialStop: " + IntegerToString((int) _showInitialStop) + "\r\n");
    Print( "CalcLockIn: " + IntegerToString((int) _calcLockIn) + "\r\n");
    Print( "ShowExit: " + IntegerToString((int) _showExit) + "\r\n");
+   Print( "WriteFileTradeStats: " + IntegerToString((int) _writeFileTradeStats) + "\r\n");
    Print( "WinningExitColor: " + (string) _winningExitColor + "\r\n");
    Print( "LosingExitColor: " + (string) _losingExitColor + "\r\n");
    Print( "ShowTradeTrendLine: " + IntegerToString((int) _showTradeTrendLine) + "\r\n");
@@ -1064,110 +1095,131 @@ void HandleClosedTrade(bool savedTrade = false)
    }
    else
    {
-      if (!savedTrade)
-      {
-         broker.GetClose(activeTrade);
-         double profit = activeTrade.ClosePrice - activeTrade.OpenPrice;
-         if (activeTrade.OrderType == OP_SELL) profit = profit * -1;
-         profit = NormalizeDouble(profit, Digits)/Point; 
-         if (FiveDig) profit *= .1;
-         if(_alertOnTrade)
-           {
-               Alert("Closed " + IntegerToString (activeTrade.TicketId) + " (" + activeTrade.Symbol + " " + (activeTrade.OrderType == OP_BUY ? "long" : "short") +
-               ") (" + DoubleToStr(profit, 1) + ")");            
-           }
-   
-         Print("Handling closed trade.  OrderType= " + IntegerToString(activeTrade.OrderType));
-         if (activeTrade.OrderClosed == 0) return;
-      }
-      if (_showExit)
-      {
-         string objName = Prefix + "Exit";
-         color arrowColor;
-         arrowColor = Blue;    // smz
-         if(activeTrade.OrderType == OP_BUY)
-         {
-            objName += "L" + IntegerToString(longTradeNumberForDay);
-         }
-         else
-         {  
-            objName += "S" + IntegerToString(shortTradeNumberForDay);
-         }
+     if (!savedTrade)
+     {
+       broker.GetClose(activeTrade);
+       
+       
+       //double diff = activeTrade.ClosePrice - activeTrade.OpenPrice;
+       //if (activeTrade.OrderType == OP_SELL) diff *= -1;
+       //double pips = diff/Point;
+       //double profit = calcPL(activeTrade.Symbol,activeTrade.OrderType,activeTrade.OpenPrice,activeTrade.ClosePrice,activeTrade.LotSize);
+
       
-         ObjectCreate(0, objName, OBJ_ARROW, 0, activeTrade.OrderClosed, activeTrade.ClosePrice);
-         ObjectSetInteger(0, objName, OBJPROP_ARROWCODE, _entryIndicator + 1);
-         ObjectSetInteger(0, objName, OBJPROP_COLOR, arrowColor);
-         if (_showTradeTrendLine)
-         {
-            
-            string trendLineName = objName;
-            StringReplace(trendLineName, "Exit", "Trend");
-            ObjectCreate(0, trendLineName, OBJ_TREND, 0, activeTrade.OrderOpened, activeTrade.OpenPrice, activeTrade.OrderClosed, activeTrade.ClosePrice);
-            ObjectSetInteger(0, trendLineName, OBJPROP_COLOR, Blue);
-            ObjectSetInteger(0, trendLineName, OBJPROP_RAY, false);
-            ObjectSetInteger(0, trendLineName, OBJPROP_STYLE, STYLE_DASH);
-            ObjectSetInteger(0, trendLineName, OBJPROP_WIDTH, 1);
-         }
-         if ( (activeTrade.OrderType == OP_BUY && activeTrade.ClosePrice >= activeTrade.OpenPrice) ||
+       double pips = tradePips(activeTrade);
+       double profit = tradePnL(activeTrade);
+       
+       
+       //double profit = activeTrade.ClosePrice - activeTrade.OpenPrice;
+       //if (activeTrade.OrderType == OP_SELL) profit = profit * -1;
+       //profit = NormalizeDouble(profit, Digits)/Point; 
+       if (FiveDig) pips *= .1;
+       if(_alertOnTrade)
+       {
+         Alert("Closed " + IntegerToString (activeTrade.TicketId) + " (" + activeTrade.Symbol + " " + (activeTrade.OrderType == OP_BUY ? "long" : "short") +
+               ") (" + DoubleToStr(profit, 1) + ")");            
+       }
+   
+       Print("Handling closed trade.  OrderType= " + IntegerToString(activeTrade.OrderType));
+       RealizedPipsAllPairs += pips;
+       Alert("Realized PIPs   : " + RealizedPipsAllPairs + "\n" 
+             "Digits          : " + Digits + "\n"
+             "Point           : " + Point + "\n"
+//             "Trade diff      : " + diff + "\n"
+             "Trade pips      : " + pips + "\n"
+             "calcPL          : " + tradePnL(activeTrade) + "\n"
+             "realized Pips   : " + RealizedPipsToday() + "\n"
+             "Realized Profits: " + RealizedProfitToday());
+       if (_writeFileTradeStats) WriteFileTradeStats(activeTrade);
+       if (activeTrade.OrderClosed == 0) return;
+     }
+     if (_showExit)
+     {
+       string objName = Prefix + "Exit";
+       color arrowColor;
+       arrowColor = Blue;    // smz
+       if(activeTrade.OrderType == OP_BUY)
+       {
+         objName += "L" + IntegerToString(longTradeNumberForDay);
+       }
+       else
+       {  
+         objName += "S" + IntegerToString(shortTradeNumberForDay);
+       }
+      
+       ObjectCreate(0, objName, OBJ_ARROW, 0, activeTrade.OrderClosed, activeTrade.ClosePrice);
+       ObjectSetInteger(0, objName, OBJPROP_ARROWCODE, _entryIndicator + 1);
+       ObjectSetInteger(0, objName, OBJPROP_COLOR, arrowColor);
+       if (_showTradeTrendLine)
+       {
+         string trendLineName = objName;
+         StringReplace(trendLineName, "Exit", "Trend");
+         ObjectCreate(0, trendLineName, OBJ_TREND, 0, activeTrade.OrderOpened, activeTrade.OpenPrice, activeTrade.OrderClosed, activeTrade.ClosePrice);
+         ObjectSetInteger(0, trendLineName, OBJPROP_COLOR, Blue);
+         ObjectSetInteger(0, trendLineName, OBJPROP_RAY, false);
+         ObjectSetInteger(0, trendLineName, OBJPROP_STYLE, STYLE_DASH);
+         ObjectSetInteger(0, trendLineName, OBJPROP_WIDTH, 1);
+       }
+       if ( (activeTrade.OrderType == OP_BUY && activeTrade.ClosePrice >= activeTrade.OpenPrice) ||
             (activeTrade.OrderType == OP_SELL && activeTrade.ClosePrice <= activeTrade.OpenPrice)) // Winning trade
-            {
-               ObjectSetInteger(0, objName, OBJPROP_COLOR, _winningExitColor);
-            }
-         else //losing trade
+       {
+         ObjectSetInteger(0, objName, OBJPROP_COLOR, _winningExitColor);
+       }
+       else //losing trade
+       {
+         ObjectSetInteger(0, objName, OBJPROP_COLOR, _losingExitColor);
+         if (_showNoEntryZone)
+         {
+           datetime rectStart = activeTrade.OrderClosed;
+           if (rectStart == 0) return;
+           double rectHigh = NormalizeDouble(GetNextLevel(activeTrade.OpenPrice + noEntryPad,1), Digits);
+           if (DEBUG_EXIT)
            {
-               ObjectSetInteger(0, objName, OBJPROP_COLOR, _losingExitColor);
-               if (_showNoEntryZone)
-               {
-                  datetime rectStart = activeTrade.OrderClosed;
-                  if (rectStart == 0) return;
-                  double rectHigh = NormalizeDouble(GetNextLevel(activeTrade.OpenPrice + noEntryPad,1), Digits);
-                  if (DEBUG_EXIT)
-                  {
-                     PrintFormat("ExitZone high = %s (OpenPrice= %s, noEntryPad=%s, arg=%s", DoubleToStr(rectHigh, Digits),
+             PrintFormat("ExitZone high = %s (OpenPrice= %s, noEntryPad=%s, arg=%s", DoubleToStr(rectHigh, Digits),
                         DoubleToStr(activeTrade.OpenPrice, Digits), DoubleToStr(noEntryPad, Digits), DoubleToStr(activeTrade.OpenPrice + noEntryPad));
-                  }
-                  double rectLow = NormalizeDouble(GetNextLevel(activeTrade.OpenPrice - noEntryPad, -1), Digits);
-                  if (DEBUG_EXIT)
-                  {
-                     PrintFormat("ExitZone low = %s (OpenPrice= %s, noEntryPad=%s, arg=%s", DoubleToStr(rectLow, Digits),
-                        DoubleToStr(activeTrade.OpenPrice, Digits), DoubleToStr(noEntryPad, Digits), DoubleToStr(activeTrade.OpenPrice - noEntryPad));
-                  }
-                  string rectName = Prefix + "NoEntryZone";
-                  if (ObjectFind(rectName) >= 0) 
-                  {
-                     double existingHigh = ObjectGetDouble(0, rectName, OBJPROP_PRICE1);
-                     if (DEBUG_EXIT)
-                     {
-                        PrintFormat("Existing ExitZone rectangle high = %s", DoubleToString(existingHigh, Digits));
-                     }
-                     if(existingHigh > rectHigh)
-                       {
-                         rectHigh = existingHigh;
-                       }
-                     double existingLow = ObjectGetDouble(0, rectName, OBJPROP_PRICE2);
-                      if (DEBUG_EXIT)
-                     {
-                        PrintFormat("Existing ExitZone rectangle low = %s", DoubleToString(existingLow, Digits));
-                     }
-                     if (existingLow < rectLow)
-                     {
-                        if (DEBUG_EXIT)
-                           PrintFormat("Existing log (%s) substituted for new Low(%S)", DoubleToStr(existingLow,Digits), DoubleToStr(rectLow, Digits));
-                        rectLow = existingLow;
-                     }
-                     datetime existingStart = ObjectGetInteger(0, rectName, OBJPROP_TIME1);
-                     if (existingStart < rectStart && existingStart > beginningOfDay)
-                     {
-                        rectStart = existingStart;
-                     }
-                  }
-                  ObjectDelete(0, rectName); // Just in case it already exists.
-                  ObjectCreate(0,rectName, OBJ_RECTANGLE, 0, rectStart, rectHigh, beginningOfDay + 24 * 60 *60 , rectLow);
-                  ObjectSetInteger(0, rectName, OBJPROP_COLOR, _noEntryZoneColor);
-               }
            }
-      }
-      HandleDeletedTrade();
+           double rectLow = NormalizeDouble(GetNextLevel(activeTrade.OpenPrice - noEntryPad, -1), Digits);
+           if (DEBUG_EXIT)
+           {
+             PrintFormat("ExitZone low = %s (OpenPrice= %s, noEntryPad=%s, arg=%s", DoubleToStr(rectLow, Digits),
+                        DoubleToStr(activeTrade.OpenPrice, Digits), DoubleToStr(noEntryPad, Digits), DoubleToStr(activeTrade.OpenPrice - noEntryPad));
+           }
+           string rectName = Prefix + "NoEntryZone";
+           if (ObjectFind(rectName) >= 0) 
+           {
+             double existingHigh = ObjectGetDouble(0, rectName, OBJPROP_PRICE1);
+             if (DEBUG_EXIT)
+             {
+               PrintFormat("Existing ExitZone rectangle high = %s", DoubleToString(existingHigh, Digits));
+             }
+             if(existingHigh > rectHigh)
+             {
+               rectHigh = existingHigh;
+             }
+             double existingLow = ObjectGetDouble(0, rectName, OBJPROP_PRICE2);
+             if (DEBUG_EXIT)
+             {
+               PrintFormat("Existing ExitZone rectangle low = %s", DoubleToString(existingLow, Digits));
+             }
+             if (existingLow < rectLow)
+             {
+               if (DEBUG_EXIT)
+                 PrintFormat("Existing log (%s) substituted for new Low(%S)", DoubleToStr(existingLow,Digits), DoubleToStr(rectLow, Digits));
+               rectLow = existingLow;
+             }
+             datetime existingStart = ObjectGetInteger(0, rectName, OBJPROP_TIME1);
+             if (existingStart < rectStart && existingStart > beginningOfDay)
+             {
+               rectStart = existingStart;
+             }
+           }
+           ObjectDelete(0, rectName); // Just in case it already exists.
+           ObjectCreate(0,rectName, OBJ_RECTANGLE, 0, rectStart, rectHigh, beginningOfDay + 24 * 60 *60 , rectLow);
+           ObjectSetInteger(0, rectName, OBJPROP_COLOR, _noEntryZoneColor);
+         }
+       }
+     }
+     HandleDeletedTrade();
    }
    activeTrade = NULL;
    
@@ -1214,21 +1266,23 @@ void HandleDeletedTrade()
 
 void CaptureScreenShot()
 {
-   if(!_captureScreenShotsInFiles) return;
-      int xPixels = ChartWidthInPixels();
-      int yPixels = ChartHeightInPixelsGet();
-      ChartForegroundSet(0);
-      string fileName= TimeToStr(TimeCurrent(), TIME_DATE | TIME_MINUTES) +
+
+  if(!_captureScreenShotsInFiles) return;
+  int xPixels = ChartWidthInPixels();
+  int yPixels = ChartHeightInPixelsGet();
+  ChartForegroundSet(0);
+  string fileName= TimeToStr(TimeCurrent(), TIME_DATE | TIME_MINUTES) +
           "_" + Symbol();
-      StringReplace(fileName, ":", "_");
-      fileName +=  (activeTrade.OrderType == OP_BUY)? (" L" +IntegerToString((long) longTradeNumberForDay)): (" S" + IntegerToString((long) shortTradeNumberForDay));
-      fileName += ".png";
-      if(DEBUG_ORDER)
-        {
-          Print("Capturing Screen shot into " + fileName );
-        }
-      ChartScreenShot(0, fileName, xPixels, yPixels);
+  StringReplace(fileName, ":", "_");
+  fileName +=  (activeTrade.OrderType == OP_BUY)? (" L" +IntegerToString((long) longTradeNumberForDay)): (" S" + IntegerToString((long) shortTradeNumberForDay));
+  fileName += ".png";
+  if(DEBUG_ORDER)
+  {
+    Print("Capturing Screen shot into " + fileName );
+  }
+  ChartScreenShot(0, fileName, xPixels, yPixels);
 }
+
 int CalculateStop(string symbol)
 {
    int stop = _defaultStopPips;
@@ -1308,10 +1362,12 @@ bool CheckSaveFileValid()
 }
 void CleanupEndOfDay()
 {
-   DeleteSaveFile();
-   DeleteAllObjects();
-   // Replace the version legend
-   DrawVersion();
+  Alert("End of Day Cleanup");
+  RealizedPipsAllPairs = 0.0;
+  DeleteSaveFile();
+  DeleteAllObjects();
+  // Replace the version legend
+  DrawVersion();
 }
 
 void DeleteSaveFile()
@@ -1785,7 +1841,7 @@ void CreatePendingOrdersForRange( double triggerPrice, int operation, bool setPe
    trade.OrderType = operation;
    trade.Symbol = broker.NormalizeSymbol(Symbol());
    trade.LotSize = _pendingLotSize;
-   if (PositionSizer) trade.LotSize = CalcTradeSize();      // smz
+   if (PositionSizer) trade.LotSize = CalcTradeSize(PercentRiskPerPosition);      // smz
    if (trade.LotSize == 0) 
    {
       Position * lastTrade = broker.FindLastTrade();
@@ -1931,10 +1987,6 @@ bool ChartForegroundSet(const bool value,const long chart_ID=0)
    return(true);
   }     
   
-double PipsInUsd(const double pips)
-{
-  return(pips);
-}
 
 //+---------------------------------------------------------------------------+
 //| Set lock in for open position but trade ID                                |  
@@ -1944,20 +1996,13 @@ void SetLockIn(Position *trade)
   //trade.StopPrice
 }
 
-//+---------------------------------------------------------------------------+
-//| The function calculates the amount, in USD, secured with stop losses in   |
-//| open positions.                                                               |
-//+---------------------------------------------------------------------------+
-double LockedIn()
-{
-  return(0.0);
-}
+
 
 //+---------------------------------------------------------------------------+
 //| The function calculates the postion size based on stop loss level, risk   |
 //| per trade and account balance.                                                               |
 //+---------------------------------------------------------------------------+
-double CalcTradeSize()
+double CalcTradeSize_old()
 {
   Alert("Calculating position sizing");
   //PercentRiskPerPosition
@@ -1975,7 +2020,7 @@ double CalcTradeSize()
   Alert("Account balance = " + string(AccountBalance()));
   Print("Account balance = ",AccountBalance());
 
-  double dollarRisk = (AccountFreeMargin()+ LockedIn()) * PercentRiskPerPosition;
+  double dollarRisk = (AccountFreeMargin()+ LockedInProfit()) * PercentRiskPerPosition;
 
   double nTickValue=MarketInfo(Symbol(),MODE_TICKVALUE);
   double LotSize = dollarRisk /(stopLoss * nTickValue);
@@ -1999,7 +2044,7 @@ double CalcTradeSize()
         "PercentRiskPerPosition = " + string(PercentRiskPerPosition*100.0) + "%" + "\n"
         "dollarRisk = " + string(dollarRisk) + "\n"
         "stop loss = " + string(stopLoss) +", " + string(stopLossPips) + " pips" + "\n"
-        "locked in = " + string(LockedIn()) + "\n"
+        "locked in = " + string(LockedInPips()) + "(pips)\n"
         "LotSize = " + string(LotSize) + "\n"
         "Ask = " + string(Ask) + "\n"
         "Bid = " + string(Bid) + "\n"
@@ -2028,4 +2073,46 @@ void ShowTradeInfo(Position *trade)
     "TakeProfitPrice = " + string(trade.TakeProfitPrice) + "\n"      // = OrderTakeProfit();
     "LotSize         = " + string(trade.LotSize) + "\n" );     // = OrderLots();
   return;
+}
+
+void WriteFileTradeStats(Position *trade)
+{
+  Alert("Entered WriteFileTradeStats()");
+  string fileName= TimeToStr(TimeCurrent(), TIME_DATE) +
+          "_" + "trade_stats";
+  StringReplace(fileName, ":", "_");
+  fileName += ".csv";
+  Alert("Open file " + fileName);
+
+
+  //int fh1 = FileOpen(fileName, FILE_TXT | FILE_ANSI | FILE_WRITE | FILE_READ);
+  int fh1 = FileOpen(fileName, FILE_TXT | FILE_ANSI | FILE_WRITE | FILE_READ | FILE_CSV);
+  if (fh1 != -1)
+  {
+    FileSeek(fh1, 0, SEEK_END);
+    ulong filePos = FileTell(fh1);
+    if (filePos == 0)// First write to this file
+    {
+      //FileWriteString(fh1,StringFormat("DataVersion: %i\r\n", DFVersion));
+      //FileWriteString(fh1, StringFormat("Server Trade Date: %s\r\n", TimeToString(TimeCurrent(), TIME_DATE)));
+      FileWrite(fh1,"Symbol","PIPs","PnL","Point","Digits","LotSize","OpenPrice","ClosePrice","OrderType","OrderClosed",
+              "OrderEntered","OrderOpened","StopPrice","Symbol","TakeProfitPrice","TicketId","RealPips","RealPnL");
+    }
+    double pips = activeTrade.ClosePrice - activeTrade.OpenPrice;
+    if (activeTrade.OrderType == OP_SELL) pips *= -1;
+    double profit = NormalizeDouble(pips, Digits)/Point * trade.LotSize; 
+    FileWrite(fh1,trade.Symbol,DoubleToStr((pips)*MathPow(10,(Digits-1)),Digits),
+    DoubleToStr(profit,2),DoubleToStr(Point,Digits),Digits,
+    trade.LotSize,trade.OpenPrice,trade.ClosePrice,trade.OrderType,trade.OrderClosed,
+    trade.OrderEntered,
+    trade.OrderOpened,DoubleToStr(trade.StopPrice,Digits),trade.TakeProfitPrice,trade.TicketId,RealizedPipsAllPairs,RealizedProfitToday());
+    //FileWriteString(fh1, StringFormat("Trade ID: %i Initial Stop: %f\r\n", trade.TicketId, trade.StopPrice));
+    FileClose(fh1);
+  }
+  else
+  {
+      Alert("fh1 is less than -1");
+  }
+  
+
 }

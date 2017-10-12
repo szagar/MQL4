@@ -105,6 +105,8 @@
 //#include <stdlib.mqh>
 //#include <stderror.mqh> 
 
+#define LOG(text)  Print(__FILE__,"(",__LINE__,") :",text)
+
 string OrderReliableVersion = "V0_2_5"; 
 
 int retry_attempts 		= 10; 
@@ -381,18 +383,17 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
                err = GetLastError();
    			   _OR_err = err;
                }
-            if(err==ERR_INVALID_STOPS)
-               {
+            if(err==ERR_INVALID_STOPS) {
 //               Print("This broker uses a bridge, bridge = ",bridge," Ln 382");
                bridge=true;
 //               Print("bridge = ",bridge," Ln 384, stoploss = ",stoploss,", takeprofit = ",takeprofit);
                ticket = OrderReSendReliable(symbol, cmd, volume, price, slippage, 0, 0, comment, magic, expiration, arrow_color);
 //               Print("ticket = ",ticket," Ln 386, stoploss = ",stoploss,", takeprofit = ",takeprofit);
-               OrderSelect(ticket, SELECT_BY_TICKET);
+               if(!OrderSelect(ticket, SELECT_BY_TICKET))  LOG("OrderSelect bad return");
 //               Print("OrderReSendReliable ticket = ",OrderTicket(),", price = ",OrderOpenPrice(),", stoploss = ",stoploss,", takeprofit = ",takeprofit);
                if(ticket!=-1) OrderModifyReliable(ticket, price, stoploss, takeprofit, expiration);
-               OrderSelect(ticket, SELECT_BY_TICKET);
-//            	Print("OrderModifyReliable ticket = ",OrderTicket(),", price = ",OrderOpenPrice(),", stoploss = ",OrderStopLoss(),", takeprofit = ",OrderTakeProfit());
+               if(!OrderSelect(ticket, SELECT_BY_TICKET)) 
+                 Print("OrderModifyReliable ticket = ",OrderTicket(),", price = ",OrderOpenPrice(),", stoploss = ",OrderStopLoss(),", takeprofit = ",OrderTakeProfit());
             	err = GetLastError();
          	   _OR_err = err;
 				  }
@@ -559,7 +560,7 @@ bool OrderModifyReliable(int ticket, double price, double stoploss,
 		 // See OrderModifyReliableSymbol() where the user passes in the Symbol 
 		 // manually.
 		 
-		 OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES);
+		 if(!OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) LOG("OrderSelect bad return");
 		 int digits = MarketInfo(symbol,MODE_DIGITS);
 		 if (digits > 0) {
 			 price = NormalizeDouble(price,digits);
@@ -919,7 +920,7 @@ int OrderReliableLastErr()
 
 string OrderReliableErrTxt(int err) 
 {
-	return ("" + string(err) + ":" + ErrorDescription(err)); 
+	return ("" + string(err) + ":" + "ErrorDescription(" + err + ")"); 
 }
 
 

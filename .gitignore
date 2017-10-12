@@ -31,6 +31,8 @@
 *.out
 *.app
 *.ex4
+**/*.ex4
+Experts/*.ex4
 
 *.png
 **/*.log

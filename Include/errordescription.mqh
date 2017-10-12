@@ -9,6 +9,7 @@
 //+------------------------------------------------------------------+
 //| returns trade server return code description                     |
 //+------------------------------------------------------------------+
+
 string TradeServerReturnCodeDescription(int return_code)
   {
 //---

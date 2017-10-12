@@ -1,3 +1,3 @@
 DataVersion: 2
-Server Trade Date: 2017.10.04
-Trade ID: 34915635 Initial Stop: 88.342000
+Server Trade Date: 2017.10.12
+Trade ID: 35051124 Initial Stop: 87.854000
