@@ -31,11 +31,12 @@
 *.out
 *.app
 *.ex4
-**/*.ex4
+**/**.ex4
 Experts/*.ex4
 
 *.png
 **/*.log
+**/*.dat
 Files/**
 Files/PTA_AUDJPY_SaveFile.txt
 Files/PTA_AUDUSD_SaveFile.txt
