@@ -55,9 +55,10 @@ void OnTick()
 //+------------------------------------------------------------------+
 void OnTimer() {
   //float pips = dailyPips_worstCase();
-  Alert("daily pips = " + DoubleToString(dailyPips_worstCase(),2) + "   dailyPips_live="+dailyPips_live() + "    UnRealPips = " + DoubleToStr(UnRealizedPipsToday(),2) +
-        "    day pnl = " + DoubleToStr(dailyPnL_live(),2) + "   unrealized pnl = " + DoubleToString(UnRealizedProfitToday(),2)
-  );
+  string str = "daily pips = " + DoubleToString(dailyPips_worstCase(),2) + "   dailyPips_live="+dailyPips_live() + "    UnRealPips = " + DoubleToStr(UnRealizedPipsToday(),2) +
+        "    day pnl = " + DoubleToStr(dailyPnL_live(),2) + "   unrealized pnl = " + DoubleToString(UnRealizedProfitToday(),2);
+  Print(str);
+  Comment(str);
   if (dailyPips_live() < -50.0) {
     int cnt = CloseAllPendingOrders();
     if (cnt>0) Alert("Closed "+ string(cnt) + " pending orders");

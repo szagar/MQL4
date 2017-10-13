@@ -29,7 +29,7 @@ void OnStart() {
   double Rpips = CalculateStop(normalizedSymbol);
   double size = CalcTradeSize(Rpips);   // *AdjPoint);
   string label_str = PairAbrevation(normalizedSymbol) + "  -  " + string(Rpips) + "  -  " + DoubleToString(size,2);
-  
+        
   string labelName = Prefix + "Legend";
   if (ObjectFind(0, labelName) == 0) ObjectDelete(0, labelName);
   ObjectCreate(labelName, OBJ_LABEL, 0, 0, 0);

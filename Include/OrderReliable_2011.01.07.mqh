@@ -105,7 +105,9 @@
 //#include <stdlib.mqh>
 //#include <stderror.mqh> 
 
-#define LOG(text)  Print(__FILE__,"(",__LINE__,") :",text)
+#ifndef LOG
+  #define LOG(text)  Print(__FILE__,"(",__LINE__,") :",text)
+#endif
 
 string OrderReliableVersion = "V0_2_5"; 
 

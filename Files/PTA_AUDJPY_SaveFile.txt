@@ -1,3 +1,0 @@
-DataVersion: 2
-Server Trade Date: 2017.10.12
-Trade ID: 35051124 Initial Stop: 87.854000

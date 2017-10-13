@@ -113,7 +113,11 @@ public:
                            Alert("Attempt to delete an open trade. Close order instead of Deleting it.");
                            return;
                           }
-                        OrderDelete(trade.TicketId);
+                        if(OrderDelete(trade.TicketId))
+                          LOG("Order #" + string(trade.TicketId) + " deleted.");
+                        else
+                          LOG("Order #" + string(trade.TicketId) + " NOT deleted.");
+                        
                     }
                     virtual Position * FindLastTrade()
                     {

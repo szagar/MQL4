@@ -8,6 +8,10 @@
 #property version   "100.034"
 #property strict
 
+#ifndef LOG
+  #define LOG(text)  Print(__FILE__,"(",__LINE__,") :",text)
+#endif
+
 #include <stdlib.mqh>
 #include <stderror.mqh> 
 #include <OrderReliable_2011.01.07.mqh>
@@ -1122,7 +1126,7 @@ void HandleClosedTrade(bool savedTrade = false)
    
        Print("Handling closed trade.  OrderType= " + IntegerToString(activeTrade.OrderType));
        RealizedPipsAllPairs += pips;
-       Alert("Realized PIPs   : " + RealizedPipsAllPairs + "\n" 
+       LOG("Realized PIPs   : " + RealizedPipsAllPairs + "\n" 
              "Digits          : " + Digits + "\n"
              "Point           : " + Point + "\n"
 //             "Trade diff      : " + diff + "\n"
@@ -2035,10 +2039,10 @@ double CalcTradeSize_old()
     stopLossPips = stopLossPips / 10;
   }  
 
-  Alert(string(stopLossPips) + " = " + string(stopLoss) + " / " + string(Point) + " / " + string(nTickValue));
+  LOG(string(stopLossPips) + " = " + string(stopLoss) + " / " + string(Point) + " / " + string(nTickValue));
   
   
-  Alert("Account free margin = " + string(AccountFreeMargin()) + "\n"
+  LOG("Account free margin = " + string(AccountFreeMargin()) + "\n"
         "point value in the quote currency = " + DoubleToString(Point,5) + "\n"
         "broker lot size = " + string(MarketInfo(Symbol(),MODE_LOTSTEP)) + "\n"
         "PercentRiskPerPosition = " + string(PercentRiskPerPosition*100.0) + "%" + "\n"
