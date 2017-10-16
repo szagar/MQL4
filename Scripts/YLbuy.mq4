@@ -74,6 +74,7 @@ void CreatePendingLimitOrder( double limitPrice, int operation, bool allowForSpr
   trade.OpenPrice = limitPrice;
   trade.OrderType = operation;
   trade.Symbol = broker.NormalizeSymbol(Symbol());
+  trade.Reference = __FILE__;
   
   stopLoss = LookupStopPips(normalizedSymbol) * AdjPoint;
   trade.LotSize = CalcTradeSize();

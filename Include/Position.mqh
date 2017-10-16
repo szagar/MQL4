@@ -29,6 +29,7 @@ public:
                     double LotSize;
                     int OrderType;                    
                     bool IsPending;
+                    string Reference;    //smz
   };
 //+------------------------------------------------------------------+
 //|                                                                  |

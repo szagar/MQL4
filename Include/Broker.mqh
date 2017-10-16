@@ -86,7 +86,7 @@ public:
                         }
                     }
                     
-                    virtual void CreateOrder (Position * trade)
+                    virtual void CreateOrder (Position * trade, string comment="")
                     {
                         if (trade.LotSize == 0.0)
                           {
@@ -98,11 +98,11 @@ public:
                            trade.OrderType,
                            trade.LotSize,
                            trade.OpenPrice,
-                           0,
-                           0.0,
-                           0.0,
-                           "",
-                           0);
+                           0,    //slippage
+                           0.0,  //stop los
+                           0.0,  //take profit
+                           trade.Reference,   //smz comment
+                           0);   // magic
                            
                     }
                     

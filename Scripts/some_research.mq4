@@ -1,5 +1,5 @@
 //+------------------------------------------------------------------+
-//|                                             Check_Daily_Pips.mq4 |
+//|                                                some_research.mq4 |
 //|                        Copyright 2017, MetaQuotes Software Corp. |
 //|                                             https://www.mql5.com |
 //+------------------------------------------------------------------+
@@ -7,74 +7,24 @@
 #property link      "https://www.mql5.com"
 #property version   "1.00"
 #property strict
-
-#include <zts\daily_pips.mqh>;
-#include <zts\daily_pnl.mqh>;
-
 //+------------------------------------------------------------------+
-//| Expert initialization function                                   |
+//| Script program start function                                    |
 //+------------------------------------------------------------------+
-int OnInit()
-  {
-//--- create timer
-   EventSetTimer(60);
-      
-//---
-   return(INIT_SUCCEEDED);
-  }
-//+------------------------------------------------------------------+
-//| Expert deinitialization function                                 |
-//+------------------------------------------------------------------+
-void OnDeinit(const int reason)
-  {
-//--- destroy timer
-   EventKillTimer();
-      
-  }
-//+------------------------------------------------------------------+
-//| Expert tick function                                             |
-//+------------------------------------------------------------------+
-void OnTick()
-  {
-//---
-   
-  }
-//+------------------------------------------------------------------+
-//| Timer function                                                   |
-//+------------------------------------------------------------------+
-void OnTimer() {
-  //float pips = dailyPips_worstCase();
-  string str = "Pesty pips = "   + DoubleToString(dailyPips_worstCase(),2) + "\n" +
-               "Live Pips="    + DoubleToString(dailyPips_live(),2) + 
-               "  RealPips= " + DoubleToStr(RealizedPipsToday(),2) + 
-               "  UnRealPips= " + DoubleToStr(UnRealizedPipsToday(),2) + "\n" +
-               "Live $   = "      + DoubleToStr(dailyPnL_live(),2) + 
-               "  Real $  = "     + DoubleToString(RealizedProfitToday(),2) +
-               "  UnReal $  = "   + DoubleToString(UnRealizedProfitToday(),2);
-  Print(str);
-  Comment(str);
-  if (dailyPips_live() < -50.0) {
-    int cnt = CloseAllPendingOrders();
-    if (cnt>0) Alert("Closed "+ string(cnt) + " pending orders");
-  }
+void OnStart() {
+  trades_loop();
 }
 //+------------------------------------------------------------------+
-//| Tester function                                                  |
-//+------------------------------------------------------------------+
-double OnTester()
-  {
-//---
-   double ret=0.0;
-//---
 
-//---
-   return(ret);
+
+
+void trades_loop() {
+  for (int i=OrdersTotal()-1; i>=0; i--) {
+    if (OrderSelect(i, SELECT_BY_POS, MODE_TRADES)==true) {
+      Alert(OrderSymbol() + "::" + OrderComment());
+    }
   }
-//+------------------------------------------------------------------+
+}
 
-
-//extern string  Visit="www.think-trust-trade.com";
-//extern string  Like="www.facebook.com/ThinkTrustTrade";
 extern bool limit_buy=true;
 extern bool stop_buy=true;
 extern bool limit_sell=true;
@@ -141,3 +91,4 @@ int CloseAllPendingOrders() {
   
    return(cnt_pass);
   }
+

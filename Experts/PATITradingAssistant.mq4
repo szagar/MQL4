@@ -36,14 +36,16 @@ int FiveDig;
 double AdjPoint;
 int MaxInt=2147483646;
 color TextColor=Goldenrod;
-int debug = true;
-#define DEBUG_EXIT  ((debug & 0x0001) == 0x0001)
-#define DEBUG_GLOBAL  ((debug & 0x0002) == 0x0002)
-#define DEBUG_ENTRY ((debug & 0x0004) == 0x0004)
-#define DEBUG_CONFIG ((debug & 0x0008) == 0x0008)
-#define DEBUG_ORDER ((debug & 0x0010) == 0x0010)
-#define DEBUG_OANDA ((debug & 0x0020) == 0x0020)
-#define DEBUG_TICK  ((debug & 0x0040) == 0x0040)
+
+#include <zts\log_defines.mqh>
+//int debug = true;
+//#define DEBUG_EXIT  ((debug & 0x0001) == 0x0001)
+//#define DEBUG_GLOBAL  ((debug & 0x0002) == 0x0002)
+//#define DEBUG_ENTRY ((debug & 0x0004) == 0x0004)
+//#define DEBUG_CONFIG ((debug & 0x0008) == 0x0008)
+//#define DEBUG_ORDER ((debug & 0x0010) == 0x0010)
+//#define DEBUG_OANDA ((debug & 0x0020) == 0x0020)
+//#define DEBUG_TICK  ((debug & 0x0040) == 0x0040)
 bool HeartBeat = true;
 int rngButtonXOffset = 10;
 int rngButtonYOffset = 50;
@@ -1042,7 +1044,7 @@ void HandleTradeEntry(bool wasPending, bool savedTrade = false)
    }
    if(!savedTrade) CaptureScreenShot();
    
-   if(_calcLockIn) ShowTradeInfo(activeTrade);
+   //if(_calcLockIn) ShowTradeInfo(activeTrade);
 
 }
 
@@ -1845,6 +1847,7 @@ void CreatePendingOrdersForRange( double triggerPrice, int operation, bool setPe
    trade.OrderType = operation;
    trade.Symbol = broker.NormalizeSymbol(Symbol());
    trade.LotSize = _pendingLotSize;
+   trade.Reference = __FILE__;
    if (PositionSizer) trade.LotSize = CalcTradeSize(PercentRiskPerPosition);      // smz
    if (trade.LotSize == 0) 
    {
@@ -2006,23 +2009,20 @@ void SetLockIn(Position *trade)
 //| The function calculates the postion size based on stop loss level, risk   |
 //| per trade and account balance.                                                               |
 //+---------------------------------------------------------------------------+
-double CalcTradeSize_old()
-{
-  Alert("Calculating position sizing");
-  //PercentRiskPerPosition
-  Alert("Account equity = " + string(AccountEquity()));
-  Alert("Account free margin = " + string(AccountFreeMargin()));
-  Alert("Account credit= " + string(AccountCredit()));
-  //Alert("Account free margin = " + AccountInfoDouble());
-  //Alert("Account free margin = " + AccountInfoString());
-  //Alert("Account free margin = " + AccountInfoInteger());
-  Alert("Account leverage = " + string(AccountLeverage()));
-  Alert("Account margin = " + string(AccountMargin()));
-  Alert("Account profit = " + string(AccountProfit()));
-  Alert("Account stopout mode = " + string(AccountStopoutMode()));
-  Alert("Account stopout level = " + string(AccountStopoutLevel()));
-  Alert("Account balance = " + string(AccountBalance()));
-  Print("Account balance = ",AccountBalance());
+double CalcTradeSize_old() {
+  if (DEBUG_ANALYTICS) {
+    string str = "Calculating position sizing" + "\n" +
+                 "Account equity = " + string(AccountEquity()) + "\n" +
+                 "Account free margin = " + string(AccountFreeMargin()) + "\n" +
+                 "Account credit= " + string(AccountCredit()) + "\n" +
+                 "Account leverage = " + string(AccountLeverage()) + "\n" +
+                 "Account margin = " + string(AccountMargin()) + "\n" +
+                 "Account profit = " + string(AccountProfit()) + "\n" +
+                 "Account stopout mode = " + string(AccountStopoutMode()) + "\n" +
+                 "Account stopout level = " + string(AccountStopoutLevel()) + "\n" +
+                 "Account balance = " + string(AccountBalance());
+    LOG(str);
+  }
 
   double dollarRisk = (AccountFreeMargin()+ LockedInProfit()) * PercentRiskPerPosition;
 
@@ -2060,36 +2060,32 @@ double CalcTradeSize_old()
 // show trade info for dev info
 //
 
-void ShowTradeInfo(Position *trade)
-{
-  printf("Account leverage = %f\n",AccountLeverage());
-  printf("Account margin = %f\n",AccountMargin());
-  Alert(
-    "TicketId        = " + string(trade.TicketId) + "\n" +     // = OrderTicket();
-    "OrderType       = " + string(trade.OrderType) + "\n"      // = OrderType();
-    "IsPending       = " + string(trade.IsPending) + "\n"      // = newTrade.OrderType != OP_BUY && newTrade.OrderType != OP_SELL;
-    "Symbol          = " + trade.Symbol + "\n"      // = NormalizeSymbol(OrderSymbol());
-    "OrderOpened     = " + string(trade.OrderOpened) + "\n"      // = OrderOpenTime();
-    "OpenPrice       = " + string(trade.OpenPrice) + "\n"      // = OrderOpenPrice();
-    "ClosePrice      = " + string(trade.ClosePrice) + "\n"      // = OrderClosePrice();
-    "OrderClosed     = " + string(trade.OrderClosed) + "\n"      // = OrderCloseTime();
-    "StopPrice       = " + string(trade.StopPrice) + "\n"      // = OrderStopLoss();
-    "TakeProfitPrice = " + string(trade.TakeProfitPrice) + "\n"      // = OrderTakeProfit();
-    "LotSize         = " + string(trade.LotSize) + "\n" );     // = OrderLots();
-  return;
-}
+//void ShowTradeInfo(Position *trade)
+//{
+//  printf("Account leverage = %f\n",AccountLeverage());
+//  printf("Account margin = %f\n",AccountMargin());
+//  Alert(
+//    "TicketId        = " + string(trade.TicketId) + "\n" +     // = OrderTicket();
+//    "OrderType       = " + string(trade.OrderType) + "\n"      // = OrderType();
+//    "IsPending       = " + string(trade.IsPending) + "\n"      // = newTrade.OrderType != OP_BUY && newTrade.OrderType != OP_SELL;
+//    "Symbol          = " + trade.Symbol + "\n"      // = NormalizeSymbol(OrderSymbol());
+//    "OrderOpened     = " + string(trade.OrderOpened) + "\n"      // = OrderOpenTime();
+//    "OpenPrice       = " + string(trade.OpenPrice) + "\n"      // = OrderOpenPrice();
+//    "ClosePrice      = " + string(trade.ClosePrice) + "\n"      // = OrderClosePrice();
+//    "OrderClosed     = " + string(trade.OrderClosed) + "\n"      // = OrderCloseTime();
+//    "StopPrice       = " + string(trade.StopPrice) + "\n"      // = OrderStopLoss();
+//    "TakeProfitPrice = " + string(trade.TakeProfitPrice) + "\n"      // = OrderTakeProfit();
+//    "LotSize         = " + string(trade.LotSize) + "\n" );     // = OrderLots();
+//  return;
+//}
 
 void WriteFileTradeStats(Position *trade)
 {
-  Alert("Entered WriteFileTradeStats()");
   string fileName= TimeToStr(TimeCurrent(), TIME_DATE) +
           "_" + "trade_stats";
   StringReplace(fileName, ":", "_");
   fileName += ".csv";
-  Alert("Open file " + fileName);
 
-
-  //int fh1 = FileOpen(fileName, FILE_TXT | FILE_ANSI | FILE_WRITE | FILE_READ);
   int fh1 = FileOpen(fileName, FILE_TXT | FILE_ANSI | FILE_WRITE | FILE_READ | FILE_CSV);
   if (fh1 != -1)
   {

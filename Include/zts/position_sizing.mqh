@@ -8,48 +8,14 @@
 #property strict
 
 #include <zts\daily_pnl.mqh>
-//+------------------------------------------------------------------+
-//| defines                                                          |
-//+------------------------------------------------------------------+
-// #define MacrosHello   "Hello, world!"
-// #define MacrosYear    2010
-//+------------------------------------------------------------------+
-//| DLL imports                                                      |
-//+------------------------------------------------------------------+
-// #import "user32.dll"
-//   int      SendMessageA(int hWnd,int Msg,int wParam,int lParam);
-// #import "my_expert.dll"
-//   int      ExpertRecalculate(int wParam,int lParam);
-// #import
-//+------------------------------------------------------------------+
-//| EX5 imports                                                      |
-//+------------------------------------------------------------------+
-// #import "stdlib.ex5"
-//   string ErrorDescription(int error_code);
-// #import
-//+------------------------------------------------------------------+
+#include <zts\log_defines.mqh>
 
-//+---------------------------------------------------------------------------+
-//| The function calculates the postion size based on stop loss level, risk   |
-//| per trade and account balance.                                                               |
-//+---------------------------------------------------------------------------+
-double CalcTradeSize(double percent2risk)
-{
-  Alert("Calculating position sizing");
-  //PercentRiskPerPosition
-  Alert("Account equity = " + string(AccountEquity()));
-  Alert("Account free margin = " + string(AccountFreeMargin()));
-  Alert("Account credit= " + string(AccountCredit()));
-  //Alert("Account free margin = " + AccountInfoDouble());
-  //Alert("Account free margin = " + AccountInfoString());
-  //Alert("Account free margin = " + AccountInfoInteger());
-  Alert("Account leverage = " + string(AccountLeverage()));
-  Alert("Account margin = " + string(AccountMargin()));
-  Alert("Account profit = " + string(AccountProfit()));
-  Alert("Account stopout mode = " + string(AccountStopoutMode()));
-  Alert("Account stopout level = " + string(AccountStopoutLevel()));
-  Alert("Account balance = " + string(AccountBalance()));
-  Print("Account balance = ",AccountBalance());
+double CalcTradeSize(double percent2risk) {
+  if (DEBUG_ANALYTICS) {
+    string str = "Calculating position sizing"; //  + "\n" +
+    //             AccountInfo();
+    LOG(str);
+  }
 
   double dollarRisk = (AccountFreeMargin()+ LockedInProfit()) * percent2risk;
 
@@ -64,12 +30,10 @@ double CalcTradeSize(double percent2risk)
   {
     nTickValue=nTickValue*10;
     stopLossPips = stopLossPips / 10;
-  }  
-
-  Alert(string(stopLossPips) + " = " + string(stopLoss) + " / " + string(Point) + " / " + string(nTickValue));
+  }    
   
-  
-  Alert("Account free margin = " + string(AccountFreeMargin()) + "\n"
+  if (DEBUG_ANALYTICS) {
+     string str = "Account free margin = " + string(AccountFreeMargin()) + "\n"
         "point value in the quote currency = " + DoubleToString(Point,5) + "\n"
         "broker lot size = " + string(MarketInfo(Symbol(),MODE_LOTSTEP)) + "\n"
         "PercentRiskPerPosition = " + string(PercentRiskPerPosition*100.0) + "%" + "\n"
@@ -80,6 +44,8 @@ double CalcTradeSize(double percent2risk)
         "Ask = " + string(Ask) + "\n"
         "Bid = " + string(Bid) + "\n"
         "Close = " + string(Close[0]) + "\n"
-        "MarketInfo(Symbol(),MODE_TICKVALUE) = " + string(MarketInfo(Symbol(),MODE_TICKVALUE)));
+        "MarketInfo(Symbol(),MODE_TICKVALUE) = " + string(MarketInfo(Symbol(),MODE_TICKVALUE));
+    LOG(str);
+  }
   return(LotSize);
 }

@@ -26,7 +26,6 @@ double dailyPips_worstCase() {
   return openAndLocked + realized;
 }
 
-
 double LockedInPips() {
   double _buyspips=0, _sellspips=0;
   for(int i=OrdersTotal()-1; i>=0; i--) {
