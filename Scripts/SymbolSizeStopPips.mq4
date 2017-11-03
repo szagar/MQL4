@@ -78,7 +78,7 @@ int CalculateStop(string symbol) {
 }
 
 string PairAbrevation(string pair) {
-  string lookup = ";EURUSD/EU;AUDUSD/AU;AUDJPY/AJ;CADJPY/CJ;GBPJPY/GJ;GBPUSD/GU;EURJPY/EJ;USDJPY/JPY;USDCAD/CAD;USDCHF/CHF;NZDUSD/NU";
+  string lookup = ";EURUSD/EU;AUDUSD/AU;AUDJPY/AJ;CADJPY/CJ;GBPJPY/GJ;GBPUSD/GU;EURJPY/EJ;USDJPY/UJ;USDCAD/CAD;USDCHF/CHF;NZDUSD/NU";
   string rtn = "DNK";
   int pos = StringFind(lookup, pair, 0);
   if (pos > 0) {

@@ -11,18 +11,18 @@
 #include <zts\pip_tools.mqh>
 
 
-double tradePips(Position * activeTrade = NULL) {
+double tradePips(Position * trade = NULL) {
   int side = 1;
-  if (!activeTrade) return 0;
+  if (!trade) return 0;
   
-  if (activeTrade.OrderType == OP_SELL) side = -1;
+  if (trade.OrderType == OP_SELL) side = -1;
 
-  return (activeTrade.ClosePrice - activeTrade.OpenPrice) * decimal2points_factor(activeTrade.Symbol);
+  return (trade.ClosePrice - trade.OpenPrice) * decimal2points_factor(trade.Symbol);
 }
 
-double tradePnL(Position * activeTrade = NULL) {
-  double profit = calcPnL(activeTrade.Symbol,activeTrade.OrderType,
-                         activeTrade.OpenPrice,activeTrade.ClosePrice,activeTrade.LotSize);
+double tradePnL(Position * trade = NULL) {
+  double profit = calcPnL(trade.Symbol,trade.OrderType,
+                         trade.OpenPrice,trade.ClosePrice,trade.LotSize);
   return profit;
 }
 
@@ -37,3 +37,20 @@ double calcPnL(string sym, int type, double entry, double exit, double lots) {
    return ( result );
 }
 //calcPL(activeTrade.Symbol,activeTrade.OrderType,activeTrade.OpenPrice,activeTrade.ClosePrice,activeTrade.LotSize)
+
+string trade2str(Position *trade) {
+  string str = "trade: Symbol: " + trade.Symbol + "\n" +
+               "OrderEntered:" + string(trade.OrderEntered) + "\n" +
+               "Opened: " + string(trade.OrderOpened) + "\n" +
+               "Closed: " + string(trade.OrderClosed) + "\n" +
+               "OpenPrice: " + string(trade.OpenPrice) + "\n" +
+               "ClosePrice: " + string(trade.ClosePrice) + "\n" +
+               "StopPrice: " + string(trade.StopPrice) + "\n" +
+               "TakeProfitPrice: " + string(trade.TakeProfitPrice) + "\n" +
+               "LotSize: " + string(trade.LotSize) + "\n" +
+               "OrderType: " + string(trade.OrderType) + "\n" +          
+               "IsPending: " + string(trade.IsPending) + "\n" +
+               "Reference: " + trade.Reference + "\n";
+               
+  return str;
+}

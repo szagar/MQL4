@@ -10,6 +10,11 @@
 
 #include <zts\daily_pips.mqh>;
 #include <zts\daily_pnl.mqh>;
+#include <zts\stats_eod.mqh>
+
+int _endOfDayOffsetHours = 0;
+datetime endOfDay;
+string FnEodStats = "DailySummary.csv";
 
 //+------------------------------------------------------------------+
 //| Expert initialization function                                   |
@@ -18,6 +23,9 @@ int OnInit()
   {
 //--- create timer
    EventSetTimer(60);
+   MqlDateTime dtStruct;
+   endOfDay = StructToTime(dtStruct) +(24*60*60) + (_endOfDayOffsetHours * 60 * 60);
+
       
 //---
    return(INIT_SUCCEEDED);
@@ -34,15 +42,18 @@ void OnDeinit(const int reason)
 //+------------------------------------------------------------------+
 //| Expert tick function                                             |
 //+------------------------------------------------------------------+
-void OnTick()
-  {
-//---
-   
+void OnTick() {
+  if(Time[0] >= endOfDay) {
+    endOfDay += 24*60*60;
+    StatsEndOfDay(FnEodStats);
   }
+}
+
 //+------------------------------------------------------------------+
 //| Timer function                                                   |
 //+------------------------------------------------------------------+
 void OnTimer() {
+  StatsEndOfDay(FnEodStats);
   //float pips = dailyPips_worstCase();
   string str = "Pesty pips = "   + DoubleToString(dailyPips_worstCase(),2) + "\n" +
                "Live Pips="    + DoubleToString(dailyPips_live(),2) + 

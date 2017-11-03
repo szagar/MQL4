@@ -23,7 +23,6 @@ int debug = 0x0040;
 #include <Broker.mqh>
 //#include <errordescription.mqh>
 #include <zts\oneR.mqh>
-//#include <zts\trade_type.mqh>
 
 string Prefix = "PAT_";
 double AdjPoint;
@@ -41,16 +40,15 @@ void OnStart() {
   AdjPoint = Point * FiveDig;
    
   broker = new Broker();
-  cdmLong();
+  cdmShort();
   
   if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
 }
 
-void cdmLong() {
-  double priceLevel = iLow(NULL,0,1);
+void cdmShort() {
+  double priceLevel = iHigh(NULL,0,1);
   PlotYellowLine(priceLevel);
-  CreatePendingLimitOrder(priceLevel, OP_BUYLIMIT);
-  //SetTradeTypeObj("CMD");
+  CreatePendingLimitOrder(priceLevel, OP_SELLLIMIT);
 }
 
 void PlotYellowLine(double priceLevel, int barShift = 1) {
@@ -77,11 +75,10 @@ void CreatePendingLimitOrder( double limitPrice, int operation, bool allowForSpr
   trade.OrderType = operation;
   trade.Symbol = broker.NormalizeSymbol(Symbol());
   trade.Reference = __FILE__;
-  
+   
   stopLoss = LookupStopPips(normalizedSymbol) * AdjPoint;
   trade.LotSize = CalcTradeSize();
   
-  //SetTradeTypeObj("CMD");
   broker.CreateOrder(trade);
   delete(trade); 
 }
@@ -107,7 +104,7 @@ double CalcTradeSize(double PercentRiskPerPosition=0.5)
   double LotSize = dollarRisk /(stopLoss * nTickValue);
   if (DEBUG_ANALYTICS) {
     LOG("Calculating position sizing");
-    LOG(LotSize + " = " + dollarRisk + " /(" + stopLoss + " * " + nTickValue + ")");
+    LOG(string(LotSize) + " = " + string(dollarRisk) + " /(" + string(stopLoss) + " * " + string(nTickValue) + ")");
   }
   LotSize = LotSize * Point;
   LotSize=MathRound(LotSize/MarketInfo(Symbol(),MODE_LOTSTEP)) * MarketInfo(Symbol(),MODE_LOTSTEP);

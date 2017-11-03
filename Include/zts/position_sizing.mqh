@@ -10,7 +10,7 @@
 #include <zts\daily_pnl.mqh>
 #include <zts\log_defines.mqh>
 
-double CalcTradeSize(double percent2risk) {
+double CalcTradeSize(double percent2risk, double stopLoss) {
   if (DEBUG_ANALYTICS) {
     string str = "Calculating position sizing"; //  + "\n" +
     //             AccountInfo();
@@ -36,15 +36,16 @@ double CalcTradeSize(double percent2risk) {
      string str = "Account free margin = " + string(AccountFreeMargin()) + "\n"
         "point value in the quote currency = " + DoubleToString(Point,5) + "\n"
         "broker lot size = " + string(MarketInfo(Symbol(),MODE_LOTSTEP)) + "\n"
-        "PercentRiskPerPosition = " + string(PercentRiskPerPosition*100.0) + "%" + "\n"
+        "PercentRiskPerPosition = " + string(percent2risk*100.0) + "%" + "\n"
         "dollarRisk = " + string(dollarRisk) + "\n"
         "stop loss = " + string(stopLoss) +", " + string(stopLossPips) + " pips" + "\n"
-        "locked in = " + string(LockedInPips()) + "(pips)\n"
+        //"locked in = " + string(LockedInPips()) + "(pips)\n"
         "LotSize = " + string(LotSize) + "\n"
         "Ask = " + string(Ask) + "\n"
         "Bid = " + string(Bid) + "\n"
         "Close = " + string(Close[0]) + "\n"
         "MarketInfo(Symbol(),MODE_TICKVALUE) = " + string(MarketInfo(Symbol(),MODE_TICKVALUE));
+Alert(str);
     LOG(str);
   }
   return(LotSize);

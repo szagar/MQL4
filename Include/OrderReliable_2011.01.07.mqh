@@ -156,16 +156,25 @@ static int _OR_err = 0;
 //=============================================================================
 int OrderSendReliable(string symbol, int cmd, double volume, double price,
 					  int slippage, double stoploss, double takeprofit,
-					  string comment, int magic, datetime expiration = 0, 
+					  string comment, int magic, int expiration = 0, 
 					  color arrow_color = CLR_NONE) 
 {
+  /*Alert("OrderSendReliable: symbol: " + symbol + "\n" +
+        "                      cmd: " + string(cmd) + "\n" +
+        "                   volumd: " + string(volume) + "\n" +
+        "                    price: " + string(price) + "\n" +
+        "                 slippage: " + string(slippage) + "\n" +
+        "                 stoploss: " + string(stoploss) + "\n" +
+        "               takeprofit: " + string(takeprofit) + "\n" +
+        "                  comment: " + comment + "\n");
+   */     
    static bool bridge=false;
 	// ------------------------------------------------
 	// Check basic conditions see if trade is possible. 
 	// ------------------------------------------------
 	OrderReliable_Fname = "OrderSendReliable";
 	OrderReliablePrint("attempted " + OrderReliable_CommandString(cmd) + " " + (string)volume + 
-						" lots @" + (string)price + " sl:" + (string)stoploss + " tp:" + (string)takeprofit); 
+						" lots @" + (string)price + " sl:" + DoubleToString(stoploss,5) + " tp:" + (string)takeprofit); 
 	// limit/stop order. 
 	int ticket=-1;
    int err = GetLastError(); // clear the global variable.

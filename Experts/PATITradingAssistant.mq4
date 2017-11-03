@@ -38,7 +38,7 @@ int MaxInt=2147483646;
 color TextColor=Goldenrod;
 
 #include <zts\log_defines.mqh>
-//int debug = true;
+int debug = true;
 //#define DEBUG_EXIT  ((debug & 0x0001) == 0x0001)
 //#define DEBUG_GLOBAL  ((debug & 0x0002) == 0x0002)
 //#define DEBUG_ENTRY ((debug & 0x0004) == 0x0004)

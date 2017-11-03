@@ -23,7 +23,7 @@ int debug = 0x0040;
 #include <Broker.mqh>
 //#include <errordescription.mqh>
 #include <zts\oneR.mqh>
-//#include <zts\trade_type.mqh>
+#include <zts\trade_type.mqh>
 
 string Prefix = "PAT_";
 double AdjPoint;
@@ -50,7 +50,7 @@ void cdmLong() {
   double priceLevel = iLow(NULL,0,1);
   PlotYellowLine(priceLevel);
   CreatePendingLimitOrder(priceLevel, OP_BUYLIMIT);
-  //SetTradeTypeObj("CMD");
+  SetTradeTypeObj("CDM");
 }
 
 void PlotYellowLine(double priceLevel, int barShift = 1) {

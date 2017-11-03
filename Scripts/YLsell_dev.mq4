@@ -23,7 +23,7 @@ int debug = 0x0040;
 #include <Broker.mqh>
 //#include <errordescription.mqh>
 #include <zts\oneR.mqh>
-//#include <zts\trade_type.mqh>
+#include <zts\trade_type.mqh>
 
 string Prefix = "PAT_";
 double AdjPoint;
@@ -41,16 +41,16 @@ void OnStart() {
   AdjPoint = Point * FiveDig;
    
   broker = new Broker();
-  cdmLong();
+  cdmShort();
   
   if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
 }
 
-void cdmLong() {
-  double priceLevel = iLow(NULL,0,1);
+void cdmShort() {
+  double priceLevel = iHigh(NULL,0,1);
   PlotYellowLine(priceLevel);
-  CreatePendingLimitOrder(priceLevel, OP_BUYLIMIT);
-  //SetTradeTypeObj("CMD");
+  CreatePendingLimitOrder(priceLevel, OP_SELLLIMIT);
+  SetTradeTypeObj("CDM");
 }
 
 void PlotYellowLine(double priceLevel, int barShift = 1) {

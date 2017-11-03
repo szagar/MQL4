@@ -99,8 +99,8 @@ public:
                            trade.LotSize,
                            trade.OpenPrice,
                            0,    //slippage
-                           0.0,  //stop los
-                           0.0,  //take profit
+                           trade.StopPrice,  //stop loss
+                           trade.TakeProfitPrice,  //take profit
                            trade.Reference,   //smz comment
                            0);   // magic
                            
