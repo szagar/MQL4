@@ -400,7 +400,7 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
 //               Print("bridge = ",bridge," Ln 384, stoploss = ",stoploss,", takeprofit = ",takeprofit);
                ticket = OrderReSendReliable(symbol, cmd, volume, price, slippage, 0, 0, comment, magic, expiration, arrow_color);
 //               Print("ticket = ",ticket," Ln 386, stoploss = ",stoploss,", takeprofit = ",takeprofit);
-               if(!OrderSelect(ticket, SELECT_BY_TICKET))  LOG("OrderSelect bad return");
+               if(!OrderSelect(ticket, SELECT_BY_TICKET))  Warn("OrderSelect bad return");
 //               Print("OrderReSendReliable ticket = ",OrderTicket(),", price = ",OrderOpenPrice(),", stoploss = ",stoploss,", takeprofit = ",takeprofit);
                if(ticket!=-1) OrderModifyReliable(ticket, price, stoploss, takeprofit, expiration);
                if(!OrderSelect(ticket, SELECT_BY_TICKET)) 
@@ -571,7 +571,7 @@ bool OrderModifyReliable(int ticket, double price, double stoploss,
 		 // See OrderModifyReliableSymbol() where the user passes in the Symbol 
 		 // manually.
 		 
-		 if(!OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) LOG("OrderSelect bad return");
+		 if(!OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Warn("OrderSelect bad return");
 		 int digits = MarketInfo(symbol,MODE_DIGITS);
 		 if (digits > 0) {
 			 price = NormalizeDouble(price,digits);

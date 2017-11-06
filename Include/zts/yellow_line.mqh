@@ -1,55 +1,37 @@
 //+------------------------------------------------------------------+
-//|                                                        YLbuy.mq4 |
+//|                                                  yellow_line.mqh |
+//|                        Copyright 2017, MetaQuotes Software Corp. |
+//|                                             https://www.mql5.com |
 //+------------------------------------------------------------------+
-#property copyright "Copyright 2017, SSTK Assoc"
-#property link      "https://"
-#property version   "1.00"
+#property copyright "Copyright 2017, MetaQuotes Software Corp."
+#property link      "https://www.mql5.com"
 #property strict
-
-int debug = 0x0040;
-#define DEBUG_EXIT  ((debug & 0x0001) == 0x0001)
-#define DEBUG_GLOBAL  ((debug & 0x0002) == 0x0002)
-#define DEBUG_ENTRY ((debug & 0x0004) == 0x0004)
-#define DEBUG_CONFIG ((debug & 0x0008) == 0x0008)
-#define DEBUG_ORDER ((debug & 0x0010) == 0x0010)
-#define DEBUG_OANDA ((debug & 0x0020) == 0x0020)
-#define DEBUG_TICK  ((debug & 0x0040) == 0x0040)
-#define DEBUG_ANALYTICS  ((debug & 0x0040) == 0x0040)
-#ifndef LOG
-  #define LOG(text)  Print(__FILE__,"(",__LINE__,") :",text)
-#endif
 
 #include <Position.mqh>
 #include <Broker.mqh>
 //#include <errordescription.mqh>
 #include <zts\oneR.mqh>
 #include <zts\trade_type.mqh>
-
+#define LOG_LEVEL set
+#define LOG_DEBUG set
+#include <zts\common.mqh>
+#include <zts\order_tools.mqh>
 string Prefix = "PAT_";
-double OnePoint;
-Broker * broker;
-double stopLoss;
+//Broker * broker;
 
-//+------------------------------------------------------------------+
-//| Script program start function                                    |
-void OnStart() {
-  int FiveDig;
-  if(Digits==5||Digits==3)
-      FiveDig = 10;
-  else
-      FiveDig = 1;
-  OnePoint = Point * FiveDig;
-   
-  broker = new Broker();
-  cdmShort();
-  
-  if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
+void cdmLong(Broker *broker, int offset=1) {
+  double priceLevel = iLow(NULL,0,offset);
+  PlotYellowLine(priceLevel);
+  ClosePendingLimitOrders(Symbol());
+  CreatePendingLimitOrder(broker, priceLevel, OP_BUYLIMIT);
+  SetTradeTypeObj("CDM");
 }
 
-void cdmShort() {
-  double priceLevel = iHigh(NULL,0,1);
+void cdmShort(Broker *broker, int offset=1) {
+  double priceLevel = iHigh(NULL,0,offset);
   PlotYellowLine(priceLevel);
-  CreatePendingLimitOrder(priceLevel, OP_SELLLIMIT);
+  ClosePendingLimitOrders(Symbol());
+  CreatePendingLimitOrder(broker, priceLevel, OP_SELLLIMIT);
   SetTradeTypeObj("CDM");
 }
 
@@ -69,7 +51,7 @@ void PlotHorizontalSegment(datetime timeStart, datetime timeEnd, double priceLev
   ObjectSet(trendlineName, OBJPROP_RAY, false);
 }
 
-void CreatePendingLimitOrder( double limitPrice, int operation, bool allowForSpread=false, int margin=0, int spread=0) {
+void CreatePendingLimitOrder(Broker *broker, double limitPrice, int operation, bool allowForSpread=false, int margin=0, int spread=0) {
   string normalizedSymbol = broker.NormalizeSymbol(Symbol());
   Position * trade = new Position();
   trade.IsPending = true;
@@ -78,8 +60,8 @@ void CreatePendingLimitOrder( double limitPrice, int operation, bool allowForSpr
   trade.Symbol = broker.NormalizeSymbol(Symbol());
   trade.Reference = __FILE__;
   
-  stopLoss = LookupStopPips(normalizedSymbol) * OnePoint;
-  trade.LotSize = CalcTradeSize();
+  double stopLoss = LookupStopPips(normalizedSymbol) * OnePoint;
+  trade.LotSize = CalcTradeSize(stopLoss);
   
   //SetTradeTypeObj("CMD");
   broker.CreateOrder(trade);
@@ -99,16 +81,14 @@ double LockedIn()
 //| The function calculates the postion size based on stop loss level, risk   |
 //| per trade and account balance.                                                               |
 //+---------------------------------------------------------------------------+
-double CalcTradeSize(double PercentRiskPerPosition=0.5)
+double CalcTradeSize(double stopLoss, double PercentRiskPerPosition=0.5)
 {
   double dollarRisk = (AccountFreeMargin()+ LockedIn()) * PercentRiskPerPosition/100.0;
 
   double nTickValue=MarketInfo(Symbol(),MODE_TICKVALUE);
   double LotSize = dollarRisk /(stopLoss * nTickValue);
-  if (DEBUG_ANALYTICS) {
-    LOG("Calculating position sizing");
-    LOG(LotSize + " = " + dollarRisk + " /(" + stopLoss + " * " + nTickValue + ")");
-  }
+  Debug("Calculating position sizing");
+  Debug(LotSize + " = " + dollarRisk + " /(" + stopLoss + " * " + nTickValue + ")");
   LotSize = LotSize * Point;
   LotSize=MathRound(LotSize/MarketInfo(Symbol(),MODE_LOTSTEP)) * MarketInfo(Symbol(),MODE_LOTSTEP);
   int stopLossPips  = stopLoss / Point;
@@ -119,10 +99,10 @@ double CalcTradeSize(double PercentRiskPerPosition=0.5)
     stopLossPips = stopLossPips / 10;
   }  
 
-  LOG(string(stopLossPips) + " = " + string(stopLoss) + " / " + string(Point) + " / " + string(nTickValue));
+  Debug(string(stopLossPips) + " = " + string(stopLoss) + " / " + string(Point) + " / " + string(nTickValue));
   
   
-  LOG("Account free margin = " + string(AccountFreeMargin()) + "\n"
+  Debug("Account free margin = " + string(AccountFreeMargin()) + "\n"
         "point value in the quote currency = " + DoubleToString(Point,5) + "\n"
         "broker lot size = " + string(MarketInfo(Symbol(),MODE_LOTSTEP)) + "\n"
         "PercentRiskPerPosition = " + string(PercentRiskPerPosition) + "%" + "\n"

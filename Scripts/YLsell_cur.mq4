@@ -7,7 +7,7 @@
 #property strict
 
 
-//#include <Position.mqh>
+#include <Position.mqh>
 #include <Broker.mqh>
 //#include <errordescription.mqh>
 #include <zts\oneR.mqh>
@@ -21,8 +21,8 @@ Broker * broker;
 //+------------------------------------------------------------------+
 //| Script program start function                                    |
 void OnStart() {
-  int barOffset = 1; 
+  int barOffset = 0;
   broker = new Broker();
-  cdmLong(broker, barOffset);
+  cdmShort(broker, barOffset);
   if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
 }

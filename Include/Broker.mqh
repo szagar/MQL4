@@ -114,9 +114,9 @@ public:
                            return;
                           }
                         if(OrderDelete(trade.TicketId))
-                          LOG("Order #" + string(trade.TicketId) + " deleted.");
+                          Warn("Order #" + string(trade.TicketId) + " deleted.");
                         else
-                          LOG("Order #" + string(trade.TicketId) + " NOT deleted.");
+                          Warn("Order #" + string(trade.TicketId) + " NOT deleted.");
                         
                     }
                     virtual Position * FindLastTrade()

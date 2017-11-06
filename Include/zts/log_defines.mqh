@@ -16,6 +16,6 @@
 #define DEBUG_OANDA ((debug & 0x0020) == 0x0020)
 #define DEBUG_TICK  ((debug & 0x0040) == 0x0040)
 #define DEBUG_ANALYTICS  ((debug & 0x0080) == 0x0080)
-#ifndef LOG
-  #define LOG(text)  Print(__FILE__,"(",__LINE__,") :",text)
-#endif
+//#ifndef LOG
+//  #define LOG(text)  Print(__FILE__,"(",__LINE__,") :",text)
+//#endif
