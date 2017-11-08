@@ -105,10 +105,6 @@
 //#include <stdlib.mqh>
 //#include <stderror.mqh> 
 
-#ifndef LOG
-  #define LOG(text)  Print(__FILE__,"(",__LINE__,") :",text)
-#endif
-
 string OrderReliableVersion = "V0_2_5"; 
 
 int retry_attempts 		= 10; 
@@ -156,25 +152,16 @@ static int _OR_err = 0;
 //=============================================================================
 int OrderSendReliable(string symbol, int cmd, double volume, double price,
 					  int slippage, double stoploss, double takeprofit,
-					  string comment, int magic, int expiration = 0, 
+					  string comment, int magic, datetime expiration = 0, 
 					  color arrow_color = CLR_NONE) 
 {
-  /*Alert("OrderSendReliable: symbol: " + symbol + "\n" +
-        "                      cmd: " + string(cmd) + "\n" +
-        "                   volumd: " + string(volume) + "\n" +
-        "                    price: " + string(price) + "\n" +
-        "                 slippage: " + string(slippage) + "\n" +
-        "                 stoploss: " + string(stoploss) + "\n" +
-        "               takeprofit: " + string(takeprofit) + "\n" +
-        "                  comment: " + comment + "\n");
-   */     
    static bool bridge=false;
 	// ------------------------------------------------
 	// Check basic conditions see if trade is possible. 
 	// ------------------------------------------------
 	OrderReliable_Fname = "OrderSendReliable";
-	OrderReliablePrint("attempted " + OrderReliable_CommandString(cmd) + " " + (string)volume + 
-						" lots @" + (string)price + " sl:" + DoubleToString(stoploss,5) + " tp:" + (string)takeprofit); 
+	OrderReliablePrint("attempted " + OrderReliable_CommandString(cmd) + " " + volume + 
+						" lots @" + price + " sl:" + stoploss + " tp:" + takeprofit); 
 	// limit/stop order. 
 	int ticket=-1;
    int err = GetLastError(); // clear the global variable.
@@ -185,11 +172,10 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
 //      Print("bridge = ",bridge," Ln 172, stoploss = ",stoploss,", takeprofit = ",takeprofit);
       ticket = OrderReSendReliable(symbol, cmd, volume, price, slippage, 0, 0, comment, magic, expiration, arrow_color);
 //      Print("ticket = ",ticket," Ln 174, stoploss = ",stoploss,", takeprofit = ",takeprofit);
-      if(OrderSelect(ticket, SELECT_BY_TICKET) != true)
-        return(-1);
+      OrderSelect(ticket, SELECT_BY_TICKET);
 //      Print("OrderReSendReliable ticket = ",OrderTicket(),", price = ",OrderOpenPrice(),", stoploss = ",stoploss,", takeprofit = ",takeprofit);
       if(ticket!=-1) OrderModifyReliable(ticket, price, stoploss, takeprofit, expiration);
-      if(OrderSelect(ticket, SELECT_BY_TICKET) != true) return(-1);
+      OrderSelect(ticket, SELECT_BY_TICKET);
 //      Print("OrderModifyReliable ticket = ",OrderTicket(),", price = ",OrderOpenPrice(),", stoploss = ",OrderStopLoss(),", takeprofit = ",OrderTakeProfit());
       err = GetLastError();
       _OR_err = err;
@@ -282,7 +268,6 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
 					continue;	// we can apparently retry immediately according to MT docs.
 					
 				case ERR_INVALID_STOPS:
-				{
 					double servers_min_stop = MarketInfo(symbol, MODE_STOPLEVEL) * MarketInfo(symbol, MODE_POINT); 
 					if (cmd == OP_BUYSTOP) 
 					{
@@ -299,7 +284,7 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
 					}
 					exit_loop = true; 
 					break; 
-				}	
+					
 				default:
 					// an apparently serious error.
 					exit_loop = true;
@@ -318,13 +303,13 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
 				}
 				if (cnt > retry_attempts) 
 				{
-					OrderReliablePrint("retry attempts maxed at " + string(retry_attempts)); 
+					OrderReliablePrint("retry attempts maxed at " + retry_attempts); 
 				}
 			}
 			 
 			if (!exit_loop) 
 			{
-				OrderReliablePrint("retryable error (" + string(cnt) + "/" + string(retry_attempts) + 
+				OrderReliablePrint("retryable error (" + cnt + "/" + retry_attempts + 
 									"): " + OrderReliableErrTxt(err)); 
 				OrderReliable_SleepRandomTime(sleep_time, sleep_maximum); 
 				RefreshRates(); 
@@ -341,9 +326,9 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
 		} 
 		if (!limit_to_market) 
 		{
-			OrderReliablePrint("failed to execute stop or limit order after " + string(cnt) + " retries");
+			OrderReliablePrint("failed to execute stop or limit order after " + cnt + " retries");
 			OrderReliablePrint("failed trade: " + OrderReliable_CommandString(cmd) + " " + symbol + 
-								"@" + string(price) + " tp@" + string(takeprofit) + " sl@" + string(stoploss)); 
+								"@" + price + " tp@" + takeprofit + " sl@" + stoploss); 
 			OrderReliablePrint("last error: " + OrderReliableErrTxt(err)); 
 			return(-1); 
 		}
@@ -394,17 +379,18 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
                err = GetLastError();
    			   _OR_err = err;
                }
-            if(err==ERR_INVALID_STOPS) {
+            if(err==ERR_INVALID_STOPS)
+               {
 //               Print("This broker uses a bridge, bridge = ",bridge," Ln 382");
                bridge=true;
 //               Print("bridge = ",bridge," Ln 384, stoploss = ",stoploss,", takeprofit = ",takeprofit);
                ticket = OrderReSendReliable(symbol, cmd, volume, price, slippage, 0, 0, comment, magic, expiration, arrow_color);
 //               Print("ticket = ",ticket," Ln 386, stoploss = ",stoploss,", takeprofit = ",takeprofit);
-               if(!OrderSelect(ticket, SELECT_BY_TICKET))  LOG("OrderSelect bad return");
+               OrderSelect(ticket, SELECT_BY_TICKET);
 //               Print("OrderReSendReliable ticket = ",OrderTicket(),", price = ",OrderOpenPrice(),", stoploss = ",stoploss,", takeprofit = ",takeprofit);
                if(ticket!=-1) OrderModifyReliable(ticket, price, stoploss, takeprofit, expiration);
-               if(!OrderSelect(ticket, SELECT_BY_TICKET)) 
-                 Print("OrderModifyReliable ticket = ",OrderTicket(),", price = ",OrderOpenPrice(),", stoploss = ",OrderStopLoss(),", takeprofit = ",OrderTakeProfit());
+               OrderSelect(ticket, SELECT_BY_TICKET);
+//            	Print("OrderModifyReliable ticket = ",OrderTicket(),", price = ",OrderOpenPrice(),", stoploss = ",OrderStopLoss(),", takeprofit = ",OrderTakeProfit());
             	err = GetLastError();
          	   _OR_err = err;
 				  }
@@ -454,8 +440,8 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
 			if (!exit_loop) 
 			{
 			RefreshRates();
-				OrderReliablePrint("retryable error (" + string(cnt) + "/" + 
-									string(retry_attempts) + "): " + OrderReliableErrTxt(err)+ " (price = "+ string(price) + ", Ask = "+ string(Ask) +", and Bid = "+ string(Bid) +")"); 
+				OrderReliablePrint("retryable error (" + cnt + "/" + 
+									retry_attempts + "): " + OrderReliableErrTxt(err)+ " (price = "+ price + ", Ask = "+ Ask +", and Bid = "+ Bid +")"); 
 				OrderReliable_SleepRandomTime(sleep_time,sleep_maximum); 
 				RefreshRates();
       		if (cmd == OP_BUY)
@@ -476,7 +462,7 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
 				}
 				if (cnt > retry_attempts) 
 				{
-					OrderReliablePrint("retry attempts maxed at " + string(retry_attempts)); 
+					OrderReliablePrint("retry attempts maxed at " + retry_attempts); 
 				}
 			}
 		}
@@ -489,14 +475,13 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
 			//OrderPrint(); 
 			return(ticket); // SUCCESS! 
 		} 
-		OrderReliablePrint("failed to execute OP_BUY/OP_SELL, after " + string(cnt) + " retries");
+		OrderReliablePrint("failed to execute OP_BUY/OP_SELL, after " + cnt + " retries");
 		OrderReliablePrint("failed trade: " + OrderReliable_CommandString(cmd) + " " + symbol + 
-							"@" + string(price) + " tp@" + string(takeprofit) + " sl@" + string(stoploss));
-      OrderReliablePrint("failed to execute OP_BUY/OP_SELL, after " + string(cnt) + " retries");
-		OrderReliablePrint("last error: " + OrderReliableErrTxt(err)+ " (price = "+ string(price) + ", Ask = "+ string(Ask) +", and Bid = "+ string(Bid) +")"); 
+							"@" + price + " tp@" + takeprofit + " sl@" + stoploss);
+      OrderReliablePrint("failed to execute OP_BUY/OP_SELL, after " + cnt + " retries");
+		OrderReliablePrint("last error: " + OrderReliableErrTxt(err)+ " (price = "+ price + ", Ask = "+ Ask +", and Bid = "+ Bid +")"); 
 		return(-1); 
 	}
-	return (-1);
 }
 	
 	
@@ -529,8 +514,8 @@ bool OrderModifyReliable(int ticket, double price, double stoploss,
 {
 	OrderReliable_Fname = "OrderModifyReliable";
 
-	OrderReliablePrint(" attempted modify of #" + string(ticket) + " price:" + string(price) + 
-						" sl:" + string(stoploss) + " tp:" + string(takeprofit)); 
+	OrderReliablePrint(" attempted modify of #" + ticket + " price:" + price + 
+						" sl:" + stoploss + " tp:" + takeprofit); 
 
 /*	if (!IsConnected()) 
 	{
@@ -558,7 +543,6 @@ bool OrderModifyReliable(int ticket, double price, double stoploss,
 		return(false);  
 	}
 
-   string symbol = OrderSymbol();
 
 	
 	if (false) {
@@ -571,7 +555,8 @@ bool OrderModifyReliable(int ticket, double price, double stoploss,
 		 // See OrderModifyReliableSymbol() where the user passes in the Symbol 
 		 // manually.
 		 
-		 if(!OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) LOG("OrderSelect bad return");
+		 OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES);
+		 string symbol = OrderSymbol();
 		 int digits = MarketInfo(symbol,MODE_DIGITS);
 		 if (digits > 0) {
 			 price = NormalizeDouble(price,digits);
@@ -644,7 +629,7 @@ bool OrderModifyReliable(int ticket, double price, double stoploss,
 			
 		if (!exit_loop) 
 		{
-			OrderReliablePrint("retryable error (" + string(cnt) + "/" + string(retry_attempts) + 
+			OrderReliablePrint("retryable error (" + cnt + "/" + retry_attempts + 
 								"): "  +  OrderReliableErrTxt(err)); 
 			OrderReliable_SleepRandomTime(sleep_time,sleep_maximum); 
 			RefreshRates(); 
@@ -656,7 +641,7 @@ bool OrderModifyReliable(int ticket, double price, double stoploss,
 				OrderReliablePrint("non-retryable error: "  + OrderReliableErrTxt(err)); 
 
 			if (cnt > retry_attempts) 
-				OrderReliablePrint("retry attempts maxed at " + string(retry_attempts)); 
+				OrderReliablePrint("retry attempts maxed at " + retry_attempts); 
 		}
 	}  
 	
@@ -672,15 +657,15 @@ bool OrderModifyReliable(int ticket, double price, double stoploss,
 	if (err == ERR_NO_RESULT) 
 	{
 		OrderReliablePrint("Server reported modify order did not actually change parameters.");
-		OrderReliablePrint("redundant modification: "  + string(ticket) + " " + symbol + 
-							"@" + string(price) + " tp@" + string(takeprofit) + " sl@" + string(stoploss)); 
+		OrderReliablePrint("redundant modification: "  + ticket + " " + symbol + 
+							"@" + price + " tp@" + takeprofit + " sl@" + stoploss); 
 		OrderReliablePrint("Suggest modifying code logic to avoid."); 
 		return(true);
 	}
 	
-	OrderReliablePrint("failed to execute modify after " + string(cnt) + " retries");
-	OrderReliablePrint("failed modification: "  + string(ticket) + " " + symbol + 
-						"@" + string(price) + " tp@" + string(takeprofit) + " sl@" + string(stoploss)); 
+	OrderReliablePrint("failed to execute modify after " + cnt + " retries");
+	OrderReliablePrint("failed modification: "  + ticket + " " + symbol + 
+						"@" + price + " tp@" + takeprofit + " sl@" + stoploss); 
 	OrderReliablePrint("last error: " + OrderReliableErrTxt(err)); 
 	
 	return(false);  
@@ -760,8 +745,8 @@ bool OrderCloseReliable(int ticket, double lots, double price,
 		         }
             }
 
-	OrderReliablePrint(" attempted close of #" + string(ticket) + " price:" + string(price) + 
-						" lots:" + string(lots) + " slippage:" + string(slippage)); 
+	OrderReliablePrint(" attempted close of #" + ticket + " price:" + price + 
+						" lots:" + lots + " slippage:" + slippage); 
 
 /*	if (!IsConnected()) 
 	{
@@ -868,8 +853,8 @@ bool OrderCloseReliable(int ticket, double lots, double price,
 		if (!exit_loop) 
 		{
 		RefreshRates();
-			OrderReliablePrint("retryable error (" + string(cnt) + "/" + string(retry_attempts) + 
-								"): "  +  OrderReliableErrTxt(err)+ " (price = "+ string(price) + ", Ask = "+ string(Ask) +", and Bid = "+ string(Bid) +")"); 
+			OrderReliablePrint("retryable error (" + cnt + "/" + retry_attempts + 
+								"): "  +  OrderReliableErrTxt(err)+ " (price = "+ price + ", Ask = "+ Ask +", and Bid = "+ Bid +")"); 
 			OrderReliable_SleepRandomTime(sleep_time,sleep_maximum); 
    		if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)==true)
             {
@@ -889,10 +874,10 @@ bool OrderCloseReliable(int ticket, double lots, double price,
 		{
 		RefreshRates();
 			if ((err != ERR_NO_ERROR) && (err != ERR_NO_RESULT)) 
-				OrderReliablePrint("non-retryable error: "  + OrderReliableErrTxt(err)+ " (price = "+ string(price) + ", Ask = "+ string(Ask) +", and Bid = "+ string(Bid) +")"); 
+				OrderReliablePrint("non-retryable error: "  + OrderReliableErrTxt(err)+ " (price = "+ price + ", Ask = "+ Ask +", and Bid = "+ Bid +")"); 
 
 			if (cnt > retry_attempts) 
-				OrderReliablePrint("retry attempts maxed at " + string(retry_attempts)); 
+				OrderReliablePrint("retry attempts maxed at " + retry_attempts); 
 		}
 	}  
 	
@@ -905,10 +890,10 @@ bool OrderCloseReliable(int ticket, double lots, double price,
 		return(true); // SUCCESS! 
 	} 
 	RefreshRates();
-	OrderReliablePrint("failed to execute close after " + string(cnt) + " retries");
-	OrderReliablePrint("failed close: Ticket #" + string(ticket) + ", Price: " + 
-						string(price) + ", Slippage: " + string(slippage)); 
-	OrderReliablePrint("last error: " + OrderReliableErrTxt(err)+ " (price = "+ string(price) + ", Ask = "+ string(Ask) +", and Bid = "+ string(Bid) +")"); 
+	OrderReliablePrint("failed to execute close after " + cnt + " retries");
+	OrderReliablePrint("failed close: Ticket #" + ticket + ", Price: " + 
+						price + ", Slippage: " + slippage); 
+	OrderReliablePrint("last error: " + OrderReliableErrTxt(err)+ " (price = "+ price + ", Ask = "+ Ask +", and Bid = "+ Bid +")"); 
 	
 	return(false);  
 }
@@ -931,7 +916,7 @@ int OrderReliableLastErr()
 
 string OrderReliableErrTxt(int err) 
 {
-	return ("" + string(err) + ":" + "ErrorDescription(" + err + ")"); 
+	return ("" + err + ":" + ErrorDescription(err)); 
 }
 
 
@@ -963,7 +948,7 @@ string OrderReliable_CommandString(int cmd)
 	if (cmd == OP_SELLLIMIT) 
 		return("OP_SELLLIMIT");
 
-	return("(CMD==" + string(cmd) + ")"); 
+	return("(CMD==" + cmd + ")"); 
 }
 
 
@@ -1090,8 +1075,8 @@ int OrderReSendReliable(string symbol, int cmd, double volume, double price,
 	// Check basic conditions see if trade is possible. 
 	// ------------------------------------------------
 	OrderReliable_Fname = "OrderReSendReliable";
-	OrderReliablePrint(" attempted " + OrderReliable_CommandString(cmd) + " " + string(volume) + 
-						" lots @" + string(price) + " sl:" + string(stoploss) + " tp:" + string(takeprofit)); 
+	OrderReliablePrint(" attempted " + OrderReliable_CommandString(cmd) + " " + volume + 
+						" lots @" + price + " sl:" + stoploss + " tp:" + takeprofit); 
 
 /*	if (!IsConnected())
 	{
@@ -1182,7 +1167,6 @@ int OrderReSendReliable(string symbol, int cmd, double volume, double price,
 					continue;	// we can apparently retry immediately according to MT docs.
 					
 				case ERR_INVALID_STOPS:
-				{
 					double servers_min_stop = MarketInfo(symbol, MODE_STOPLEVEL) * MarketInfo(symbol, MODE_POINT); 
 					if (cmd == OP_BUYSTOP) 
 					{
@@ -1199,7 +1183,7 @@ int OrderReSendReliable(string symbol, int cmd, double volume, double price,
 					}
 					exit_loop = true; 
 					break; 
-				}	
+					
 				default:
 					// an apparently serious error.
 					exit_loop = true;
@@ -1218,13 +1202,13 @@ int OrderReSendReliable(string symbol, int cmd, double volume, double price,
 				}
 				if (cnt > retry_attempts) 
 				{
-					OrderReliablePrint("retry attempts maxed at " + string(retry_attempts)); 
+					OrderReliablePrint("retry attempts maxed at " + retry_attempts); 
 				}
 			}
 			 
 			if (!exit_loop) 
 			{
-				OrderReliablePrint("retryable error (" + string(cnt) + "/" + string(retry_attempts) + 
+				OrderReliablePrint("retryable error (" + cnt + "/" + retry_attempts + 
 									"): " + OrderReliableErrTxt(err)); 
 				OrderReliable_SleepRandomTime(sleep_time, sleep_maximum); 
 				RefreshRates(); 
@@ -1241,9 +1225,9 @@ int OrderReSendReliable(string symbol, int cmd, double volume, double price,
 		} 
 		if (!limit_to_market) 
 		{
-			OrderReliablePrint("failed to execute stop or limit order after " + string(cnt) + " retries");
+			OrderReliablePrint("failed to execute stop or limit order after " + cnt + " retries");
 			OrderReliablePrint("failed trade: " + OrderReliable_CommandString(cmd) + " " + symbol + 
-								"@" + string(price) + " tp@" + string(takeprofit) + " sl@" + string(stoploss)); 
+								"@" + price + " tp@" + takeprofit + " sl@" + stoploss); 
 			OrderReliablePrint("last error: " + OrderReliableErrTxt(err)); 
 			return(-1); 
 		}
@@ -1337,8 +1321,8 @@ int OrderReSendReliable(string symbol, int cmd, double volume, double price,
 			if (!exit_loop) 
 			{
 			RefreshRates();
-				OrderReliablePrint("retryable error (" + string(cnt) + "/" + 
-									string(retry_attempts) + "): " + OrderReliableErrTxt(err)+ " (price = "+ string(price) + ", Ask = "+ string(Ask) +", and Bid = "+ string(Bid) +")"); 
+				OrderReliablePrint("retryable error (" + cnt + "/" + 
+									retry_attempts + "): " + OrderReliableErrTxt(err)+ " (price = "+ price + ", Ask = "+ Ask +", and Bid = "+ Bid +")"); 
 				OrderReliable_SleepRandomTime(sleep_time,sleep_maximum); 
 				RefreshRates();
       		if (cmd == OP_BUY)
@@ -1359,7 +1343,7 @@ int OrderReSendReliable(string symbol, int cmd, double volume, double price,
 				}
 				if (cnt > retry_attempts) 
 				{
-					OrderReliablePrint("retry attempts maxed at " + string(retry_attempts)); 
+					OrderReliablePrint("retry attempts maxed at " + retry_attempts); 
 				}
 			}
 		}
@@ -1372,14 +1356,13 @@ int OrderReSendReliable(string symbol, int cmd, double volume, double price,
 			//OrderPrint(); 
 			return(ticket); // SUCCESS! 
 		} 
-		OrderReliablePrint("failed to execute OP_BUY/OP_SELL, after " + string(cnt) + " retries");
+		OrderReliablePrint("failed to execute OP_BUY/OP_SELL, after " + cnt + " retries");
 		OrderReliablePrint("failed trade: " + OrderReliable_CommandString(cmd) + " " + symbol + 
-							"@" + string(price) + " tp@" + string(takeprofit) + " sl@" + string(stoploss));
-      OrderReliablePrint("failed to execute OP_BUY/OP_SELL, after " + string(cnt) + " retries");
-		OrderReliablePrint("last error: " + OrderReliableErrTxt(err)+ " (price = "+ string(price) + ", Ask = "+ string(Ask) +", and Bid = "+ string(Bid) +")"); 
+							"@" + price + " tp@" + takeprofit + " sl@" + stoploss);
+      OrderReliablePrint("failed to execute OP_BUY/OP_SELL, after " + cnt + " retries");
+		OrderReliablePrint("last error: " + OrderReliableErrTxt(err)+ " (price = "+ price + ", Ask = "+ Ask +", and Bid = "+ Bid +")"); 
 		return(-1); 
 	}
-	return (-1);
 }
 	
 

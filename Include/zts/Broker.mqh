@@ -8,7 +8,7 @@
 #property version   "1.00"
 #property strict
 #include <Position.mqh>
-#include <OrderReliable_2011.01.07.mqh>
+#include <zts\OrderReliable.mqh>
 
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -114,9 +114,9 @@ public:
                            return;
                           }
                         if(OrderDelete(trade.TicketId))
-                          LOG("Order #" + string(trade.TicketId) + " deleted.");
+                          Warn("Order #" + string(trade.TicketId) + " deleted.");
                         else
-                          LOG("Order #" + string(trade.TicketId) + " NOT deleted.");
+                          Warn("Order #" + string(trade.TicketId) + " NOT deleted.");
                         
                     }
                     virtual Position * FindLastTrade()
