@@ -1,5 +1,5 @@
 General====General===
-Testing=false
+Testing=true
 PairOffsetWithinSymbol=0
 AlertOnTrade=true
 MakeTickVisible=false
@@ -25,7 +25,7 @@ NoEntryZoneColor=11119017
 MinNoEntryPad=15.0
 ConfigureTP====Configure Take Profit Levels===
 UseNextLevelTPRule=true
-MinRewardRatio=1.75
+MinRewardRatio=1.5
 ConfigureRangeLines====Configure Draw Range Lines feature===
 ShowDrawRangeButton=true
 RangeLinesColor=65535
@@ -41,5 +41,7 @@ ConfigureScreenShotCapture====Configure Screen Shot Capture===
 CaptureScreenShotsInFiles=true
 ConfigurePositionSizing====Configure Position Sizing===
 PositionSizer=true
-PercentRiskPerPosition=0.005
+PercentRiskPerPosition=0.5
 CalcLockIn=true
+ConfigureOutput====Configure Output===
+FlagWriteFileTradeStats=true

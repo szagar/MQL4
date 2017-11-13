@@ -18,3 +18,9 @@ int decimal2points_factor(string sym) {
   if(StringFind(OrderSymbol(),"JPY",0)>0) factor = 100;         // JPY pairs
   return factor;
 }
+
+double points2decimal_factor(string sym) {
+  double factor = 1.0/10000.0;
+  if(StringFind(OrderSymbol(),"JPY",0)>0) factor = 1.0/100.0;         // JPY pairs
+  return factor;
+}

@@ -31,9 +31,13 @@ void SetTradeTypeObj(string tradeType) {
 }
 
 string GetTradeType() {
-  string val = "";
-  //val = ObjectGet(TradeTypeObjName,
-  return(val);
+  string txt = ObjectGetString(MyChartId,TradeTypeObjName,OBJPROP_TEXT);  
+  int error=GetLastError();
+  if (error==4202) {
+    Alert(__FUNCTION__+": Error in getting TradeType");
+    txt = "NA";
+  }
+  return(txt);
 }
 
 void ClearTradeType() {

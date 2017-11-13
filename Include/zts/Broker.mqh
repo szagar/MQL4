@@ -9,6 +9,7 @@
 #property strict
 #include <Position.mqh>
 #include <zts\OrderReliable.mqh>
+#include <zts\common.mqh>
 
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -34,11 +35,14 @@ public:
                     }
                     virtual void SelectOrderByPosition(int position)
                     {
-                        OrderSelect(position, SELECT_BY_POS);
+                        if(!OrderSelect(position, SELECT_BY_POS))
+                           Warn(__FUNCTION__+": OrderSelect NOT successful!");                        
+                        
                     }
                     virtual void SelectOrderByTicket(int ticketId)
                     {
-                     OrderSelect(ticketId, SELECT_BY_TICKET);                        
+                     if(!OrderSelect(ticketId, SELECT_BY_TICKET))
+                       Warn(__FUNCTION__+": OrderSelect NOT successful!");                    
                     }
                     virtual Position * GetPosition()
                     {
