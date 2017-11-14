@@ -8,30 +8,31 @@
 #property strict
 
 #include <Position.mqh>
-#include <Broker.mqh>
+#include <zts\Broker.mqh>
 //#include <errordescription.mqh>
 #include <zts\oneR.mqh>
 #include <zts\trade_type.mqh>
-#define LOG_LEVEL set
-#define LOG_DEBUG set
+//#define LOG_LEVEL set
+//#define LOG_DEBUG set
 #include <zts\common.mqh>
 #include <zts\order_tools.mqh>
+#include <zts\position_sizing.mqh>
 string Prefix = "PAT_";
 //Broker * broker;
 
-void cdmLong(Broker *broker, int offset=1) {
+void cdmLong(Account *account, Broker *broker, int offset=1) {
   double priceLevel = iLow(NULL,0,offset);
   PlotYellowLine(priceLevel);
   ClosePendingLimitOrders(Symbol());
-  CreatePendingLimitOrder(broker, priceLevel, OP_BUYLIMIT);
+  CreatePendingLimitOrder(account, broker, priceLevel, OP_BUYLIMIT);
   SetTradeTypeObj("CDM");
 }
 
-void cdmShort(Broker *broker, int offset=1) {
+void cdmShort(Account *account, Broker *broker, int offset=1) {
   double priceLevel = iHigh(NULL,0,offset);
   PlotYellowLine(priceLevel);
   ClosePendingLimitOrders(Symbol());
-  CreatePendingLimitOrder(broker, priceLevel, OP_SELLLIMIT);
+  CreatePendingLimitOrder(account, broker, priceLevel, OP_SELLLIMIT);
   SetTradeTypeObj("CDM");
 }
 
@@ -51,7 +52,9 @@ void PlotHorizontalSegment(datetime timeStart, datetime timeEnd, double priceLev
   ObjectSet(trendlineName, OBJPROP_RAY, false);
 }
 
-void CreatePendingLimitOrder(Broker *broker, double limitPrice, int operation, bool allowForSpread=false, int margin=0, int spread=0) {
+void CreatePendingLimitOrder(Account *account, 
+                             Broker *broker, 
+                             double limitPrice, int operation, bool allowForSpread=false, int margin=0, int spread=0) {
   string normalizedSymbol = broker.NormalizeSymbol(Symbol());
   Position * trade = new Position();
   trade.IsPending = true;
@@ -61,7 +64,7 @@ void CreatePendingLimitOrder(Broker *broker, double limitPrice, int operation, b
   trade.Reference = __FILE__;
   
   double stopLoss = LookupStopPips(normalizedSymbol) * OnePoint;
-  trade.LotSize = CalcTradeSize(stopLoss);
+  trade.LotSize = CalcTradeSize(account,stopLoss);
   
   //SetTradeTypeObj("CMD");
   broker.CreateOrder(trade);
@@ -81,6 +84,7 @@ double LockedIn()
 //| The function calculates the postion size based on stop loss level, risk   |
 //| per trade and account balance.                                                               |
 //+---------------------------------------------------------------------------+
+/**
 double CalcTradeSize(double stopLoss, double PercentRiskPerPosition=0.5)
 {
   double dollarRisk = (AccountFreeMargin()+ LockedIn()) * PercentRiskPerPosition/100.0;
@@ -88,32 +92,10 @@ double CalcTradeSize(double stopLoss, double PercentRiskPerPosition=0.5)
   double nTickValue=MarketInfo(Symbol(),MODE_TICKVALUE);
   double LotSize = dollarRisk /(stopLoss * nTickValue);
   Debug("Calculating position sizing");
-  Debug(LotSize + " = " + dollarRisk + " /(" + stopLoss + " * " + nTickValue + ")");
+  //Debug(LotSize + " = " + dollarRisk + " /(" + stopLoss + " * " + nTickValue + ")");
   LotSize = LotSize * Point;
   LotSize=MathRound(LotSize/MarketInfo(Symbol(),MODE_LOTSTEP)) * MarketInfo(Symbol(),MODE_LOTSTEP);
-  int stopLossPips  = stopLoss / Point;
 
-  //If the digits are 3 or 5 we normalize multiplying by 10
-  if(Digits==3 || Digits==5) {
-    nTickValue=nTickValue*10;
-    stopLossPips = stopLossPips / 10;
-  }  
-
-  Debug(string(stopLossPips) + " = " + string(stopLoss) + " / " + string(Point) + " / " + string(nTickValue));
-  
-  
-  Debug("Account free margin = " + string(AccountFreeMargin()) + "\n"
-        "point value in the quote currency = " + DoubleToString(Point,5) + "\n"
-        "broker lot size = " + string(MarketInfo(Symbol(),MODE_LOTSTEP)) + "\n"
-        "PercentRiskPerPosition = " + string(PercentRiskPerPosition) + "%" + "\n"
-        "dollarRisk = " + string(dollarRisk) + "\n"
-        "stop loss = " + string(stopLoss) +", " + string(stopLossPips) + " pips" + "\n"
-        "locked in = " + string(LockedIn()) + "\n"
-        "LotSize = " + string(LotSize) + "\n"
-        "Ask = " + string(Ask) + "\n"
-        "Bid = " + string(Bid) + "\n"
-        "Close = " + string(Close[0]) + "\n"
-        "MarketInfo(Symbol(),MODE_TICKVALUE) = " + string(MarketInfo(Symbol(),MODE_TICKVALUE)));
   return(LotSize);
 }
-
+**/

@@ -16,7 +16,7 @@ int LookupStopPips(string symbol) {
   int pairPosition = StringFind(ExceptionPairs, symbol, 0);
   if (pairPosition >=0) {
      int slashPosition = StringFind(ExceptionPairs, "/", pairPosition) + 1;
-     stop = StringToInteger(StringSubstr(ExceptionPairs,slashPosition));
+     stop =int( StringToInteger(StringSubstr(ExceptionPairs,slashPosition)));
   }
   return stop;
 }

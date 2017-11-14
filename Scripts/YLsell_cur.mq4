@@ -8,21 +8,23 @@
 
 
 #include <Position.mqh>
-#include <Broker.mqh>
-//#include <errordescription.mqh>
+#include <zts\Broker.mqh>
+#include <zts\Account.mqh>
 #include <zts\oneR.mqh>
 #include <zts\trade_type.mqh>
 #include <zts\common.mqh>
 #include <zts\yellow_line.mqh>
 
 //string Prefix = "PAT_";
-Broker * broker;
 
 //+------------------------------------------------------------------+
 //| Script program start function                                    |
 void OnStart() {
+  Broker *broker;
+  Account *account;
   int barOffset = 0;
   broker = new Broker();
-  cdmShort(broker, barOffset);
+  account = new Account();
+  cdmShort(account, broker, barOffset);
   if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
 }

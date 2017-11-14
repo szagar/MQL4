@@ -3,9 +3,9 @@
 //|                                 based on Dave Hanna's PATI assit |
 //|                                                          http:// |
 //+------------------------------------------------------------------+
-//#property copyright "Dave Hanna"
-//#property link      "http://nohypeforexrobotreview.com"
-//#property version   "100.004"
+#property copyright "Dave Hanna"
+#property link      "http://nohypeforexrobotreview.com"
+#property version   "100.004"
 #property strict
 
 
@@ -18,6 +18,56 @@
 #include <zts\OrderReliable.mqh>
 #include <zts\help_tools.mqh>
 #include <zts\price_levels.mqh>
+
+/****************************************************************************************/
+/****************************************************************************************/
+
+class DevBase {
+private:
+   string TypeName;
+public:
+  string ClassName;
+
+  DevBase(string name = "DevBase class");
+  ~DevBase();
+
+  void OnInit() {
+    Print(__FUNCTION__,":  InitRobo");
+  }
+  
+  void OnTickRobo() {
+    Print(__FUNCTION__,":  OnTickRobo");
+  }
+  
+  void OnNewBar() {
+    Print(__FUNCTION__,":  OnNewBar");
+  }
+
+  void HelloWorld() {
+    Print(__FUNCTION__+"**************************************************");                        
+    Print(__FUNCTION__+"**************************************************");                        
+    Print(__FUNCTION__+": Hellow World!");                        
+    Print(__FUNCTION__+"**************************************************");                        
+    Print(__FUNCTION__+"**************************************************");                        
+  }
+  string getTypeName() {
+    return(TypeName);
+  }
+};
+
+
+DevBase::DevBase(string _name = "DevBase class") {
+   TypeName = "Mock class";
+   ClassName = _name;
+  }
+
+DevBase::~DevBase()
+  {
+  }
+
+/****************************************************************************************/
+/****************************************************************************************/
+
 
 #include <Assert.mqh>
 #include <Position.mqh>
@@ -34,7 +84,7 @@
 
 string Title="PATI Trading Assistant"; 
 string Prefix="PTA_";
-string Version="v0.005";
+string Version="v0.004";
 string NTIPrefix = "NTI_";
 int DFVersion = 2;
 
@@ -160,6 +210,7 @@ double noEntryPad;
 Position * activeTrade = NULL;
 Broker * broker;
 Account *account;
+DevBase *robo;
 int totalActiveTradeIdsThisTick;
 int activeTradeIdsThisTick[]; 
 int activeTradeIdsArraySize = 0;
@@ -178,12 +229,16 @@ int tickNumber = 0;
        
 datetime dayHiTime;
 datetime dayLoTime;
+
+
 //+------------------------------------------------------------------+
 //| Expert initialization function                                   |
 //+------------------------------------------------------------------+
 int OnInit() {
   Print("---------------------------------------------------------");
   Print("-----",Title," ",Version," Initializing ",Symbol(),"-----"); 
+  robo.HelloWorld();
+  robo.OnInit();
   DrawVersion(); 
   UpdateGV();
   CopyInitialConfigVariables();
@@ -211,7 +266,6 @@ void OnDeinit(const int reason) {
      }
    if (CheckPointer(activeTrade) == POINTER_DYNAMIC) delete activeTrade;
    if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
-   if (CheckPointer(account) == POINTER_DYNAMIC) delete account;
    
    return;
 }
@@ -228,6 +282,7 @@ void OnTick() {
      if(CheckNewBar()) {
        alertedThisBar = false;
        UpdateGV();
+       robo.OnNewBar();
 
        if(Time[0] >= endOfDay) {
          endOfDay += 24*60*60;
@@ -370,7 +425,6 @@ void Initialize() {
   //StatsEndOfDay(FnEodStats); 
 
   broker = new Broker(_pairOffsetWithinSymbol);
-  account = new Account();
   GVPrefix = NTIPrefix + broker.NormalizeSymbol(Symbol());
   configFileName = Prefix + Symbol() + "_Configuration.txt";
   globalConfigFileName = Prefix + "_Configuration.txt";
@@ -1574,10 +1628,7 @@ void CreatePendingOrdersForRange( double triggerPrice, int operation, bool setPe
    trade.Symbol = broker.NormalizeSymbol(Symbol());
    trade.LotSize = _pendingLotSize;
    trade.Reference = __FILE__;
-   if (PositionSizer) {
-     Print(__FUNCTION__,": call CalcTradeSize(",PercentRiskPerPosition,",",stopLoss,")");
-     trade.LotSize = CalcTradeSize(account,stopLoss,PercentRiskPerPosition);      // smz
-   }
+   if (PositionSizer) trade.LotSize = CalcTradeSize(PercentRiskPerPosition,stopLoss);      // smz
    if (trade.LotSize == 0) 
    {
       Position * lastTrade = broker.FindLastTrade();
@@ -1731,4 +1782,62 @@ void SetLockIn(Position *trade)
 {
   //trade.StopPrice
 }
+
+
+
+//+---------------------------------------------------------------------------+
+//| The function calculates the postion size based on stop loss level, risk   |
+//| per trade and account balance.                                                               |
+//+---------------------------------------------------------------------------+
+/**
+double CalcTradeSize_old() {
+  if (DEBUG_ANALYTICS) {
+    string str = "Calculating position sizing" + "\n" +
+                 "Account equity = " + string(AccountEquity()) + "\n" +
+                 "Account free margin = " + string(AccountFreeMargin()) + "\n" +
+                 "Account credit= " + string(AccountCredit()) + "\n" +
+                 "Account leverage = " + string(AccountLeverage()) + "\n" +
+                 "Account margin = " + string(AccountMargin()) + "\n" +
+                 "Account profit = " + string(AccountProfit()) + "\n" +
+                 "Account stopout mode = " + string(AccountStopoutMode()) + "\n" +
+                 "Account stopout level = " + string(AccountStopoutLevel()) + "\n" +
+                 "Account balance = " + string(AccountBalance());
+    Debug(str);
+  }
+
+  double dollarRisk = (AccountFreeMargin()+ LockedInProfit()) * PercentRiskPerPosition;
+
+  //double nTickValue=MarketInfo(Symbol(),MODE_TICKVALUE);
+  double LotSize = dollarRisk /(stopLoss * BaseCcyTickValue);
+  LotSize = LotSize * Point;
+  LotSize=MathRound(LotSize/MarketInfo(Symbol(),MODE_LOTSTEP)) * MarketInfo(Symbol(),MODE_LOTSTEP);
+  int stopLossPips  = int(stopLoss / Point * PipAdj);
+
+  ShowSymbolProperties();
+  //If the digits are 3 or 5 we normalize multiplying by 10
+  //if(Digits==3 || Digits==5) {
+    //nTickValue=nTickValue*10;
+    //stopLossPips = stopLossPips / 10;
+  //}  
+  
+  Debug("Account free margin = " + string(AccountFreeMargin()) + "\n"
+        "point value in the quote currency = " + DoubleToString(Point,5) + "\n"
+        "broker lot size = " + string(MarketInfo(Symbol(),MODE_LOTSTEP)) + "\n"
+        "PercentRiskPerPosition = " + string(PercentRiskPerPosition*100.0) + "%" + "\n"
+        "dollarRisk = " + string(dollarRisk) + "\n"
+        "stop loss = " + string(stopLoss) +", " + string(stopLossPips) + " pips" + "\n"
+        "locked in = " + string(LockedInPips()) + "(pips)\n"
+        "LotSize = " + string(LotSize) + "\n"
+        "Ask = " + string(Ask) + "\n"
+        "Bid = " + string(Bid) + "\n"
+        "Close = " + string(Close[0]) + "\n"
+        "MarketInfo(Symbol(),MODE_TICKVALUE) = " + string(MarketInfo(Symbol(),MODE_TICKVALUE)));
+  return(LotSize);
+}
+**/
+
+// show trade info for dev info
+//
+
+
 

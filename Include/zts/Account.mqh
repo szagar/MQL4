@@ -37,7 +37,7 @@ public:
     return AccountServer();
   }
   virtual double freeMargin() {
-    return AccountFreeMargin();
+    return(AccountFreeMargin());
   }
 };
 

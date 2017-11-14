@@ -189,7 +189,7 @@ bool CanCalculateTradeSize() {
   double percent2risk = 0.50;
   double _stopLoss = 8;  //pips
   
-  double lots = CalcTradeSize(percent2risk, _stopLoss);
+  double lots = CalcTradeSize(account,_stopLoss,percent2risk);
   Print("Lots=",lots);
   return Assert(lots == 0.19, "Wrong lot size for calcluate trade size");
 }
