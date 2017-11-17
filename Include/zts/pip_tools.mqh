@@ -15,12 +15,15 @@ double pips2dollars(string sym, double pips, double lots) {
 
 int decimal2points_factor(string sym) {
   int factor = 10000;
-  if(StringFind(OrderSymbol(),"JPY",0)>0) factor = 100;         // JPY pairs
+  if(StringFind(sym,"JPY",0)>0) factor = 100;         // JPY pairs
+  Print(__FUNCTION__,": sym=",sym,"  factor=",factor); 
   return factor;
 }
 
 double points2decimal_factor(string sym) {
+Print(__FUNCTION__,": sym=",sym);
   double factor = 1.0/10000.0;
-  if(StringFind(OrderSymbol(),"JPY",0)>0) factor = 1.0/100.0;         // JPY pairs
+  if(StringFind(sym,"JPY",0)>0) factor = 1.0/100.0;         // JPY pairs
+Print(__FUNCTION__,": factor=",factor);
   return factor;
 }

@@ -14,6 +14,7 @@
 
 double CalcTradeSize(Account *_account, double _stopLoss, double percent2risk=0.5) {
   Debug("Calculating position sizing");
+  Print(__FUNCTION__,"*CalcTradeSize(",_stopLoss,",",percent2risk,")");
   double freeMargin = _account.freeMargin();    //  AccountFreeMargin() 
   double dollarRisk = (freeMargin + LockedInProfit()) * percent2risk/100.0;
   //double oneR = _stopLoss * BaseCcyTickValue * points2decimal_factor(Symbol());
@@ -29,7 +30,7 @@ double CalcTradeSize(Account *_account, double _stopLoss, double percent2risk=0.
   Print("points2decimal_factor("+Symbol()+")=",DoubleToString(points2decimal_factor(Symbol()),8));   // 0.00001
   Print("oneR=",oneR);
  
-  double lotSize = dollarRisk / oneR / 100000.0;
+  double lotSize = dollarRisk / oneR * Point;  //    / 100000.0;
   //Print("lotSize=",lotSize);
   lotSize=MathRound(lotSize/MarketInfo(Symbol(),MODE_LOTSTEP)) * MarketInfo(Symbol(),MODE_LOTSTEP);
 

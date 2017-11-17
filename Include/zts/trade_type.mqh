@@ -1,17 +1,9 @@
 //+------------------------------------------------------------------+
 //|                                                   trade_type.mqh |
-//|                        Copyright 2017, MetaQuotes Software Corp. |
-//|                                             https://www.mql5.com |
 //+------------------------------------------------------------------+
-#property copyright "Copyright 2017, MetaQuotes Software Corp."
-#property link      "https://www.mql5.com"
 #property strict
 
-//#include <zts/trade_type_label.mqh>
 #include <zts/create_label.mqh>
-//+------------------------------------------------------------------+
-//| defines                                                          |
-//+------------------------------------------------------------------+
 
 string TradeTypeObjName = "TradeTypeObj";
 const long MyChartId = 0;

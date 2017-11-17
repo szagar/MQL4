@@ -203,15 +203,14 @@ void OnDeinit(const int reason) {
 //--- destroy timer
    //EventKillTimer();
    //----
-   if (reason != REASON_CHARTCHANGE && reason!= REASON_PARAMETERS && reason != REASON_RECOMPILE)
-      DeleteAllObjects();
-   for(int ix=totalActiveTrades - 1;ix >=0;ix--)
-     {
-      if (CheckPointer(activeTradesLastTick[ix]) == POINTER_DYNAMIC) delete activeTradesLastTick[ix];
-     }
-   if (CheckPointer(activeTrade) == POINTER_DYNAMIC) delete activeTrade;
-   if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
-   if (CheckPointer(account) == POINTER_DYNAMIC) delete account;
+  if(reason != REASON_CHARTCHANGE && reason!= REASON_PARAMETERS && reason != REASON_RECOMPILE)
+    DeleteAllObjects();
+  for(int ix=totalActiveTrades - 1;ix >=0;ix--) {
+    if (CheckPointer(activeTradesLastTick[ix]) == POINTER_DYNAMIC) delete activeTradesLastTick[ix];
+  }
+  if (CheckPointer(activeTrade) == POINTER_DYNAMIC) delete activeTrade;
+  if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
+  if (CheckPointer(account) == POINTER_DYNAMIC) delete account;
    
    return;
 }
@@ -1575,7 +1574,7 @@ void CreatePendingOrdersForRange( double triggerPrice, int operation, bool setPe
    trade.LotSize = _pendingLotSize;
    trade.Reference = __FILE__;
    if (PositionSizer) {
-     Print(__FUNCTION__,": call CalcTradeSize(",PercentRiskPerPosition,",",stopLoss,")");
+     Print(__FUNCTION__,": call CalcTradeSize(",stopLoss,",",PercentRiskPerPosition,")");
      trade.LotSize = CalcTradeSize(account,stopLoss,PercentRiskPerPosition);      // smz
    }
    if (trade.LotSize == 0) 

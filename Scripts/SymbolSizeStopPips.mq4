@@ -36,7 +36,7 @@ void OnStart() {
   ObjectSetText(labelName,label_str,10, "Verdana", Red);
   ObjectSet(labelName, OBJPROP_CORNER, 1);
   ObjectSet(labelName, OBJPROP_XDISTANCE, 150);
-  ObjectSet(labelName, OBJPROP_YDISTANCE, 10);
+  ObjectSet(labelName, OBJPROP_YDISTANCE, 5);
 }
 
 //+---------------------------------------------------------------------------+

@@ -31,7 +31,7 @@ void WriteTradeStats2File(Position *trade) {
       //FileWriteString(fh1, StringFormat("Server Trade Date: %s\r\n", TimeToString(TimeCurrent(), TIME_DATE)));
       FileWrite(fh1,"LocalDate","LocalTime","SrvrDate","SrvrTime","Symbol","Strategy","PIPs","PnL","Point","Digits","LotSize","OpenPrice","ClosePrice","OrderType","OrderClosed",
               "OrderEntered","OrderOpened","StopPrice","TakeProfitPrice","TicketId",
-              "UnRealPipsDay","RealPipsDay","UnReal$day","Real$day");
+              "UnRealPipsDay","RealPipsDay","UnReal$day","Real$day",robo.tradeStatsHeader());
     }
     double pips = trade.ClosePrice - trade.OpenPrice;
     if (trade.OrderType == OP_SELL) pips *= -1;
@@ -49,7 +49,7 @@ void WriteTradeStats2File(Position *trade) {
                   DoubleToString(UnRealizedPipsToday(),2),
                   DoubleToString(RealizedPipsToday(),2),
                   DoubleToString(UnRealizedProfitToday(),2),
-                  DoubleToString(RealizedProfitToday(),2));
+                  DoubleToString(RealizedProfitToday(),2),robo.tradeStats());
     FileClose(fh1);
   }
   else

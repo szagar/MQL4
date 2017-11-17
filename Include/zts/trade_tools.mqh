@@ -9,6 +9,7 @@
 
 #include <Position.mqh>
 #include <zts\pip_tools.mqh>
+#include <zts\common.mqh>
 
 
 double tradePips(Position * trade = NULL) {

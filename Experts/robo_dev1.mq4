@@ -1,10 +1,11 @@
 //+------------------------------------------------------------------+
-//|                                                     BaseRobo.mq4 |
-//|                                     Base class for my robot work |
+//|                                                    framework.mq4 |
+//|                                 based on Dave Hanna's PATI assit |
 //|                                                          http:// |
 //+------------------------------------------------------------------+
-#property copyright "Stephen Zagar"
-#property version   "100.001"
+//#property copyright "Dave Hanna"
+//#property link      "http://nohypeforexrobotreview.com"
+//#property version   "100.004"
 #property strict
 
 
@@ -14,6 +15,7 @@
 #include <zts\bar_tools.mqh>
 #include <zts\Broker.mqh>
 #include <zts\Account.mqh>
+#include <zts\LabelBase.mqh>
 #include <zts\OrderReliable.mqh>
 #include <zts\help_tools.mqh>
 #include <zts\price_levels.mqh>
@@ -31,9 +33,11 @@
 #include <zts\trade_type.mqh>
 #include <zts\log_defines.mqh>
 
+#include "robo_01.mqh"
+
 string Title="PATI Trading Assistant"; 
 string Prefix="PTA_";
-string Version="v0.004";
+string Version="v0.005";
 string NTIPrefix = "NTI_";
 int DFVersion = 2;
 
@@ -147,6 +151,7 @@ int longTradeNumberForDay = 0;
 int shortTradeNumberForDay =0;
 datetime endOfDay;
 datetime beginningOfDay;
+datetime nextBeginningOfDay;
 string normalizedSymbol;
 string saveFileName;
 string configFileName;
@@ -159,6 +164,7 @@ double noEntryPad;
 Position * activeTrade = NULL;
 Broker * broker;
 Account *account;
+LabelBase *strategyLabel;
 int totalActiveTradeIdsThisTick;
 int activeTradeIdsThisTick[]; 
 int activeTradeIdsArraySize = 0;
@@ -177,13 +183,19 @@ int tickNumber = 0;
        
 datetime dayHiTime;
 datetime dayLoTime;
+
+DevBase *robo;
+
 //+------------------------------------------------------------------+
 //| Expert initialization function                                   |
 //+------------------------------------------------------------------+
 int OnInit() {
+  robo = new DevBase(Symbol());
+  robo.OnInit();
+
   Print("---------------------------------------------------------");
   Print("-----",Title," ",Version," Initializing ",Symbol(),"-----"); 
-  DrawVersion(); 
+  DrawVersion(robo.Version); 
   UpdateGV();
   CopyInitialConfigVariables();
 
@@ -199,6 +211,7 @@ int OnInit() {
 //| Expert deinitialization function                                 |
 //+------------------------------------------------------------------+
 void OnDeinit(const int reason) {
+  robo.OnDeinit(reason);
 //--- destroy timer
    //EventKillTimer();
    //----
@@ -210,6 +223,9 @@ void OnDeinit(const int reason) {
      }
    if (CheckPointer(activeTrade) == POINTER_DYNAMIC) delete activeTrade;
    if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
+   if (CheckPointer(account) == POINTER_DYNAMIC) delete account;
+   if (CheckPointer(strategyLabel) == POINTER_DYNAMIC) delete strategyLabel;
+   if (CheckPointer(robo) == POINTER_DYNAMIC) delete robo;
    
    return;
 }
@@ -217,6 +233,7 @@ void OnDeinit(const int reason) {
 //| Expert tick function                                             |
 //+------------------------------------------------------------------+
 void OnTick() {
+  robo.OnTick();
    tickNumber++;
    if(DEBUG_TICK)
       PrintFormat("Entering OnTick # %i", tickNumber);
@@ -224,6 +241,7 @@ void OnTick() {
       DrawTickNumber();
    if(!_testing) { 
      if(CheckNewBar()) {
+       robo.OnNewBar();
        alertedThisBar = false;
        UpdateGV();
 
@@ -232,6 +250,10 @@ void OnTick() {
          //StatsEndOfDay(FnEodStats);
          CleanupEndOfDay();
          beginningOfDay += 24*60*60;
+       }
+       if(Time[0] >= nextBeginningOfDay) {
+         nextBeginningOfDay += 24*60*60;
+         DrawStartOfDay();
        }
      }
      if(!alertedThisBar)
@@ -264,6 +286,7 @@ string MakeGVname( int sequence) {
   
 void OnChartEvent(const int id, const long& lParam, const double& dParam, const string& sParam)
 {
+  robo.OnChartEvent(id, lParam, dParam, sParam);
    if (id == CHARTEVENT_OBJECT_CLICK)
    {
       if (sParam == rngButtonName)
@@ -295,16 +318,15 @@ void DeleteAllObjects()
       }
    } //void DeleteAllObjects()
  
-void DrawVersion()
-   {
-   string name;
-   name = StringConcatenate(Prefix,"Version");
-   ObjectCreate(name,OBJ_LABEL,0,0,0);
-   ObjectSetText(name,Version,8,TextFont,TextColor);
-   ObjectSet(name,OBJPROP_CORNER,2);
-   ObjectSet(name,OBJPROP_XDISTANCE,5);
-   ObjectSet(name,OBJPROP_YDISTANCE,2);
-   } //void DrawVersion()
+void DrawVersion(string _version) {
+  string name;
+  name = StringConcatenate(Prefix,"Version");
+  ObjectCreate(name,OBJ_LABEL,0,0,0);
+  ObjectSetText(name,_version,8,TextFont,TextColor);
+  ObjectSet(name,OBJPROP_CORNER,2);
+  ObjectSet(name,OBJPROP_XDISTANCE,5);
+  ObjectSet(name,OBJPROP_YDISTANCE,2);
+} //void DrawVersion()
 
 
 void DrawTickNumber()
@@ -368,6 +390,10 @@ void Initialize() {
   //StatsEndOfDay(FnEodStats); 
 
   broker = new Broker(_pairOffsetWithinSymbol);
+  account = new Account();
+  strategyLabel = new LabelBase("strategyLabel",350,5);
+  strategyLabel.setText("strategy");
+  
   GVPrefix = NTIPrefix + broker.NormalizeSymbol(Symbol());
   configFileName = Prefix + Symbol() + "_Configuration.txt";
   globalConfigFileName = Prefix + "_Configuration.txt";
@@ -380,7 +406,7 @@ void Initialize() {
   PrintConfigValues();
   normalizedSymbol = broker.NormalizeSymbol(Symbol());
   saveFileName = Prefix + normalizedSymbol + "_SaveFile.txt";
-  stopLoss = CalculateStop(normalizedSymbol) * OnePoint;
+  stopLoss = robo.oneRpips;
   noEntryPad = _minNoEntryPad * OnePoint;
   MqlDateTime dtStruct;
   TimeToStruct(TimeCurrent(), dtStruct);
@@ -389,6 +415,7 @@ void Initialize() {
   dtStruct.sec = 0;
   endOfDay = StructToTime(dtStruct) +(24*60*60) + (_endOfDayOffsetHours * 60 * 60);
   beginningOfDay = StructToTime(dtStruct) + (_beginningOfDayOffsetHours * 60 * 60);
+  nextBeginningOfDay = beginningOfDay;
   longTradeNumberForDay = 0;
   shortTradeNumberForDay = 0;
   InitializeTradeArrays();  
@@ -474,16 +501,6 @@ void CopyInitialConfigVariables()
    _captureScreenShotsInFiles = CaptureScreenShotsInFiles;
 
 }
-
-/*
-bool CheckNewBar()
-{
-   if(Time[0] == time0) return false;
-   time0 = Time[0];
-   return true;
-   
-}
-*/
 
 void ApplyConfiguration()
 {
@@ -898,6 +915,7 @@ void HandleTradeEntry(bool wasPending, bool savedTrade = false) {
       Alert("Entered " + normalizedSymbol + " " + (activeTrade.OrderType == OP_BUY ? "long" : "short") +". Id = " + 
             IntegerToString(activeTrade.TicketId) +". OpenPrice = " + DoubleToStr(activeTrade.OpenPrice, 5));
     SaveTradeToFile(saveFileName, activeTrade);
+    SetStrategy();
   }
   
   // Delete pending orders
@@ -1148,7 +1166,7 @@ void CleanupEndOfDay() {
   DeleteSaveFile();
   DeleteAllObjects();
   // Replace the version legend
-  DrawVersion();
+  DrawVersion(robo.Version);
 }
 
 void DeleteSaveFile() {
@@ -1189,55 +1207,44 @@ void UpdateGV() {
   }
 }
 
-void ReadOldTrades(string fileName)
-{
-   
-   int fileHandle = FileOpen(fileName, FILE_ANSI | FILE_TXT | FILE_READ);
-   if (fileHandle != -1)
-   {
-      string line = FileReadString(fileHandle);
-      if (line == StringFormat("DataVersion: %i", DFVersion)|| line == "DataVersion: 1") // versions match
-      {
-         line = FileReadString(fileHandle);
-         StringReplace(line, "Server Trade Date: ", "");
-         datetime day = StrToTime(line); 
-         if (day == GetDate(TimeCurrent()))
-         {
-            while (!FileIsEnding(fileHandle))
-            {
-               line = FileReadString(fileHandle);
-               StringReplace(line, "Trade ID: ", "");
-               int tradeId = StrToInteger(line);
-               double sl = 0.0;
-               int stopLossPos = StringFind(line, "Initial Stop");
-               if(stopLossPos != -1)
-               {
-                  line = StringSubstr(line, stopLossPos);
-                  StringReplace(line, "Intial Stop: ", "");
-                  sl = StrToDouble(line);
-               }
-               lastTradeId = tradeId;
-               Position * lastTrade = broker.GetTrade(lastTradeId);
-               AddActiveTrade(lastTrade);
-              
-               PrintFormat("Calling HandleNewEntry for saved trade %i, with stop loss %f", tradeId, sl);
-               HandleNewEntry(tradeId,true, sl);
-              
-               
-               if (activeTrade.OrderClosed != 0)
-               {
-                  HandleClosedTrade(true);
-               if(!ValidateActiveTrades())
-                 {
-                  Alert("ActiveTrades array invalid after HandleClosedTrade in ReadOldTrades");
-                 }
-               }
-            }
-         }
+void ReadOldTrades(string fileName) {
+  int fileHandle = FileOpen(fileName, FILE_ANSI | FILE_TXT | FILE_READ);
+  if(fileHandle != -1) {
+    string line = FileReadString(fileHandle);
+    if(line == StringFormat("DataVersion: %i", DFVersion)|| line == "DataVersion: 1") {  // versions match
+      line = FileReadString(fileHandle);
+      StringReplace(line, "Server Trade Date: ", "");
+      datetime day = StrToTime(line); 
+      if(day == GetDate(TimeCurrent())) {
+        while (!FileIsEnding(fileHandle)) {
+          line = FileReadString(fileHandle);
+          StringReplace(line, "Trade ID: ", "");
+          int tradeId = StrToInteger(line);
+          double sl = 0.0;
+          int stopLossPos = StringFind(line, "Initial Stop");
+          if(stopLossPos != -1) {
+            line = StringSubstr(line, stopLossPos);
+            StringReplace(line, "Intial Stop: ", "");
+            sl = StrToDouble(line);
+          }
+          lastTradeId = tradeId;
+          Position * lastTrade = broker.GetTrade(lastTradeId);
+          AddActiveTrade(lastTrade);
 
-       }         
-       FileClose(fileHandle);
-      }    
+          PrintFormat("Calling HandleNewEntry for saved trade %i, with stop loss %f", tradeId, sl);
+          HandleNewEntry(tradeId,true, sl);
+
+          if(activeTrade.OrderClosed != 0) {
+            HandleClosedTrade(true);
+            if(!ValidateActiveTrades()) {
+              Alert("ActiveTrades array invalid after HandleClosedTrade in ReadOldTrades");
+            }
+          }
+        }
+      }
+    }         
+    FileClose(fileHandle);
+  }    
 }
 
 datetime GetDate(datetime time)
@@ -1536,62 +1543,55 @@ bool CheckForMatchingPendingTrades(Position * newTrade, Position * deletedTrade)
   return false;
 }
 
-void CreatePendingOrdersForRange( double triggerPrice, int operation, bool setPendingOrders, bool allowForSpread, int margin, int spread)
-{
-   // Delete any existing pending order of same operation type
-   for(int ix=0;ix<totalActiveTrades;ix++)
-     {
-         if(activeTradesLastTick[ix].IsPending && activeTradesLastTick[ix].OrderType == operation)
-           {
-            broker.DeletePendingTrade(activeTradesLastTick[ix]);
-            activeTrade = activeTradesLastTick[ix];
-            HandleDeletedTrade(); // Don't wait for it to be called at next tick.  Do it now.
-            break;
-           }
-     }
-   double price;
-   if(DEBUG_ORDER)
-     {
-      string setPendingOrdersString = setPendingOrders? "TRUE" : "FALSE";
-      Print ("About to set pending order. setPendingOrders = " +setPendingOrdersString);
-     }
-   if (!setPendingOrders) return;
-   if (operation == OP_SELLSTOP)
-      price = triggerPrice  - (margin * OnePoint);
-   else
-   {
-      price = triggerPrice + (margin * OnePoint);
-      if (allowForSpread)
-         price += spread * Point;
-   }
-   Position * trade = new Position();
-   trade.IsPending = true;
-   trade.OpenPrice = price;
-   trade.OrderType = operation;
-   trade.Symbol = broker.NormalizeSymbol(Symbol());
-   trade.LotSize = _pendingLotSize;
-   trade.Reference = __FILE__;
-   if (PositionSizer) trade.LotSize = CalcTradeSize(PercentRiskPerPosition,stopLoss);      // smz
-   if (trade.LotSize == 0) 
-   {
-      Position * lastTrade = broker.FindLastTrade();
-      if (lastTrade != NULL) trade.LotSize = lastTrade.LotSize;
-      if(CheckPointer(lastTrade) == POINTER_DYNAMIC)
-        {
-         delete(lastTrade);
-        }
-      if(trade.LotSize == 0 && DEBUG_ORDER)
-        {
-         Print("Configured LotSize = 0 and no historical order found.  LotSize is 0");
-        }
-   }
-   if(DEBUG_ORDER)
-     {
-      Print("About to place pending order: Symbol=" +trade.Symbol + " Price = " + DoubleToStr(trade.OpenPrice));
-     }
-   broker.CreateOrder(trade);
-   delete(trade);
-   
+void CreatePendingOrdersForRange( double triggerPrice, int operation, bool setPendingOrders, bool allowForSpread, int margin, int spread) {
+  // Delete any existing pending order of same operation type
+  for(int ix=0;ix<totalActiveTrades;ix++) {
+    if(activeTradesLastTick[ix].IsPending && activeTradesLastTick[ix].OrderType == operation) {
+      broker.DeletePendingTrade(activeTradesLastTick[ix]);
+      activeTrade = activeTradesLastTick[ix];
+      HandleDeletedTrade(); // Don't wait for it to be called at next tick.  Do it now.
+      break;
+    }
+  }
+  double price;
+  if(DEBUG_ORDER) {
+    string setPendingOrdersString = setPendingOrders? "TRUE" : "FALSE";
+    Print ("About to set pending order. setPendingOrders = " +setPendingOrdersString);
+  }
+  if (!setPendingOrders) return;
+  if (operation == OP_SELLSTOP)
+    price = triggerPrice  - (margin * OnePoint);
+  else {
+    price = triggerPrice + (margin * OnePoint);
+    if (allowForSpread)
+      price += spread * Point;
+  }
+  Position * trade = new Position();
+  trade.IsPending = true;
+  trade.OpenPrice = price;
+  trade.OrderType = operation;
+  trade.Symbol = broker.NormalizeSymbol(Symbol());
+  trade.LotSize = _pendingLotSize;
+  trade.Reference = __FILE__;
+  if (PositionSizer) {
+    Print(__FUNCTION__,": call **CalcTradeSize(",stopLoss,",",PercentRiskPerPosition,")");
+    trade.LotSize = CalcTradeSize(account,stopLoss,PercentRiskPerPosition);      // smz
+  }
+  if(trade.LotSize == 0) {
+    Position * lastTrade = broker.FindLastTrade();
+    if (lastTrade != NULL) trade.LotSize = lastTrade.LotSize;
+    if(CheckPointer(lastTrade) == POINTER_DYNAMIC) {
+      delete(lastTrade);
+    }
+    if(trade.LotSize == 0 && DEBUG_ORDER) {
+      Print("Configured LotSize = 0 and no historical order found.  LotSize is 0");
+    }
+  }
+  if(DEBUG_ORDER) {
+    Print("About to place pending order: Symbol=" +trade.Symbol + " Price = " + DoubleToStr(trade.OpenPrice));
+  }
+  broker.CreateOrder(trade);
+  delete(trade);
 }
 //+------------------------------------------------------------------+
 //| Create the button                                                |
@@ -1726,61 +1726,40 @@ void SetLockIn(Position *trade)
   //trade.StopPrice
 }
 
-
-
-//+---------------------------------------------------------------------------+
-//| The function calculates the postion size based on stop loss level, risk   |
-//| per trade and account balance.                                                               |
-//+---------------------------------------------------------------------------+
-/**
-double CalcTradeSize_old() {
-  if (DEBUG_ANALYTICS) {
-    string str = "Calculating position sizing" + "\n" +
-                 "Account equity = " + string(AccountEquity()) + "\n" +
-                 "Account free margin = " + string(AccountFreeMargin()) + "\n" +
-                 "Account credit= " + string(AccountCredit()) + "\n" +
-                 "Account leverage = " + string(AccountLeverage()) + "\n" +
-                 "Account margin = " + string(AccountMargin()) + "\n" +
-                 "Account profit = " + string(AccountProfit()) + "\n" +
-                 "Account stopout mode = " + string(AccountStopoutMode()) + "\n" +
-                 "Account stopout level = " + string(AccountStopoutLevel()) + "\n" +
-                 "Account balance = " + string(AccountBalance());
-    Debug(str);
-  }
-
-  double dollarRisk = (AccountFreeMargin()+ LockedInProfit()) * PercentRiskPerPosition;
-
-  //double nTickValue=MarketInfo(Symbol(),MODE_TICKVALUE);
-  double LotSize = dollarRisk /(stopLoss * BaseCcyTickValue);
-  LotSize = LotSize * Point;
-  LotSize=MathRound(LotSize/MarketInfo(Symbol(),MODE_LOTSTEP)) * MarketInfo(Symbol(),MODE_LOTSTEP);
-  int stopLossPips  = int(stopLoss / Point * PipAdj);
-
-  ShowSymbolProperties();
-  //If the digits are 3 or 5 we normalize multiplying by 10
-  //if(Digits==3 || Digits==5) {
-    //nTickValue=nTickValue*10;
-    //stopLossPips = stopLossPips / 10;
-  //}  
+void SetStrategy() {
+  const string tradeType = GetTradeType();
+  if(tradeType == "CDM")
+    strategyLabel.setText("YL");
+  else if(tradeType == "Range")
+    strategyLabel.setText("RBO");
+  else
+    strategyLabel.setText(tradeType);
   
-  Debug("Account free margin = " + string(AccountFreeMargin()) + "\n"
-        "point value in the quote currency = " + DoubleToString(Point,5) + "\n"
-        "broker lot size = " + string(MarketInfo(Symbol(),MODE_LOTSTEP)) + "\n"
-        "PercentRiskPerPosition = " + string(PercentRiskPerPosition*100.0) + "%" + "\n"
-        "dollarRisk = " + string(dollarRisk) + "\n"
-        "stop loss = " + string(stopLoss) +", " + string(stopLossPips) + " pips" + "\n"
-        "locked in = " + string(LockedInPips()) + "(pips)\n"
-        "LotSize = " + string(LotSize) + "\n"
-        "Ask = " + string(Ask) + "\n"
-        "Bid = " + string(Bid) + "\n"
-        "Close = " + string(Close[0]) + "\n"
-        "MarketInfo(Symbol(),MODE_TICKVALUE) = " + string(MarketInfo(Symbol(),MODE_TICKVALUE)));
-  return(LotSize);
 }
-**/
 
-// show trade info for dev info
-//
+void DrawStartOfDay() {
+  double Rpips = stopLoss * decimal2points_factor(normalizedSymbol);    //    CalculateStop(normalizedSymbol);
+  Print(__FUNCTION__,": stopLoss=",stopLoss," dec2pt=",decimal2points_factor(normalizedSymbol)," Rpips=",Rpips);
+  double size = CalcTradeSize(account,stopLoss,PercentRiskPerPosition);   //     CalcTradeSize(Rpips);   // *AdjPoint);
+  string label_str = PairAbrevation(normalizedSymbol) + "  -  " + string(Rpips) + "  -  " + DoubleToString(size,2);
+        
+  string labelName = Prefix + "Legend";
+  if (ObjectFind(0, labelName) == 0) ObjectDelete(0, labelName);
+  ObjectCreate(labelName, OBJ_LABEL, 0, 0, 0);
+  ObjectSetText(labelName,label_str,10, "Verdana", Red);
+  ObjectSet(labelName, OBJPROP_CORNER, 1);
+  ObjectSet(labelName, OBJPROP_XDISTANCE, 150);
+  ObjectSet(labelName, OBJPROP_YDISTANCE, 5);
+}
 
-
-
+string PairAbrevation(string pair) {
+  string lookup = ";EURUSD/EU;AUDUSD/AU;AUDJPY/AJ;CADJPY/CJ;GBPJPY/GJ;GBPUSD/GU;EURJPY/EJ;USDJPY/UJ;USDCAD/CAD;USDCHF/CHF;NZDUSD/NU";
+  string rtn = "DNK";
+  int pos = StringFind(lookup, pair, 0);
+  if (pos > 0) {
+    int slashPosition = StringFind(lookup, "/", pos) + 1;
+    int endPosition = StringFind(lookup, ";", slashPosition);
+    rtn = StringSubstr(lookup, slashPosition,endPosition-slashPosition);
+  }
+  return rtn;
+}
