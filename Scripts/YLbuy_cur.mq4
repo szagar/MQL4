@@ -27,5 +27,6 @@ void OnStart() {
   broker = new Broker();
   account = new Account();
   cdmLong(account, broker, barOffset);
+  if (CheckPointer(account) == POINTER_DYNAMIC) delete account;
   if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
 }

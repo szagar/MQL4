@@ -9,7 +9,7 @@
 #include <zts\Broker.mqh>
 #include <zts\Account.mqh>
 #include <zts\oneR.mqh>
-//#include <zts\trade_type.mqh>
+#include <zts\trade_type.mqh>
 #include <zts\common.mqh>
 #include <zts\yellow_line.mqh>
 
@@ -20,10 +20,10 @@
 void OnStart() {
   Broker *broker;
   Account *account;
-  int barOffset = 1; 
+  int barOffset = 0; 
   broker = new Broker();
   account = new Account();
-  cdmLong(account, broker, barOffset);
+  stalkYellowLine(account, broker, barOffset);
   if (CheckPointer(account) == POINTER_DYNAMIC) delete account;
   if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
 }

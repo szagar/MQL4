@@ -17,13 +17,29 @@
 class Broker
   {
 private:
-   int startingPos;
-   string symbolPrefix;
-   string symbolSuffix;
+  int startingPos;
+  string symbolPrefix;
+  string symbolSuffix;
+  color cancelColor;
+
+  bool GetPendingLimitBuyOrder();
+  bool GetPendingLimitOrder(int);
+  bool CancelEntryLimit(int);
+  
+  bool GetPendingBuyOrderLimitPrice();
+  bool GetPendingSellOrderLimitPrice();
+  bool GetPendingOrderLimitPrice(int);
+
+
 public:
   Broker(int symbolOffset = 0);
   ~Broker();
   string TypeName;
+
+  bool UpdateEntryLimit(double);
+  bool CancelEntryBuyLimit();
+  bool CancelEntrySellLimit();
+
   virtual int GetNumberOfOrders() {
     return OrdersTotal();
   }
@@ -72,7 +88,7 @@ public:
     for(int i=OrdersTotal()-1; i>=0; i--) {
       if ( OrderSelect(i, SELECT_BY_POS) )
         if(OrderSymbol() == Symbol())
-          Print(__FUNCTION__,": exit long here");
+          Print(__FUNCTION__,": WRITE CODE --- exit long here");
     }
   }
   
@@ -147,6 +163,7 @@ public:
 //+------------------------------------------------------------------+
 Broker::Broker(int symbolOffset = 0) {
   TypeName = "RealBroker";
+  cancelColor = clrPeru;
   startingPos = symbolOffset;
   string symbol = Symbol();
   if(symbolOffset == 0)
@@ -162,5 +179,62 @@ Broker::~Broker() {
 }
 //+------------------------------------------------------------------+
 
+bool Broker::GetPendingBuyOrderLimitPrice() {
+  bool ret = GetPendingOrderLimitPrice(OP_BUYLIMIT);
+  return(ret);
+}
 
+bool Broker::GetPendingSellOrderLimitPrice() {
+  bool ret = GetPendingOrderLimitPrice(OP_SELLLIMIT);
+  return(ret);
+}
+bool Broker::GetPendingOrderLimitPrice(int side=OP_BUYLIMIT||OP_SELLLIMIT) {
+  for(int i=OrdersTotal()-1; i>=0; i--) {
+    if ( OrderSelect(i, SELECT_BY_POS) )
+      if(OrderSymbol() == Symbol())
+        if(OrderType() && side)
+          return(OrderOpenPrice());
+  }
+  return(0);
+}
 
+bool Broker::GetPendingLimitOrder(int side=OP_BUYLIMIT||OP_SELLLIMIT) {
+  for(int i=OrdersTotal()-1; i>=0; i--) {
+    if ( OrderSelect(i, SELECT_BY_POS) )
+      if(OrderSymbol() == Symbol())
+        if(OrderType() && side)
+          return(OrderTicket());
+  }
+  return(0);
+}
+
+bool Broker::CancelEntryBuyLimit() {
+  bool ret = CancelEntryLimit(OP_BUYLIMIT);
+  return(ret);
+}
+
+bool Broker::CancelEntrySellLimit() {
+  bool ret = CancelEntryLimit(OP_SELLLIMIT);
+  return(ret);
+}
+
+bool Broker::CancelEntryLimit(int side=OP_BUYLIMIT||OP_SELLLIMIT) {
+  int tradeId = GetPendingLimitOrder(side);
+  if(tradeId > 0) {
+    bool ret=OrderDelete(tradeId,cancelColor);
+    return(true);
+  }
+  return(false);
+}
+
+/**
+bool Broker::UpdateEntryBuyLimit(double _px) {
+  int tradeId = GetPendingBuyLimitBuyOrder();
+  if(tradeId > 0) {
+    bool ret=OrderModify(tradeId,_px);
+    reutrn(true);
+  }
+  Warn(__FUNCTION__+": Could not update limit order for entry");
+  return(false);
+}
+**/

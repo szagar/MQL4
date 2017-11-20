@@ -17,23 +17,70 @@
 #include <zts\common.mqh>
 #include <zts\order_tools.mqh>
 #include <zts\position_sizing.mqh>
+#include <zts\TradeStatus.mqh>
+
+
 string Prefix = "PAT_";
 //Broker * broker;
 
+
+void stalkYellowLine(Account *account, Broker *broker, int offset=1) {
+  double priceLevel;
+  int action;
+  bool submit = false;
+  TradeStatus *ts;
+  ts = new TradeStatus();
+  ts.loadFromChart();
+  if(ts.setupType!="CDM"){
+    Print(__FUNCTION__,": most be in CDM to stalk Yellow Line");
+    if (CheckPointer(ts) == POINTER_DYNAMIC) delete ts;
+      return;
+  }
+  if(ts.side=="Long") {
+    priceLevel = iLow(NULL,0,offset);
+    Print("***** "+ts.setupType+" priceLevel="+priceLevel+" ylLevel="+ts.yellowLineLevel+"  side="+ts.side);
+    if(priceLevel > ts.yellowLineLevel) submit = true;
+    action = OP_BUYLIMIT;
+  }
+  else if(ts.side=="Short") {
+    priceLevel = iHigh(NULL,0,offset);
+    Print("***** "+ts.setupType+" priceLevel="+priceLevel+" ylLevel="+ts.yellowLineLevel+"  side="+ts.side);
+    if(priceLevel < ts.yellowLineLevel) submit = true;
+    action = OP_SELLLIMIT;
+  }
+  else {
+    Warn("Side not recognized: "+ts.side+__FUNCTION__);
+  }
+  if(submit) {
+    ClosePendingLimitOrders(Symbol());
+    CreatePendingLimitOrder(account, broker, priceLevel, action);
+  }
+  //SetTradeTypeObj("CDM");
+  if (CheckPointer(ts) == POINTER_DYNAMIC) delete ts;
+}
+
 void cdmLong(Account *account, Broker *broker, int offset=1) {
   double priceLevel = iLow(NULL,0,offset);
+  TradeStatus *ts;
+  ts = new TradeStatus();
+  ts.SetSetup("CDM","Long",string(priceLevel));
   PlotYellowLine(priceLevel);
   ClosePendingLimitOrders(Symbol());
   CreatePendingLimitOrder(account, broker, priceLevel, OP_BUYLIMIT);
-  SetTradeTypeObj("CDM");
+  //SetTradeTypeObj("CDM");
+  if (CheckPointer(ts) == POINTER_DYNAMIC) delete ts;
 }
 
 void cdmShort(Account *account, Broker *broker, int offset=1) {
   double priceLevel = iHigh(NULL,0,offset);
+  TradeStatus *ts;
+  ts = new TradeStatus();
+  ts.SetSetup("CDM","Short",string(priceLevel));
   PlotYellowLine(priceLevel);
   ClosePendingLimitOrders(Symbol());
   CreatePendingLimitOrder(account, broker, priceLevel, OP_SELLLIMIT);
-  SetTradeTypeObj("CDM");
+  //SetTradeTypeObj("CDM");
+  if (CheckPointer(ts) == POINTER_DYNAMIC) delete ts;
 }
 
 void PlotYellowLine(double priceLevel, int barShift = 1) {

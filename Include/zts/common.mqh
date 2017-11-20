@@ -57,3 +57,10 @@ int LogLevel = LOG_INFO;
 void SetLogLevel(int level) {
   LogLevel = level;
 }
+
+/**
+enum ENUM_PERSISTER {
+  GlobalVar,
+  File
+ }; 
+ **/ 
