@@ -59,6 +59,9 @@ void TradeStatus::Decode(string str) {
 }
 
 void TradeStatus::loadFromChart() {
+  if(!StatusObjExists()) {
+    return;
+  }
   string txt = ObjectGetString(MyChartId,StatusObjName,OBJPROP_TEXT);
   int error=GetLastError();
   if (error==4202) {

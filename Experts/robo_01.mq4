@@ -15,6 +15,7 @@
 #include <zts\bar_tools.mqh>
 #include <zts\Broker.mqh>
 #include <zts\Account.mqh>
+#include <zts\RiskManager.mqh>
 #include <zts\LabelBase.mqh>
 #include <zts\OrderReliable.mqh>
 #include <zts\help_tools.mqh>
@@ -91,7 +92,7 @@ extern bool AccountForSpreadOnPendingBuyOrders = true;
 extern double PendingLotSize = 0.0;
 extern bool CancelPendingTrades = true;
 extern string TimingRelatedVariables = "===Timing Related Configuration===";
-extern int EndOfDayOffsetHours = 0;
+extern int EndOfDayOffsetHours = 2;
 extern int BeginningOfDayOffsetHours = 0;
 extern string ConfigureScreenShotCapture = "===Configure Screen Shot Capture===";
 extern bool CaptureScreenShotsInFiles = true;
@@ -381,6 +382,7 @@ void HeartBeat(int TimeFrame=PERIOD_H1)
   //------------------------------------------------------
 
 void Initialize() {
+  Print("==================== Initialize ====================");
   lastUpdateTime = 0;
   double updateVar;
   if (GlobalVariableCheck(LASTUPDATENAME)) {
@@ -391,6 +393,7 @@ void Initialize() {
 
   broker = new Broker(_pairOffsetWithinSymbol);
   account = new Account();
+  RiskManager *riskMgr = new RiskManager(1,1);
   strategyLabel = new LabelBase("strategyLabel",350,5);
   strategyLabel.setText("strategy");
   
@@ -406,7 +409,8 @@ void Initialize() {
   PrintConfigValues();
   normalizedSymbol = broker.NormalizeSymbol(Symbol());
   saveFileName = Prefix + normalizedSymbol + "_SaveFile.txt";
-  stopLoss = robo.oneRpips;
+  stopLoss = riskMgr.oneR(normalizedSymbol);    //robo.oneRpips;
+  Print("============ stopLoss=",stopLoss," ================");
   noEntryPad = _minNoEntryPad * OnePoint;
   MqlDateTime dtStruct;
   TimeToStruct(TimeCurrent(), dtStruct);
@@ -1364,6 +1368,20 @@ void AddActiveTradeId(int tradeId) {
     activeTradeIdsArraySize *= 2;
   }
   activeTradeIdsThisTick[totalActiveTradeIdsThisTick++] = tradeId;
+  
+  PrintOpenPosition();
+}
+
+void PrintOpenPosition() {
+  Print("========== ",__FUNCTION__);
+  for(int jx=0; jx<totalActiveTradeIdsThisTick; jx++) {
+    int tradeId = activeTradeIdsThisTick[jx];
+    if(OrderSelect(12470, SELECT_BY_TICKET)==true) {
+      Print("========== ",OrderSymbol()," :: ",OrderLots());
+    }
+    else
+      Print("=========== OrderSelect returned the error of ",GetLastError());
+  }
 }
 
 
@@ -1738,10 +1756,11 @@ void SetStrategy() {
 }
 
 void DrawStartOfDay() {
+  Print("=============== DrawStartOfDay =================");
   double Rpips = stopLoss * decimal2points_factor(normalizedSymbol);    //    CalculateStop(normalizedSymbol);
   Print(__FUNCTION__,": stopLoss=",stopLoss," dec2pt=",decimal2points_factor(normalizedSymbol)," Rpips=",Rpips);
   double size = CalcTradeSize(account,stopLoss,PercentRiskPerPosition);   //     CalcTradeSize(Rpips);   // *AdjPoint);
-  string label_str = PairAbrevation(normalizedSymbol) + "  -  " + string(Rpips) + "  -  " + DoubleToString(size,2);
+  string label_str = PairAbbrevation(normalizedSymbol) + "  -  " + string(Rpips) + "  -  " + DoubleToString(size,2);
         
   string labelName = Prefix + "Legend";
   if (ObjectFind(0, labelName) == 0) ObjectDelete(0, labelName);
@@ -1752,7 +1771,7 @@ void DrawStartOfDay() {
   ObjectSet(labelName, OBJPROP_YDISTANCE, 5);
 }
 
-string PairAbrevation(string pair) {
+string PairAbbrevation(string pair) {
   string lookup = ";EURUSD/EU;AUDUSD/AU;AUDJPY/AJ;CADJPY/CJ;GBPJPY/GJ;GBPUSD/GU;EURJPY/EJ;USDJPY/UJ;USDCAD/CAD;USDCHF/CHF;NZDUSD/NU";
   string rtn = "DNK";
   int pos = StringFind(lookup, pair, 0);
