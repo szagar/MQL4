@@ -7,7 +7,7 @@
 #property link      "https://www.mql5.com"
 #property strict
 
-#include <Position.mqh>
+#include <zts\Position.mqh>
 #include <zts\Broker.mqh>
 //#include <errordescription.mqh>
 #include <zts\oneR.mqh>
@@ -18,7 +18,7 @@
 #include <zts\order_tools.mqh>
 #include <zts\position_sizing.mqh>
 #include <zts\TradeStatus.mqh>
-
+#include <zts\MagicNumber.mqh>
 
 string Prefix = "PAT_";
 //Broker * broker;
@@ -102,20 +102,23 @@ void PlotHorizontalSegment(datetime timeStart, datetime timeEnd, double priceLev
 void CreatePendingLimitOrder(Account *account, 
                              Broker *broker, 
                              double limitPrice, int operation, bool allowForSpread=false, int margin=0, int spread=0) {
+  MagicNumber *magic = new MagicNumber();
   string normalizedSymbol = broker.NormalizeSymbol(Symbol());
   Position * trade = new Position();
+  int oneR = LookupStopPips(normalizedSymbol);
+  double stopLoss =  oneR * OnePoint;
+  trade.LotSize = CalcTradeSize(account,stopLoss);
   trade.IsPending = true;
   trade.OpenPrice = limitPrice;
   trade.OrderType = operation;
   trade.Symbol = broker.NormalizeSymbol(Symbol());
   trade.Reference = __FILE__;
-  
-  double stopLoss = LookupStopPips(normalizedSymbol) * OnePoint;
-  trade.LotSize = CalcTradeSize(account,stopLoss);
-  
+  trade.Magic = magic.get("CDM",oneR);
+  Debug("=====>Trade.magic="+trade.Magic);
   //SetTradeTypeObj("CMD");
   broker.CreateOrder(trade);
-  delete(trade); 
+  if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
+  if (CheckPointer(magic) == POINTER_DYNAMIC) delete magic;
 }
 
 //+---------------------------------------------------------------------------+

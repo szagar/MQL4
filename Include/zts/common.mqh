@@ -48,7 +48,10 @@ double BaseCcyTickValue = MarketInfo(Symbol(),MODE_TICKVALUE); // Tick value in 
 
   void Warn(string msg) { if(WARN()) LOG("WARN",msg); }
   void Info(string msg) { if(INFO()) LOG("INFO",msg); }
-  void Debug(string msg) { if(DEBUG()) LOG("DEBUG",msg); }
+  void Debug(string msg) { if(DEBUG()) 
+    Alert(msg); 
+    LOG("DEBUG",msg); 
+  }
   void Zalert(string msg) { LOG("ALERT",msg); Alert(msg);}
 #endif
 

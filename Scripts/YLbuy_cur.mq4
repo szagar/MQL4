@@ -7,13 +7,13 @@
 #property strict
 
 
-#include <Position.mqh>
+//#include <zts\Position.mqh>
 #include <zts\Broker.mqh>
 #include <zts\Account.mqh>
 //#include <errordescription.mqh>
-#include <zts\oneR.mqh>
-#include <zts\trade_type.mqh>
-#include <zts\common.mqh>
+//#include <zts\oneR.mqh>
+//#include <zts\trade_type.mqh>
+//#include <zts\common.mqh>
 #include <zts\yellow_line.mqh>
 
 //string Prefix = "PAT_";

@@ -7,7 +7,7 @@
 #property link      "http://nohypeforexrobotreview.com"
 #property version   "1.00"
 #property strict
-#include <Position.mqh>
+#include <zts\Position.mqh>
 #include <zts\OrderReliable.mqh>
 #include <zts\common.mqh>
 
@@ -48,6 +48,16 @@ public:
     return (GetPosition());
   }
 
+  void modifyStopLoss(int TicketID, double price) {
+    if(!OrderSelect(TicketID,SELECT_BY_TICKET)) {
+      Warn(__FUNCTION__+": could not select ticket");
+      return;
+    }
+    if(!OrderModify(OrderTicket(), OrderOpenPrice(), NormalizeDouble(price,Digits), OrderTakeProfit(), 0, Pink))
+                    Warn(OrderSymbol() +" (OrderModify Error) "+ ErrorDescription(GetLastError()));
+  }
+  
+
   virtual void SelectOrderByPosition(int position) {
     if(!OrderSelect(position, SELECT_BY_POS))
       Warn(__FUNCTION__+": OrderSelect NOT successful!");                        
@@ -71,6 +81,7 @@ public:
     newTrade.StopPrice = OrderStopLoss();
     newTrade.TakeProfitPrice = OrderTakeProfit();
     newTrade.LotSize = OrderLots();
+    newTrade.Magic = OrderMagicNumber();
     return newTrade;
   }
 
@@ -131,7 +142,7 @@ public:
                       trade.StopPrice,  //stop loss
                       trade.TakeProfitPrice,  //take profit
                       trade.Reference,   //smz comment
-                      0);   // magic
+                      trade.Magic);   // magic
   }
 
   virtual void DeletePendingTrade ( Position * trade) {
