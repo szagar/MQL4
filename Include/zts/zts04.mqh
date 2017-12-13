@@ -80,10 +80,11 @@ public:
 
 #include <zts\common.mqh>
 #include <zts\MagicNumber.mqh>
+#include <zts/TradingSessions.mqh>
 
 
 extern string RoboParams = "=== Robo Params ===";
-extern int TradingSession = 2;
+extern Enum_Sessions tradingSession = NewYork;
 extern int EngulfingType = 1;
 extern string ExitParams = "=== Exit Params ===";
 extern int InitStopModel = 0;
@@ -101,6 +102,7 @@ extern int RSIperiod = 3;
 #include <zts\Broker.mqh>
 #include <zts\oneR.mqh>
 #include <zts\position_sizing.mqh>
+#include <zts\TradingSessions.mqh>
 
 extern string _dummy2 = "=== EquityManager Params ===";
 extern int EquityModel = 1;
@@ -115,6 +117,8 @@ private:
   int totalPositions;
   double position;
   string symbol;
+  int dayBarNumber;
+  int sessionBarNumber;
   
   ///int MagicNumber;
   bool useTrailingStop;
@@ -125,6 +129,7 @@ private:
   Broker *broker;
   Describe *about;
   MagicNumber *magic;
+  TradingSessions *session;
   
   void updateStop(string,int);
 
@@ -132,12 +137,15 @@ private:
   //void newYellowLine(string);
   //void setRangeForSession(string);
   //void setRange(datetime, datetime, datetime&[], double&[], double&[]); 
-  void setSessionTime(); 
+  int barsSince(datetime);
+  
   //void setExitStrategy(int);
   //void configExitStrategies();
 public:
-  datetime startTradingSession_GMT;
-  datetime endTradingSession_GMT;
+  datetime startTradingSession_Server;
+  datetime endTradingSession_Server;
+  datetime startTradingDay_Server;
+  datetime endTradingDay_Server;
 
   Robo();
   ~Robo();
@@ -145,7 +153,7 @@ public:
   int OnInit();
   void OnDeinit();
   void OnTick(bool=false);
-  void OnNewBar(bool=false);
+  void OnNewBar();
   
   //void addSetup(int);
   void cleanUpEOD();
@@ -164,6 +172,7 @@ Robo::Robo() {
   broker = new Broker();
   about = new Describe();
   magic = new MagicNumber();
+  session = new TradingSessions(tradingSession);
   symbol = broker.NormalizeSymbol(Symbol());
   //MagicNumber = 1234;
 }
@@ -177,7 +186,23 @@ Robo::~Robo() {
 }
 
 int Robo::OnInit() {
-  setSessionTime();
+  session.setSession(Asia);
+  Alert(session.showSession());
+  Alert(session.showSession(true));
+  session.setSession(London);
+  Alert(session.showSession());
+  Alert(session.showSession(true));
+  session.setSession(LondonClose);
+  Alert(session.showSession());
+  Alert(session.showSession(true));
+  session.setSession(tradingSession);
+  Alert(session.showSession());
+  Alert(session.showSession(true));
+  //setSessionTimes();
+  dayBarNumber = barsSince(startTradingDay_Server);
+  sessionBarNumber = barsSince(startTradingSession_Server);
+  Alert("Bars since start of trading day: "+string(dayBarNumber));
+  Alert("Bars since session start: "+string(sessionBarNumber));
   //configExitStrategies();
   return(0);
 }
@@ -185,10 +210,13 @@ int Robo::OnInit() {
 void Robo::OnDeinit() { }
 void Robo::OnTick(bool tradeWindow) { }
 
-void Robo::OnNewBar(bool tradeWindow) {
-  Debug(" Robo::OnNewBar("+string(tradeWindow)+")");
+void Robo::OnNewBar() {   //bool tradeWindow) {
+  Debug(" Robo::OnNewBar()");    
+  dayBarNumber++;
+  sessionBarNumber++;
+  
   handleOpenPositions();
-  if(tradeWindow) checkForSetups();
+  if(session.tradeWindow()) checkForSetups();
 }
   
 //void Robo::setExitStrategy(int _strategyIndex) { 
@@ -224,32 +252,6 @@ void Robo::checkForSetups() {
 //void Robo::newYellowLine(string side) {
 //}
 
-/*
-void Robo::setRangeForSession(string sessionName) {
-  datetime TimeCopy[];
-  ArrayCopy(TimeCopy, Time, 0, 0, WHOLE_ARRAY);
-  double HighPrices[];
-  ArrayCopy(HighPrices, High, 0, 0, WHOLE_ARRAY);
-  double LowPrices[];
-  ArrayCopy(LowPrices, Low, 0, 0, WHOLE_ARRAY);
-  datetime startTime, endTime;
-
-  startTime = TimeCopy[10];
-  endTime =  TimeCopy[0];
-  
-  if(sessionName=="Asian") {
-    startTime = TimeCopy[10];
-    endTime = TimeCopy[0];
-  } else if(sessionName=="London") {
-    startTime = TimeCopy[10];
-    endTime = TimeCopy[0];
-  } else if(sessionName=="NewYork") {
-    startTime = TimeCopy[10];
-    endTime =  TimeCopy[0];
-  }
-  setRange(startTime, endTime, TimeCopy, HighPrices, LowPrices);
-}
-*/
 
 /*
 void Robo::setRange(datetime start, datetime end, 
@@ -276,33 +278,6 @@ void Robo::setRange(datetime start, datetime end,
 }
 */
 
-void Robo::setSessionTime() {
-  MqlDateTime dtStruct;
-  TimeToStruct(TimeCurrent(), dtStruct);
-  dtStruct.hour = 0;
-  dtStruct.min = 0;
-  dtStruct.sec = 0;
-  // GMT time zone
-  startTradingSession_GMT = StructToTime(dtStruct) + 9*60*60 - TimeGMTOffset();
-  startTradingSession_GMT = StructToTime(dtStruct) + 1*60*60 - TimeGMTOffset();
-  endTradingSession_GMT = StructToTime(dtStruct) + 16*60*60 - TimeGMTOffset();
-  Alert("startTradingSession_GMT=",startTradingSession_GMT);
-  Alert("endTradingSession_GMT=",endTradingSession_GMT);
-  switch(TradingSession) {
-    case 1:   // London 
-      //startTradingSession_GMT = ;
-      //endTradingSession_GMT = ;
-      break;
-    case 2:   // New York
-      break;
-    case 3:   // Asia
-      break;
-    case 4:   // London close
-      break;
-    default:
-      Warn(__FUNCTION__+": sesson ID unknown.");
-  }
-}
 
 /**
 void Robo::configExitStrategies() {
@@ -445,3 +420,8 @@ bool setup_rsi_01() {
   if(rsi>BuyLevel && rsi1<BuyLevel) return true;
   return false;
 }
+
+int Robo::barsSince(datetime from) {
+  int bar = int((iTime(NULL,0,0) - from) / PeriodSeconds());
+  return(bar);
+} 

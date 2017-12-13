@@ -17,67 +17,74 @@ class MagicNumber {
   //               trailing stop:    x,xnx,xxx,xxx
   //               partial profit:   x,xxn,xxx,xxx
   //               one R pips:       x,xxx,nnx,xxx
+  //               entry bar #:      x,xxx,xxn,nxx
 private:
   int magicTemplate;
   int strategyId;
   int trailingStopModel;
   int partialProfitModel;
   int oneR;
+  int barNumber;
   
   int Strategy_mult;
   int TrailingStopModel_mult;
   int PartialProfitModel_mult;
   int OneR_mult;
+  int BarNumber_mult;
 
   int Strategy_digits;
-  int OneR_digits;
   int TrailingStopModel_digits;
   int PartialProfitModel_digits;
+  int OneR_digits;
+  int BarNumber_digits;
   
   string decodeStrategyName(int);
 
   
 public:
-  MagicNumber(int,int,int);
+  MagicNumber();   //(int,int,int);
   ~MagicNumber();
   
-  int get(string="",int=0);
+  int get(string="",int=0,int=0);
   int encodeStrategyName(string);
   int getOneR(int);
+  int getBarNumber(int);
   string getStrategy(int);
 };
 
-MagicNumber::MagicNumber(int _oneR=0,int _trailingStopModel=0,int _partialProfitModel=0) {
-  oneR = _oneR;
-  trailingStopModel = _trailingStopModel;
-  partialProfitModel = _partialProfitModel;
+MagicNumber::MagicNumber() {   //(int _oneR=0,int _trailingStopModel=0,int _partialProfitModel=0) {
+  //oneR = _oneR;
+  //trailingStopModel = _trailingStopModel;
+  //partialProfitModel = _partialProfitModel;
 
   Strategy_mult           = 100000000;
   TrailingStopModel_mult  = 10000000;
   PartialProfitModel_mult = 1000000;
   OneR_mult               = 10000;
+  BarNumber_mult          = 100;
 
   Strategy_digits           = 2;
-  OneR_digits               = 2;
   TrailingStopModel_digits  = 1;
   PartialProfitModel_digits = 1;
+  OneR_digits               = 2;
+  BarNumber_digits          = 2;
   
   magicTemplate = 0;
-  magicTemplate *= oneR * OneR_mult;
-  magicTemplate *= trailingStopModel * TrailingStopModel_mult;
-  magicTemplate *= partialProfitModel * PartialProfitModel_mult;
+  //magicTemplate *= oneR * OneR_mult;
+  //magicTemplate *= trailingStopModel * TrailingStopModel_mult;
+  //magicTemplate *= partialProfitModel * PartialProfitModel_mult;
   
 }
 
 MagicNumber::~MagicNumber() {
 }
 
-int MagicNumber::get(string _strategy="",int _oneR=0) {
+int MagicNumber::get(string _strategy="",int _oneR=0, int _barNumber=0) {
   strategyId = encodeStrategyName(_strategy);
   Debug("strategyId="+string(strategyId));
   Debug("MagicNumber: _strategy="+_strategy+"  _oneR="+string(_oneR)+" magicTemplate="+string(magicTemplate)+" strategyId="+string(strategyId));
   Debug(string(magicTemplate)+" + "+string(strategyId)+"*"+string(Strategy_mult)+" + "+string(_oneR)+"*"+string(OneR_mult));
-  return(magicTemplate + strategyId*Strategy_mult + _oneR*OneR_mult);
+  return(magicTemplate + strategyId*Strategy_mult + _oneR*OneR_mult + _barNumber*BarNumber_mult);
 }
 
 int MagicNumber::encodeStrategyName(string name) {
@@ -110,4 +117,11 @@ int MagicNumber::getOneR(int magicNumber) {
   Print("getOneR: ",magicNumber," => ",rtn);
   Print("return(int((",rtn," % ",int(MathPow(10,OneR_digits)),")*",OnePoint,"));");
   return(int((rtn % int(MathPow(10,OneR_digits)))  ));  //*OnePoint));
+}
+
+int MagicNumber::getBarNumber(int magicNumber) {
+  int rtn = magicNumber / BarNumber_mult;
+  Print("getBarNumber: ",magicNumber," => ",rtn);
+  Print("return(int((",rtn," % ",int(MathPow(10,BarNumber_digits)),")*",OnePoint,"));");
+  return(int((rtn % int(MathPow(10,BarNumber_digits)))  ));
 }
