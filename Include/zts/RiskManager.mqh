@@ -13,16 +13,19 @@ extern int ATRnumBars = 3;
 extern double ATRfactor = 2.7;
 
 #include <zts\account.mqh>
+#include <zts\pip_tools.mqh>
 
 class RiskManager {
 private:
   string symbol;
+  int d2p;                 // decimal to pips conversion factor
   int EquityModel;
   int RiskModel;
   Account *account;
 
   int oneR_calc_PATI();
   double oneR_calc_ATR(int,int);
+  bool checkTrailingStopTrigger();
 
   double availableFunds();
 
@@ -31,7 +34,7 @@ public:
   ~RiskManager();
 
   double oneRpips();
-  double calcStopLoss(string,int);
+  double calcTrailingStopLoss(string,int);
   double getTrailingStop(string,int);
 };
 
@@ -40,6 +43,7 @@ RiskManager::RiskManager(const int _equityModel=1, const int _riskModel=1) {
   EquityModel = _equityModel;
   RiskModel = _riskModel;
   account = new Account();
+  d2p = decimal2points_factor(symbol);
 }
 RiskManager::~RiskManager() {
   if (CheckPointer(account) == POINTER_DYNAMIC) delete account;
@@ -92,7 +96,7 @@ double RiskManager::oneR_calc_ATR(int _period, int _numBars) {
                     _period,     // timeframe
                     _numBars,    // averaging period
                     0);          // shift
-  Debug("MODE_DIGITS="+MarketInfo(symbol, MODE_DIGITS));
+  Debug("MODE_DIGITS="+string(MarketInfo(symbol, MODE_DIGITS)));
   atr = NormalizeDouble(atr, int(MarketInfo(symbol, MODE_DIGITS)-1));
   Alert("atr "+string(_numBars)+" bars. period = "+string(_period)+"  atr="+string(atr));
   /*0    Current timeframe
@@ -123,14 +127,14 @@ double RiskManager::calcStopLoss(string side) {
 }
 */
 
-double RiskManager::calcStopLoss(string side, int oneR) {
+double RiskManager::calcTrailingStopLoss(string side, int oneR) {
   int signAdj = 1;
   double currentPrice = Ask;
   double newTrailingStop = 9999.99;
   double pips;
   //double stopLoss;
   
-  Debug("Side="+side+"  oneR="+oneR+"  Bid = "+Bid+"   Ask="+Ask);
+  Debug("Side="+side+"  oneR="+string(oneR)+"  Bid = "+string(Bid)+"   Ask="+string(Ask));
   if(StringCompare(side,"LONG",false)==0) {
     Debug("Long trade");
     currentPrice = Bid;
@@ -138,7 +142,6 @@ double RiskManager::calcStopLoss(string side, int oneR) {
     newTrailingStop = 0.00;
   }
   
-  Debug("TralingStopModel="+TrailingStopModel);
   switch (TrailingStopModel) {
     case 0:     // No trailing stop
       pips = 0.0;
@@ -147,8 +150,8 @@ double RiskManager::calcStopLoss(string side, int oneR) {
       pips = oneR;
       break;
     case 2:     // current ATR
-      pips = oneR_calc_ATR(ATRperiod,ATRnumBars)*decimal2points_factor(symbol)*3.0;
-      Debug("trailing stop pips = "+pips);
+      pips = oneR_calc_ATR(ATRperiod,ATRnumBars)*decimal2points_factor(symbol)*2.0;
+      Debug("trailing stop pips = "+string(pips));
       break;
     default:
       pips=0;
@@ -156,34 +159,45 @@ double RiskManager::calcStopLoss(string side, int oneR) {
   if(StringCompare(side,"LONG",false)==0) currentPrice = Bid;
   if(StringCompare(side,"SHORT",false)==0) currentPrice = Ask;
   Debug("newTrailingStop = currentPrice + pips * OnePoint * signAdj");
-  Debug(newTrailingStop+" = "+currentPrice+" + "+pips+" * "+OnePoint+" * "+signAdj);
+  Debug(string(newTrailingStop)+" = "+string(currentPrice)+" + "+string(pips)+" * "+string(OnePoint)+" * "+string(signAdj));
   newTrailingStop = currentPrice + pips * OnePoint * signAdj;
-  Debug("newTrailingStop="+newTrailingStop);
-/*
-  if(side == "Long")
-    stopLoss = MathMax(stopLoss,newTrailingStop);
-  else if(side == "Short")
-    stopLoss = MathMin(stopLoss,newTrailingStop);
-  else
-    stopLoss = -1.0;
-*/    
+  Debug("newTrailingStop="+string(newTrailingStop));
+    
   return(newTrailingStop); 
 }
 
 double RiskManager::getTrailingStop(string side, int oneR) {
-  Debug("getTrailingStop:  side="+side+"  oneR="+oneR);
-  double newStopLoss = calcStopLoss(side,oneR);
-  Debug(__FUNCTION__+": side="+side+"   newStopLoss="+newStopLoss);
+  Debug("getTrailingStop:  side="+side+"  oneR="+string(oneR));
+  double newStopLoss = calcTrailingStopLoss(side,oneR);
+  Debug(__FUNCTION__+": side="+side+"   newStopLoss="+string(newStopLoss));
   double currStopLoss = OrderStopLoss();
   if(StringCompare(side,"LONG",false)==0) {
-    Debug("Long: "+newStopLoss+"-"+currStopLoss+" >= "+MinStopLossDeltaPips+" * "+BaseCcyTickValue+" * "+OnePoint); 
+    Debug("Long: "+string(newStopLoss)+"-"+string(currStopLoss)+" >= "+string(MinStopLossDeltaPips)+" * "+string(BaseCcyTickValue)+" * "+string(OnePoint)); 
     if(newStopLoss-currStopLoss >= MinStopLossDeltaPips * BaseCcyTickValue * OnePoint) 
       return(newStopLoss);
   } else if(StringCompare(side,"SHORT",false)==0) {
-    Debug("Short: "+currStopLoss+"-"+newStopLoss+" >= "+MinStopLossDeltaPips+" * "+BaseCcyTickValue+" * "+OnePoint); 
+    Debug("Short: "+string(currStopLoss)+"-"+string(newStopLoss)+" >= "+string(MinStopLossDeltaPips)+" * "+string(BaseCcyTickValue)+" * "+string(OnePoint)); 
     if(currStopLoss-newStopLoss >= MinStopLossDeltaPips * BaseCcyTickValue * OnePoint) 
       return(newStopLoss);
   } else
     Warn("Side: "+side+" NOT known !");
   return(-1);
 }
+
+bool RiskManager::checkTrailingStopTrigger() {
+  // profit trigger
+  d2p = decimal2points_factor(symbol);
+  //if(OrderType()==OP_BUY){
+  //  _buyspips+=(OrderClosePrice()-OrderOpenPrice()) * d2p;
+  //}
+  //if(OrderType()==OP_SELL){
+  //  _sellspips+=(OrderOpenPrice()-OrderClosePrice()) * d2p;
+  //}
+
+  
+  // time trigget
+  //if(nowLocal >= TS_time_trigger)
+  //  useTrailingStop = true;
+
+    return(true);
+  }

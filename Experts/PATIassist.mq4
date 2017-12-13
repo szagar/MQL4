@@ -11,23 +11,27 @@
 
 */
 #ifndef LOG
-  #define LOG(text)  Print(__FILE__,"(",__LINE__,") :",text)
+  #define LOG(level,text)  Print(__FILE__,"(",__LINE__,") :",text)
 #endif
+
 
 #include <stdlib.mqh>
 #include <stderror.mqh> 
-#include <OrderReliable_2011.01.07.mqh>
+#include <zts\OrderReliable.mqh>
+//#include <OrderReliable_2011.01.07.mqh>
 #include <Assert.mqh>
-#include <Position.mqh>
-#include <Broker.mqh>
+#include <zts\Position.mqh>
+#include <zts\Broker.mqh>
+#include <zts\Account.mqh>
 #include "PTA_Runtests.mqh"
 #include <zts\daily_pips.mqh>
 #include <zts\daily_pnl.mqh>
 #include <zts\trade_tools.mqh>
 #include <zts\position_sizing.mqh>
 //#include <zts\stats_eod.mqh>
-#include <zts\stats_trade.mqh>
+//#include <zts\stats_trade.mqh>
 #include <zts\trade_type.mqh>
+#include <zts\MagicNumber.mqh>
 
 string Title="PATI Trading Assistant"; 
 string Prefix="PTA_";
@@ -96,7 +100,7 @@ extern string ConfigureScreenShotCapture = "===Configure Screen Shot Capture==="
 extern bool CaptureScreenShotsInFiles = true;
 extern string ConfigurePositionSizing = "===Configure Position Sizing===";
 extern bool PositionSizer = true;
-extern double PercentRiskPerPosition = 0.005;
+extern double PercentRiskPerPosition = 0.5;
 extern bool CalcLockIn = true;
 extern string ConfigureOutput = "===Configure Output===";
 //extern string FnEodStats = "DailySummary.csv";
@@ -160,6 +164,9 @@ double stopLoss;
 double noEntryPad;
 Position * activeTrade = NULL;
 Broker * broker;
+Account *account;
+MagicNumber *magic;
+
 int totalActiveTradeIdsThisTick;
 int activeTradeIdsThisTick[]; 
 int activeTradeIdsArraySize = 0;
@@ -224,6 +231,7 @@ void OnDeinit(const int reason) {
      }
    if (CheckPointer(activeTrade) == POINTER_DYNAMIC) delete activeTrade;
    if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
+   if (CheckPointer(magic) == POINTER_DYNAMIC) delete magic;
    
    return;
 }
@@ -386,6 +394,8 @@ void Initialize() {
   //StatsEndOfDay(FnEodStats); 
 
   broker = new Broker(_pairOffsetWithinSymbol);
+  account = new Account();
+  magic = new MagicNumber();
   GVPrefix = NTIPrefix + broker.NormalizeSymbol(Symbol());
   configFileName = Prefix + Symbol() + "_Configuration.txt";
   globalConfigFileName = Prefix + "_Configuration.txt";
@@ -1074,7 +1084,7 @@ void HandleClosedTrade(bool savedTrade = false)
    
        Print("Handling closed trade.  OrderType= " + IntegerToString(activeTrade.OrderType));
        RealizedPipsAllPairs += pips;
-       LOG("Realized PIPs   : " + string(RealizedPipsAllPairs) + "\n" 
+       Warn("Realized PIPs   : " + string(RealizedPipsAllPairs) + "\n" 
              "Digits          : " + Digits + "\n"
              "Point           : " + Point + "\n"
 //             "Trade diff      : " + diff + "\n"
@@ -1083,10 +1093,10 @@ void HandleClosedTrade(bool savedTrade = false)
              "realized Pips   : " + RealizedPipsToday() + "\n"
              "Realized Profits: " + RealizedProfitToday());
        Alert(__FUNCTION__+": checking _writeFileTradeStats("+_writeFileTradeStats+")");
-       if (_writeFileTradeStats) {
-         Alert(__FUNCTION__+": calling WriteTradeStats2File");
-         WriteTradeStats2File(activeTrade);
-       }
+       //if (_writeFileTradeStats) {
+       //  Alert(__FUNCTION__+": calling WriteTradeStats2File");
+       //  WriteTradeStats2File(activeTrade);
+       //}
        if (activeTrade.OrderClosed == 0) return;
      }
      if (_showExit)
@@ -1798,7 +1808,12 @@ void CreatePendingOrdersForRange( double triggerPrice, int operation, bool setPe
    trade.Symbol = broker.NormalizeSymbol(Symbol());
    trade.LotSize = _pendingLotSize;
    trade.Reference = __FILE__;
-   if (PositionSizer) trade.LotSize = CalcTradeSize(PercentRiskPerPosition,stopLoss);      // smz
+   trade.Magic = magic.get("RBO",stopLoss*decimal2points_factor(Symbol()));
+   Print(trade.Magic," = magic.get(RBO,",stopLoss*decimal2points_factor(Symbol()),");");
+   Print(trade.LotSize," = CalcTradeSize(account, ",stopLoss,", ",PercentRiskPerPosition,");");
+   if (PositionSizer) trade.LotSize = CalcTradeSize(account, stopLoss, PercentRiskPerPosition);
+   Print(trade.LotSize," = CalcTradeSize(account, ",stopLoss,", ",PercentRiskPerPosition,");");
+   //if (PositionSizer) trade.LotSize = CalcTradeSize(PercentRiskPerPosition,stopLoss);      // smz
    if (trade.LotSize == 0) 
    {
       Position * lastTrade = broker.FindLastTrade();
@@ -1971,7 +1986,7 @@ double CalcTradeSize_old() {
                  "Account stopout mode = " + string(AccountStopoutMode()) + "\n" +
                  "Account stopout level = " + string(AccountStopoutLevel()) + "\n" +
                  "Account balance = " + string(AccountBalance());
-    LOG(str);
+    Warn(str);
   }
 
   double dollarRisk = (AccountFreeMargin()+ LockedInProfit()) * PercentRiskPerPosition;
@@ -1989,10 +2004,10 @@ double CalcTradeSize_old() {
     stopLossPips = stopLossPips / 10;
   }  
 
-  LOG(string(stopLossPips) + " = " + string(stopLoss) + " / " + string(Point) + " / " + string(nTickValue));
+  Warn(string(stopLossPips) + " = " + string(stopLoss) + " / " + string(Point) + " / " + string(nTickValue));
   
   
-  LOG("Account free margin = " + string(AccountFreeMargin()) + "\n"
+  Warn("Account free margin = " + string(AccountFreeMargin()) + "\n"
         "point value in the quote currency = " + DoubleToString(Point,5) + "\n"
         "broker lot size = " + string(MarketInfo(Symbol(),MODE_LOTSTEP)) + "\n"
         "PercentRiskPerPosition = " + string(PercentRiskPerPosition*100.0) + "%" + "\n"

@@ -37,7 +37,9 @@ double BaseCcyTickValue = MarketInfo(Symbol(),MODE_TICKVALUE); // Tick value in 
 
 #ifndef LOGGING
 #define LOGGING
+#ifndef LOG
 #define LOG(level,text)  Print(__FILE__,"(",__LINE__,") :",text)
+#endif
 #define LOG_DEBUG 3
 #define LOG_INFO  2
 #define LOG_WARN  1

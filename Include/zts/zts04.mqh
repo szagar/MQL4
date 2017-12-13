@@ -17,21 +17,64 @@ public:
 
 
 //+------------------------------------------------------------------+
-//|                                                        zts03.mqh |
-//|   Trade bullish engulfing after n closing down days.             |
-//|   Enter on high of engulfing bar
-//|   Trade only during specified sessions.                          |
-//|   One R is 1.5 x ATR5                                            |
-//|   Exits: trailing stop of previous bar low                       |
-//|          after 5 bars if profit < 1ATR
-//|   Notes: engulfing type  1: engulfs body
-//|                          2: engulfs candle
-//|                          3: engulfs body & wick
-//|                          4: engulfs body & tail
-//|          session   1: London
-//|                    2: New York
-//|                    3: Asia
-//|                    4: London close
+//|                                                        zts04.mqh |
+//|   Trade with Models:
+//|       Market Model:  
+//|               when: before looking for setups
+//|               0 : no check
+//|               1 : Long if close > 200 SMA, Short if close < 200 SMA
+//|       Equity Model: 
+//|               when: before looing for setups
+//|               1 : current free margin
+//|       Position Size Model: 
+//|               when: before trade setup
+//|               1 : 0.01 lots
+//|               2 : (Equity * PercentRiskPerPos) / 1Rpips
+//|       Setup Model: 
+//|               when: for each new bar, after market checked for L/S conditions
+//|       Entry Model:                                                                      EntryModel=0
+//|               when: after setup model confirms trade condition
+//|               0 : enter now, Long at ask, Short at bid
+//|               1 : enter on pullback to previous bar's H/L (bar offset)                  EntryPBbarOffset=1
+//|               2 : enter on RBO of current session (pip offset)                          EntryRBOpipOffset=1
+//|       Risk Model: 
+//|         Stop Trading Model(1R): 
+//|               when : before checking for new trades
+//|               0/1 : no new trades if current real + unreal pnl is >                     MaxDailyRiskPips
+//|               0/1 : no new trades if number of open positions >= N trades (ntrades=6)   MaxConcurrentPositions
+//|         Initial Risk Model(1R):                                                         RiskOneR=1
+//|               when: before trade setu                                                   RiskATRmultiplier=2.7
+//|               1 : PATI static pips                                                      RiskATRperiod=0
+//|               2 : ATR(multiplier, ATRperiod, number periods)                            RiskATRnumPeriods=14
+//|               3 : moving average(type,period,buffer pips)                               RiskMAtype=EMA|SMA
+//|                                                                                         RiskMAperiod=10
+//|                                                                                         RiskMAplusPips=2
+//|         Rsik Thresholds Model(1R): 
+//|               when: before trade setup
+//|               * percent risk per position                                              PercentRiskPerPos=0.5
+//|               * daily risk level in pips                                               MaxDailyRiskPips=50
+//|               
+//|       Exit Model: 
+//|         Partial Profit Model:                                                          ExitPartialProfit=0
+//|               0 : full exit
+//|               1 : 1st profitable target is 1/2 position
+//|         Time Exit Model:                                                               TimeExitModel=0
+//|               when: for each new bar
+//|               0 : no time exit                                                         
+//|               1 : at number of bars after entry (N bars)                               TimeExitEntryBars=0
+//|               2 : at N bars after current session (N bars)                             TimeExitSessionBars=0
+//|               3 : at hh:mm (exit time)                                                 TimeExitTime
+//|         Trailing Stop Model:                                                            TrailingStopModel=0
+//|               when: for each new bar
+//|               0 : no trailing stop
+//|               1 : trail at previous bar H/L                                           TrailingStopATRmultiplier=2.7
+//|               2 : trail at N * ATR (muliplier, ATR period, number periods)            TrailingStopATRperiod=D
+//|               3 : trail at 1R                                                         TrailingStopATRnumPeriods=14
+//|         Profit Target Model:                                                          ProfitExitModel=1
+//|               when: for each new bar
+//|               0 : no profit target exit
+//|               1 : at next PATI level
+//|       
 //+------------------------------------------------------------------+
 #property strict
 

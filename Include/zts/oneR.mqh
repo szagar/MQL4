@@ -3,7 +3,7 @@
 //+------------------------------------------------------------------+
 #property strict
 
-int LookupStopPips(string __symbol) {;
+int LookupStopPips(string __symbol) {
   int __defaultStopPips = 12;
   string __exceptionPairs = "EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10";
   

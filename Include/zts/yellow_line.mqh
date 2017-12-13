@@ -25,7 +25,7 @@ string Prefix = "PAT_";
 
 
 void stalkYellowLine(Account *account, Broker *broker, int offset=1) {
-  double priceLevel;
+  double priceLevel=0.0;
   int action;
   bool submit = false;
   TradeStatus *ts;
@@ -38,13 +38,13 @@ void stalkYellowLine(Account *account, Broker *broker, int offset=1) {
   }
   if(ts.side=="Long") {
     priceLevel = iLow(NULL,0,offset);
-    Print("***** "+ts.setupType+" priceLevel="+priceLevel+" ylLevel="+ts.yellowLineLevel+"  side="+ts.side);
+    Print("***** "+ts.setupType+" priceLevel="+string(priceLevel)+" ylLevel="+string(ts.yellowLineLevel)+"  side="+ts.side);
     if(priceLevel > ts.yellowLineLevel) submit = true;
     action = OP_BUYLIMIT;
   }
   else if(ts.side=="Short") {
     priceLevel = iHigh(NULL,0,offset);
-    Print("***** "+ts.setupType+" priceLevel="+priceLevel+" ylLevel="+ts.yellowLineLevel+"  side="+ts.side);
+    Print("***** "+ts.setupType+" priceLevel="+string(priceLevel)+" ylLevel="+string(ts.yellowLineLevel)+"  side="+ts.side);
     if(priceLevel < ts.yellowLineLevel) submit = true;
     action = OP_SELLLIMIT;
   }
@@ -113,8 +113,8 @@ void CreatePendingLimitOrder(Account *account,
   trade.OrderType = operation;
   trade.Symbol = broker.NormalizeSymbol(Symbol());
   trade.Reference = __FILE__;
-  trade.Magic = magic.get("CDM",oneR);
-  Debug("=====>Trade.magic="+trade.Magic);
+  trade.Magic = magic.get("CDM-YL",oneR);
+  Debug("=====>Trade.magic="+string(trade.Magic));
   //SetTradeTypeObj("CMD");
   broker.CreateOrder(trade);
   if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;

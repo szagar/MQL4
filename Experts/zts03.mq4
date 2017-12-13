@@ -6,6 +6,8 @@
 
 extern string General = "=== " + __FILE__ + " ===";
 extern int Tbd = 1;
+extern bool GoLong = true;
+extern bool GoShort = false;
 
 #include <zts\zts03.mqh>
 #include <zts\stats_eod.mqh>
@@ -35,8 +37,8 @@ int OnInit() {
   dtStruct.sec = 0;
   endOfDayServer = StructToTime(dtStruct) + 24*60*60;
   startOfDayServer = StructToTime(dtStruct);
-  endOfDayLocal = StructToTime(dtStruct) + 17*60*60;         // 9am NY
-  startOfDayLocal = StructToTime(dtStruct) + 9*60*60;;     // 5pm NY
+  endOfDayLocal = StructToTime(dtStruct) + 17*60*60;         // 5pm NY
+  startOfDayLocal = StructToTime(dtStruct) + 9*60*60;;       // 9am NY
   Alert("endOfDayServer = " + string(endOfDayServer));
   Alert("startOfDayServer = " + string(startOfDayServer));
   Alert("endOfDayLocal = " + string(endOfDayLocal));
@@ -52,6 +54,8 @@ int OnInit() {
 void OnDeinit(const int reason) {
   EventKillTimer();
   robo.OnDeinit();
+  if (CheckPointer(robo) == POINTER_DYNAMIC) delete robo;
+
 }
 
 void OnTick() {
@@ -59,8 +63,7 @@ void OnTick() {
   robo.OnTick();   
   if(isNewBar()) {
     Debug("===> New Bar");
-    robo.OnNewBar();
-    if(tradingWindow()) robo.checkForSetups();
+    robo.OnNewBar(tradeWindow());
     if(isLocalEOD()) {
       robo.cleanUpEOD();
       string fname;
@@ -131,19 +134,26 @@ bool isNewBar() {
   return true;
 }
 
-bool tradingWindow() {
+bool tradeWindow() {
    //if(GMToffset >= 24) GMToffset = 0;//Valid Offset range is from 0 to 23
    //StartTime  = HourStart + GMToffset; 
    //if(StartTime > 23) StartTime =HourStart + GMToffset - 24;   
    //StopTime  = HourStop + GMToffset; 
-   //if(StopTime > 23) StopTime = 0;   
+   //if(StopTime > 23) StopTime = 0;
    //Comment( "GMT: ",GMToffset, "           Start: ",StartTime , "          Stop: ",StopTime);
-   datetime StartTime = robo.startTradingSession_GMT;
-   datetime StopTime = robo.endTradingSession_GMT;
+   datetime StartTime = TimeHour(robo.startTradingSession_GMT);
+   datetime StopTime = TimeHour(robo.endTradingSession_GMT);
    Print("GMT: ",StartTime," --> ",TimeCurrent()," --> ",StopTime);
-   if ( (StartTime < StopTime)  && ((TimeHour(TimeCurrent()) < StartTime)  || (TimeHour(TimeCurrent()) >= StopTime)) ) return (FALSE);
+   Debug("1");
+   int currentHour = TimeHour(TimeCurrent());
+   Debug("if ( ("+string(StartTime)+" < "+string(StopTime)+") && (("+string(currentHour)+" < "+string(StartTime)+")  || ("+string(currentHour)+" >= "+string(StopTime)+")) ) return (FALSE)");
+   if ( (StartTime < StopTime)  && (currentHour < StartTime  || currentHour >= StopTime) ) return (FALSE);
+   Debug("2");
    if ( (StartTime > StopTime)  && (TimeHour(TimeCurrent()) < StartTime)  && (TimeHour(TimeCurrent()) >= StopTime) ) return (FALSE);
+   Debug("3");
    if (StopTime  == 0.0) StopTime  = 24;
+   Debug("4");
    if (Hour() == StopTime  - 1.0 && Minute() >= 59) return (FALSE);
+   Debug("5");
 return (TRUE);
 }

@@ -74,25 +74,27 @@ MagicNumber::~MagicNumber() {
 
 int MagicNumber::get(string _strategy="",int _oneR=0) {
   strategyId = encodeStrategyName(_strategy);
-  Debug("strategyId="+strategyId);
-  Debug("MagicNumber: _strategy="+_strategy+"  _oneR="+_oneR+" magicTemplate="+magicTemplate+" strategyId="+strategyId);
-  Debug(magicTemplate+" + "+strategyId+"*"+Strategy_mult+" + "+_oneR+"*"+OneR_mult);
+  Debug("strategyId="+string(strategyId));
+  Debug("MagicNumber: _strategy="+_strategy+"  _oneR="+string(_oneR)+" magicTemplate="+string(magicTemplate)+" strategyId="+string(strategyId));
+  Debug(string(magicTemplate)+" + "+string(strategyId)+"*"+string(Strategy_mult)+" + "+string(_oneR)+"*"+string(OneR_mult));
   return(magicTemplate + strategyId*Strategy_mult + _oneR*OneR_mult);
 }
 
 int MagicNumber::encodeStrategyName(string name) {
-  if(StringCompare(name,"CDM",false)==0) return(1);
+  if(StringCompare(name,"CDM-YL",false)==0) return(1);
   if(StringCompare(name,"RBO",false)==0) return 2;
   if(StringCompare(name,"MOMO",false)==0) return 3;
   if(StringCompare(name,"COD",false)==0) return 4;
+  Print("Strategy ",name," NOT coded for in MagicNumber");
   return 0;
 }
 
 string MagicNumber::decodeStrategyName(int magicNumber) {
+  if(magicNumber == 0) return "";
   int num = magicNumber/Strategy_mult;
-  int den = MathPow(10,Strategy_digits);
-  int id = MathMod(num,den);
-  if(id == 1) return "CDM";
+  int den = int(MathPow(10,Strategy_digits));
+  int id = int(MathMod(num,den));
+  if(id == 1) return "CDM-YL";
   if(id == 2) return "RBO";
   if(id == 3) return "MOMO";
   if(id == 4) return "COD";
@@ -105,5 +107,7 @@ string MagicNumber::getStrategy(int magicNumber) {
 
 int MagicNumber::getOneR(int magicNumber) {
   int rtn = magicNumber / OneR_mult;
-  return(rtn % OneR_digits)*OnePoint;
+  Print("getOneR: ",magicNumber," => ",rtn);
+  Print("return(int((",rtn," % ",int(MathPow(10,OneR_digits)),")*",OnePoint,"));");
+  return(int((rtn % int(MathPow(10,OneR_digits)))  ));  //*OnePoint));
 }

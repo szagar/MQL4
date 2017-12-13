@@ -28,6 +28,7 @@
 // #import
 #include <zts\FakeBroker.mqh>
 #include <zts\FakeAccount.mqh>
+//Account *account;
 //+------------------------------------------------------------------+
 void RunTests()
 {

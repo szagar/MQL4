@@ -152,7 +152,7 @@ static int _OR_err = 0;
 //=============================================================================
 int OrderSendReliable(string symbol, int cmd, double volume, double price,
 					  int slippage, double stoploss, double takeprofit,
-					  string comment, int magic, datetime expiration = 0, 
+					  string comment, int _magic, datetime expiration = 0, 
 					  color arrow_color = CLR_NONE) {
   static bool bridge=false;
   double servers_min_stop;
@@ -169,7 +169,7 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
   if(bridge==true) {
     Print("This broker uses a bridge, bridge = ",bridge," Ln 171");
     Print("bridge = ",bridge," Ln 172, stoploss = ",stoploss,", takeprofit = ",takeprofit);
-    ticket = OrderReSendReliable(symbol, cmd, volume, price, slippage, 0, 0, comment, magic, expiration, arrow_color);
+    ticket = OrderReSendReliable(symbol, cmd, volume, price, slippage, 0, 0, comment, _magic, expiration, arrow_color);
     Print("ticket = ",ticket," Ln 174, stoploss = ",stoploss,", takeprofit = ",takeprofit);
     if(!OrderSelect(ticket, SELECT_BY_TICKET))
       Print(__FUNCTION__,": OrderSelect NOT successful");
@@ -229,7 +229,7 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
     while (!exit_loop) {
       if (IsTradeAllowed()) {
         ticket = OrderSend(symbol, cmd, volume, price, slippage, stoploss, 
-                           takeprofit, comment, magic, expiration, arrow_color);
+                           takeprofit, comment, _magic, expiration, arrow_color);
         err = GetLastError();
         _OR_err = err; 
       } 
@@ -342,7 +342,7 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
         }
         if(bridge==false) {
           ticket = OrderSend(symbol, cmd, volume, price, slippage, 
-                             stoploss, takeprofit, comment, magic, 
+                             stoploss, takeprofit, comment, _magic, 
                              expiration, arrow_color);
           err = GetLastError();
           _OR_err = err;
@@ -351,7 +351,7 @@ int OrderSendReliable(string symbol, int cmd, double volume, double price,
 //        Print("This broker uses a bridge, bridge = ",bridge," Ln 382");
           bridge=true;
 //        Print("bridge = ",bridge," Ln 384, stoploss = ",stoploss,", takeprofit = ",takeprofit);
-          ticket = OrderReSendReliable(symbol, cmd, volume, price, slippage, 0, 0, comment, magic, expiration, arrow_color);
+          ticket = OrderReSendReliable(symbol, cmd, volume, price, slippage, 0, 0, comment, _magic, expiration, arrow_color);
 //        Print("ticket = ",ticket," Ln 386, stoploss = ",stoploss,", takeprofit = ",takeprofit);
           if(!OrderSelect(ticket, SELECT_BY_TICKET))
             Print(__FUNCTION__,": OrderSelect NOT successful");
@@ -1026,7 +1026,7 @@ void OrderReliable_SleepRandomTime(double mean_time, double max_time)
 //=============================================================================
 int OrderReSendReliable(string symbol, int cmd, double volume, double price,
 					  int slippage, double stoploss, double takeprofit,
-					  string comment, int magic, datetime expiration = 0, 
+					  string comment, int _magic, datetime expiration = 0, 
 					  color arrow_color = CLR_NONE) 
 {
   double servers_min_stop;
@@ -1096,7 +1096,7 @@ int OrderReSendReliable(string symbol, int cmd, double volume, double price,
 			if (IsTradeAllowed()) 
 			{
 				ticket = OrderSend(symbol, cmd, volume, price, slippage, stoploss, 
-									takeprofit, comment, magic, expiration, arrow_color);
+									takeprofit, comment, _magic, expiration, arrow_color);
 				err = GetLastError();
 				_OR_err = err; 
 			} 
@@ -1231,7 +1231,7 @@ int OrderReSendReliable(string symbol, int cmd, double volume, double price,
       			price = Bid;
 		         }
             ticket = OrderSend(symbol, cmd, volume, price, slippage, 
-									0, 0, comment, magic, 
+									0, 0, comment, _magic, 
 									expiration, arrow_color);
             err = GetLastError();
    			_OR_err = err;
