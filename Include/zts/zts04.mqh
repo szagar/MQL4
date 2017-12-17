@@ -56,34 +56,39 @@ public:
 //|               
 //|       Exit Model: 
 //|         Partial Profit Model:                                                          ExitPartialProfit=0
-//|               0 : full exit
-//|               1 : 1st profitable target is 1/2 position
+//|               0 : use default
+//|               1 : full exit
+//|               2 : 1st profitable target is 1/2 position
 //|         Time Exit Model:                                                               TimeExitModel=0
 //|               when: for each new bar
-//|               0 : no time exit                                                         
-//|               1 : at number of bars after entry (N bars)                               TimeExitEntryBars=0
-//|               2 : at N bars after current session (N bars)                             TimeExitSessionBars=0
-//|               3 : at hh:mm (exit time)                                                 TimeExitTime
-//|         Trailing Stop Model:                                                            TrailingStopModel=0
+//|               0 : use default                                                         
+//|               1 : no time exit                                                         
+//|               2 : at number of bars after entry (N bars)                               TimeExitEntryBars=0
+//|               3 : at N bars after current session (N bars)                             TimeExitSessionBars=0
+//|               4 : at hh:mm (exit time)                                                 TimeExitTime
+//|         Trailing Stop Model:                                                           TrailingStopModel=0
 //|               when: for each new bar
-//|               0 : no trailing stop
-//|               1 : trail at previous bar H/L                                           TrailingStopATRmultiplier=2.7
-//|               2 : trail at N * ATR (muliplier, ATR period, number periods)            TrailingStopATRperiod=D
-//|               3 : trail at 1R                                                         TrailingStopATRnumPeriods=14
+//|               0 : use default
+//|               1 : no trailing stop
+//|               2 : trail at previous bar H/L                                           TrailingStopATRmultiplier=2.7
+//|               3 : trail at N * ATR (muliplier, ATR period, number periods)            TrailingStopATRperiod=D
+//|               4 : trail at 1R                                                         TrailingStopATRnumPeriods=14
 //|         Profit Target Model:                                                          ProfitExitModel=1
 //|               when: for each new bar
-//|               0 : no profit target exit
-//|               1 : at next PATI level
+//|               0 : use default
+//|               1 : no profit target exit
+//|               2 : at next PATI level
 //|       
 //+------------------------------------------------------------------+
 #property strict
 
 #include <zts\common.mqh>
 #include <zts\MagicNumber.mqh>
-#include <zts/TradingSessions.mqh>
-
+#include <zts\TradingSessions.mqh>
+#include <zts\Trader.mqh>
 
 extern string RoboParams = "=== Robo Params ===";
+extern int MarketModel = 1;
 extern Enum_Sessions tradingSession = NewYork;
 extern int EngulfingType = 1;
 extern string ExitParams = "=== Exit Params ===";
@@ -103,6 +108,8 @@ extern int RSIperiod = 3;
 #include <zts\oneR.mqh>
 #include <zts\position_sizing.mqh>
 #include <zts\TradingSessions.mqh>
+#include <zts\MarketCondition.mqh>
+#include <zts\Trader.mqh>
 
 extern string _dummy2 = "=== EquityManager Params ===";
 extern int EquityModel = 1;
@@ -117,7 +124,7 @@ private:
   int totalPositions;
   double position;
   string symbol;
-  int dayBarNumber;
+
   int sessionBarNumber;
   
   ///int MagicNumber;
@@ -130,22 +137,22 @@ private:
   Describe *about;
   MagicNumber *magic;
   TradingSessions *session;
+  MarketCondition *market;
+  Trader *trader;
   
   void updateStop(string,int);
 
-  //void checkForSetups();
-  //void newYellowLine(string);
-  //void setRangeForSession(string);
-  //void setRange(datetime, datetime, datetime&[], double&[], double&[]); 
+  bool longSetup();
+  bool shortSetup();
   int barsSince(datetime);
+  bool isStartOfNewSession();
   
-  //void setExitStrategy(int);
-  //void configExitStrategies();
 public:
-  datetime startTradingSession_Server;
+  //datetime startTradingSession_Server;
   datetime endTradingSession_Server;
   datetime startTradingDay_Server;
   datetime endTradingDay_Server;
+  int dayBarNumber;
 
   Robo();
   ~Robo();
@@ -159,6 +166,7 @@ public:
   void cleanUpEOD();
   void startOfDay();
   void handleOpenPositions();
+  void updatePendingOrders();
 
   void checkForSetups();
 };
@@ -172,12 +180,17 @@ Robo::Robo() {
   broker = new Broker();
   about = new Describe();
   magic = new MagicNumber();
+  market = new MarketCondition(MarketModel);
   session = new TradingSessions(tradingSession);
+  trader = new Trader();
   symbol = broker.NormalizeSymbol(Symbol());
-  //MagicNumber = 1234;
 }
   
 Robo::~Robo() {
+  if (CheckPointer(trader) == POINTER_DYNAMIC) delete trader;
+  if (CheckPointer(session) == POINTER_DYNAMIC) delete session;
+  if (CheckPointer(market) == POINTER_DYNAMIC) delete market;
+  if (CheckPointer(trader) == POINTER_DYNAMIC) delete trader;
   if (CheckPointer(magic) == POINTER_DYNAMIC) delete magic;
   if (CheckPointer(about) == POINTER_DYNAMIC) delete about;
   if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
@@ -187,23 +200,26 @@ Robo::~Robo() {
 
 int Robo::OnInit() {
   session.setSession(Asia);
-  Alert(session.showSession());
-  Alert(session.showSession(true));
+  session.showAllSessions();
+  session.showAllSessions("gmt");
+  session.showAllSessions("local");
+  Debug(session.showSession());
+  Debug(session.showSession(true));
   session.setSession(London);
-  Alert(session.showSession());
-  Alert(session.showSession(true));
+  Debug(session.showSession());
+  Debug(session.showSession(true));
   session.setSession(LondonClose);
-  Alert(session.showSession());
-  Alert(session.showSession(true));
+  Debug(session.showSession());
+  Debug(session.showSession(true));
   session.setSession(tradingSession);
-  Alert(session.showSession());
-  Alert(session.showSession(true));
+  session.setSession(NYSE);
+  Debug(session.showSession());
+  Debug(session.showSession(true));
   //setSessionTimes();
-  dayBarNumber = barsSince(startTradingDay_Server);
-  sessionBarNumber = barsSince(startTradingSession_Server);
-  Alert("Bars since start of trading day: "+string(dayBarNumber));
-  Alert("Bars since session start: "+string(sessionBarNumber));
-  //configExitStrategies();
+  ///dayBarNumber = barsSince(startTradingDay_Server);
+  dayBarNumber = barsSince(session.startOfDayLocal);
+  sessionBarNumber = barsSince(session.startTradingSession_Server);
+  Debug("Bars since: SOD: "+string(dayBarNumber) + "   Bars since: SOS: "+string(sessionBarNumber));
   return(0);
 }
 
@@ -211,12 +227,35 @@ void Robo::OnDeinit() { }
 void Robo::OnTick(bool tradeWindow) { }
 
 void Robo::OnNewBar() {   //bool tradeWindow) {
-  Debug(" Robo::OnNewBar()");    
+  //Info(" Robo::OnNewBar()");    
+  //Info("Bar: Local: "+string(TimeLocal())+"  Current: "+string(TimeCurrent())+"  GMT:"+string(TimeGMT())+"  Time[0]:"+string(Time[0])+"   SOD: "+string(dayBarNumber) + "   Bars since: SOS: "+string(sessionBarNumber));
+
+  Position *newTrade;
   dayBarNumber++;
   sessionBarNumber++;
+  if(isStartOfNewSession())
+    sessionBarNumber = 1;
+
+  //Info(TimeToString(Time[0])+"Bars since: SOD: "+string(dayBarNumber) + "   Bars since: SOS: "+string(sessionBarNumber));
   
   handleOpenPositions();
-  if(session.tradeWindow()) checkForSetups();
+  updatePendingOrders();
+  if(session.tradeWindow(London)) Info("London session");
+  if(session.tradeWindow(NYSE)) Info("NYSE session");
+  if(session.tradeWindow()) {
+    if(market.canGoLong())
+      if(longSetup()) {
+        newTrade = trader.newTrade();
+        broker.CreateOrder(newTrade);
+        if (CheckPointer(newTrade) == POINTER_DYNAMIC) delete newTrade;
+      }
+    if(market.canGoShort())
+      if(shortSetup()) {
+        newTrade = trader.newTrade();
+        broker.CreateOrder(newTrade);
+        if (CheckPointer(newTrade) == POINTER_DYNAMIC) delete newTrade;
+      }
+  }
 }
   
 //void Robo::setExitStrategy(int _strategyIndex) { 
@@ -357,6 +396,9 @@ void Robo::handleOpenPositions() {
   }
 }
 
+void Robo::updatePendingOrders() {
+}
+
 void Robo::updateStop(string side,int oneR) {
   double newStopLoss;
   Debug("updateStop entered:  side="+side+"   oneR="+string(oneR));
@@ -387,7 +429,7 @@ void Robo::checkForSetups(void) {
     Debug("=====>Trade.magic="+string(trade.Magic));
     broker.CreateOrder(trade);
     if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
-    if (CheckPointer(magic) == POINTER_DYNAMIC) delete magic;
+   // if (CheckPointer(magic) == POINTER_DYNAMIC) delete magic;
   }
 }
 /*
@@ -425,3 +467,19 @@ int Robo::barsSince(datetime from) {
   int bar = int((iTime(NULL,0,0) - from) / PeriodSeconds());
   return(bar);
 } 
+
+bool Robo::longSetup() {
+  return true;
+}
+
+bool Robo::shortSetup() {
+  return true;
+}
+
+bool Robo::isStartOfNewSession() {
+  if(Time[0] >= session.startTradingSession_Server) {
+    session.startTradingSession_Server = session.addDay(session.startTradingSession_Server);
+    return true;
+  }
+  return false;
+}

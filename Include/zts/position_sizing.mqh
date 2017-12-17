@@ -13,27 +13,27 @@
 #include <zts\help_tools.mqh>
 
 double CalcTradeSize(Account *_account, double _stopLoss, double percent2risk=0.5) {
-  Print("Calculating position sizing");
-  Print(__FUNCTION__,"*CalcTradeSize(",_stopLoss,",",percent2risk,")");
+  Debug("Calculating position sizing");
+  Debug(__FUNCTION__+": CalcTradeSize("+string(_stopLoss)+","+string(percent2risk)+")");
   double freeMargin = _account.freeMargin();    //  AccountFreeMargin() 
   double dollarRisk = (freeMargin + LockedInProfit()) * percent2risk/100.0;
   //double oneR = _stopLoss * BaseCcyTickValue * points2decimal_factor(Symbol());
   double oneR = _stopLoss * BaseCcyTickValue;
  
-  Print("percent2risk=",percent2risk);
-  Print("freeMargin=",freeMargin);   // 10,000
-  Print("dollarRisk=",dollarRisk);   // 10,000
-  Print("_stopLoss=",_stopLoss);     // 10
-  Print("BaseCcyTickValue=",BaseCcyTickValue);  // 1
-  Print("OnePoint=",DoubleToString(OnePoint,8));   // 
-  Print("Point=",DoubleToString(Point,8));   // 0.00001
-  Print("points2decimal_factor("+Symbol()+")=",DoubleToString(points2decimal_factor(Symbol()),8));   // 0.00001
-  Print("oneR=",oneR);
+  Debug("percent2risk="+string(percent2risk));
+  Debug("freeMargin="+string(freeMargin));   // 10,000
+  Debug("dollarRisk="+string(dollarRisk));   // 10,000
+  Debug("_stopLoss="+string(_stopLoss));     // 10
+  Debug("BaseCcyTickValue="+string(BaseCcyTickValue));  // 1
+  Debug("OnePoint="+DoubleToString(OnePoint,8));   // 
+  Debug("Point="+DoubleToString(Point,8));   // 0.00001
+  Debug("points2decimal_factor("+Symbol()+")="+DoubleToString(points2decimal_factor(Symbol()),8));   // 0.00001
+  Debug("oneR="+string(oneR));
  
   double lotSize = dollarRisk / oneR * Point;  //    / 100000.0;
-  Print("lotSize=",lotSize);
+  Debug("lotSize="+string(lotSize));
   lotSize=MathRound(lotSize/MarketInfo(Symbol(),MODE_LOTSTEP)) * MarketInfo(Symbol(),MODE_LOTSTEP);
-  Print("lotSize=",lotSize);
+  Debug("lotSize="+string(lotSize));
 
   return(lotSize);
 }

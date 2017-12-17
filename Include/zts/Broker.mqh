@@ -131,7 +131,7 @@ public:
 
   virtual void CreateOrder (Position * trade, string comment="") {
     if (trade.LotSize == 0.0) {
-      Alert("Trade with zero lot size cannot be entered.");
+      Warn("Trade with zero lot size cannot be entered.");
       return;
     }
     OrderSendReliable(symbolPrefix + trade.Symbol + symbolSuffix, 
