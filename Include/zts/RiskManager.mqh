@@ -5,27 +5,29 @@
 
 extern string _dummy1 = "=== RiskManager Params ===";
 extern int RiskModel = 1;
-extern int TrailingStopModel = 2;
+extern Enum_TRAILING_STOP_TYPES TrailingStopModel = 2;
 extern double Percent2risk = 0.5;
 extern double MinStopLossDeltaPips = 2.0;
+extern int TrailingStopBarShift = 1;
 extern ENUM_TIMEFRAMES ATRperiod = 0;
 extern int ATRnumBars = 3;
 extern double ATRfactor = 2.7;
 
 #include <zts\account.mqh>
-#include <zts\pip_tools.mqh>
+//#include <zts\pip_tools.mqh>
 
 class RiskManager {
 private:
   string symbol;
   int d2p;                 // decimal to pips conversion factor
   int EquityModel;
+  int defaultModel;
   int RiskModel;
   Account *account;
 
   int oneR_calc_PATI();
   double oneR_calc_ATR(int,int);
-  bool checkTrailingStopTrigger();
+  //bool checkTrailingStopTrigger();
 
   double availableFunds();
 
@@ -35,7 +37,8 @@ public:
 
   double oneRpips();
   double calcTrailingStopLoss(string,int);
-  double getTrailingStop(string,int);
+  double getTrailingStop(Position *pos, Enum_TRAILING_STOP_TYPES _model=NA);
+  //double getTrailingStop(Position*,int);
 };
 
 RiskManager::RiskManager(const int _equityModel=1, const int _riskModel=1) {
@@ -45,6 +48,7 @@ RiskManager::RiskManager(const int _equityModel=1, const int _riskModel=1) {
   account = new Account();
   d2p = decimal2points_factor(symbol);
 }
+
 RiskManager::~RiskManager() {
   if (CheckPointer(account) == POINTER_DYNAMIC) delete account;
 }
@@ -62,6 +66,7 @@ double RiskManager::oneRpips() {
     default:
       pips=0;
   }
+  Debug2(__FUNCTION__+"("+__LINE__+"): model="+IntegerToString(RiskModel)+"  pips="+string(pips));
   return(pips);
 }
 
@@ -88,6 +93,7 @@ int RiskManager::oneR_calc_PATI() {
      int slashPosition = StringFind(__exceptionPairs, "/", pairPosition) + 1;
      stop =int( StringToInteger(StringSubstr(__exceptionPairs,slashPosition)));
   }
+  Debug2(__FUNCTION__+"("+__LINE__+"): pips="+IntegerToString(stop));
   return stop;
 }
 
@@ -96,20 +102,8 @@ double RiskManager::oneR_calc_ATR(int _period, int _numBars) {
                     _period,     // timeframe
                     _numBars,    // averaging period
                     0);          // shift
-  Debug("MODE_DIGITS="+string(MarketInfo(symbol, MODE_DIGITS)));
   atr = NormalizeDouble(atr, int(MarketInfo(symbol, MODE_DIGITS)-1));
-  Alert("atr "+string(_numBars)+" bars. period = "+string(_period)+"  atr="+string(atr));
-  /*0    Current timeframe
-    PERIOD_M1       1        1 minute
-    PERIOD_M5       5        5 minutes
-    PERIOD_M15     15       15 minutes
-    PERIOD_M30     30       30 minutes
-    PERIOD_H1      60        1 hour
-    PERIOD_H4     240        4 hours
-    PERIOD_D1    1440        1 day
-    PERIOD_W1   10080        1 week
-    PERIOD_MN1  43200        1 month
-  */
+  Info(__FUNCTION__+": atr "+string(_numBars)+" bars. period = "+string(_period)+"  atr="+string(atr));
   return(atr);
 }
 
@@ -127,6 +121,8 @@ double RiskManager::calcStopLoss(string side) {
 }
 */
 
+
+/*
 double RiskManager::calcTrailingStopLoss(string side, int oneR) {
   int signAdj = 1;
   double currentPrice = Ask;
@@ -156,6 +152,7 @@ double RiskManager::calcTrailingStopLoss(string side, int oneR) {
     default:
       pips=0;
   }
+  Info(__FUNCTION__+": model="+IntegerToString(TrailingStopModel)+"  pips="+string(pips));
   if(StringCompare(side,"LONG",false)==0) currentPrice = Bid;
   if(StringCompare(side,"SHORT",false)==0) currentPrice = Ask;
   Debug("newTrailingStop = currentPrice + pips * OnePoint * signAdj");
@@ -165,25 +162,40 @@ double RiskManager::calcTrailingStopLoss(string side, int oneR) {
     
   return(newTrailingStop); 
 }
+*/
 
-double RiskManager::getTrailingStop(string side, int oneR) {
-  Debug("getTrailingStop:  side="+side+"  oneR="+string(oneR));
-  double newStopLoss = calcTrailingStopLoss(side,oneR);
-  Debug(__FUNCTION__+": side="+side+"   newStopLoss="+string(newStopLoss));
-  double currStopLoss = OrderStopLoss();
-  if(StringCompare(side,"LONG",false)==0) {
-    Debug("Long: "+string(newStopLoss)+"-"+string(currStopLoss)+" >= "+string(MinStopLossDeltaPips)+" * "+string(BaseCcyTickValue)+" * "+string(OnePoint)); 
-    if(newStopLoss-currStopLoss >= MinStopLossDeltaPips * BaseCcyTickValue * OnePoint) 
-      return(newStopLoss);
-  } else if(StringCompare(side,"SHORT",false)==0) {
-    Debug("Short: "+string(currStopLoss)+"-"+string(newStopLoss)+" >= "+string(MinStopLossDeltaPips)+" * "+string(BaseCcyTickValue)+" * "+string(OnePoint)); 
-    if(currStopLoss-newStopLoss >= MinStopLossDeltaPips * BaseCcyTickValue * OnePoint) 
-      return(newStopLoss);
-  } else
-    Warn("Side: "+side+" NOT known !");
+double RiskManager::getTrailingStop(Position *pos, Enum_TRAILING_STOP_TYPES _model=NA) {
+  Enum_TRAILING_STOP_TYPES model = (_model == NA ? defaultModel : _model);
+  double currentPrice, newTrailingStop;
+  double currStopLoss=OrderStopLoss();
+  int pips;
+    
+  switch(model) {
+    case PrevHL:
+      pips = (StringCompare(pos.Side,"Long") == 0 ? iLow(NULL,0,TrailingStopBarShift) : iHigh(NULL,0,TrailingStopBarShift));
+      break;
+    case ATR:
+      pips = oneR_calc_ATR(ATRperiod,ATRnumBars)*decimal2points_factor(symbol)*2.0;
+      break;
+    case OneR:
+      pips = pos.OneRpips;
+      break;
+    default:
+      pips=0;
+  }
+  pips = NormalizeDouble(pips,Digits);
+
+  currentPrice = (pos.Side == Long ? Bid : Ask);
+  newTrailingStop = currentPrice + pips * OnePoint * pos.Side;
+
+  if(currStopLoss==0 || (newTrailingStop-currStopLoss)*pos.Side >= MinStopLossDeltaPips * BaseCcyTickValue * OnePoint) {
+    Debug2(__FUNCTION__+"("+__LINE__+"): model="+IntegerToString(RiskModel)+"  pips="+string(pips)+"  "+currStopLoss+"->"+newTrailingStop);
+    return(newTrailingStop);
+  }
   return(-1);
 }
 
+/*
 bool RiskManager::checkTrailingStopTrigger() {
   // profit trigger
   d2p = decimal2points_factor(symbol);
@@ -201,3 +213,4 @@ bool RiskManager::checkTrailingStopTrigger() {
 
     return(true);
   }
+*/

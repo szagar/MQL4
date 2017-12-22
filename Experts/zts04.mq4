@@ -9,6 +9,7 @@ extern bool Testing = false;
 extern int Tbd = 1;
 extern bool GoLong = true;
 extern bool GoShort = false;
+extern double MinReward2RiskRatio = 1.5;
 
 //#include <zts\common.mqh>
 #include <zts\zts04.mqh>
@@ -23,11 +24,9 @@ color TextColor=Goldenrod;
 Robo *robo;
 TradingSessions *session;
 
-//datetime endOfDayServer;
-//datetime startOfDayServer;
-datetime endOfDayLocal;
-datetime startOfDayLocal;
-datetime nowLocal;
+datetime endOfDay;
+datetime startOfDay;
+datetime now;
 
 int OnInit() {
   //EventSetTimer(60);
@@ -41,17 +40,9 @@ int OnInit() {
   dtStruct.hour = 0;
   dtStruct.min = 0;
   dtStruct.sec = 0;
-  //endOfDayServer = StructToTime(dtStruct) + 24*60*60;
-  //startOfDayServer = StructToTime(dtStruct);
-  //Info("Server Day start to end: "+string(startOfDayServer)+" - "+string(endOfDayServer));
-
-  //endOfDayLocal = StructToTime(dtStruct) + 17*60*60;         // 5pm NY
-  //startOfDayLocal = StructToTime(dtStruct) + 9*60*60;;       // 9am NY
-  //Info("Local Day start to end 1: "+string(startOfDayLocal)+" - "+string(string(endOfDayLocal)));
-
-  endOfDayLocal = session.endOfDayLocal;             //StructToTime(dtStruct) + 17*60*60;         // 5pm NY
-  startOfDayLocal = session.startOfDayLocal;         //StructToTime(dtStruct) + 9*60*60;;       // 9am NY
-  Info("Local Day start to end: "+string(startOfDayLocal)+" - "+string(string(endOfDayLocal)));
+  endOfDay = session.endOfDay;             //StructToTime(dtStruct) + 17*60*60;         // 5pm NY
+  startOfDay = session.startOfDay;         //StructToTime(dtStruct) + 9*60*60;;       // 9am NY
+  Info("Day start to end: "+string(startOfDay)+" - "+string(string(endOfDay)));
 
   DrawSystemStatus();
 
@@ -66,15 +57,15 @@ void OnDeinit(const int reason) {
 }
 
 void OnTick() {
-  nowLocal = TimeLocal();
-  //robo.OnTick();   
-  //Info("Tick: Local: "+TimeLocal()+"  Current: "+TimeCurrent()+"  GMT:"+TimeGMT()+"  Time[0]:"+Time[0]);
+  now = TimeCurrent();
+  robo.OnTick();   
+  //Info("Tick: "+TimeLocal()+"  Current: "+TimeCurrent()+"  GMT:"+TimeGMT()+"  Time[0]:"+Time[0]);
   if(isNewBar()) {
     //Info(TimeToString(Time[0]));
     Debug("===> New Bar");
     robo.OnNewBar();     // tradeWindow());
-    if(isLocalEOD()) {
-      //robo.cleanUpEOD();
+    if(isEOD()) {
+      robo.cleanUpEOD();
       string fname;
       fname = __FILE__;
       StringReplace(fname,".mq4","_eodStats.csv");
@@ -82,7 +73,7 @@ void OnTick() {
       StatsEndOfDay(fname);
       cleanUpEOD();
     }
-    if(isLocalSOD()) {
+    if(isSOD()) {
       //robo.startOfDay();
       startOfDay();
     }
@@ -101,22 +92,20 @@ double OnTester() {
   return(ret);
 }
 
-bool isLocalEOD() {
-  if(nowLocal >= endOfDayLocal) {
-    endOfDayLocal = session.addDay(endOfDayLocal);
-    Info("Local EOD bar");
-    Info("New Local EOD: "+string(endOfDayLocal));
+bool isEOD() {
+  if(now >= endOfDay) {
+    endOfDay = session.addDay(endOfDay);
+    Info("EOD bar");
     return(true);
   }
   return(false);
 }
 
-bool isLocalSOD() {
-  if(nowLocal >= startOfDayLocal) {
-    startOfDayLocal = session.addDay(startOfDayLocal);
+bool isSOD() {
+  if(now >= startOfDay) {
+    startOfDay = session.addDay(startOfDay);
     robo.dayBarNumber = 1;
-      Info("Local SOD bar");
-      Info("New Local SOD: "+string(startOfDayLocal));
+      Info("SOD bar");
     return true;
   }
   return(false);

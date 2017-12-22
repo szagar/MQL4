@@ -64,13 +64,8 @@ public:
   string showSession(bool);
   void showAllSessions(string);
   
-  //datetime startTradingDay_Server;
-  //datetime endTradingDay_Server;
-  datetime startOfDayServer;
-  datetime endOfDayServer;
-  
-  datetime startOfDayLocal;
-  datetime endOfDayLocal;
+  datetime startOfDay;
+  datetime endOfDay;
   
   datetime startTradingSession_Server;
   datetime endTradingSession_Server;
@@ -112,11 +107,8 @@ TradingSessions::TradingSessions(Enum_Sessions _tradingSession=NewYork, Enum_Sea
   Info("SanityCheck:  local2serverOffsetHrs="+string(local2serverOffsetHrs));
   Info("SanityCheck:  "+string(local2gmtOffsetHrs)+" + "+string(gmt2serverOffsetHrs)+" = "+string(local2serverOffsetHrs));
   
-  startOfDayServer = StructToTime(dtStruct);
-    endOfDayServer = StructToTime(dtStruct) + 24*60*60;
-
-  startOfDayLocal = StructToTime(dtStruct) + 1*60*60;
-    endOfDayLocal = StructToTime(dtStruct) + 23*60*60;
+  startOfDay = StructToTime(dtStruct) + 1*60*60;;
+    endOfDay = StructToTime(dtStruct) + 23*60*60;
 
 
   /*                  EST                  GMT              */
@@ -189,7 +181,7 @@ void TradingSessions::showAllSessions(string tz = "server") {
   if(StringCompare(tz,"gmt",false)==0)
     adj = -gmt2serverOffset;
   Enum_Sessions save = tradingSession;
-  Info(tz+" ("+adj/60/60+")");
+  Info(tz+" ("+string(adj/60/60)+")");
   for(Enum_Sessions i=0; i<EnumLast; i++ ) {
     setSession(i);
     str = StringFormat("Session: %-16s: %s - %s",EnumToString(i),TimeToStr(startTradingSession_Server+adj),TimeToString(endTradingSession_Server+adj));

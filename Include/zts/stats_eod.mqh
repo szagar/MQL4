@@ -20,7 +20,7 @@ void StatsEndOfDay(string fname="") {
       FileWrite(fh,"LocalDate","LocalTime","SrvrDate","SrvrTime","PIPs","RealPips","UnRealPips","PnL","RealPnL","UnRealPnL","Count","Balance");
     }
     //datetime now = TimeLocal();
-    FileWrite(fh,string(TimeYear(nowLocal)*10000+TimeMonth(nowLocal)*100+TimeDay(nowLocal)),TimeToString(TimeLocal(), TIME_SECONDS),
+    FileWrite(fh,string(TimeYear(now)*10000+TimeMonth(now)*100+TimeDay(now)),TimeToString(TimeCurrent(), TIME_SECONDS),
                  string(Year()*10000+Month()*100+Day()),TimeToString(TimeCurrent(), TIME_SECONDS),
                  DoubleToString(dailyPips_live(),2),
                  DoubleToStr(RealizedPipsToday(),2),

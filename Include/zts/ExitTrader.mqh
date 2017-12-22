@@ -185,7 +185,9 @@ void ExitTrader::trailingStopParams(int model) {
       _tSatrPeriods = 14;
       break;
     case 4:    // trail at 1R
+      Info(__FUNCTION__+"("+__LINE__+")"+": call "+magic.getOneR("+OrderMagicNumber()+");");
       _tSpips = magic.getOneR(OrderMagicNumber());
+         Info(__FUNCTION__+": _tSpips="+string(_tSpips));
       break;
     case 5:    // trail with moving average
       _tSmaType = MODE_SMA;

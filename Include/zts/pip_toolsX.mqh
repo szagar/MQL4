@@ -12,7 +12,7 @@ double pips2dollars(string sym, double pips, double lots) {
    result = pips * lots * (1 / MarketInfo(sym, MODE_POINT)) * MarketInfo(sym, MODE_TICKVALUE);
    return ( result );
 }
-
+ff
 int decimal2points_factor(string sym) {
   int factor = 10000;
   if(StringFind(sym,"JPY",0)>0) factor = 100;         // JPY pairs

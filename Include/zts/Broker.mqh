@@ -70,7 +70,7 @@ public:
 
   virtual Position *GetPosition() {
     Position * newTrade = new Position();
-    newTrade.TicketId = OrderTicket();
+    newTrade.TicketId = OrderTicket();  
     newTrade.OrderType = OrderType();
     newTrade.IsPending = newTrade.OrderType != OP_BUY && newTrade.OrderType != OP_SELL;
     newTrade.Symbol = NormalizeSymbol(OrderSymbol());
@@ -81,6 +81,7 @@ public:
     newTrade.StopPrice = OrderStopLoss();
     newTrade.TakeProfitPrice = OrderTakeProfit();
     newTrade.LotSize = OrderLots();
+    newTrade.Side = (newTrade.Side > 0 ? Long : Short);
     newTrade.Magic = OrderMagicNumber();
     return newTrade;
   }

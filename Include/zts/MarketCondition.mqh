@@ -34,7 +34,7 @@ void MarketCondition::setModel(int _model) {
 }
 
 bool MarketCondition::canGoLong() {
-  return false;
+  return true;
 }
 
 bool MarketCondition::canGoShort() {

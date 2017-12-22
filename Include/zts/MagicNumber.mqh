@@ -50,6 +50,7 @@ public:
   int getOneR(int);
   int getBarNumber(int);
   string getStrategy(int);
+  int roboID();
 };
 
 MagicNumber::MagicNumber() {   //(int _oneR=0,int _trailingStopModel=0,int _partialProfitModel=0) {
@@ -92,7 +93,7 @@ int MagicNumber::encodeStrategyName(string name) {
   if(StringCompare(name,"RBO",false)==0) return 2;
   if(StringCompare(name,"MOMO",false)==0) return 3;
   if(StringCompare(name,"COD",false)==0) return 4;
-  Print("Strategy ",name," NOT coded for in MagicNumber");
+  Info("Strategy "+name+" NOT coded for in MagicNumber");
   return 0;
 }
 
@@ -112,16 +113,17 @@ string MagicNumber::getStrategy(int magicNumber) {
   return decodeStrategyName(magicNumber);
 }
 
+int MagicNumber::roboID() {
+  return 1;
+}
 int MagicNumber::getOneR(int magicNumber) {
   int rtn = magicNumber / OneR_mult;
-  Print("getOneR: ",magicNumber," => ",rtn);
-  Print("return(int((",rtn," % ",int(MathPow(10,OneR_digits)),")*",OnePoint,"));");
   return(int((rtn % int(MathPow(10,OneR_digits)))  ));  //*OnePoint));
 }
 
 int MagicNumber::getBarNumber(int magicNumber) {
   int rtn = magicNumber / BarNumber_mult;
-  Print("getBarNumber: ",magicNumber," => ",rtn);
-  Print("return(int((",rtn," % ",int(MathPow(10,BarNumber_digits)),")*",OnePoint,"));");
+  Debug("getBarNumber: "+IntegerToString(magicNumber)+" => "+IntegerToString(rtn));
+  Debug("return(int(("+IntegerToString(rtn)+" % "+IntegerToString(int(MathPow(10,BarNumber_digits)))+")*"+string(OnePoint)+"));");
   return(int((rtn % int(MathPow(10,BarNumber_digits)))  ));
 }
