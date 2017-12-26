@@ -184,7 +184,7 @@ void TradingSessions::showAllSessions(string tz = "server") {
   Info(tz+" ("+string(adj/60/60)+")");
   for(Enum_Sessions i=0; i<EnumLast; i++ ) {
     setSession(i);
-    str = StringFormat("Session: %-16s: %s - %s",EnumToString(i),TimeToStr(startTradingSession_Server+adj),TimeToString(endTradingSession_Server+adj));
+    str = StringFormat("Session: %-10s: %s - %s",EnumToString(i),TimeToStr(startTradingSession_Server+adj),TimeToString(endTradingSession_Server+adj));
     Info(str);
     //Info("Session: "+EnumToString(i)+": "+string(startTradingSession_Server+adj)+" - "+string(endTradingSession_Server+adj));
   }

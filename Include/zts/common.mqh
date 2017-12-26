@@ -75,12 +75,14 @@ enum Enum_LogLevels{
 #ifndef LOG
 //#define LOG(level,text)  Print(__FILE__,"(",__LINE__,") :",text)
 #define LOG(level,text)  Print(level+": ",text)
+#define LOG2(level,func,line,text)  Print(level+"::"+func+"("+IntegerToString(line)+"): ",text)
 #endif
   bool DEBUG() { return(LogLevel>=LogDebug?true:false); }
   bool DEBUG0() { return(true); }
   bool DEBUG1() { return(true); }
   bool DEBUG2() { return(true); }
   bool DEBUG3() { return(true); }
+  bool DEBUG4() { return(true); }
 
   bool INFO() { return(LogLevel>=LogInfo?true:false); }
   bool WARN() { return(LogLevel>=LogInfo?true:false); }
@@ -92,6 +94,7 @@ enum Enum_LogLevels{
   void Debug1(string msg) { if(DEBUG1()) LOG("DEBUG",msg); }
   void Debug2(string msg) { if(DEBUG2()) LOG("DEBUG",msg); }
   void Debug3(string msg) { if(DEBUG3()) LOG("DEBUG",msg); }
+  void Debug4(string f,int l,string msg) { if(DEBUG3()) LOG2("DEBUG",f,l,msg); }
   void Zalert(string msg) { Alert(msg); }
 #endif
 

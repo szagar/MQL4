@@ -46,7 +46,7 @@ extern int TimeExitModel = 0;
 extern int TimeExitBars = 10;
 extern datetime TimeExitTime = NULL;
 extern string ExitTraderParams3 = "======== -- Trailing Stop =======";
-extern int TrailingStopModel = 0;
+extern Enum_TRAILING_STOP_TYPES TrailingStopModel = 1;
 extern int TSbarsBack = 1;
 extern int TSatrX10 = 27;
 extern ENUM_TIMEFRAMES TSatrTimeFrame = PERIOD_D1;

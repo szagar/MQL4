@@ -9,9 +9,9 @@ extern Enum_TRAILING_STOP_TYPES TrailingStopModel = 2;
 extern double Percent2risk = 0.5;
 extern double MinStopLossDeltaPips = 2.0;
 extern int TrailingStopBarShift = 1;
-extern ENUM_TIMEFRAMES ATRperiod = 0;
-extern int ATRnumBars = 3;
-extern double ATRfactor = 2.7;
+extern ENUM_TIMEFRAMES TS_ATRperiod = 0;
+extern int TS_ATRnumBars = 3;
+extern double TS_ATRfactor = 2.7;
 
 #include <zts\account.mqh>
 //#include <zts\pip_tools.mqh>
@@ -35,10 +35,10 @@ public:
   RiskManager(const int=1, const int=1);
   ~RiskManager();
 
-  double oneRpips();
+  //double oneRpips();
   double calcTrailingStopLoss(string,int);
   double getTrailingStop(Position *pos, Enum_TRAILING_STOP_TYPES _model=NA);
-  //double getTrailingStop(Position*,int);
+
 };
 
 RiskManager::RiskManager(const int _equityModel=1, const int _riskModel=1) {
@@ -53,6 +53,7 @@ RiskManager::~RiskManager() {
   if (CheckPointer(account) == POINTER_DYNAMIC) delete account;
 }
 
+/*
 double RiskManager::oneRpips() {
   double pips;
 
@@ -61,14 +62,15 @@ double RiskManager::oneRpips() {
       pips = double(oneR_calc_PATI());
       break;
     case 2:
-      pips = oneR_calc_ATR(ATRperiod,ATRnumBars);
+      pips = oneR_calc_ATR(TS_ATRperiod,TS_ATRnumBars);
       break;
     default:
       pips=0;
   }
-  Debug2(__FUNCTION__+"("+__LINE__+"): model="+IntegerToString(RiskModel)+"  pips="+string(pips));
+  Debug4(__FUNCTION__,__LINE__,"model="+IntegerToString(RiskModel)+"  pips="+string(pips));
   return(pips);
 }
+*/
 
 double RiskManager::availableFunds() {
   double dollars;
@@ -93,7 +95,7 @@ int RiskManager::oneR_calc_PATI() {
      int slashPosition = StringFind(__exceptionPairs, "/", pairPosition) + 1;
      stop =int( StringToInteger(StringSubstr(__exceptionPairs,slashPosition)));
   }
-  Debug2(__FUNCTION__+"("+__LINE__+"): pips="+IntegerToString(stop));
+  Debug4(__FUNCTION__,__LINE__,"pips="+IntegerToString(stop));
   return stop;
 }
 
@@ -103,7 +105,7 @@ double RiskManager::oneR_calc_ATR(int _period, int _numBars) {
                     _numBars,    // averaging period
                     0);          // shift
   atr = NormalizeDouble(atr, int(MarketInfo(symbol, MODE_DIGITS)-1));
-  Info(__FUNCTION__+": atr "+string(_numBars)+" bars. period = "+string(_period)+"  atr="+string(atr));
+  Debug4(__FUNCTION__,__LINE__,"atr "+string(_numBars)+" bars. period = "+string(_period)+"  atr="+string(atr));
   return(atr);
 }
 
@@ -165,31 +167,36 @@ double RiskManager::calcTrailingStopLoss(string side, int oneR) {
 */
 
 double RiskManager::getTrailingStop(Position *pos, Enum_TRAILING_STOP_TYPES _model=NA) {
-  Enum_TRAILING_STOP_TYPES model = (_model == NA ? defaultModel : _model);
+  Enum_TRAILING_STOP_TYPES model = (_model == NA ? TrailingStopModel : _model);
   double currentPrice, newTrailingStop;
   double currStopLoss=OrderStopLoss();
-  int pips;
+  int pips=0;
+
+  currentPrice = NormalizeDouble((pos.Side == Long ? Bid : Ask),Digits);
     
   switch(model) {
     case PrevHL:
-      pips = (StringCompare(pos.Side,"Long") == 0 ? iLow(NULL,0,TrailingStopBarShift) : iHigh(NULL,0,TrailingStopBarShift));
+      newTrailingStop = ((pos.Side==Long) ? iLow(NULL,0,TrailingStopBarShift) : iHigh(NULL,0,TrailingStopBarShift));
       break;
     case ATR:
-      pips = oneR_calc_ATR(ATRperiod,ATRnumBars)*decimal2points_factor(symbol)*2.0;
+      pips = int(oneR_calc_ATR(TS_ATRperiod,TS_ATRnumBars)*decimal2points_factor(symbol)*TS_ATRfactor);
+      newTrailingStop = currentPrice + pips * OnePoint * pos.Side;
+      Debug4(__FUNCTION__,__LINE__,"side= "+EnumToString(pos.Side)+" = "+IntegerToString(pos.Side));
+      Debug4(__FUNCTION__,__LINE__,EnumToString(model)+": "+DoubleToStr(newTrailingStop,Digits)+" = "+DoubleToStr(currentPrice,2)+" + "+IntegerToString(pips)+" * "+string(OnePoint)+" * "+EnumToString(pos.Side)+";");
       break;
     case OneR:
       pips = pos.OneRpips;
+      newTrailingStop = currentPrice + pips * OnePoint * pos.Side;
       break;
     default:
-      pips=0;
+      newTrailingStop = currentPrice;;
   }
-  pips = NormalizeDouble(pips,Digits);
+  newTrailingStop = NormalizeDouble(newTrailingStop,Digits);
 
-  currentPrice = (pos.Side == Long ? Bid : Ask);
-  newTrailingStop = currentPrice + pips * OnePoint * pos.Side;
-
+  double tmp = newTrailingStop-currStopLoss;
+  Debug4(__FUNCTION__,__LINE__,DoubleToStr(currStopLoss,Digits)+"==0 || ("+DoubleToStr(tmp,Digits)+")*"+EnumToString(pos.Side)+" >= "+DoubleToStr(MinStopLossDeltaPips * BaseCcyTickValue * OnePoint,Digits)+")");
   if(currStopLoss==0 || (newTrailingStop-currStopLoss)*pos.Side >= MinStopLossDeltaPips * BaseCcyTickValue * OnePoint) {
-    Debug2(__FUNCTION__+"("+__LINE__+"): model="+IntegerToString(RiskModel)+"  pips="+string(pips)+"  "+currStopLoss+"->"+newTrailingStop);
+    Debug4(__FUNCTION__,+__LINE__,"model="+IntegerToString(RiskModel)+"  pips="+string(pips)+"  "+DoubleToStr(currStopLoss,2)+"->"+DoubleToStr(newTrailingStop,Digits));
     return(newTrailingStop);
   }
   return(-1);

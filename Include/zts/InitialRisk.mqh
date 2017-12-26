@@ -9,8 +9,15 @@
 #property strict
 
 #include <zts\Account.mqh>
+#include <zts\zts_lib.mqh>
 
-extern int OneRmodel = 1;
+enum Enum_INITIAL_RISK { IR_Pati_Pips, IR_ATR, IR_PrevHL};
+
+extern string _dummy8 = "=== Initial Risk Params ===";
+extern Enum_INITIAL_RISK OneRmodel = IR_ATR;
+extern ENUM_TIMEFRAMES IR_ATRperiod = 0;
+extern int IR_ATRnumBars = 3;
+extern double IR_ATRfactor = 2.7;
 
 class InitialRisk {
 private:
@@ -23,7 +30,7 @@ public:
   InitialRisk();
   ~InitialRisk();
   
-  int getInPips(int,string);
+  int getInPips(Enum_INITIAL_RISK,Position*);
 
 };
 
@@ -34,19 +41,34 @@ InitialRisk::InitialRisk() {
 InitialRisk::~InitialRisk() {
 }
 
-int InitialRisk::getInPips(int _model,string _symbol) {
-  string symbol = _symbol;
+int InitialRisk::getInPips(Enum_INITIAL_RISK _model,Position *trade) {
+  Debug4(__FUNCTION__,__LINE__,"int InitialRisk::getInPips( "+EnumToString(_model)+", "+trade.Symbol+")");
   int pips=0;
-  int model = (_model>0 ? _model : defaultModel); 
+  Enum_INITIAL_RISK model = (_model>0 ? _model : OneRmodel); 
+  double px, sl;
+  double atr;
   
   switch(model) {
-    case 1:      // PATI static pips
-      pips = calcPatiPips(symbol);
+    case IR_Pati_Pips:      // PATI static pips
+      pips = calcPatiPips(trade.Symbol);
+      Debug4(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips));
+      break;
+    case IR_ATR:
+      atr = calc_ATR(trade.Symbol,IR_ATRperiod,IR_ATRnumBars);
+      //pips = int(oneR_calc_ATR(ATRperiod,ATRnumBars)*decimal2points_factor(symbol)*IR_ATRfactor);
+      pips = int(calc_ATR(trade.Symbol,IR_ATRperiod,IR_ATRnumBars)*decimal2points_factor(trade.Symbol)*IR_ATRfactor);
+      Debug4(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips)+"  atr="+DoubleToStr(atr,Digits));
+      break;
+    case IR_PrevHL:
+      px = (trade.Side==Long ? Bid : Ask);
+      sl = (trade.Side==Long ? iLow(NULL,0,TrailingStopBarShift) : iHigh(NULL,0,TrailingStopBarShift));
+      pips = int((px-sl)*trade.Side * decimal2points_factor(trade.Symbol));
+      Debug4(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips));
       break;
     default:
       pips = 0;
+      Debug4(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+DoubleToStr(pips,Digits));
   }
-  Debug2(__FUNCTION__+"("+IntegerToString(__LINE__)+"): model="+IntegerToString(model)+"  symbol="+symbol);
   return(pips);
 }
 
@@ -54,7 +76,6 @@ int InitialRisk::calcPatiPips(string symbol) {
   int defaultStopPips = 12;
   
   int stop = defaultStopPips;
-  //Debug3(__FUNCTION__+"("+__LINE__+"): stop="+stop);
   //Debug3(__FUNCTION__+"("+__LINE__+"): PatiExceptionPairs="+PatiExceptionPairs);
   int pairPosition = StringFind(PatiExceptionPairs, symbol, 0);
   //Debug3(__FUNCTION__+"("+__LINE__+"): pairPosition="+pairPosition);
@@ -64,6 +85,7 @@ int InitialRisk::calcPatiPips(string symbol) {
     stop =int( StringToInteger(StringSubstr(PatiExceptionPairs,slashPosition)));
   //Debug3(__FUNCTION__+"("+__LINE__+"): stop="+stop);
   }
+  Debug4(__FUNCTION__,__LINE__,"stop="+DoubleToStr(stop,Digits));
   return stop;
 }
 

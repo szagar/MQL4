@@ -220,6 +220,15 @@ Robo::Robo() {
 }
   
 Robo::~Robo() {
+  Setup *setup;
+  for(int i=0;i<longSetupCnt;i++) {
+    setup = longSetups[i];
+    if (CheckPointer(setup) == POINTER_DYNAMIC) delete setup;
+  }
+  for(int i=0;i<shortSetupCnt;i++) {
+    setup = shortSetups[i];
+    if (CheckPointer(setup) == POINTER_DYNAMIC) delete setup;
+  }
   if (CheckPointer(initRisk) == POINTER_DYNAMIC) delete initRisk;
   if (CheckPointer(sizer) == POINTER_DYNAMIC) delete sizer;
   if (CheckPointer(trader) == POINTER_DYNAMIC) delete trader;
@@ -261,7 +270,8 @@ void Robo::OnDeinit() { }
 void Robo::OnTick(bool tradeWindow) { }
 
 void Robo::OnNewBar() {   //bool tradeWindow) {
-  Debug2(__FUNCTION__+"("+__LINE__+"): "+positionLong+" / "+positionShort+" / "+posPendingLong+" / "+posPendingShort);
+  Debug4(__FUNCTION__,__LINE__,DoubleToStr(positionLong,2)+" / "+DoubleToStr(positionShort,2)+
+                                       " / "+DoubleToStr(posPendingLong,2)+" / "+DoubleToStr(posPendingShort,2));
 
   dayBarNumber++;
   sessionBarNumber++;
@@ -301,24 +311,25 @@ void Robo::handleOpenPositions() {
       continue;
     }
     trade = broker.GetPosition();
-    if(OrderSymbol() != Symbol()) continue;
-    if(magic.roboID() != RoboID) continue;
-    Print("====> OT(",IntegerToString(OP_BUY),",",IntegerToString(OP_SELL),"): ",OrderType()," ID: ",OrderTicket(),", ",OrderSymbol(),", ",OrderLots(),", ",OrderMagicNumber());
-    Debug(symbol+": Strategy="+magic.getStrategy(OrderMagicNumber())+"  magic="+string(OrderMagicNumber()));
-    //if(StringCompare(magic.getStrategy(OrderMagicNumber()), "CDM-YL", false)!=0) continue;
-    if(OrderType() == OP_BUY ) {
-      totalPositions++;
-      position += double(OrderLots());
-      if(TrailingStopModel != NA)
-        updateStopLoss(trade);
-    }
+    if(OrderSymbol() != Symbol() && magic.roboID() != RoboID) {
+      Print("====> OT(",IntegerToString(OP_BUY),",",IntegerToString(OP_SELL),"): ",OrderType()," ID: ",OrderTicket(),", ",OrderSymbol(),", ",OrderLots(),", ",OrderMagicNumber());
+      Debug(symbol+": Strategy="+magic.getStrategy(OrderMagicNumber())+"  magic="+string(OrderMagicNumber()));
+      //if(StringCompare(magic.getStrategy(OrderMagicNumber()), "CDM-YL", false)!=0) continue;
+      if(OrderType() == OP_BUY ) {
+        totalPositions++;
+        position += double(OrderLots());
+        if(TrailingStopModel != NA)
+          updateStopLoss(trade);
+      }
     
-    if(OrderType() == OP_SELL) {
-      totalPositions++;
-      position -= double(OrderLots());
-      if(TrailingStopModel != NA)
-        updateStopLoss(trade);
+      if(OrderType() == OP_SELL) {
+        totalPositions++;
+        position -= double(OrderLots());
+        if(TrailingStopModel != NA)
+          updateStopLoss(trade);
+      }
     }
+    if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
   }
 }
 
@@ -328,36 +339,37 @@ void Robo::updatePendingOrders() {
 void Robo::updateStopLoss(Position *pos) {
   double newStopLoss;
   Debug2("updateStopLoss entered:  side="+EnumToString(pos.Side)+"   oneR="+string(magic.getOneR(OrderMagicNumber())));
-  newStopLoss = riskMgr.getTrailingStop(pos,TrailingStopModel);
+  newStopLoss = riskMgr.getTrailingStop(pos);
 
   if(newStopLoss > 0) {
-    Debug3(__FUNCTION__+"("+IntegerToString(__LINE__)+") "+OrderTicket()+" update stop loss: "+OrderStopLoss()+" => "+newStopLoss);
+    Debug4(__FUNCTION__,__LINE__,IntegerToString(OrderTicket())+" update stop loss: "+
+                         DoubleToStr(OrderStopLoss(),Digits)+" => "+DoubleToStr(newStopLoss,Digits));
     broker.modifyStopLoss(OrderTicket(),newStopLoss);
   } else
-    Debug3("DO NOT update trailing stop");
+    Debug4(__FUNCTION__,__LINE__,"DO NOT update trailing stop");
 }
 
 /*
-void Robo::checkForSetups(void) {
-  Debug("checkForSetups entered");
-  if(MathAbs(position) >= 0.01) return;          // current position
-  if(GoLong && setup_rsi_01()) {
-    Position *trade = new Position();
-    int oneR = LookupStopPips(symbol);
-    double stopLoss =  oneR * OnePoint;
-    trade.LotSize = CalcTradeSize(account,stopLoss);
-    trade.IsPending = true;
-    trade.OpenPrice = iHigh(NULL,0,1);
-    trade.OrderType = OP_BUYSTOP;
-    trade.Symbol = symbol;
-    trade.Reference = __FILE__;
-    trade.Magic = magic.get("RSI",oneR);
-    Debug("=====>Trade.magic="+string(trade.Magic));
-    broker.CreateOrder(trade);
-    if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
-   // if (CheckPointer(magic) == POINTER_DYNAMIC) delete magic;
-  }
-}
+//void Robo::checkForSetups(void) {
+//  Debug("checkForSetups entered");
+//  if(MathAbs(position) >= 0.01) return;          // current position
+//  if(GoLong && setup_rsi_01()) {
+//    Position *trade = new Position();
+//    int oneR = LookupStopPips(symbol);
+//    double stopLoss =  oneR * OnePoint;
+//    trade.LotSize = CalcTradeSize(account,stopLoss);
+//    trade.IsPending = true;
+//    trade.OpenPrice = iHigh(NULL,0,1);
+//    trade.OrderType = OP_BUYSTOP;
+//    trade.Symbol = symbol;
+//    trade.Reference = __FILE__;
+//    trade.Magic = magic.get("RSI",oneR);
+//    Debug("=====>Trade.magic="+string(trade.Magic));
+//    broker.CreateOrder(trade);
+//    if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
+//   // if (CheckPointer(magic) == POINTER_DYNAMIC) delete magic;
+//  }
+//}
 */
 
 /*
@@ -467,10 +479,12 @@ void Robo::tradeLong() {
       //broker.CreateOrder(trade);
       if(trade.RewardPips/trade.OneRpips < MinReward2RiskRatio) {
         Info("Trade did not meet min reward-to-risk ratio");
+        if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
         continue;
       }
       Info(__FUNCTION__+": T R A D E Long:  "+trade.toHuman());
       broker.CreateOrder(trade);
+      if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
     }
     //Info(__FUNCTION__+": "+string(i)+"  "+EnumToString(setup.side)+"  "+setup.name);
   }
@@ -484,8 +498,10 @@ void Robo::tradeShort() {
     if(setup.triggered()) {
       trade = trader.newTrade(setup);
       broker.CreateOrder(trade);
-      Info(__FUNCTION__+": T R A D E Short:  "+trade.toHuman());
+      if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
     }
+      //Info(__FUNCTION__+": T R A D E Short:  "+trade.toHuman());
+    //}
   }
 }
 
