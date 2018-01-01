@@ -1,18 +1,17 @@
 //+------------------------------------------------------------------+
 //|                                                 price_levels.mqh |
-//|                        Copyright 2017, MetaQuotes Software Corp. |
-//|                                             https://www.mql5.com |
 //+------------------------------------------------------------------+
 #property copyright "Copyright 2017, MetaQuotes Software Corp."
 #property link      "https://www.mql5.com"
 #property strict
 
-double GetNextLevel(double currentLevel, int direction /* 1 = UP, -1 = down */) {
+double GetNextLevel(double currentLevel, int direction) {
+  //  direction:  1 = UP, -1 = down 
   //double currentBaseLevel;
   string baseString;
   double isolatedLevel;
   double nextLevel;
-  if (currentLevel > 50) // Are we dealing with Yen's or other pairs? {
+  if (currentLevel > 50) { // Are we dealing with Yen's or other pairs?
     baseString = DoubleToStr(currentLevel, 3);
     baseString = StringSubstr(baseString, 0, StringLen(baseString) - 3);
     isolatedLevel = currentLevel -  StrToDouble(baseString) ;

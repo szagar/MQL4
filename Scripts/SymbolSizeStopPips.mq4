@@ -6,7 +6,7 @@
 #property version   "1.00"
 #property strict
 #include <Position.mqh>
-#include <Broker.mqh>
+#include <zts/Broker.mqh>
 
 
 string Prefix = "PAT_";
@@ -36,7 +36,7 @@ void OnStart() {
   ObjectSetText(labelName,label_str,10, "Verdana", Red);
   ObjectSet(labelName, OBJPROP_CORNER, 1);
   ObjectSet(labelName, OBJPROP_XDISTANCE, 150);
-  ObjectSet(labelName, OBJPROP_YDISTANCE, 10);
+  ObjectSet(labelName, OBJPROP_YDISTANCE, 5);
 }
 
 //+---------------------------------------------------------------------------+
@@ -72,7 +72,7 @@ int CalculateStop(string symbol) {
   int pairPosition = StringFind(ExceptionPairs, symbol, 0);
   if (pairPosition >=0) {
      int slashPosition = StringFind(ExceptionPairs, "/", pairPosition) + 1;
-     stop = StringToInteger(StringSubstr(ExceptionPairs,slashPosition));
+     stop = int(StringToInteger(StringSubstr(ExceptionPairs,slashPosition)));
   }
   return stop;
 }

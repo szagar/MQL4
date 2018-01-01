@@ -8,7 +8,7 @@
 //#property strict
 
 #include <zts\orderselect_info.mqh>
-#include <zts\pip_tools.mqh>
+//#include <zts\pip_tools.mqh>
 
 double dailyPips_live() {
   return RealizedPipsToday() + UnRealizedPipsToday();

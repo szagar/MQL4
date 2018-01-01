@@ -7,14 +7,14 @@
 #property link      "https://www.mql5.com"
 #property strict
 
-#include <Position.mqh>
+#include <zts\Position.mqh>
+#include <zts\trade_type.mqh>
 #include <zts\daily_pips.mqh>
 #include <zts\daily_pnl.mqh>
 
 const string orderTypeLookup[6] = {"Buy","Sell","BuyLimit","SellLimit","BuyStop","SellStop"};
 
-void WriteTradeStats2File(Position *trade)
-{
+void WriteTradeStats2File(Position *trade) {
   string fileName= TimeToStr(TimeCurrent(), TIME_DATE) +
           "_" + "trade_stats";
   StringReplace(fileName, ":", "_");
@@ -29,17 +29,18 @@ void WriteTradeStats2File(Position *trade)
     if (filePos == 0) {
       //FileWriteString(fh1,StringFormat("DataVersion: %i\r\n", DFVersion));
       //FileWriteString(fh1, StringFormat("Server Trade Date: %s\r\n", TimeToString(TimeCurrent(), TIME_DATE)));
-      FileWrite(fh1,"LocalDate","LocalTime","SrvrDate","SrvrTime","Symbol","PIPs","PnL","Point","Digits","LotSize","OpenPrice","ClosePrice","OrderType","OrderClosed",
+      FileWrite(fh1,"LocalDate","LocalTime","SrvrDate","SrvrTime","Symbol","Strategy","PIPs","PnL","Point","Digits","LotSize","OpenPrice","ClosePrice","OrderType","OrderClosed",
               "OrderEntered","OrderOpened","StopPrice","TakeProfitPrice","TicketId",
-              "UnRealPipsDay","RealPipsDay","UnReal$day","Real$day");
+              "UnRealPipsDay","RealPipsDay","UnReal$day","Real$day",robo.tradeStatsHeader());
     }
     double pips = trade.ClosePrice - trade.OpenPrice;
     if (trade.OrderType == OP_SELL) pips *= -1;
     double profit = NormalizeDouble(pips, Digits)/Point * trade.LotSize; 
-    int now = TimeLocal();
+    string strategy = GetTradeType();
+    int now = int(TimeLocal());
     FileWrite(fh1,string(TimeYear(now)*10000+TimeMonth(now)*100+TimeDay(now)),TimeToString(TimeLocal(), TIME_SECONDS),
                   string(Year()*10000+Month()*100+Day()),TimeToString(TimeCurrent(), TIME_SECONDS),
-                  trade.Symbol,DoubleToStr((pips)*MathPow(10,(Digits-1)),Digits),
+                  trade.Symbol,strategy,DoubleToStr((pips)*MathPow(10,(Digits-1)),Digits),
                   DoubleToStr(profit,2),DoubleToStr(Point,Digits),Digits,
                   trade.LotSize,trade.OpenPrice,trade.ClosePrice,orderTypeLookup[trade.OrderType],trade.OrderClosed,
                   trade.OrderEntered,
@@ -48,7 +49,7 @@ void WriteTradeStats2File(Position *trade)
                   DoubleToString(UnRealizedPipsToday(),2),
                   DoubleToString(RealizedPipsToday(),2),
                   DoubleToString(UnRealizedProfitToday(),2),
-                  DoubleToString(RealizedProfitToday(),2));
+                  DoubleToString(RealizedProfitToday(),2),robo.tradeStats());
     FileClose(fh1);
   }
   else

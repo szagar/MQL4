@@ -26,7 +26,9 @@
 // #import "stdlib.ex4"
 //   string ErrorDescription(int error_code);
 // #import
-#include <FakeBroker.mqh>
+#include <zts\FakeBroker.mqh>
+#include <zts\FakeAccount.mqh>
+//Account *account;
 //+------------------------------------------------------------------+
 void RunTests()
 {
@@ -35,11 +37,14 @@ void RunTests()
    int testsPassed = 0;
    
    broker = new FakeBroker();
+   account = new FakeAccount();
    GVPrefix = NTIPrefix + broker.NormalizeSymbol(Symbol());
    Print("Beginning Unit Tests");
    // Run the individual tests
 
-
+  if(CanGetAccountMeta()) ++testsPassed;
+  if(CanCalculateTradeSize()) ++testsPassed;
+  
    if (CanCalculateStopsForDefault())
       ++testsPassed;
    totalTests++;
@@ -158,6 +163,37 @@ void RunTests()
 //   return (Assert(TimeToStr(brokerQTStart, TIME_MINUTES) == "15:00", "Wrong start time"));   
 //}
 
+bool CanGetAccountMeta() {
+  string name, atype;
+  int number;
+  if(account.serverName() == "FXChoice-Classic Demo") {
+    name ="Stephen Zagar";
+    number = 89337;
+    atype = "FakeAccount";
+  }
+  else {
+    name ="NA";
+    number = -1;
+    atype = "NA";
+  }
+  
+  Print("accountName=",name);
+  Print("accountNumber=",account.accountNumber);
+  Print("TypeName=",account.TypeName);
+  Print("serverName=",account.serverName()); 
+
+  return Assert(account.accountName == name &&
+                account.accountNumber == number &&
+                account.TypeName == atype, "Wrong account meta data.");
+}
+bool CanCalculateTradeSize() {
+  double percent2risk = 0.50;
+  double _stopLoss = 8;  //pips
+  
+  double lots = CalcTradeSize(account,_stopLoss,percent2risk);
+  Print("Lots=",lots);
+  return Assert(lots == 0.19, "Wrong lot size for calcluate trade size");
+}
 bool CanCalculateStopsForDefault()
 {
    int stop = CalculateStop("AUDCAD");

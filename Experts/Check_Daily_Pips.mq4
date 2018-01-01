@@ -16,6 +16,8 @@ int _endOfDayOffsetHours = 0;
 datetime endOfDay;
 string FnEodStats = "DailySummary.csv";
 
+extern string General = "===Risk Management===";
+extern int DailyPipCutoff = 50;
 //+------------------------------------------------------------------+
 //| Expert initialization function                                   |
 //+------------------------------------------------------------------+
@@ -64,7 +66,7 @@ void OnTimer() {
                "  UnReal $  = "   + DoubleToString(UnRealizedProfitToday(),2);
   Print(str);
   Comment(str);
-  if (dailyPips_live() < -50.0) {
+  if (dailyPips_live() < -1 * DailyPipCutoff) {
     int cnt = CloseAllPendingOrders();
     if (cnt>0) Alert("Closed "+ string(cnt) + " pending orders");
   }

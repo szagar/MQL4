@@ -7,8 +7,9 @@
 #property link      "https://www.mql5.com"
 #property strict
 
-#include <Position.mqh>
-#include <zts\pip_tools.mqh>
+#include <zts\Position.mqh>
+//#include <zts\pip_tools.mqh>
+#include <zts\common.mqh>
 
 
 double tradePips(Position * trade = NULL) {
@@ -17,7 +18,7 @@ double tradePips(Position * trade = NULL) {
   
   if (trade.OrderType == OP_SELL) side = -1;
 
-  return (trade.ClosePrice - trade.OpenPrice) * decimal2points_factor(trade.Symbol);
+  return (trade.ClosePrice - trade.OpenPrice) * decimal2points_factor(trade.Symbol) * PipAdj;
 }
 
 double tradePnL(Position * trade = NULL) {
