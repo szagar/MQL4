@@ -7,6 +7,17 @@
 #property link      "https://www.mql5.com"
 #property strict
 
+extern string Slippage_Note="========= Common parameters =========";
+extern int Slippage=5;
+
+int GetSlippage() {
+  if(Digits() == 2 || Digits() == 4)
+    return(Slippage);
+  else if(Digits() == 3 || Digits() ==5)
+    return(Slippage*10);
+  return(Digits());
+}
+
 double CommonSetPoint() {
   return((Digits==5||Digits==3)?Point*10:Point);
 }
@@ -41,6 +52,8 @@ double points2decimal_factor(string sym) {
 
 double OnePoint = CommonSetPoint();
 double PipAdj = CommonSetPipAdj();
+int UseSlippage = GetSlippage();
+
 double BaseCcyTickValue = MarketInfo(Symbol(),MODE_TICKVALUE); // Tick value in the deposit currency
 // Point - The current symbol point value in the quote currency
 // MODE_POINT - Point size in the quote currency. For the current symbol, it is stored in the predefined variable Point
@@ -57,7 +70,7 @@ enum Enum_OP_ORDER_TYPES {
   Z_SELLSTOP=5,   //Sell stop pending order
 };
 enum Enum_TRAILING_STOP_TYPES { 
-  NA=0,      // Not Applicable
+  None=0,      // Not Applicable
   PrevHL=1,  // Previous Hi/Lo
   ATR=2,     // ATR factor
   OneR=3,    // One R pips

@@ -81,7 +81,7 @@ public:
     newTrade.StopPrice = OrderStopLoss();
     newTrade.TakeProfitPrice = OrderTakeProfit();
     newTrade.LotSize = OrderLots();
-    newTrade.Side = (newTrade.Side > 0 ? Long : Short);
+    newTrade.Side = (newTrade.LotSize > 0 ? Long : Short);
     newTrade.Magic = OrderMagicNumber();
     return newTrade;
   }
@@ -131,6 +131,7 @@ public:
   }
 
   virtual void CreateOrder (Position * trade, string comment="") {
+    Debug4(__FUNCTION__,__LINE__,"Entered");
     if (trade.LotSize == 0.0) {
       Warn("Trade with zero lot size cannot be entered.");
       return;

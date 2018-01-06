@@ -8,6 +8,9 @@
 #property version   "1.00"
 #property strict
 
+extern int MovingAvgLongModel = 1;
+extern int MovingAvgShortModel = 1;
+
 #include <zts\common.mqh>
 #include <zts\Setup.mqh>
   
@@ -20,8 +23,8 @@ class MovingAvgCross : public Setup {
   int movingPeriod;
 public:
 // CBar(): m_member(_Symbol), CFoo("CBAR") {Print(__FUNCTION__);}
-  MovingAvgCross():Setup() {};
-  MovingAvgCross(string);
+  //MovingAvgCross():Setup() {};
+  //MovingAvgCross(string);
   MovingAvgCross(string,Enum_SIDE,int);
   MovingAvgCross(Enum_SIDE,int); // : setupBase(_symbol);
   ~MovingAvgCross();
@@ -29,22 +32,22 @@ public:
   bool triggered();
 };
 
-void MovingAvgCross::MovingAvgCross(string _symbol):Setup() {
-  name = "MovingAvgCross";
-  side = Long;
-  model = 1;
-  movingPeriod = 100;
-}
+//void MovingAvgCross::MovingAvgCross(string _symbol):Setup() {
+//  name = "MovingAvgCross";
+//  side = Long;
+//  model = 1;
+//  movingPeriod = 100;
+//}
 
-MovingAvgCross::MovingAvgCross(string _symbol, Enum_SIDE _side, int _model):Setup(_symbol) {
-  name = "MovingAvgCross";
+MovingAvgCross::MovingAvgCross(string _symbol, Enum_SIDE _side, int _model):Setup(_symbol,_side) {
+  strategyName = "MovingAvgCross";
   side = _side;
   model = _model;
   movingPeriod = 100;
 }
 
-MovingAvgCross::MovingAvgCross(Enum_SIDE _side, int _model):Setup() {
-  name = "MovingAvgCross";
+MovingAvgCross::MovingAvgCross(Enum_SIDE _side, int _model):Setup(Symbol(),_side) {
+  strategyName = "MovingAvgCross";
   side = _side;
   model = _model;
   movingPeriod = 100;

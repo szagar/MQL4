@@ -50,7 +50,7 @@ public:
   int getOneR(int);
   int getBarNumber(int);
   string getStrategy(int);
-  int roboID();
+  int roboID(int);
 };
 
 MagicNumber::MagicNumber() {   //(int _oneR=0,int _trailingStopModel=0,int _partialProfitModel=0) {
@@ -81,6 +81,7 @@ MagicNumber::~MagicNumber() {
 }
 
 int MagicNumber::get(string _strategy="",int _oneR=0, int _barNumber=0) {
+  Debug4(__FUNCTION__,__LINE__,"Entered");
   strategyId = encodeStrategyName(_strategy);
   Debug("strategyId="+string(strategyId));
   Debug("MagicNumber: _strategy="+_strategy+"  _oneR="+string(_oneR)+" magicTemplate="+string(magicTemplate)+" strategyId="+string(strategyId));
@@ -89,15 +90,18 @@ int MagicNumber::get(string _strategy="",int _oneR=0, int _barNumber=0) {
 }
 
 int MagicNumber::encodeStrategyName(string name) {
+  Debug4(__FUNCTION__,__LINE__,"Entered");
   if(StringCompare(name,"CDM-YL",false)==0) return(1);
   if(StringCompare(name,"RBO",false)==0) return 2;
   if(StringCompare(name,"MOMO",false)==0) return 3;
   if(StringCompare(name,"COD",false)==0) return 4;
-  Info("Strategy "+name+" NOT coded for in MagicNumber");
+  if(StringCompare(name,"Finch",false)==0) return 5;
+  Info("Strategy '"+name+"' NOT coded for in MagicNumber");
   return 0;
 }
 
 string MagicNumber::decodeStrategyName(int magicNumber) {
+  Debug4(__FUNCTION__,__LINE__,"Entered");
   if(magicNumber == 0) return "";
   int num = magicNumber/Strategy_mult;
   int den = int(MathPow(10,Strategy_digits));
@@ -110,18 +114,26 @@ string MagicNumber::decodeStrategyName(int magicNumber) {
 }
 
 string MagicNumber::getStrategy(int magicNumber) {
+  Debug4(__FUNCTION__,__LINE__,"Entered");
   return decodeStrategyName(magicNumber);
 }
 
-int MagicNumber::roboID() {
-  return 1;
+int MagicNumber::roboID(int magicNumber) {
+  Debug4(__FUNCTION__,__LINE__,"Entered");
+  if(magicNumber == 0) return 0;
+  int num = magicNumber/Strategy_mult;
+  int den = int(MathPow(10,Strategy_digits));
+  int id = int(MathMod(num,den));
+  return(id);
 }
 int MagicNumber::getOneR(int magicNumber) {
+  Debug4(__FUNCTION__,__LINE__,"Entered");
   int rtn = magicNumber / OneR_mult;
   return(int((rtn % int(MathPow(10,OneR_digits)))  ));  //*OnePoint));
 }
 
 int MagicNumber::getBarNumber(int magicNumber) {
+  Debug4(__FUNCTION__,__LINE__,"Entered");
   int rtn = magicNumber / BarNumber_mult;
   Debug("getBarNumber: "+IntegerToString(magicNumber)+" => "+IntegerToString(rtn));
   Debug("return(int(("+IntegerToString(rtn)+" % "+IntegerToString(int(MathPow(10,BarNumber_digits)))+")*"+string(OnePoint)+"));");

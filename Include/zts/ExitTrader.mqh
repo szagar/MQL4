@@ -87,6 +87,7 @@ public:
   bool handleTimeExit();
   void handlePartialProfit();
   void updateTrailingStop();
+  double getTrailingStop(Position *pos, Enum_TRAILING_STOP_TYPES _model=None);
 };
 
 ExitTrader::ExitTrader() {
@@ -185,7 +186,7 @@ void ExitTrader::trailingStopParams(int model) {
       _tSatrPeriods = 14;
       break;
     case 4:    // trail at 1R
-      Info(__FUNCTION__+"("+__LINE__+")"+": call "+magic.getOneR("+OrderMagicNumber()+");");
+      Debug4(__FUNCTION__,__LINE__,"call magic.getOneR("+OrderMagicNumber()+");");
       _tSpips = magic.getOneR(OrderMagicNumber());
          Info(__FUNCTION__+": _tSpips="+string(_tSpips));
       break;
@@ -202,4 +203,39 @@ void ExitTrader::trailingStopParams(int model) {
   if(_tSmaType == MODE_SMA || _tSmaType == MODE_EMA) _tSmaType = TSmaType;
   if(_tSmaTimeFrame > 0) _tSmaTimeFrame = TSmaTimeFrame;
   if(_tSmaBufferPips > -1) _tSmaBufferPips = TSmaBufferPips;
+}
+
+double ExitTrader::getTrailingStop(Position *pos, Enum_TRAILING_STOP_TYPES _model=None) {
+  Enum_TRAILING_STOP_TYPES model = (_model == None ? TrailingStopModel : _model);
+  double currentPrice, newTrailingStop;
+  double currStopLoss=OrderStopLoss();
+  int pips=0;
+
+  currentPrice = NormalizeDouble((pos.Side == Long ? Bid : Ask),Digits);
+
+  switch(model) {
+    case PrevHL:
+      newTrailingStop = ((pos.Side==Long) ? iLow(NULL,0,TrailingStopBarShift) :
+                                            iHigh(NULL,0,TrailingStopBarShift));
+      break;
+    case ATR:
+      pips = oneR_calc_ATR(TS_ATRperiod,TS_ATRnumBars)*decimal2points_factor(symbol);
+      pips *= TS_ATRfactor;
+      newTrailingStop = currentPrice + pips * OnePoint * pos.Side;
+      break;
+    case OneR:
+      pips = pos.OneRpips;
+      newTrailingStop = currentPrice + pips * OnePoint * pos.Side;
+      break;
+    default:
+      newTrailingStop = currentPrice;;
+  }
+  newTrailingStop = NormalizeDouble(newTrailingStop,Digits);
+
+  double tmp = newTrailingStop-currStopLoss;
+  if(currStopLoss==0 || (newTrailingStop-currStopLoss)*pos.Side >= MinStopLossDeltaPips * BaseCc
+yTickValue * OnePoint) {
+    return(newTrailingStop);
+  }
+  return(-1);
 }

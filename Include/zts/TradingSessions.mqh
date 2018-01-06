@@ -13,12 +13,15 @@
 #property link      "https://www..com"
 #property version   "1.00"
 #property strict
+
+
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
-#define NumSessions 8
+#define NumSessions 9
 enum Enum_Sessions{
   tbd=0,
+   All,
    Asia,
    AsiaLast1,
    London,
@@ -31,6 +34,9 @@ enum Enum_Sessions{
 
 #define NumSeasons 2
 enum Enum_Seasons{ Winter, Summer };
+
+extern string SessionParams = "=== Session Params ===";
+extern Enum_Sessions TradingSession = London;
 
 #define Start 0
 #define End 1
@@ -195,6 +201,7 @@ void TradingSessions::showAllSessions(string tz = "server") {
 bool TradingSessions::tradeWindowHr(Enum_Sessions ts = tbd) {
   int startTime;
   int stopTime;
+  if(ts == All) return true;
   if(ts == tbd) {
     startTime = TimeHour(SessionTimes_Start[tradingSession] + gmt2serverOffset);
     stopTime = TimeHour(SessionTimes_End[tradingSession] + gmt2serverOffset);

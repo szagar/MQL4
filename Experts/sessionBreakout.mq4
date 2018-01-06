@@ -1,18 +1,16 @@
 //+------------------------------------------------------------------+
-//|                                                        zts01.mq4 |
+//|                                                        sessionBreakout.mq4 |
 //+------------------------------------------------------------------+
 #property version   "1.00"
 #property strict
 
 extern string General = "=== " + __FILE__ + " ===";
 extern bool Testing = false;
-extern int Tbd = 1;
 extern bool GoLong = true;
-extern bool GoShort = false;
-extern double MinReward2RiskRatio = 1.5;
+extern bool GoShort = true;
+extern double MinReward2RiskRatio = 1.0;
 
-//#include <zts\common.mqh>
-#include <zts\zts04.mqh>
+#include <zts\sessionBreakout.mqh>
 #include <zts\stats_eod.mqh>
 #include <zts\TradingSessions.mqh>
 

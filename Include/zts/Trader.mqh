@@ -49,30 +49,9 @@ Trader::~Trader() {
 //+------------------------------------------------------------------+
 
 Position *Trader::newTrade(Setup *setup) {
-  Position *trade = new Position();
-  //trade.LotSize
-  //trade.Symbol = setup.symbol;
-  //trade.OrderType
-  //trade.LotSize
-  //trade.OpenPrice
-  //trade.StopPrice
-  //trade.TakeProfitPrice
-  //trade.Reference
-  //trade.Magic
-  /**
-  symbolPrefix + trade.Symbol + symbolSuffix, 
-                      trade.OrderType,
-                      trade.LotSize,
-                      trade.OpenPrice,
-                      0,    //slippage
-                      trade.StopPrice,  //stop loss
-                      trade.TakeProfitPrice,  //take profit
-                      trade.Reference,   //smz comment
-                      trade.Magic);   // magic
-  }
-  **/
-  
+  Debug4(__FUNCTION__,__LINE__,"Entered");
 
+  Position *trade = new Position();
   trade.OrderType = OP_BUYSTOP;
   trade.LotSize = sizer.lotSize(1);
   trade.Symbol = setup.symbol;
@@ -84,16 +63,20 @@ Position *Trader::newTrade(Setup *setup) {
   Debug4(__FUNCTION__,__LINE__,"oneR = "+DoubleToStr(oneR,Digits));
   double entryPrice = (setup.side==Long ? entry.entryPriceLong(EntryModel) : entry.entryPriceShort(EntryModel));
   Debug4(__FUNCTION__,__LINE__,"entryPrice = "+DoubleToStr(entryPrice,Digits));
-  double stopLoss =  (setup.side==Long ? entryPrice - oneR*points2decimal_factor(setup.symbol) : entryPrice + oneR*points2decimal_factor(setup.symbol));
-  Debug4(__FUNCTION__,__LINE__,"stopLoss = "+DoubleToStr(stopLoss,Digits));
 
   trade.IsPending = true;
   trade.OpenPrice = entryPrice;
-  trade.StopPrice = stopLoss;
+
+  if(UseStopLoss) {
+    double stopLoss =  (setup.side==Long ? entryPrice - oneR*points2decimal_factor(setup.symbol) : entryPrice + oneR*points2decimal_factor(setup.symbol));
+    Debug4(__FUNCTION__,__LINE__,"stopLoss = "+DoubleToStr(stopLoss,Digits));
+    trade.StopPrice = stopLoss;
+  }
+  
   trade.Symbol = setup.symbol;
   trade.OneRpips = oneR;
   trade.Reference = __FILE__;
-  trade.Magic = magic.get("RSI",oneR);
+  trade.Magic = magic.get(setup.strategyName,oneR);
   trade.TakeProfitPrice = ptgt.getLongTarget(trade,ProfitTargetModel);
   trade.RewardPips = int((trade.TakeProfitPrice-entryPrice)*decimal2points_factor(setup.symbol));
   Debug4(__FUNCTION__,__LINE__,"trade  ="+trade.inspect());

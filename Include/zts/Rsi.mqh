@@ -8,6 +8,8 @@
 #property version   "1.00"
 #property strict
 
+//extern int RSIperiod = 3;
+
 #include <zts\common.mqh>
 #include <zts\Setup.mqh>
   
@@ -19,8 +21,8 @@ public:
   ~Rsi();
   };
 
-Rsi::Rsi(string _symbol, Enum_SIDE _side):Setup(_symbol) {
-  name = "RSI";
+Rsi::Rsi(string _symbol, Enum_SIDE _side):Setup(_symbol,_side) {
+  strategyName = "RSI";
   symbol = _symbol;
   side = _side;
 }

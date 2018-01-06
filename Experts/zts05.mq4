@@ -12,7 +12,7 @@ extern bool GoShort = false;
 extern double MinReward2RiskRatio = 1.5;
 
 //#include <zts\common.mqh>
-#include <zts\zts04.mqh>
+#include <zts\zts05.mqh>
 #include <zts\stats_eod.mqh>
 #include <zts\TradingSessions.mqh>
 
