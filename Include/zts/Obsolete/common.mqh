@@ -67,27 +67,13 @@ enum Enum_OP_ORDER_TYPES {
   Z_BUYSTOP=4,    //Buy stop pending order
   Z_SELLSTOP=5,   //Sell stop pending order
 };
-enum Enum_EXITMODEL {
-  EX_Fitch,    // Fitch strategy
-  EX_SL_TP     // use stop loss and limit orders
-};
 enum Enum_TRAILING_STOP_TYPES { 
-  TS_None=0,    // Not Applicable
-  TS_PrevHL=1,  // Previous Hi/Lo
-  TS_ATR=2,     // ATR factor
-  TS_OneR=3,    // One R pips
-};
-enum Enum_PROFIT_TARGET_TYPES { 
-  PT_None=0,         // Not Applicable
-  PT_PrevHL=1,       // Previous Hi/Lo
-  PT_ATR=2,          // ATR factor
-  PT_OneR=3,         // One R factor
-  PT_PATI_Level=4,   // next PATI level
+  None=0,      // Not Applicable
+  PrevHL=1,  // Previous Hi/Lo
+  ATR=2,     // ATR factor
+  OneR=3,    // One R pips
 };
 
-//#include <zts/logger.mqh>
-
-/****
 #ifndef LOGGING
 #define LOGGING
 enum Enum_LogLevels{
@@ -126,8 +112,6 @@ enum Enum_LogLevels{
 void SetLogLevel(Enum_LogLevels level) {
   LogLevel = level;
 }
-****/
-
 
 /**
 enum ENUM_PERSISTER {

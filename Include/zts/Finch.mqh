@@ -75,40 +75,39 @@ void Finch::OnInit() {
 }
 
 void Finch::OnTick() {
-  Debug4(__FUNCTION__,__LINE__,"Entered");
+  //Debug4(__FUNCTION__,__LINE__,"Entered");
   CheckProfit();
-  Debug4(__FUNCTION__,__LINE__,"1");
+  //Debug4(__FUNCTION__,__LINE__,"1");
   if(tradeNumber==2) return;
-  Debug4(__FUNCTION__,__LINE__,"2");
+  //Debug4(__FUNCTION__,__LINE__,"2");
   if(CloseOne!=Close[1]) {
-    Debug4(__FUNCTION__,__LINE__,"2");
+    //Debug4(__FUNCTION__,__LINE__,"2");
     if(!BuysNotAllowed && Order_Type!=1 && Close[0]<=PriceForBuy && RSIBuyCheck(1))
       OpenTrade("Buy");
     if(!SellsNotAllowed && Order_Type!=0 && Close[0]>=PriceForSell && RSISellCheck(1))
       OpenTrade("Sell");
     CloseOne=Close[1];
   }
-  Debug4(__FUNCTION__,__LINE__,"CloseOne="+CloseOne);
-
+  //Debug4(__FUNCTION__,__LINE__,"CloseOne="+string(CloseOne));
 }
 
 void Finch::CheckProfit() {
-  Debug4(__FUNCTION__,__LINE__,"Entered");
+  //Debug4(__FUNCTION__,__LINE__,"Entered");
   double Profits=0.0;
   tradeNumber=0;
   for(int x=0;x<OrdersTotal();x++) {
-    Debug4(__FUNCTION__,__LINE__,"loop");
+    //Debug4(__FUNCTION__,__LINE__,"loop");
     if(OrderSelect(x,SELECT_BY_POS,MODE_TRADES)) {
-      Debug4(__FUNCTION__,__LINE__,"roboID="+roboID);
-      Debug4(__FUNCTION__,__LINE__,"OrderMagicNumber()="+OrderMagicNumber());
-      Debug4(__FUNCTION__,__LINE__,"magic.roboID(OrderMagicNumber())="+magic.roboID(OrderMagicNumber()));
+      //Debug4(__FUNCTION__,__LINE__,"roboID="+IntegerToString(roboID));
+      //Debug4(__FUNCTION__,__LINE__,"OrderMagicNumber()="+string(OrderMagicNumber()));
+      //Debug4(__FUNCTION__,__LINE__,"magic.roboID(OrderMagicNumber())="+IntegerToString(magic.roboID(OrderMagicNumber())));
       if(magic.roboID(OrderMagicNumber()) != roboID) continue;
-      Debug4(__FUNCTION__,__LINE__,"1");
+      //Debug4(__FUNCTION__,__LINE__,"1");
       if(OrderSymbol()!=Symbol()) continue;
          
       Profits+=OrderProfit();
       tradeNumber=tradeNumber+1;
-      Debug4(__FUNCTION__,__LINE__,"tradeNumber="+tradeNumber);
+      //Debug4(__FUNCTION__,__LINE__,"tradeNumber="+IntegerToString(tradeNumber));
          
       if(OrderType()==0) {
         Order_Type=OrderType();     // Buy
@@ -121,47 +120,47 @@ void Finch::CheckProfit() {
     }
   }
 
-  Debug4(__FUNCTION__,__LINE__,"tradeNumber="+tradeNumber+"  Order_Type="+Order_Type+"  Profits="+Profits);
+  //Debug4(__FUNCTION__,__LINE__,"tradeNumber="+string(tradeNumber)+"  Order_Type="+string(Order_Type)+"  Profits="+string(Profits));
 
-  Debug4(__FUNCTION__,__LINE__,"2");
+  //Debug4(__FUNCTION__,__LINE__,"2");
   if(tradeNumber==0) {
     BreakEven=false;
     Order_Type=2;                 // Buy Limit
     return;
   }
-  Debug4(__FUNCTION__,__LINE__,"3");
+  //Debug4(__FUNCTION__,__LINE__,"3");
   if(tradeNumber==1 && Profits>=First_Trade_Profit_In_Dollars) {
     Print("Profit-1 is "+DoubleToStr(Profits,2));
-    Debug4(__FUNCTION__,__LINE__,"call CloseAllTrades");
+    //Debug4(__FUNCTION__,__LINE__,"call CloseAllTrades");
     CloseAllTrades();
     return;
   }
-  Debug4(__FUNCTION__,__LINE__,"3");
+  //Debug4(__FUNCTION__,__LINE__,"3");
   if(tradeNumber>=2 && Profits>=Second_Trade_Profit_In_Dollars) {
     Print("Profit-2 is "+DoubleToStr(Profits,2));
-    Debug4(__FUNCTION__,__LINE__,"call CloseAllTrades");
+    //Debug4(__FUNCTION__,__LINE__,"call CloseAllTrades");
     CloseAllTrades();
     return;
   }
-  Debug4(__FUNCTION__,__LINE__,"4");
+  //Debug4(__FUNCTION__,__LINE__,"4");
   if(Stop_Loss_In_Dollars>0 && tradeNumber>0 && Profits<=(Stop_Loss_In_Dollars*(-1))) {
     Print("Profit is "+DoubleToStr(Profits,2));
-    Debug4(__FUNCTION__,__LINE__,"call CloseAllTrades");
+    //Debug4(__FUNCTION__,__LINE__,"call CloseAllTrades");
     CloseAllTrades();
     return;
   }
-  Debug4(__FUNCTION__,__LINE__,"5");
+  //Debug4(__FUNCTION__,__LINE__,"5");
   if(Break_Even && !BreakEven && Profits>=Break_Even_At_Profit) {
     Print("Finch Break Even Begin");
     BreakEven=true;
   }
-  Debug4(__FUNCTION__,__LINE__,"6");
+  //Debug4(__FUNCTION__,__LINE__,"6");
   if(Break_Even && BreakEven && Profits<=0) {
-    Debug4(__FUNCTION__,__LINE__,"call CloseAllTrades");
+    //Debug4(__FUNCTION__,__LINE__,"call CloseAllTrades");
     CloseAllTrades();
     return;
   }
-  Debug4(__FUNCTION__,__LINE__,"7");
+  //Debug4(__FUNCTION__,__LINE__,"7");
   return;
 }
 
@@ -171,7 +170,7 @@ int Finch::OpenTrades() {
     if(OrderSelect(x,SELECT_BY_POS,MODE_TRADES)) {
       if(magic.roboID(OrderMagicNumber()) != roboID) continue;
       if(OrderSymbol()!=Symbol()) continue;
-         
+      if(OrderType()>1) continue;    // smz   
       thetotal++;
     }
   }
@@ -189,21 +188,36 @@ void Finch::CloseAllTrades() {
   PriceForSell=0.0;
 
   while(OpenTrades()>0) {   
+    Debug4(__FUNCTION__,__LINE__,"OpenTrades()="+string(OpenTrades()));
+    Debug4(__FUNCTION__,__LINE__,"OrdersTotal()="+string(OrdersTotal()));
     for(int x=0;x<OrdersTotal();x++) {
+      Debug4(__FUNCTION__,__LINE__,"x="+string(x));
       if(OrderSelect(x,SELECT_BY_POS,MODE_TRADES)) {
+        Debug4(__FUNCTION__,__LINE__,"magic.roboID(OrderMagicNumber()="+string(magic.roboID(OrderMagicNumber())));
+        Debug4(__FUNCTION__,__LINE__,"roboID="+string(roboID));
+        Debug4(__FUNCTION__,__LINE__,"Symbol()="+Symbol());
         if(magic.roboID(OrderMagicNumber()) != roboID) continue;
         if(OrderSymbol()!=Symbol()) continue;
             
-        if(OrderType()==0)
+        Debug4(__FUNCTION__,__LINE__,"OrderType()="+string(OrderType()));
+        if(OrderType()==0) {
           bool c1 = OrderClose(OrderTicket(),OrderLots(),Bid,UseSlippage);
-        if(OrderType()==1)
+          Debug4(__FUNCTION__,__LINE__,string(c1)+" = OrderClose("+string(OrderTicket())+","+string(OrderLots())+","+string(Bid)+","+string(UseSlippage)+")");
+          x--;
+        }
+        if(OrderType()==1) {
           bool c2 = OrderClose(OrderTicket(),OrderLots(),Ask,UseSlippage);
+          Debug4(__FUNCTION__,__LINE__,string(c2)+" = OrderClose("+string(OrderTicket())+","+string(OrderLots())+","+string(Ask)+","+string(UseSlippage)+")");
+          x--;
+        }
             
-        x--;
+        //x--;
             
+        if(GetLastError()==136) Debug4(__FUNCTION__,__LINE__,"GetLastError=136");
         if(GetLastError()==136) continue;
       }
     }
+    Debug4(__FUNCTION__,__LINE__,"Sleep(1000)");
     Sleep(1000);
     RefreshRates();
   }
@@ -211,23 +225,20 @@ void Finch::CloseAllTrades() {
 }
 
 bool Finch::OpenTrade(string Type) {
-  Debug4(__FUNCTION__,__LINE__,"Entered");
+  //Debug4(__FUNCTION__,__LINE__,"Entered");
   double TheSpread=MarketInfo(Symbol(),MODE_SPREAD);
   if(Digits()==3 || Digits()==5)
     TheSpread = MarketInfo(Symbol(),MODE_SPREAD)/10;
    
-  Debug4(__FUNCTION__,__LINE__,"1");
   if(TheSpread>Max_Spread_Pips) {
     Print("Spread too large, can't place trade");
     return(false);
   }
    
-  Debug4(__FUNCTION__,__LINE__,"2");
   double Lots = First_Trade_Lots;
   if(tradeNumber==1)
     Lots=Second_Trade_Lots;
    
-  Debug4(__FUNCTION__,__LINE__,"3");
   if(Type=="Buy") {  
     triggered = true;    
     //int Buy = OrderSend(Symbol(),OP_BUY,Lots,Ask,UseSlippage,0,0,"Buy Finch: "+Symbol(),Magic,0,0);
@@ -242,7 +253,6 @@ bool Finch::OpenTrade(string Type) {
 
     SendAlert("New Finch Buy Trade on the "+Symbol());
   }
-  Debug4(__FUNCTION__,__LINE__,"4");
   if(Type=="Sell") {
     triggered = true;
     //int Sell = OrderSend(Symbol(),OP_SELL,Lots,Bid,UseSlippage,0,0,"Sell Finch: "+Symbol(),Magic,0,0);
@@ -257,7 +267,6 @@ bool Finch::OpenTrade(string Type) {
       
     SendAlert("New Finch Sell Trade on the "+Symbol());
   }
-  Debug4(__FUNCTION__,__LINE__,"5");
   return(true);
 }
 

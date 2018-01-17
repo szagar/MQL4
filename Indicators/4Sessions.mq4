@@ -249,98 +249,86 @@ int deinit()
 }
 
 //+------------------------------------------------------------------+
-int start()
-{
-    if (Period() < PERIOD_H4)
-    {
-        int     iBarsCur, iBarsDiff;
-        double  dNow;
+int start() {
+  if (Period() < PERIOD_H4) {
+    int     iBarsCur, iBarsDiff;
+    double  dNow;
         
-        iBarsCur  = Bars;
-        iBarsDiff = iBarsCur-iBarsInit;
-        dNow      = Hour()+Minute()/100.0;
+    iBarsCur  = Bars;
+    iBarsDiff = iBarsCur-iBarsInit;
+    dNow      = Hour()+Minute()/100.0;
         
-        if (iBarsDiff > 1)
-        {
-            DrawAllSessions();
-
-            iBarsInit = iBarsCur;
-            return(0);
-        }
-        else if (iBarsDiff == 1)
-        {
-            iBarsInit = iBarsCur;
-        }
+    if (iBarsDiff > 1) {
+      DrawAllSessions();
+      iBarsInit = iBarsCur;
+      return(0);
+    }
+    else if (iBarsDiff == 1) {
+      iBarsInit = iBarsCur;
+    }
         
-   
-        if (dNow >= 0.00 && dNow < 0.01)
-        {
-            if (!bREDRAWN)
-            {
-                DrawAllSessions();
-
-                bREDRAWN = true;
-                return(0);
-            }
-        }
+    if (dNow >= 0.00 && dNow < 0.01) {
+      if (!bREDRAWN) {
+        DrawAllSessions();
+        bREDRAWN = true;
+        return(0);
+      }
+    }
         
-        datetime dtTheTime;
-        datetime dtDayToDraw;
+    datetime dtTheTime;
+    datetime dtDayToDraw;
         
-        dtTheTime   = TimeCurrent();
-        dtDayToDraw = dtTheTime;
+    dtTheTime   = TimeCurrent();
+    dtDayToDraw = dtTheTime;
             
-        for (int i=1; i <= 2; i++)
-        {
-            datetime dtOpen, dtClose;
-
-            dtOpen  = ObjectGet(PACIFIC+i,OBJPROP_TIME1);
-            dtClose = ObjectGet(PACIFIC+i,OBJPROP_TIME2);
+    for (int i=1; i <= 2; i++) {
+      datetime dtOpen, dtClose;
+      dtOpen  = ObjectGet(PACIFIC+i,OBJPROP_TIME1);
+      dtClose = ObjectGet(PACIFIC+i,OBJPROP_TIME2);
         
-            if (dtTheTime >= dtOpen && dtTheTime <= dtClose)
-                DrawSession(PACIFIC+i,
+      if (dtTheTime >= dtOpen && dtTheTime <= dtClose)
+        DrawSession(PACIFIC+i,
                             PacificDesc,
                             dtDayToDraw,
                             PacificOpen,
                             PacificClose,
                             PacificColor);
                             
-            dtOpen  = ObjectGet(AMERICA+i,OBJPROP_TIME1);
-            dtClose = ObjectGet(AMERICA+i,OBJPROP_TIME2);
+      dtOpen  = ObjectGet(AMERICA+i,OBJPROP_TIME1);
+      dtClose = ObjectGet(AMERICA+i,OBJPROP_TIME2);
         
-            if (dtTheTime >= dtOpen && dtTheTime <= dtClose)  
-                DrawSession(AMERICA+i,
+      if (dtTheTime >= dtOpen && dtTheTime <= dtClose)  
+        DrawSession(AMERICA+i,
                             AmericaDesc,
                             dtDayToDraw,
                             AmericaOpen,
                             AmericaClose,
                             AmericaColor);
                             
-            dtOpen  = ObjectGet(EUROPE+i,OBJPROP_TIME1);
-            dtClose = ObjectGet(EUROPE+i,OBJPROP_TIME2);
+      dtOpen  = ObjectGet(EUROPE+i,OBJPROP_TIME1);
+      dtClose = ObjectGet(EUROPE+i,OBJPROP_TIME2);
 
-            if (dtTheTime >= dtOpen && dtTheTime <= dtClose)             
-                DrawSession(EUROPE+i,
+      if (dtTheTime >= dtOpen && dtTheTime <= dtClose)             
+        DrawSession(EUROPE+i,
                             EuropeDesc,
                             dtDayToDraw,
                             EuropeOpen,
                             EuropeClose,
                             EuropeColor);
 
-            dtOpen  = ObjectGet(ASIA+i,OBJPROP_TIME1);
-            dtClose = ObjectGet(ASIA+i,OBJPROP_TIME2);
+      dtOpen  = ObjectGet(ASIA+i,OBJPROP_TIME1);
+      dtClose = ObjectGet(ASIA+i,OBJPROP_TIME2);
         
-            if (dtTheTime >= dtOpen && dtTheTime <= dtClose)
-                DrawSession(ASIA+i,
+      if (dtTheTime >= dtOpen && dtTheTime <= dtClose)
+        DrawSession(ASIA+i,
                             AsiaDesc,
                             dtDayToDraw,
                             AsiaOpen,
                             AsiaClose,
                             AsiaColor);
  
-            dtDayToDraw = Yesterday(dtDayToDraw);
-        }              
-    }
-
-    return(0);
+      dtDayToDraw = Yesterday(dtDayToDraw);
+    }              
+  }
+   return(0);
 }

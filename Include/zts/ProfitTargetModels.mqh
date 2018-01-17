@@ -8,7 +8,11 @@
 #property version   "1.00"
 #property strict
 
-extern int ProfitTargetModel = 1;
+extern string commentString_10 = "*****************************************";
+extern string commentString_11 = "PROFIT TARGET MODEL SETTINGS";
+extern Enum_PROFIT_TARGET_TYPES ProfitTargetModel = PT_OneR;
+extern double PT_multiplier = 2.0;
+extern string commentString_12 = "*****************************************";
 
 #include <zts\common.mqh>;
 
@@ -20,22 +24,36 @@ private:
 public:
   ProfitTargetModels();
   ~ProfitTargetModels();
-  double getLongTarget(Position*,int _model=0);
+  double getTargetPrice(Position*,Enum_PROFIT_TARGET_TYPES _model=0);
 };
 
 ProfitTargetModels::ProfitTargetModels() {
-  defaultModel = 1;
+  defaultModel = PT_OneR;
 }
 
 ProfitTargetModels::~ProfitTargetModels() {
 }
 
-double ProfitTargetModels::getLongTarget(Position *trade, int _model=0) {
-  int model = (_model>0 ? _model : defaultModel);
+double ProfitTargetModels::getTargetPrice(Position *trade,
+                                         Enum_PROFIT_TARGET_TYPES _model=PT_None) {
+  int model = (_model>PT_None ? _model : defaultModel);
+  double entryPrice;
   double price;
+  int sideX;
   
+  sideX = (trade.Side==Long?1:-1);
+  entryPrice = trade.OpenPrice;
   switch(model) {
-    case 1:
+    case PT_PrevHL:
+        price = entryPrice;
+      break;
+    case PT_ATR:
+        price = entryPrice;
+      break;
+    case PT_OneR:
+        price = entryPrice + sideX*trade.OneRpips*PT_multiplier*OnePoint;
+      break;
+    case PT_PATI_Level:
       price = nextPatiLevel(trade.Side,(trade.Side==Long ? Bid : Ask));
       trade.RewardPips = int((price-trade.OpenPrice)*decimal2points_factor(trade.Symbol) * trade.Side);
       while(trade.RewardPips/trade.OneRpips < MinReward2RiskRatio) {

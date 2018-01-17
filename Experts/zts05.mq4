@@ -4,14 +4,21 @@
 #property version   "1.00"
 #property strict
 
-extern string General = "=== " + __FILE__ + " ===";
+#include <zts\logger.mqh>
+#include <zts\common.mqh>
+
+string f1(){return("########");}
+
+extern string commentString_1 = "*****************************************";
+extern string commentString_2 = __FILE__;
 extern bool Testing = false;
-extern int Tbd = 1;
+extern Enum_LogLevels LogLevel = LogInfo;
 extern bool GoLong = true;
 extern bool GoShort = false;
+extern int Slippage=5;
 extern double MinReward2RiskRatio = 1.5;
+extern string commentString_3 = "*****************************************";
 
-//#include <zts\common.mqh>
 #include <zts\zts05.mqh>
 #include <zts\stats_eod.mqh>
 #include <zts\TradingSessions.mqh>

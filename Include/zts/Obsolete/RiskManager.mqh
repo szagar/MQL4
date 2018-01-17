@@ -7,7 +7,7 @@ enum Enum_RISKMODEL {R_PATI, R_ATR};
 
 extern string _dummy1 = "=== RiskManager Params ===";
 extern Enum_RISKMODEL RiskModel = 1;
-extern Enum_TRAILING_STOP_TYPES TrailingStopModel = 2;
+//extern Enum_TRAILING_STOP_TYPES TrailingStopModel = 2;
 extern double Percent2risk = 0.5;
 extern double MinStopLossDeltaPips = 2.0;
 extern int TrailingStopBarShift = 1;

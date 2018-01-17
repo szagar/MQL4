@@ -88,7 +88,8 @@ public:
 #include <zts\TradingSessions.mqh>
 #include <zts\Trader.mqh>
 
-extern string RoboParams = "=== Robo Params ===";
+extern string commentString_16 = "*****************************************";
+extern string commentString_17 = "ROBO SETTINGS";
 extern int RoboID = 1;
 extern int MarketModel = 1;
 extern bool CanPyramid = false;
@@ -96,7 +97,6 @@ extern bool CanPyramid = false;
 extern int EngulfingType = 1;
 extern string ExitParams = "=== Exit Params ===";
 extern int InitStopModel = 0;
-//extern int TrailingStopModel = 0;
 //extern int TimeExitModel = 0;
 //extern int ProfitExitModel = 0;
 extern string SetupParams = "=== Setup Params ===";
@@ -119,19 +119,20 @@ extern int SetupId = 0;
 extern int EntryModel = 0;
 extern int YellowLineBarShift = 1;
 
-#include <zts\RiskManager.mqh>
+#include <zts\InitialRisk.mqh>
+#include <zts\ExitManager.mqh>
 #include <zts\Account.mqh>
 #include <zts\Broker.mqh>
 #include <zts\PositionSizer.mqh>
-#include <zts\InitialRisk.mqh>
-#include <zts\position_sizing.mqh>
-#include <zts\TradingSessions.mqh>
+//#include <zts\position_sizing.mqh>
+//#include <zts\TradingSessions.mqh>
 #include <zts\MarketCondition.mqh>
-#include <zts\Trader.mqh>
+//#include <zts\Trader.mqh>
 
 
 extern string _dummy2 = "=== EquityManager Params ===";
 extern int EquityModel = 1;
+extern string commentString_18 = "***************************************** ROBO SETTINGS";
 
   int dayBarNumber;
   int sessionBarNumber;
@@ -168,11 +169,11 @@ private:
   bool useTrailingStop;
 
   double rangeLower, rangeUpper;
-  RiskManager *riskMgr;
+  InitialRisk *initRisk;
+  ExitManager *exitMgr;
   Account *account;
   Broker *broker;
   PositionSizer *sizer;
-  InitialRisk *initRisk;
   Describe *about;
   MagicNumber *magic;
   TradingSessions *session;
@@ -219,16 +220,16 @@ Robo::Robo() {
   pendingSetup = false;
   rangeIsSet = false;
   exitStratCnt = 0;
-  riskMgr = new RiskManager(EquityModel,RiskModel);
+  initRisk = new InitialRisk();
+  exitMgr = new ExitManager(ExitModel);
   account = new Account();
   broker = new Broker();
   sizer = new PositionSizer();
-  initRisk = new InitialRisk();
   about = new Describe();
   magic = new MagicNumber();
   market = new MarketCondition(MarketModel);
   session = new TradingSessions(TradingSession);
-  trader = new Trader();
+  trader = new Trader(exitMgr,initRisk);
   symbol = broker.NormalizeSymbol(Symbol());
 
   if(GoLong) initLongSetupStrategies();
@@ -262,7 +263,8 @@ Robo::~Robo() {
   if (CheckPointer(about) == POINTER_DYNAMIC) delete about;
   if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;
   if (CheckPointer(account) == POINTER_DYNAMIC) delete account;
-  if (CheckPointer(riskMgr) == POINTER_DYNAMIC) delete riskMgr;
+  //if (CheckPointer(riskMgr) == POINTER_DYNAMIC) delete riskMgr;
+  if (CheckPointer(exitMgr) == POINTER_DYNAMIC) delete exitMgr;
 }
 
 int Robo::OnInit() {
@@ -290,25 +292,26 @@ int Robo::OnInit() {
 void Robo::OnDeinit() { }
 
 void Robo::OnTick() {
-  Debug4(__FUNCTION__,__LINE__,"Robo::OnTick");
+  //Debug4(__FUNCTION__,__LINE__,"Robo::OnTick");
   Setup *setup;
   for(int i=0;i<longSetupOnTickCnt;i++) {
     setup = longSetupsOnTick[i];
     setup.OnTick();
   }
-  Debug4(__FUNCTION__,__LINE__,"1");
+  //Debug4(__FUNCTION__,__LINE__,"1");
   for(int i=0;i<shortSetupOnTickCnt;i++) {
     setup = shortSetupsOnTick[i];
     setup.OnTick();
   }
-  Debug4(__FUNCTION__,__LINE__,"2");
-  if(session.tradeWindow() && canTradeSymbol()) {
+  //Debug4(__FUNCTION__,__LINE__,"2");
+  //if(session.tradeWindow() && canTradeSymbol()) {
+  if(true) {
     if(market.canGoLong())
       look2trade(longSetupsOnTick,longSetupOnTickCnt);
     if(market.canGoShort())
       look2trade(shortSetupsOnTick,shortSetupOnTickCnt);
   }
-  Debug4(__FUNCTION__,__LINE__,"3");
+  //Debug4(__FUNCTION__,__LINE__,"3");
 }
 
 void Robo::OnNewBar() {   //bool tradeWindow) {
@@ -358,7 +361,7 @@ void Robo::startOfDay() {
 }
 
 void Robo::handleOpenPositions() {
-  Debug("handleOpenPositions entered");
+  //Debug("handleOpenPositions entered");
   int lastError = 0;
   Position *trade;
   totalPositions=0;
@@ -371,27 +374,21 @@ void Robo::handleOpenPositions() {
     }
     trade = broker.GetPosition();
     if(StringCompare(OrderSymbol(),Symbol())==0 && magic.roboID(OrderMagicNumber()) == RoboID) {
-      Debug4(__FUNCTION__,__LINE__,"Type: "+IntegerToString(OrderType())+" ID: "+IntegerToString(OrderTicket())+"  "+OrderSymbol()+" "+DoubleToStr(OrderLots(),2)+" magic:"+IntegerToString(OrderMagicNumber()));
-      Debug4(__FUNCTION__,__LINE__,symbol+": Strategy="+magic.getStrategy(OrderMagicNumber())+"  magic="+string(OrderMagicNumber()));
       //if(StringCompare(magic.getStrategy(OrderMagicNumber()), "CDM-YL", false)!=0) continue;
       if(OrderType() == OP_BUY ) {
         totalPositions++;
         position += double(OrderLots());
-        if(TrailingStopModel != NA)
-          updateStopLoss(trade);
+        //if(TrailingStopModel != None)
+        updateStopLoss(trade);
       }
     
       if(OrderType() == OP_SELL) {
         totalPositions++;
         position -= double(OrderLots());
-        if(TrailingStopModel != NA)
-          updateStopLoss(trade);
+        //if(TrailingStopModel != None)
+        updateStopLoss(trade);
       }
-      Debug4(__FUNCTION__,__LINE__,"Total Position="+IntegerToString(totalPositions)+"  Position="+DoubleToString(position,2));
     } else {
-      Debug4(__FUNCTION__,__LINE__,"Open trade did not match Symbol and Magic Number");
-      Debug4(__FUNCTION__,__LINE__,"Type: "+IntegerToString(OrderType())+" ID: "+IntegerToString(OrderTicket())+"  "+OrderSymbol()+" "+DoubleToStr(OrderLots(),2)+" magic:"+IntegerToString(OrderMagicNumber()));
-      Debug4(__FUNCTION__,__LINE__,symbol+": Strategy="+magic.getStrategy(OrderMagicNumber())+"  magic="+string(OrderMagicNumber()));
     }
     if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
   }
@@ -404,7 +401,8 @@ void Robo::updateStopLoss(Position *pos) {
   Debug4(__FUNCTION__,__LINE__,"Entered");
   double newStopLoss;
   Debug2("updateStopLoss entered:  side="+EnumToString(pos.Side)+"   oneR="+string(magic.getOneR(OrderMagicNumber())));
-  newStopLoss = riskMgr.getTrailingStop(pos);
+  //newStopLoss = exitMgr.getTrailingStop(pos);
+  newStopLoss = trader.calcStopLoss(pos);
 
   if(newStopLoss > 0) {
     Debug4(__FUNCTION__,__LINE__,IntegerToString(OrderTicket())+" update stop loss: "+
@@ -414,60 +412,6 @@ void Robo::updateStopLoss(Position *pos) {
     Debug4(__FUNCTION__,__LINE__,"DO NOT update trailing stop");
 }
 
-/*
-//void Robo::checkForSetups(void) {
-//  Debug("checkForSetups entered");
-//  if(MathAbs(position) >= 0.01) return;          // current position
-//  if(GoLong && setup_rsi_01()) {
-//    Position *trade = new Position();
-//    int oneR = LookupStopPips(symbol);
-//    double stopLoss =  oneR * OnePoint;
-//    trade.LotSize = CalcTradeSize(account,stopLoss);
-//    trade.IsPending = true;
-//    trade.OpenPrice = iHigh(NULL,0,1);
-//    trade.OrderType = OP_BUYSTOP;
-//    trade.Symbol = symbol;
-//    trade.Reference = __FILE__;
-//    trade.Magic = magic.get("RSI",oneR);
-//    Debug("=====>Trade.magic="+string(trade.Magic));
-//    broker.CreateOrder(trade);
-//    if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
-//   // if (CheckPointer(magic) == POINTER_DYNAMIC) delete magic;
-//  }
-//}
-*/
-
-/*
-  switch(SetupId) {
-    case 0:
-      side = trader.setup_crossOver01();
-      if(side == 1 && GoLong) {
-        oneRpips = riskMgr.initialStop(InitStopModel);
-        rewardPips = riskMgr.profitTarget(oneR,ProfitTargetModel);
-        if(rewardPips/oneRpips < MinReward2RiskRatio)
-          continue
-        trade = trader.entry_yellowLine(oneRpips,rewardPips,SetupId,EntryModel,YellowLineBarShift);
-        if(trade)
-          broker.CreateOrder(trade);
-        enterLong01();  // yellow line entry. Pati pips initial stop, PATI levels target
-      break;
-    default:
-  }
-      
-  }
-}
-*/
-
-/**
-bool setup_rsi_01() {
-  double rsi=iRSI(Symbol(),0,RSIperiod,PRICE_CLOSE,0);
-  double rsi1=iRSI(Symbol(),0,RSIperiod,PRICE_CLOSE,1);
-  double BuyLevel=30;
-  
-  if(rsi>BuyLevel && rsi1<BuyLevel) return true;
-  return false;
-}
-**/
 
 int Robo::barsSince(datetime from) {
   int bar = int((iTime(NULL,0,0) - from) / PeriodSeconds());
@@ -611,19 +555,14 @@ bool Robo::isStartOfNewSession() {
 }
 
 void Robo::look2trade(Setup* &setups[],int size) {
-  Debug4(__FUNCTION__,__LINE__,"Entered");
+  //Debug4(__FUNCTION__,__LINE__,"Entered");
   Position *trade;
   Setup *setup;
-  Debug4(__FUNCTION__,__LINE__,"1");
   for(int i=0;i<size;i++) {
-    Debug4(__FUNCTION__,__LINE__,"2-"+string(i));
-
     setup = setups[i];
-    Debug4(__FUNCTION__,__LINE__,"2-a");
     if(setup.triggered) {
-      Debug4(__FUNCTION__,__LINE__,"3");
       trade = trader.newTrade(setup);
-      Debug4(__FUNCTION__,__LINE__,"Reward2Risk="+DoubleToStr(trade.RewardPips/trade.OneRpips,4));
+      setup.reset();
       if(trade.RewardPips/trade.OneRpips < MinReward2RiskRatio) {
         Info("Trade did not meet min reward-to-risk ratio");
         if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
@@ -631,7 +570,6 @@ void Robo::look2trade(Setup* &setups[],int size) {
       }
       Info(__FUNCTION__+": T R A D E Long:  "+trade.toHuman());
       broker.CreateOrder(trade);
-      Debug4(__FUNCTION__,__LINE__,"4");
       if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
     }
   }

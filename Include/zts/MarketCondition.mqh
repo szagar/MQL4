@@ -20,6 +20,10 @@ public:
   bool canGoLong();
   bool canGoShort();
   string snapshort();
+  string trendUpOrDown();
+  int sessionMidpoint();
+
+
 };
 
 MarketCondition::MarketCondition(int _model=1) {
@@ -33,6 +37,14 @@ void MarketCondition::setModel(int _model) {
   marketModel = _model;
 }
 
+string MarketCondition::trendUpOrDown() {
+  string trend="";
+  //switch(marketModel) {
+  //  case Mkt_SessionMidpoint:
+  //    if(Low > 
+  return trend;
+}
+
 bool MarketCondition::canGoLong() {
   return true;
 }
@@ -44,4 +56,14 @@ bool MarketCondition::canGoShort() {
 string MarketCondition::snapshort() {
   string str = "";
   return str;
+}
+
+int MarketCondition::sessionMidpoint() {
+  //int buffer = MktSessionMidpoit_buffer;
+  //double smMid = iCustom(NULL,0,"SessionMidPoint",Red,White,Red,White,1,1);
+  //if(Low[1]-buffer*Point > smMid)
+  //  return(1);
+  //if(High[1]+buffer*Point < smMid)
+  //  return(1);
+  return(0);
 }

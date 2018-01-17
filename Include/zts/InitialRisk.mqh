@@ -13,11 +13,13 @@
 
 enum Enum_INITIAL_RISK { IR_Pati_Pips, IR_ATR, IR_PrevHL};
 
-extern string _dummy8 = "=== Initial Risk Params ===";
+extern string commentString_13 = "*****************************************";
+extern string commentString_14 = "1R - INITIAL RISK SETTINGS";
 extern Enum_INITIAL_RISK OneRmodel = IR_ATR;
+extern int IR_BarCount = 3;
 extern ENUM_TIMEFRAMES IR_ATRperiod = 0;
-extern int IR_ATRnumBars = 3;
 extern double IR_ATRfactor = 2.7;
+extern string commentString_15 = "*****************************************";
 
 class InitialRisk {
 private:
@@ -30,7 +32,7 @@ public:
   InitialRisk();
   ~InitialRisk();
   
-  int getInPips(Enum_INITIAL_RISK,Position*);
+  int getInPips(Position*,Enum_INITIAL_RISK);
 
 };
 
@@ -41,7 +43,8 @@ InitialRisk::InitialRisk() {
 InitialRisk::~InitialRisk() {
 }
 
-int InitialRisk::getInPips(Enum_INITIAL_RISK _model,Position *trade) {
+int InitialRisk::getInPips(Position *trade, Enum_INITIAL_RISK _model=NULL) {
+  if(_model == NULL) _model = OneRmodel;
   Debug4(__FUNCTION__,__LINE__,"int InitialRisk::getInPips( "+EnumToString(_model)+", "+trade.Symbol+")");
   int pips=0;
   Enum_INITIAL_RISK model = (_model>0 ? _model : OneRmodel); 
@@ -54,14 +57,14 @@ int InitialRisk::getInPips(Enum_INITIAL_RISK _model,Position *trade) {
       Debug4(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips));
       break;
     case IR_ATR:
-      atr = calc_ATR(trade.Symbol,IR_ATRperiod,IR_ATRnumBars);
+      atr = calc_ATR(trade.Symbol,IR_ATRperiod,IR_BarCount);
       //pips = int(oneR_calc_ATR(ATRperiod,ATRnumBars)*decimal2points_factor(symbol)*IR_ATRfactor);
-      pips = int(calc_ATR(trade.Symbol,IR_ATRperiod,IR_ATRnumBars)*decimal2points_factor(trade.Symbol)*IR_ATRfactor);
+      pips = int(calc_ATR(trade.Symbol,IR_ATRperiod,IR_BarCount)*decimal2points_factor(trade.Symbol)*IR_ATRfactor);
       Debug4(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips)+"  atr="+DoubleToStr(atr,Digits));
       break;
     case IR_PrevHL:
       px = (trade.Side==Long ? Bid : Ask);
-      sl = (trade.Side==Long ? iLow(NULL,0,TrailingStopBarShift) : iHigh(NULL,0,TrailingStopBarShift));
+      sl = (trade.Side==Long ? iLow(NULL,0,IR_BarCount) : iHigh(NULL,0,IR_BarCount));
       pips = int((px-sl)*trade.Side * decimal2points_factor(trade.Symbol));
       Debug4(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips));
       break;

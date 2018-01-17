@@ -9,7 +9,6 @@
 #property strict
 
 #include <zts/MagicNumber.mqh>
-#include <zts/ExitTrader.mqh>
 
 // CFoo(string name) : m_name(name) { Print(m_name);}
 //--- The base class Setup
@@ -42,7 +41,7 @@ public:
     Debug4(__FUNCTION__,__LINE__,"Setup::OnBar");
   };
   virtual void startOfDay() { };
-  void reset() {};  
+  void reset() {triggered=false;};  
 };
 
 

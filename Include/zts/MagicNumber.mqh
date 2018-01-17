@@ -81,16 +81,11 @@ MagicNumber::~MagicNumber() {
 }
 
 int MagicNumber::get(string _strategy="",int _oneR=0, int _barNumber=0) {
-  Debug4(__FUNCTION__,__LINE__,"Entered");
   strategyId = encodeStrategyName(_strategy);
-  Debug("strategyId="+string(strategyId));
-  Debug("MagicNumber: _strategy="+_strategy+"  _oneR="+string(_oneR)+" magicTemplate="+string(magicTemplate)+" strategyId="+string(strategyId));
-  Debug(string(magicTemplate)+" + "+string(strategyId)+"*"+string(Strategy_mult)+" + "+string(_oneR)+"*"+string(OneR_mult));
   return(magicTemplate + strategyId*Strategy_mult + _oneR*OneR_mult + _barNumber*BarNumber_mult);
 }
 
 int MagicNumber::encodeStrategyName(string name) {
-  Debug4(__FUNCTION__,__LINE__,"Entered");
   if(StringCompare(name,"CDM-YL",false)==0) return(1);
   if(StringCompare(name,"RBO",false)==0) return 2;
   if(StringCompare(name,"MOMO",false)==0) return 3;
@@ -101,7 +96,6 @@ int MagicNumber::encodeStrategyName(string name) {
 }
 
 string MagicNumber::decodeStrategyName(int magicNumber) {
-  Debug4(__FUNCTION__,__LINE__,"Entered");
   if(magicNumber == 0) return "";
   int num = magicNumber/Strategy_mult;
   int den = int(MathPow(10,Strategy_digits));
@@ -114,12 +108,10 @@ string MagicNumber::decodeStrategyName(int magicNumber) {
 }
 
 string MagicNumber::getStrategy(int magicNumber) {
-  Debug4(__FUNCTION__,__LINE__,"Entered");
   return decodeStrategyName(magicNumber);
 }
 
 int MagicNumber::roboID(int magicNumber) {
-  Debug4(__FUNCTION__,__LINE__,"Entered");
   if(magicNumber == 0) return 0;
   int num = magicNumber/Strategy_mult;
   int den = int(MathPow(10,Strategy_digits));
@@ -127,15 +119,11 @@ int MagicNumber::roboID(int magicNumber) {
   return(id);
 }
 int MagicNumber::getOneR(int magicNumber) {
-  Debug4(__FUNCTION__,__LINE__,"Entered");
   int rtn = magicNumber / OneR_mult;
   return(int((rtn % int(MathPow(10,OneR_digits)))  ));  //*OnePoint));
 }
 
 int MagicNumber::getBarNumber(int magicNumber) {
-  Debug4(__FUNCTION__,__LINE__,"Entered");
   int rtn = magicNumber / BarNumber_mult;
-  Debug("getBarNumber: "+IntegerToString(magicNumber)+" => "+IntegerToString(rtn));
-  Debug("return(int(("+IntegerToString(rtn)+" % "+IntegerToString(int(MathPow(10,BarNumber_digits)))+")*"+string(OnePoint)+"));");
   return(int((rtn % int(MathPow(10,BarNumber_digits)))  ));
 }
