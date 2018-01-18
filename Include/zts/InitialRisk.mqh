@@ -13,13 +13,13 @@
 
 enum Enum_INITIAL_RISK { IR_Pati_Pips, IR_ATR, IR_PrevHL};
 
-extern string commentString_13 = "*****************************************";
-extern string commentString_14 = "1R - INITIAL RISK SETTINGS";
+extern string commentString_13 = "";  //*****************************************
+extern string commentString_14 = ""; //1R - INITIAL RISK SETTINGS
 extern Enum_INITIAL_RISK OneRmodel = IR_ATR;
 extern int IR_BarCount = 3;
 extern ENUM_TIMEFRAMES IR_ATRperiod = 0;
 extern double IR_ATRfactor = 2.7;
-extern string commentString_15 = "*****************************************";
+//extern string commentString_15 = "";  //*****************************************
 
 class InitialRisk {
 private:

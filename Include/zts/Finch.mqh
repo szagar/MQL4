@@ -1,6 +1,7 @@
 #property strict
 
-extern string Setup_Finch_notes = "========= Setup: Finch params ========";
+extern string commentString_25 = ""; //*****************************************
+extern string commentString_26 = ""; //Finch Settings
 extern int CandlesBack = 30;
 extern int Max_Spread_Pips=5;
 
@@ -21,8 +22,9 @@ extern double Break_Even_At_Profit = 6.5;
 
 extern int RSIPeriod = 21;
 extern int MomentumPeriod = 20;
+extern string commentString_27 = ""; //*****************************************
 
-#include <zts/notify.mqh>
+#include<zts/notify.mqh>
 
 class Finch : public Setup {
 private:

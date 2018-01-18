@@ -12,32 +12,34 @@
 #include <zts\PositionSizer.mqh>
 #include <zts\InitialRisk.mqh>
 #include <zts\ExitManager.mqh>
+#include <zts\ProfitTargetModels.mqh>
 #include <zts\Setup.mqh>
 #include <zts\MagicNumber.mqh>
 #include <zts\EntryModels.mqh>
-#include <zts\ProfitTargetModels.mqh>
+//#include <zts\ProfitTargetModels.mqh>
 
 class Trader {
 private:
   PositionSizer *sizer;
   MagicNumber *magic;
   EntryModels *entry;
-  ProfitTargetModels *ptgt;
+  //ProfitTargetModels *ptgt;
   ExitManager *exitMgr;
   InitialRisk *initRisk;
+  ProfitTargetModels *profitTgt;
 public:
-  Trader(ExitManager*,InitialRisk*);
+  Trader(ExitManager*,InitialRisk*,ProfitTargetModels*);
   ~Trader();
   
   Position *newTrade(Setup*);
   double calcStopLoss(Position *);
 };
 
-Trader::Trader(ExitManager* em,InitialRisk* ir) {
+Trader::Trader(ExitManager* em,InitialRisk* ir, ProfitTargetModels *pt) {
   sizer = new PositionSizer();
   magic = new MagicNumber();
   entry = new EntryModels(1);
-  ptgt = new ProfitTargetModels();
+  profitTgt = pt;
   exitMgr = em;
   initRisk = ir;
 }
@@ -47,7 +49,7 @@ Trader::~Trader() {
  if (CheckPointer(initRisk) == POINTER_DYNAMIC) delete initRisk;
  if (CheckPointer(magic)    == POINTER_DYNAMIC) delete magic;
  if (CheckPointer(entry)    == POINTER_DYNAMIC) delete entry;
- if (CheckPointer(ptgt)     == POINTER_DYNAMIC) delete ptgt;
+ //if (CheckPointer(ptgt)     == POINTER_DYNAMIC) delete ptgt;
 }
 //+------------------------------------------------------------------+
 
@@ -75,7 +77,7 @@ Position *Trader::newTrade(Setup *setup) {
   trade.OneRpips = oneR;
   trade.Reference = __FILE__;
   trade.Magic = magic.get(setup.strategyName,oneR);
-  trade.TakeProfitPrice = ptgt.getTargetPrice(trade,ProfitTargetModel);
+  trade.TakeProfitPrice = profitTgt.getTargetPrice(trade,ProfitTargetModel);
   trade.RewardPips = int((trade.TakeProfitPrice-entryPrice)*decimal2points_factor(setup.symbol));
   
   return(trade);

@@ -88,51 +88,43 @@ public:
 #include <zts\TradingSessions.mqh>
 #include <zts\Trader.mqh>
 
-extern string commentString_16 = "*****************************************";
-extern string commentString_17 = "ROBO SETTINGS";
+extern string commentString_16 = ""; //*****************************************
+extern string commentString_17 = ""; //ROBO SETTINGS
 extern int RoboID = 1;
 extern int MarketModel = 1;
 extern bool CanPyramid = false;
-//extern Enum_Sessions tradingSession = NewYork;
-extern int EngulfingType = 1;
-extern string ExitParams = "=== Exit Params ===";
-extern int InitStopModel = 0;
-//extern int TimeExitModel = 0;
-//extern int ProfitExitModel = 0;
-extern string SetupParams = "=== Setup Params ===";
+extern string ExitParams = ""; //Exit Params
 
+extern string commentString17a = "";     //**** Setup Params
+extern bool Setup_BollingerBand = false; //     - Use BollingerBand setup?
+extern bool Setup_Finch = true;          //     - Use Finch setup?
+extern bool Setup_MovingAvg = false;     //     - Use Moving Avg Cross setup?
+extern bool Setup_Rsi = false;           //     - Use RSI setup?
 
-extern bool Setup_BollingerBand = false;
 #include <zts\BollingerBand.mqh>
-
-extern bool Setup_Finch = true;
 #include <zts\Finch.mqh>
-
-extern bool Setup_MovingAvg = false;
 #include <zts\MovingAvgCross.mqh>
-
-extern bool Setup_Rsi = false;
 #include <zts\Rsi.mqh>
 
-extern string EntryParams = "=== Entry Params ===";
+extern string commentString17b = ""; //**** Entry Params
 extern int SetupId = 0;
 extern int EntryModel = 0;
 extern int YellowLineBarShift = 1;
 
 #include <zts\InitialRisk.mqh>
 #include <zts\ExitManager.mqh>
+#include <zts\ProfitTargetModels.mqh>
 #include <zts\Account.mqh>
 #include <zts\Broker.mqh>
 #include <zts\PositionSizer.mqh>
 //#include <zts\position_sizing.mqh>
 //#include <zts\TradingSessions.mqh>
 #include <zts\MarketCondition.mqh>
-//#include <zts\Trader.mqh>
 
 
 extern string _dummy2 = "=== EquityManager Params ===";
 extern int EquityModel = 1;
-extern string commentString_18 = "***************************************** ROBO SETTINGS";
+extern string commentString_18 = ""; //*****************************************
 
   int dayBarNumber;
   int sessionBarNumber;
@@ -171,6 +163,7 @@ private:
   double rangeLower, rangeUpper;
   InitialRisk *initRisk;
   ExitManager *exitMgr;
+  ProfitTargetModels *profitTgt;
   Account *account;
   Broker *broker;
   PositionSizer *sizer;
@@ -221,7 +214,8 @@ Robo::Robo() {
   rangeIsSet = false;
   exitStratCnt = 0;
   initRisk = new InitialRisk();
-  exitMgr = new ExitManager(ExitModel);
+  exitMgr = new ExitManager();
+  profitTgt = new ProfitTargetModels();
   account = new Account();
   broker = new Broker();
   sizer = new PositionSizer();
@@ -229,7 +223,7 @@ Robo::Robo() {
   magic = new MagicNumber();
   market = new MarketCondition(MarketModel);
   session = new TradingSessions(TradingSession);
-  trader = new Trader(exitMgr,initRisk);
+  trader = new Trader(exitMgr,initRisk,profitTgt);
   symbol = broker.NormalizeSymbol(Symbol());
 
   if(GoLong) initLongSetupStrategies();
@@ -265,6 +259,7 @@ Robo::~Robo() {
   if (CheckPointer(account) == POINTER_DYNAMIC) delete account;
   //if (CheckPointer(riskMgr) == POINTER_DYNAMIC) delete riskMgr;
   if (CheckPointer(exitMgr) == POINTER_DYNAMIC) delete exitMgr;
+  if (CheckPointer(profitTgt) == POINTER_DYNAMIC) delete profitTgt;
 }
 
 int Robo::OnInit() {
@@ -458,7 +453,7 @@ void Robo::initLongSetupStrategies() {       // (Setup* &_setups[]) {
 
   if(Setup_MovingAvg) {
     Debug4(__FUNCTION__,__LINE__,"Add MovingAvg Long Setup");
-    setup = new MovingAvgCross(Symbol(),Long,MovingAvgLongModel);
+    setup = new MovingAvgCross(Symbol(),Long);
     if(setup.callOnTick) longSetupsOnTick[t_cnt++] = setup;
     if(t_cnt==t_size) {
       ArrayResize(longSetupsOnTick, 2*t_size);
@@ -515,7 +510,7 @@ void Robo::initShortSetupStrategies() {       //(Setup* &_setups[]) {
 
   if(Setup_MovingAvg) {
     Debug4(__FUNCTION__,__LINE__,"Add MovingAvg Short Setup");
-    setup = new MovingAvgCross(Symbol(),Short,MovingAvgLongModel);
+    setup = new MovingAvgCross(Symbol(),Short);
     if(setup.callOnTick) shortSetupsOnTick[t_cnt++] = setup;
     if(t_cnt==t_size) {
       ArrayResize(shortSetupsOnTick, 2*t_size);

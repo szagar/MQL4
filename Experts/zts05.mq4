@@ -9,15 +9,15 @@
 
 string f1(){return("########");}
 
-extern string commentString_1 = "*****************************************";
-extern string commentString_2 = __FILE__;
+extern string commentString_1 = "";  //*****************************************
+extern string commentString_2 = "";  //zts05
 extern bool Testing = false;
 extern Enum_LogLevels LogLevel = LogInfo;
 extern bool GoLong = true;
 extern bool GoShort = false;
 extern int Slippage=5;
 extern double MinReward2RiskRatio = 1.5;
-extern string commentString_3 = "*****************************************";
+extern string commentString_3 = "";  //*****************************************
 
 #include <zts\zts05.mqh>
 #include <zts\stats_eod.mqh>

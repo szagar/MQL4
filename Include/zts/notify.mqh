@@ -1,11 +1,13 @@
 #property strict
 
 
-extern string Notify_Note = "========= Notifications Setup =========";
+extern string commentString_28 = ""; //*****************************************
+extern string commentString_29 = ""; //Notifications Settings
 extern bool Mail_Alert = false;
 extern bool PopUp_Alert = false;
 extern bool Sound_Alert = false;
 extern bool SmartPhone_Notifications=false;
+extern string commentString_30 = ""; //*****************************************
 
 void SendAlert(string Message)
 {

@@ -11,13 +11,13 @@
 #include <zts\common.mqh>
 #include <zts\Setup.mqh>
   
-extern string Setup_BB_notes = "========= Setup: Bollinger Bands params ========";
-extern int BollingerBandModel = 1;
-//extern bool Setup_BollingerBandLong = true;
-//extern bool Setup_BollingerBandShort = true;
+extern string commentString_19 = "";  //*****************************************
+extern string commentString_20 = ""; //Setup: Bollinger Bands params 
+extern int BB_Model = 1;             //Bollinger Band Model
 extern int BB_Period = 200;          //Period of the Bollinger Bands
 extern double BB_Deviation = 2;      //Deviation of the Bollinger Bands
 extern int BB_BarsSincePierce = 5;
+extern string commentString_21 = "";  //*****************************************
 
 class BollingerBand : public Setup {
 //private:
@@ -95,9 +95,9 @@ void BollingerBand::startOfDay() {
 
 //bool BollingerBand::triggered(void) {
 void BollingerBand::OnBar(void) {
-  Debug4(__FUNCTION__,__LINE__,"BollingerBandModel="+IntegerToString(BollingerBandModel));
+  Debug4(__FUNCTION__,__LINE__,"BB_Model="+IntegerToString(BB_Model));
   //bool pass = false;
-  switch(BollingerBandModel) {
+  switch(BB_Model) {
     case 1:
       if(goLong) triggered = longCriteria();
       if(goShort) triggered = shortCriteria();
@@ -133,8 +133,8 @@ bool BollingerBand::shortCriteria() {
 }
 
 bool BollingerBand::bullish() {
-  Debug4(__FUNCTION__,__LINE__,"BollingerBandModel="+IntegerToString(BollingerBandModel));
-  switch(BollingerBandModel) {
+  Debug4(__FUNCTION__,__LINE__,"BB_Model="+IntegerToString(BB_Model));
+  switch(BB_Model) {
     case 1:
       if (Close[0] > Close[1]) return true;
       break;
@@ -152,7 +152,7 @@ bool BollingerBand::bullish() {
 }
 
 bool BollingerBand::bearish() {
-  switch(BollingerBandModel) {
+  switch(BB_Model) {
     case 1:
       if (Close[0] < Close[1]) return true;
       break;

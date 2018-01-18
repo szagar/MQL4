@@ -46,7 +46,7 @@ extern int TimeExitModel = 0;
 extern int TimeExitBars = 10;
 extern datetime TimeExitTime = NULL;
 extern string ExitTraderParams3 = "======== -- Trailing Stop =======";
-extern Enum_TRAILING_STOP_TYPES TrailingStopModel = 1;
+extern Enum_TRAILING_STOP_TYPES TS_Model = 1;
 extern int TSbarsBack = 1;
 extern int TSatrX10 = 27;
 extern ENUM_TIMEFRAMES TSatrTimeFrame = PERIOD_D1;
@@ -145,7 +145,7 @@ void ExitTrader::exitModelParams(int model) {
       break;
   }
   if(TimeExitModel > 0) _timeExitModel = TimeExitModel;
-  if(TrailingStopModel > 0) _trailingStopModel = TrailingStopModel;
+  if(TS_Model > 0) _trailingStopModel = TS_Model;
   if(ExitProfitTargetModel > 0) _exitProfitTargetModel = ExitProfitTargetModel;
 }
 
@@ -206,7 +206,7 @@ void ExitTrader::trailingStopParams(int model) {
 }
 
 double ExitTrader::getTrailingStop(Position *pos, Enum_TRAILING_STOP_TYPES _model=None) {
-  Enum_TRAILING_STOP_TYPES model = (_model == None ? TrailingStopModel : _model);
+  Enum_TRAILING_STOP_TYPES model = (_model == None ? TS_Model : _model);
   double currentPrice, newTrailingStop;
   double currStopLoss=OrderStopLoss();
   int pips=0;

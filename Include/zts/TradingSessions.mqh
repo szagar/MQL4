@@ -36,10 +36,10 @@ enum Enum_Sessions{
 #define NumSeasons 2
 enum Enum_Seasons{ Winter, Summer };
 
-extern string commentString_4 = "*****************************************";
-extern string commentString_5 = "TRADING SESSION SETTINGS";
+extern string commentString_4 = "";  //*****************************************
+extern string commentString_5 = ""; //TRADING SESSION SETTINGS
 extern Enum_Sessions TradingSession = London;
-extern string commentString_6 = "*****************************************";
+extern string commentString_6 = "";  //*****************************************
 
 #define Start 0
 #define End 1

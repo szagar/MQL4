@@ -3,15 +3,14 @@
 //+------------------------------------------------------------------+
 #property strict
 
-extern string commentString_7 = "*****************************************";
-extern string commentString_8 = "EXIT MANAGER SETTINGS";
-extern Enum_EXITMODEL ExitModel = 1;
-extern Enum_TRAILING_STOP_TYPES TrailingStopModel = TS_ATR;
-extern double MinStopLossDeltaPips = 2.0;
-extern int TS_BarCount = 3;
-extern ENUM_TIMEFRAMES TS_ATRperiod = 0;
-extern double TS_ATRfactor = 2.7;
-extern string commentString_9 = "*****************************************";
+extern string commentString_7 = "";  //*****************************************
+extern string commentString_8 = "";  //EXIT MANAGER SETTINGS
+extern Enum_EXITMODEL EM_Model = EX_SL_TP;         //- Exit Model
+extern Enum_TRAILING_STOP_TYPES TS_Model = TS_ATR; //- Trailing Stop Model
+extern double MinStopLossDeltaPips = 2.0;          //   >> Min pips for SL change
+extern int TS_BarCount = 3;                        //   >> Bar Count
+extern ENUM_TIMEFRAMES TS_ATRperiod = 0;           //   >> ATR Period
+extern double TS_ATRfactor = 2.7;                  //   >> ATR Factor
 
 #include <zts\account.mqh>
 
@@ -21,7 +20,6 @@ private:
   int d2p;                 // decimal to pips conversion factor
   //int EquityModel;
   int defaultModel;
-  Enum_EXITMODEL exitModel;
   Account *account;
 
   int oneR_calc_PATI();
@@ -32,21 +30,17 @@ private:
   void configParams();
 
 public:
-  //ExitManager();
-  ExitManager(const Enum_EXITMODEL _exitModel);
+  ExitManager();
   //ExitManager(const int=1, const int=1);
   ~ExitManager();
 
   double calcTrailingStopLoss(string,int);
-  double getTrailingStop(Position *pos, Enum_TRAILING_STOP_TYPES _model=TS_None);
+  double getTrailingStop(Position *pos);
   bool useStopLoss;
 };
 
-//ExitManager::ExitManager(const int _equityModel=1, const Enum_EXITMODEL _exitModel=1) {
-ExitManager::ExitManager(const Enum_EXITMODEL _exitModel) {
+ExitManager::ExitManager() {
   symbol = Symbol();
-  //EquityModel = _equityModel;
-  exitModel = _exitModel;
 
   account = new Account();
   d2p = decimal2points_factor(symbol);
@@ -58,7 +52,7 @@ ExitManager::~ExitManager() {
 }
 
 ExitManager::configParams() {
-  switch(exitModel) {
+  switch(EM_Model) {
     case EX_Fitch:
       useStopLoss = false;
       break;
@@ -108,15 +102,14 @@ double ExitManager::oneR_calc_ATR(int _period, int _numBars) {
 */
 
 
-double ExitManager::getTrailingStop(Position *pos, Enum_TRAILING_STOP_TYPES _model=TS_None) {
-  Enum_TRAILING_STOP_TYPES model = (_model == TS_None ? TrailingStopModel : _model);
+double ExitManager::getTrailingStop(Position *pos) {
   double currentPrice, newTrailingStop;
   double currStopLoss=OrderStopLoss();
   int pips=0;
 
   currentPrice = NormalizeDouble((pos.Side == Long ? Bid : Ask),Digits);
     
-  switch(model) {
+  switch(TS_Model) {
     case TS_PrevHL:
       newTrailingStop = ((pos.Side==Long) ? iLow(NULL,0,TS_BarCount) :
                                             iHigh(NULL,0,TS_BarCount));
