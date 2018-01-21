@@ -8,8 +8,8 @@
 #property version   "1.00"
 #property strict
 
-#include <zts\Account.mqh>
-#include <zts\zts_lib.mqh>
+//#include <zts\Account.mqh>
+#include <dev\zts_lib.mqh>
 
 enum Enum_INITIAL_RISK { IR_PATI_Pips, IR_ATR, IR_PrevHL};
 

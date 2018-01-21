@@ -13,10 +13,10 @@
   
 extern string commentString_19 = "";  //*****************************************
 extern string commentString_20 = ""; //Setup: Bollinger Bands params 
-extern int BB_Model = 1;             //- Bollinger Band Model
-extern int BB_Period = 200;          //>> Period of the Bollinger Bands
-extern double BB_Deviation = 2;      //>> Deviation of the Bollinger Bands
-extern int BB_BarsSincePierce = 5;   //>> Bars Since Pierce
+extern int BB_Model = 1;             //Bollinger Band Model
+extern int BB_Period = 200;          //Period of the Bollinger Bands
+extern double BB_Deviation = 2;      //Deviation of the Bollinger Bands
+extern int BB_BarsSincePierce = 5;
 //extern string commentString_21 = "";  //*****************************************
 
 class BollingerBand : public Setup {
@@ -109,16 +109,12 @@ void BollingerBand::OnBar(void) {
 
 void BollingerBand::OnTick() {  
   Debug4(__FUNCTION__,__LINE__,"Entered");
-  static int upArrowCnt=0;
 
   double BandsTopCurr=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_UPPER,0);
   double BandsLowCurr=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_LOWER,0);
   double BandsTopPrev=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_UPPER,1);
   double BandsLowPrev=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_LOWER,1);
-  if(Close[1]<BandsTopPrev && Close[0]>BandsTopCurr) {
-    BB_PiercedUpper = dayBarNumber;
-    ObjectCreate("UpArrow-"+string(upArrowCnt++),OBJ_ARROW,0,Time[0],High[0]+5*P2D);
-  }
+  if(Close[1]<BandsTopPrev && Close[0]>BandsTopCurr) BB_PiercedUpper = dayBarNumber;
   if(Close[1]>BandsLowPrev && Close[0]<BandsLowCurr) BB_PiercedLower = dayBarNumber;
   Debug4(__FUNCTION__,__LINE__,"BollingerBand::OnTick ("+IntegerToString(dayBarNumber)+") =======> "+IntegerToString(BB_PiercedUpper)+" :: "+IntegerToString(BB_PiercedLower));
 }

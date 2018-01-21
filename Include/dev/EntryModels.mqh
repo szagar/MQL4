@@ -18,52 +18,84 @@
 
 extern string commentString_EM_01 = "";  //*****************************************
 extern string commentString_EM_02 = ""; //ENTRY MODEL SETTINGS
-extern Enum_ENTRY_MODELS EM_Model = EM_BidAsk; //- Entry Model
+extern Enum_ENTRY_MODELS EM_Model = EM_HLest; //- Entry Model
 extern int EM_BarOffset = 1;         //>> Bar Offset
 extern double EM_PipOffset = 0.5;    //>> Pip offset
-
+extern int EM_Consecutive = 1;       //>> # of bars
 class EntryModels {
 private:
-  int defaultModel;
-  
   double prevBarHigh();
   double prevBarLow();
+  bool higherHighs(int bars);
+  bool lowerLows(int bars);
+  bool engulfingBullish();
+  bool engulfingBearish();
+
 public:
   EntryModels();
   ~EntryModels();
   
-  double entryPriceLong(int);
-  double entryPriceShort(int);
+  bool entrySignal(Position*);
+  double entryPriceLong(Enum_PRICE_MODELS);
+  double entryPriceShort(Enum_PRICE_MODELS);
 };
 
 EntryModels::EntryModels() {
-  defaultModel = EM_Model;
 }
 
 EntryModels::~EntryModels() {
 }
 
-double EntryModels::entryPriceLong(int _model=0) {
+bool EntryModels::entrySignal(Position *trade) {
+  bool go = false;
+  switch(EM_Model) {
+    case EM_GO4IT:
+      go = true;
+      break;
+    case EM_HLest:
+      go = (trade.Side==Long ? higherHighs(EM_Consecutive) : lowerLows(EM_Consecutive));
+      break;
+    case EM_Engulfing:
+      go = (trade.Side==Long ? engulfingBullish() : engulfingBearish());
+      break;
+  }
+  return(go);
+}
+
+bool EntryModels::higherHighs(int bars) {
+  return(false);
+}
+bool EntryModels::lowerLows(int bars) {
+  return(false);
+}
+bool EntryModels::engulfingBullish() {
+  return(false);
+}
+bool EntryModels::engulfingBearish() {
+  return(false);
+}
+
+double EntryModels::entryPriceLong(Enum_PRICE_MODELS _model=NULL) {
   double entryPrice;
   int model;
   
-  if(_model > 0)
-    model = (_model>0 ? _model : defaultModel); 
+  model = (_model==NULL ? PM_Model : _model); 
     
   switch(model) {
-    case 1:
+    case PM_BidAsk:
+    case PM_PrevHL:
       entryPrice = prevBarHigh();
       break;
     default:
-      entryPrice = Ask;
+      entryPrice = 0.0;
   }
   return(entryPrice);
 }
 
-double EntryModels::entryPriceShort(int _model=0) {
+double EntryModels::entryPriceShort(Enum_PRICE_MODELS _model=NULL) {
   double entryPrice;
-  int model;
-  model = (_model>0 ? _model : defaultModel); 
+  Enum_PRICE_MODELS model;
+  model = (_model==NULL ? PM_Model : _model); 
     
   switch(model) {
     case 1:

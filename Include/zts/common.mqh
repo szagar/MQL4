@@ -58,6 +58,20 @@ double BaseCcyTickValue = MarketInfo(Symbol(),MODE_TICKVALUE); // Tick value in 
 
 #endif
 
+enum Enum_YESNO {
+  YN_NO=0,    //No
+  YN_YES      //Yes
+};
+enum Enum_ENTRY_MODELS {
+  EM_BidAsk=0,    //Enter long at Ask, short at Bid (pip buffer)
+  EM_Pullback,      //Enter on Pullback to prev H/L (bar offset)
+  EM_RBO            //RBO of current session (w/ pip offset)
+};
+enum Enum_MARKET_MODELS{
+  MM_200DMA=0,   //200 DMA Market Indicator
+  MM_MidPoint=1  //Range MidPoint Market Indicator
+};
+
 enum Enum_SIDE{ Long=1, Short=-1 };
 enum Enum_OP_ORDER_TYPES { 
   Z_BUY=0,        //Buy operation

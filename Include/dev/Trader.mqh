@@ -8,21 +8,22 @@
 #property version   "1.00"
 #property strict
 
-#include <zts\Position.mqh>
-#include <zts\PositionSizer.mqh>
-#include <zts\InitialRisk.mqh>
-#include <zts\ExitManager.mqh>
-#include <zts\ProfitTargetModels.mqh>
-#include <zts\Setup.mqh>
-#include <zts\MagicNumber.mqh>
-#include <zts\EntryModels.mqh>
-//#include <zts\ProfitTargetModels.mqh>
+#include <dev\Position.mqh>
+#include <dev\PositionSizer.mqh>
+#include <dev\InitialRisk.mqh>
+#include <dev\ExitManager.mqh>
+#include <dev\ProfitTargetModels.mqh>
+#include <dev\Setup.mqh>
+#include <dev\MagicNumber.mqh>
+#include <dev\EntryModels.mqh>
+#include <dev\PriceModels.mqh>
 
 class Trader {
 private:
   PositionSizer *sizer;
   MagicNumber *magic;
   EntryModels *entry;
+  PriceModels *price;
   //ProfitTargetModels *ptgt;
   ExitManager *exitMgr;
   InitialRisk *initRisk;
@@ -39,6 +40,7 @@ Trader::Trader(ExitManager* em,InitialRisk* ir, ProfitTargetModels *pt) {
   sizer = new PositionSizer();
   magic = new MagicNumber();
   entry = new EntryModels();
+  price = new PriceModels();
   profitTgt = pt;
   exitMgr = em;
   initRisk = ir;
@@ -49,6 +51,7 @@ Trader::~Trader() {
  if (CheckPointer(initRisk) == POINTER_DYNAMIC) delete initRisk;
  if (CheckPointer(magic)    == POINTER_DYNAMIC) delete magic;
  if (CheckPointer(entry)    == POINTER_DYNAMIC) delete entry;
+ if (CheckPointer(price)    == POINTER_DYNAMIC) delete price;
  //if (CheckPointer(ptgt)     == POINTER_DYNAMIC) delete ptgt;
 }
 //+------------------------------------------------------------------+
@@ -61,16 +64,21 @@ Position *Trader::newTrade(Setup *setup) {
   trade.LotSize = sizer.lotSize(1);
   trade.Symbol = setup.symbol;
   trade.Side = (trade.LotSize >= 0 ? Long : Short);
+  trade.SideX = (trade.LotSize >= 0 ? 1 : -1);
 
   int oneR = initRisk.getInPips(trade);
+  Debug(__FUNCTION__,__LINE__,"oneR="+IntegerToString(oneR));
   double entryPrice = (setup.side==Long ? entry.entryPriceLong() : entry.entryPriceShort());
 
   trade.IsPending = true;
   trade.OpenPrice = entryPrice;
+  price.entryPrice(trade);
+  Debug(__FUNCTION__,__LINE__,"trade.OpenPrice="+DoubleToStr(trade.OpenPrice,Digits));
 
   if(exitMgr.useStopLoss) {
-    double stopLoss =  (setup.side==Long ? entryPrice - oneR*points2decimal_factor(setup.symbol) : entryPrice + oneR*points2decimal_factor(setup.symbol));
+    double stopLoss =  (setup.side==Long ? trade.OpenPrice - oneR*points2decimal_factor(setup.symbol) : trade.OpenPrice + oneR*points2decimal_factor(setup.symbol));
     trade.StopPrice = stopLoss;
+    Debug(__FUNCTION__,__LINE__,"trade.StopPrice="+DoubleToStr(trade.StopPrice,Digits));
   }
   
   trade.Symbol = setup.symbol;
@@ -85,6 +93,9 @@ Position *Trader::newTrade(Setup *setup) {
 
 double Trader::calcStopLoss(Position *pos) {
   double newStopLoss;
+  double px = (pos.Side==Long?Bid:Ask);
+  if(px-OrderOpenPrice()>exitMgr.pips2startTS(pos)*P2D)
+    return(NULL);
   newStopLoss = exitMgr.getTrailingStop(pos);
   if(newStopLoss > 0) {
     pos.StopPrice = newStopLoss;

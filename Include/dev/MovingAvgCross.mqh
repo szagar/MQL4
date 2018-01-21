@@ -18,8 +18,8 @@ extern int MX_2_Type = 1;             //> MA-2 type
 extern int MX_2_Periods = 1;          //> MA-2 period
 extern int MX_2_TimeFrame = 1;        //> MA-2 timeframe
 
-#include <zts\common.mqh>
-#include <zts\Setup.mqh>
+#include <dev\common.mqh>
+#include <dev\Setup.mqh>
   
 class MovingAvgCross : public Setup {
 //private:

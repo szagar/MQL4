@@ -14,7 +14,7 @@
 #property version   "1.00"
 #property strict
 
-#include <zts/logger.mqh>
+#include <dev/logger.mqh>
 
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -84,8 +84,8 @@ public:
 };
 
 TradingSessions::TradingSessions(Enum_Sessions _tradingSession=NewYork, Enum_Seasons _season=Winter) {
-  Info("TimeCurrent() = "+string(TimeCurrent()));
-  Info("TimeLocal() = "+string(TimeLocal()));
+  Info(__FUNCTION__,__LINE__,"TimeCurrent() = "+string(TimeCurrent()));
+  Info(__FUNCTION__,__LINE__,"TimeLocal() = "+string(TimeLocal()));
   tradingSession= _tradingSession;
   season = _season;
   datetime local,current,gmt;
@@ -114,10 +114,10 @@ TradingSessions::TradingSessions(Enum_Sessions _tradingSession=NewYork, Enum_Sea
   local2gmtOffsetHrs = int(local2gmtOffset / (60*60));
   local2serverOffsetHrs = int(local2serverOffset / (60*60));
   
-  Info("SanityCheck:  gmt2serverOffsetHrs  ="+string(gmt2serverOffsetHrs));
-  Info("SanityCheck:  local2gmtOffsetHrs      ="+string(local2gmtOffsetHrs));
-  Info("SanityCheck:  local2serverOffsetHrs="+string(local2serverOffsetHrs));
-  Info("SanityCheck:  "+string(local2gmtOffsetHrs)+" + "+string(gmt2serverOffsetHrs)+" = "+string(local2serverOffsetHrs));
+  Info(__FUNCTION__,__LINE__,"SanityCheck:  gmt2serverOffsetHrs  ="+string(gmt2serverOffsetHrs));
+  Info(__FUNCTION__,__LINE__,"SanityCheck:  local2gmtOffsetHrs      ="+string(local2gmtOffsetHrs));
+  Info(__FUNCTION__,__LINE__,"SanityCheck:  local2serverOffsetHrs="+string(local2serverOffsetHrs));
+  Info(__FUNCTION__,__LINE__,"SanityCheck:  "+string(local2gmtOffsetHrs)+" + "+string(gmt2serverOffsetHrs)+" = "+string(local2serverOffsetHrs));
   
   startOfDay = StructToTime(dtStruct) + 1*60*60;;
     endOfDay = StructToTime(dtStruct) + 23*60*60;
@@ -198,11 +198,11 @@ void TradingSessions::showAllSessions(string tz = "server") {
   if(StringCompare(tz,"gmt",false)==0)
     adj = -gmt2serverOffset;
   Enum_Sessions save = tradingSession;
-  Info(tz+" ("+string(adj/60/60)+")");
+  Info(__FUNCTION__,__LINE__,tz+" ("+string(adj/60/60)+")");
   for(Enum_Sessions i=0; i<EnumLast; i++ ) {
     setSession(i);
     str = StringFormat("Session: %-10s: %s - %s",EnumToString(i),TimeToStr(startTradingSession_Server+adj),TimeToString(endTradingSession_Server+adj));
-    Info(str);
+    Info(__FUNCTION__,__LINE__,str);
     //Info("Session: "+EnumToString(i)+": "+string(startTradingSession_Server+adj)+" - "+string(endTradingSession_Server+adj));
   }
   setSession(save);

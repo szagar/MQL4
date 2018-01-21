@@ -17,22 +17,20 @@ public:
 
 #property strict
 
-#include <zts\common.mqh>
-#include <zts\MagicNumber.mqh>
-#include <zts\TradingSessions.mqh>
-#include <zts\Trader.mqh>
+#include <dev\common.mqh>
+#include <dev\MagicNumber.mqh>
+#include <dev\TradingSessions.mqh>
+#include <dev\Trader.mqh>
 
-#include <zts\InitialRisk.mqh>
-#include <zts\ExitManager.mqh>
-#include <zts\ProfitTargetModels.mqh>
+#include <dev\InitialRisk.mqh>
+#include <dev\ExitManager.mqh>
+#include <dev\ProfitTargetModels.mqh>
 
-#include <zts\MarketModel.mqh>
+#include <dev\MarketModel.mqh>
 
-#include <zts\Account.mqh>
-#include <zts\Broker.mqh>
-#include <zts\PositionSizer.mqh>
-//#include <zts\position_sizing.mqh>
-//#include <zts\TradingSessions.mqh>
+#include <dev\Account.mqh>
+#include <dev\Broker.mqh>
+#include <dev\PositionSizer.mqh>
 
 
 extern string commentString_16 = ""; //*****************************************
@@ -46,19 +44,21 @@ extern bool Setup_Finch = true;          //>>   Use Finch setup?
 extern bool Setup_MovingAvg = false;     //>>   Use Moving Avg Cross setup?
 extern bool Setup_Rsi = false;           //>>   Use RSI setup?
 
-#include <zts\BollingerBand.mqh>
-#include <zts\Finch.mqh>
-#include <zts\MovingAvgCross.mqh>
-#include <zts\Rsi.mqh>
+#include <dev\BollingerBand.mqh>
+#include <dev\Finch.mqh>
+#include <dev\MovingAvgCross.mqh>
+#include <dev\Rsi.mqh>
 
 //extern string commentString17b = ""; //**** Entry Params
 //extern int SetupId = 0;
 //extern int EntryModel = 0;
 //extern int YellowLineBarShift = 1;
 
-  int dayBarNumber;
-  int sessionBarNumber;
+int dayBarNumber;
+int sessionBarNumber;
   
+int D2P;
+double P2D;
 
 class Robo {
 private:
@@ -107,7 +107,7 @@ private:
 
   void initLongSetupStrategies();       //(Setup* &_longSetups[]);
   void initShortSetupStrategies();      //(Setup* &_shortSetups[]);
-  void look2trade(Setup* &setups[],int);
+  void checkSignals(Setup* &setups[],int);
 
   //void tradeLong();
   //void tradeShort();
@@ -193,14 +193,16 @@ Robo::~Robo() {
 }
 
 int Robo::OnInit() {
+  D2P = (StringFind(Symbol(),"JPY",0)>0 ? 100 : 10000);
+  P2D = 1.0/D2P;
   session.setSession(TradingSession);
   session.setSession(NYSE);
-  Debug(session.showSession());
-  Debug(session.showSession(true));
+  Debug(__FUNCTION__,__LINE__,session.showSession());
+  Debug(__FUNCTION__,__LINE__,session.showSession(true));
 
   dayBarNumber = barsSince(session.startOfDay);
   sessionBarNumber = barsSince(session.startTradingSession_Server);
-  Debug("Bars since: SOD: "+string(dayBarNumber) + "   Bars since: SOS: "+string(sessionBarNumber));
+  Debug(__FUNCTION__,__LINE__,"Bars since: SOD: "+string(dayBarNumber) + "   Bars since: SOS: "+string(sessionBarNumber));
   
   Setup *setup;
   for(int i=0;i<longSetupOnTickCnt;i++) {
@@ -230,12 +232,11 @@ void Robo::OnTick() {
   }
   //Debug4(__FUNCTION__,__LINE__,"2");
   //if(session.tradeWindow() && canTradeSymbol()) {
-  if(true) {
-    if(market.canGoLong())
-      look2trade(longSetupsOnTick,longSetupOnTickCnt);
-    if(market.canGoShort())
-      look2trade(shortSetupsOnTick,shortSetupOnTickCnt);
-  }
+  //  if(market.canGoLong())
+  //    checkSignals(longSetupsOnTick,longSetupOnTickCnt);
+  //  if(market.canGoShort())
+  //    checkSignals(shortSetupsOnTick,shortSetupOnTickCnt);
+  //}
   //Debug4(__FUNCTION__,__LINE__,"3");
 }
 
@@ -251,27 +252,31 @@ void Robo::OnNewBar() {   //bool tradeWindow) {
   updatePendingOrders();
 
   Setup *setup;
-  for(int i=0;i<longSetupOnTickCnt;i++) {
-    setup = longSetupsOnTick[i];
-    setup.OnTick();
-  }
-  for(int i=0;i<shortSetupOnTickCnt;i++) {
-    setup = shortSetupsOnTick[i];
-    setup.OnTick();
-  }
-  for(int i=0;i<longSetupOnBarCnt;i++) {
-    setup = longSetupsOnBar[i];
-    setup.OnBar();
-  }
-  for(int i=0;i<shortSetupOnBarCnt;i++) {
-    setup = shortSetupsOnBar[i];
-    setup.OnBar();
-  }
+  //for(int i=0;i<longSetupOnTickCnt;i++) {
+  //  setup = longSetupsOnTick[i];
+  //  setup.OnTick();
+  //}
+  //for(int i=0;i<shortSetupOnTickCnt;i++) {
+  //  setup = shortSetupsOnTick[i];
+  //  setup.OnTick();
+  //}
   if(session.tradeWindow() && canTradeSymbol()) {
+    if(GoLong) {
+      for(int i=0;i<longSetupOnBarCnt;i++) {
+        setup = longSetupsOnBar[i];
+        setup.OnBar();
+      }
+    }
+    if(GoShort) {
+      for(int i=0;i<shortSetupOnBarCnt;i++) {
+        setup = shortSetupsOnBar[i];
+        setup.OnBar();
+      }
+    }
     if(market.canGoLong())
-      look2trade(longSetupsOnTick,longSetupOnTickCnt);
+      checkSignals(longSetupsOnBar,longSetupOnBarCnt);
     if(market.canGoShort())
-      look2trade(shortSetupsOnTick,shortSetupOnTickCnt);
+      checkSignals(shortSetupsOnBar,shortSetupOnBarCnt);
   }
 }
 
@@ -286,7 +291,6 @@ void Robo::startOfDay() {
 }
 
 void Robo::handleOpenPositions() {
-  //Debug("handleOpenPositions entered");
   int lastError = 0;
   Position *trade;
   totalPositions=0;
@@ -298,12 +302,11 @@ void Robo::handleOpenPositions() {
       continue;
     }
     trade = broker.GetPosition();
-    if(StringCompare(OrderSymbol(),Symbol())==0 && magic.roboID(OrderMagicNumber()) == RoboID) {
-      //if(StringCompare(magic.getStrategy(OrderMagicNumber()), "CDM-YL", false)!=0) continue;
+    if(StringCompare(OrderSymbol(),Symbol())==0 &&
+       magic.roboID(OrderMagicNumber()) == RoboID) {
       if(OrderType() == OP_BUY ) {
         totalPositions++;
         position += double(OrderLots());
-        //if(TrailingStopModel != None)
         updateStopLoss(trade);
       }
     
@@ -325,7 +328,8 @@ void Robo::updatePendingOrders() {
 void Robo::updateStopLoss(Position *pos) {
   Debug4(__FUNCTION__,__LINE__,"Entered");
   double newStopLoss;
-  Debug2("updateStopLoss entered:  side="+EnumToString(pos.Side)+"   oneR="+string(magic.getOneR(OrderMagicNumber())));
+  Debug2("updateStopLoss entered:  side="+EnumToString(pos.Side)+
+         "   oneR="+string(magic.getOneR(OrderMagicNumber())));
   //newStopLoss = exitMgr.getTrailingStop(pos);
   newStopLoss = trader.calcStopLoss(pos);
 
@@ -479,23 +483,26 @@ bool Robo::isStartOfNewSession() {
   return false;
 }
 
-void Robo::look2trade(Setup* &setups[],int size) {
-  //Debug4(__FUNCTION__,__LINE__,"Entered");
+void Robo::checkSignals(Setup* &setups[],int size) {
+  Debug4(__FUNCTION__,__LINE__,"Entered, size="+string(size));
   Position *trade;
   Setup *setup;
   for(int i=0;i<size;i++) {
     setup = setups[i];
     if(setup.triggered) {
+      Debug4(__FUNCTION__,__LINE__,"Triggered");
       trade = trader.newTrade(setup);
       setup.reset();
       if(trade.RewardPips/trade.OneRpips < MinReward2RiskRatio) {
-        Info("Trade did not meet min reward-to-risk ratio");
+        Info(__FUNCTION__,__LINE__,"Trade did not meet min reward-to-risk ratio");
         if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
         continue;
       }
-      Info(__FUNCTION__+": T R A D E Long:  "+trade.toHuman());
+      Info(__FUNCTION__,__LINE__,": T R A D E Long:  "+trade.toHuman());
       broker.CreateOrder(trade);
       if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
+    } else {
+      Debug4(__FUNCTION__,__LINE__,"Not Triggered");
     }
   }
 }
@@ -518,6 +525,7 @@ void Robo::tradeShort() {
 **/
 
 bool Robo::canTradeSymbol() {
+  Debug4(__FUNCTION__,__LINE__,"Entered");
   bool possiblePos = false;
   
   positionLong=0;
@@ -534,7 +542,7 @@ bool Robo::canTradeSymbol() {
       continue;
     }
     if(OrderSymbol() != Symbol()) continue;
-    if(magic.roboID(OrderMagicNumber()) != RoboID) continue;
+    //if(magic.roboID(OrderMagicNumber()) != RoboID) continue;
     
     possiblePos = true;
     
@@ -546,8 +554,10 @@ bool Robo::canTradeSymbol() {
     if(otype == OP_SELLLIMIT || otype == OP_SELLSTOP)
       positionShort += OrderLots();
     if(otype == OP_BUYLIMIT || otype == OP_BUYSTOP)
-      positionShort += OrderLots();
+      positionLong += OrderLots();
   }
+  Debug4(__FUNCTION__,__LINE__,"positionLong="+string(positionLong)+"  positionShort="+string(positionShort));
+  Debug4(__FUNCTION__,__LINE__,"possiblePos="+string(possiblePos)+"  CanPyramid="+string(CanPyramid));
   if(possiblePos && !CanPyramid) return false;
   return true;
 }

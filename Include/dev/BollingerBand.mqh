@@ -8,12 +8,12 @@
 #property version   "1.00"
 #property strict
 
-#include <zts\common.mqh>
-#include <zts\Setup.mqh>
+#include <dev\common.mqh>
+#include <dev\Setup.mqh>
   
 extern string commentString_19 = "";  //*****************************************
 extern string commentString_20 = ""; //Setup: Bollinger Bands params 
-extern int BB_Model = 1;             //- Bollinger Band Model
+extern Enum_BOLLINGER_MODELS BB_Model = BB_SETUP_01; //- Bollinger Band Model
 extern int BB_Period = 200;          //>> Period of the Bollinger Bands
 extern double BB_Deviation = 2;      //>> Deviation of the Bollinger Bands
 extern int BB_BarsSincePierce = 5;   //>> Bars Since Pierce
@@ -30,6 +30,7 @@ class BollingerBand : public Setup {
   int BB_PiercedLower;
   bool bullish();
   bool bearish();
+  void bandPiercing();
   
 public:
   //BollingerBand():Setup() {
@@ -48,6 +49,8 @@ public:
 
   void reset();
   //bool triggered();
+  void triggerUpperBandPiercing(int);
+  void triggerLowerBandPiercing(int);
 
 };
 
@@ -56,6 +59,8 @@ void BollingerBand::BollingerBand(string _symbol,Enum_SIDE _side):Setup(_symbol,
   strategyName = "BollingerBand";
   side = _side;
   triggered = false;
+  callOnTick = false;
+  callOnBar = true;
 }
 
 /**
@@ -93,9 +98,10 @@ void BollingerBand::startOfDay() {
   reset();
 }
 
-//bool BollingerBand::triggered(void) {
 void BollingerBand::OnBar(void) {
-  Debug4(__FUNCTION__,__LINE__,"BB_Model="+IntegerToString(BB_Model));
+  Debug4(__FUNCTION__,__LINE__,"Entered");
+  bandPiercing();
+  Debug4(__FUNCTION__,__LINE__,"BB_Model="+EnumToString(BB_Model));
   //bool pass = false;
   switch(BB_Model) {
     case 1:
@@ -109,46 +115,79 @@ void BollingerBand::OnBar(void) {
 
 void BollingerBand::OnTick() {  
   Debug4(__FUNCTION__,__LINE__,"Entered");
-  static int upArrowCnt=0;
+}
 
-  double BandsTopCurr=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_UPPER,0);
-  double BandsLowCurr=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_LOWER,0);
-  double BandsTopPrev=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_UPPER,1);
-  double BandsLowPrev=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_LOWER,1);
-  if(Close[1]<BandsTopPrev && Close[0]>BandsTopCurr) {
-    BB_PiercedUpper = dayBarNumber;
-    ObjectCreate("UpArrow-"+string(upArrowCnt++),OBJ_ARROW,0,Time[0],High[0]+5*P2D);
+void BollingerBand::bandPiercing() {
+  Debug4(__FUNCTION__,__LINE__,"Entered");
+  double topCurr=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_UPPER,1);
+  double topPrev=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_UPPER,2);
+  double lowCurr=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_LOWER,1);
+  double lowPrev=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_LOWER,2);
+  switch(BB_Model) {
+    case BB_SETUP_01:
+      if(Close[2]<topPrev && Close[1]>topCurr) 
+        triggerUpperBandPiercing(dayBarNumber);
+      if(Close[2]>lowPrev && Close[1]<lowCurr) 
+        triggerLowerBandPiercing(dayBarNumber);
+      break;
+    case BB_SETUP_02:
+      if(Close[2]>topPrev && Close[1]<topCurr) 
+        triggerUpperBandPiercing(dayBarNumber);
+      if(Close[2]<lowPrev && Close[1]>lowCurr) 
+        triggerLowerBandPiercing(dayBarNumber);
+      break;
+    case BB_SETUP_03:
+      break;
   }
-  if(Close[1]>BandsLowPrev && Close[0]<BandsLowCurr) BB_PiercedLower = dayBarNumber;
-  Debug4(__FUNCTION__,__LINE__,"BollingerBand::OnTick ("+IntegerToString(dayBarNumber)+") =======> "+IntegerToString(BB_PiercedUpper)+" :: "+IntegerToString(BB_PiercedLower));
+}
+
+void BollingerBand::triggerUpperBandPiercing(int barN) {
+  static int topCnt=0;
+  string objname;
+  BB_PiercedUpper = barN;
+  objname = "Pierce"+IntegerToString(topCnt++);
+  
+  Debug4(__FUNCTION__,__LINE__,"BB_Model="+EnumToString(BB_Model)+"  objname="+objname+"  at="+DoubleToStr(High[1]+5*P2D,Digits));
+  ObjectCreate(objname,OBJ_ARROW,0,Time[1],High[1]+5*P2D);
+  ObjectSet(objname, OBJPROP_ARROWCODE, SYMBOL_ARROWDOWN);
+}
+
+void BollingerBand::triggerLowerBandPiercing(int barN) {
+  static int topCnt=0;
+  string objname;
+  BB_PiercedLower = barN;
+  objname = "Pierce"+IntegerToString(topCnt++);
+  ObjectCreate(objname,OBJ_ARROW,0,Time[1],Low[1]-5*P2D);
 }
 
 bool BollingerBand::longCriteria() {
-  Debug4(__FUNCTION__,__LINE__,IntegerToString(dayBarNumber-BB_PiercedLower)+" > "+IntegerToString(BB_BarsSincePierce));
-  if (BB_PiercedLower && dayBarNumber-BB_PiercedLower > BB_BarsSincePierce) return false;
-  if (bullish()) return true;
+  Debug4(__FUNCTION__,__LINE__,IntegerToString(dayBarNumber-BB_PiercedLower)+" < "+IntegerToString(BB_BarsSincePierce));
+  if (BB_PiercedLower && dayBarNumber-BB_PiercedLower < BB_BarsSincePierce
+    && bullish()) return true;
   return false;
 }
 
 bool BollingerBand::shortCriteria() {
-  if (BB_PiercedUpper && dayBarNumber-BB_PiercedUpper > BB_BarsSincePierce) return false;
-  if (bearish()) return true;
+  if (BB_PiercedUpper && dayBarNumber-BB_PiercedUpper < BB_BarsSincePierce
+    && bearish()) return true;
   return false;
 }
 
 bool BollingerBand::bullish() {
   Debug4(__FUNCTION__,__LINE__,"BB_Model="+IntegerToString(BB_Model));
+return(true);
   switch(BB_Model) {
-    case 1:
+    case BB_SETUP_01:
       if (Close[0] > Close[1]) return true;
       break;
-    case 2:
-      if (Close[0] > Close[1] && Close[1] > Close[2]) return true;
+    case BB_SETUP_02:
+      if (Close[0] > Close[1]) return true;
+      //if (Close[0] > Close[1] && Close[1] > Close[2]) return true;
       break;
-    case 3:
-      if (Close[0] > iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_MAIN,0))
-        return true;
-      break;
+    //case 3:
+    //  if (Close[0] > iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_MAIN,0))
+    //    return true;
+    //  break;
     default:
       return false;
   }
@@ -157,15 +196,16 @@ bool BollingerBand::bullish() {
 
 bool BollingerBand::bearish() {
   switch(BB_Model) {
-    case 1:
+    case BB_SETUP_01:
       if (Close[0] < Close[1]) return true;
       break;
-    case 2:
-      if (Close[0] < Close[1] && Close[1] < Close[2]) return true;
+    case BB_SETUP_02:
+      if (Close[0] < Close[1]) return true;
+      //if (Close[0] < Close[1] && Close[1] < Close[2]) return true;
       break;
-    case 3:
-      if (Close[0] < iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_MAIN,0))
-        return true;
+    //case 3:
+    //  if (Close[0] < iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_MAIN,0))
+    //    return true;
     default:
       return false;
   }

@@ -1,16 +1,16 @@
 //+------------------------------------------------------------------+
-//|                                                        zts01.mq4 |
+//|                                                        zts06.mq4 |
 //+------------------------------------------------------------------+
 #property version   "1.00"
 #property strict
 
-#include <zts\logger.mqh>
-#include <zts\common.mqh>
+#include <dev\logger.mqh>
+#include <dev\common.mqh>
 
 string f1(){return("########");}
 
 extern string commentString_1 = "";  //*****************************************
-extern string commentString_2 = "";  //zts05
+extern string commentString_2 = "";  //zts06
 extern bool Testing = false;              //>> Testing ?
 extern Enum_LogLevels LogLevel = LogInfo; //>> Log Level
 extern bool GoLong = true;                //>> Go Long ?
@@ -19,9 +19,9 @@ extern int Slippage=5;                    //>> Slippage in pips
 extern double MinReward2RiskRatio = 1.5;  //>> Min Reward / Risk 
 //extern string commentString_3 = "";  //*****************************************
 
-#include <zts\zts05.mqh>
-#include <zts\stats_eod.mqh>
-#include <zts\TradingSessions.mqh>
+#include <dev\robo1.mqh>
+//#include <dev\stats_eod.mqh>
+#include <dev\TradingSessions.mqh>
 
 string Prefix="ZTS_";
 string Version="0.001";
@@ -49,7 +49,7 @@ int OnInit() {
   dtStruct.sec = 0;
   endOfDay = session.endOfDay;             //StructToTime(dtStruct) + 17*60*60;         // 5pm NY
   startOfDay = session.startOfDay;         //StructToTime(dtStruct) + 9*60*60;;       // 9am NY
-  Info("Day start to end: "+string(startOfDay)+" - "+string(string(endOfDay)));
+  Info(__FUNCTION__,__LINE__,"Day start to end: "+string(startOfDay)+" - "+string(string(endOfDay)));
 
   DrawSystemStatus();
 
@@ -69,15 +69,15 @@ void OnTick() {
   //Info("Tick: "+TimeLocal()+"  Current: "+TimeCurrent()+"  GMT:"+TimeGMT()+"  Time[0]:"+Time[0]);
   if(isNewBar()) {
     //Info(TimeToString(Time[0]));
-    Debug("===> New Bar");
+    Debug(__FUNCTION__,__LINE__,"===> New Bar");
     robo.OnNewBar();     // tradeWindow());
     if(isEOD()) {
       robo.cleanUpEOD();
       string fname;
       fname = __FILE__;
       StringReplace(fname,".mq4","_eodStats.csv");
-      Debug("fname is "+fname);
-      StatsEndOfDay(fname);
+      Debug(__FUNCTION__,__LINE__,"fname is "+fname);
+      //StatsEndOfDay(fname);
       cleanUpEOD();
     }
     if(isSOD()) {
@@ -101,7 +101,7 @@ double OnTester() {
 bool isEOD() {
   if(now >= endOfDay) {
     endOfDay = session.addDay(endOfDay);
-    Info("EOD bar");
+    Info(__FUNCTION__,__LINE__,"EOD bar");
     return(true);
   }
   return(false);
@@ -111,7 +111,7 @@ bool isSOD() {
   if(now >= startOfDay) {
     startOfDay = session.addDay(startOfDay);
     dayBarNumber = 1;
-      Info("SOD bar");
+      Info(__FUNCTION__,__LINE__,"SOD bar");
     return true;
   }
   return(false);
@@ -143,4 +143,3 @@ bool isNewBar() {
   time0 = Time[0];
   return true;
 }
-

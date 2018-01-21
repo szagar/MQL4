@@ -5,19 +5,18 @@
 
 extern string commentString_7 = "";  //*****************************************
 extern string commentString_8 = "";  //EXIT MANAGER SETTINGS
-extern Enum_EXITMODEL EX_Model = EX_SL_TP;         //- Exit Model
-extern Enum_YESNO EX_TimedExit = YN_NO;            //- add Timed Exit ?
-extern Enum_YESNO EX_BarCount = YN_NO;             //- add Bar Count Exit ?
-extern Enum_YESNO EX_UseMoveToBreakeven = YN_NO;   //- Breakeven stop ?
-extern int EX_WhenToMoveToBE = BE_PIPs;            //   >> When to set Breakeven
-extern int EX_BEparam = 20;                        //   >> Parameter for BE function
-extern Enum_TRAILING_STOP_TYPES TS_Model = TS_ATR; //- Trailing Stop Model
-extern double MinStopLossDeltaPips = 2.0;          //   >> Min pips for SL change
-extern int TS_BarCount = 3;                        //   >> Bar Count
-extern ENUM_TIMEFRAMES TS_ATRperiod = 0;           //   >> ATR Period
-extern double TS_ATRfactor = 2.7;                  //   >> ATR Factor
+extern Enum_EXITMODEL EX_Model = EX_SL_TP;     //- Exit Model
+extern Enum_YESNO     EX_TimedExit = YN_NO;    //- add Timed Exit ?
+extern Enum_YESNO     EX_BarCount = YN_NO;     //- add Bar Count Exit ?
+extern Enum_TS_TYPES  TS_Model = TS_ATR;       //- Trailing Stop Model
+extern double         TS_MinDelta  = 2.0;      //   >> Min pips for SL change
+extern int            TS_BarCount  = 3;        //   >> Bar Count or Bars back
+extern int            TS_PadAmount = 10;       //   >> Pips to pad TS
+extern Enum_TS_WHEN   TS_When      = TS_OneRx; //   >> When to start trailing
+extern int            TS_WhenX     = 1;        //   >> When parameter (1Rx, pips)
+extern ENUM_TIMEFRAMES TS_ATRperiod= 0;        //   >> ATR Period
+extern double         TS_ATRfactor = 2.7;      //   >> ATR Factor
 
-#include <zts\account.mqh>
 
 class ExitManager {
 private:
@@ -25,7 +24,6 @@ private:
   int d2p;                 // decimal to pips conversion factor
   //int EquityModel;
   int defaultModel;
-  Account *account;
 
   int oneR_calc_PATI();
   //double oneR_calc_ATR(int,int);
@@ -42,18 +40,17 @@ public:
   double calcTrailingStopLoss(string,int);
   double getTrailingStop(Position *pos);
   bool useStopLoss;
+  int pips2startTS(Position*);
 };
 
 ExitManager::ExitManager() {
   symbol = Symbol();
 
-  account = new Account();
   d2p = decimal2points_factor(symbol);
   configParams();
 }
 
 ExitManager::~ExitManager() {
-  if (CheckPointer(account) == POINTER_DYNAMIC) delete account;
 }
 
 ExitManager::configParams() {
@@ -65,6 +62,21 @@ ExitManager::configParams() {
       useStopLoss = true;
       break;
   }
+}
+
+int ExitManager::pips2startTS(Position *pos) {
+  int pips;
+  switch(TS_When) {
+    case TS_OneRx:
+      pips = int(pos.OneRpips * TS_WhenX);
+      break;
+    case TS_PIPs:
+      pips = TS_WhenX;
+      break;
+    default:
+      pips = 0;
+  }
+  return (pips);
 }
 
 //double ExitManager::availableFunds() {
@@ -115,7 +127,7 @@ double ExitManager::getTrailingStop(Position *pos) {
   currentPrice = NormalizeDouble((pos.Side == Long ? Bid : Ask),Digits);
     
   switch(TS_Model) {
-    case TS_PrevHL:
+    case TS_CandleTrail:
       newTrailingStop = ((pos.Side==Long) ? iLow(NULL,0,TS_BarCount) :
                                             iHigh(NULL,0,TS_BarCount));
       break;
@@ -130,10 +142,11 @@ double ExitManager::getTrailingStop(Position *pos) {
     default:
       newTrailingStop = currentPrice;;
   }
+  newTrailingStop -= TS_PadAmount*pos.SideX;
   newTrailingStop = NormalizeDouble(newTrailingStop,Digits);
 
   double tmp = newTrailingStop-currStopLoss;
-  if(currStopLoss==0 || (newTrailingStop-currStopLoss)*pos.Side >= MinStopLossDeltaPips * BaseCcyTickValue * OnePoint) {
+  if(currStopLoss==0 || (newTrailingStop-currStopLoss)*pos.Side >= TS_MinDelta * BaseCcyTickValue * OnePoint) {
     return(newTrailingStop);
   }
   return(-1);

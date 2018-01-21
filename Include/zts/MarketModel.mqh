@@ -1,5 +1,5 @@
 //+------------------------------------------------------------------+
-//|                                              MarketCondition.mqh |
+//|                                              MarketModel.mqh |
 //|                                                    Stephen Zagar |
 //|                                                 https://www..com |
 //+------------------------------------------------------------------+
@@ -8,13 +8,17 @@
 #property version   "1.00"
 #property strict
 
-class MarketCondition {
+extern string commentString_MM_01 = ""; //*****************************************
+extern string commentString_MM_02 = "";          //MARKET MODEL SETTINGS
+extern Enum_MARKET_MODELS MM_Model = MM_200DMA;  //- Market Model
+
+class MarketModel {
 private:
   int marketModel;
   
 public:
-  MarketCondition(int);
-  ~MarketCondition();
+  MarketModel();
+  ~MarketModel();
   
   void setModel(int);
   bool canGoLong();
@@ -26,18 +30,18 @@ public:
 
 };
 
-MarketCondition::MarketCondition(int _model=1) {
+MarketModel::MarketModel() {
+  marketModel = MM_Model;
+}
+
+MarketModel::~MarketModel() {
+}
+
+void MarketModel::setModel(int _model) {
   marketModel = _model;
 }
 
-MarketCondition::~MarketCondition() {
-}
-
-void MarketCondition::setModel(int _model) {
-  marketModel = _model;
-}
-
-string MarketCondition::trendUpOrDown() {
+string MarketModel::trendUpOrDown() {
   string trend="";
   //switch(marketModel) {
   //  case Mkt_SessionMidpoint:
@@ -45,20 +49,20 @@ string MarketCondition::trendUpOrDown() {
   return trend;
 }
 
-bool MarketCondition::canGoLong() {
+bool MarketModel::canGoLong() {
   return true;
 }
 
-bool MarketCondition::canGoShort() {
+bool MarketModel::canGoShort() {
   return false;
 }
 
-string MarketCondition::snapshort() {
+string MarketModel::snapshort() {
   string str = "";
   return str;
 }
 
-int MarketCondition::sessionMidpoint() {
+int MarketModel::sessionMidpoint() {
   //int buffer = MktSessionMidpoit_buffer;
   //double smMid = iCustom(NULL,0,"SessionMidPoint",Red,White,Red,White,1,1);
   //if(Low[1]-buffer*Point > smMid)
