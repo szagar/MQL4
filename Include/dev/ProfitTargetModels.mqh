@@ -10,7 +10,7 @@
 
 //extern string commentString_10 = "";  //*****************************************
 //extern string commentString_11 = ""; //PROFIT TARGET MODEL SETTINGS
-extern Enum_PROFIT_TARGET_TYPES ProfitTargetModel = PT_OneR;  //- Profit Target Model
+extern Enum_PROFIT_TARGET_TYPES PT_Model = PT_OneR;  //- Profit Target Model
 extern double PT_multiplier = 2.0;  //>> Multiplier
 //extern string commentString_12 = "";  //*****************************************
 
@@ -18,7 +18,6 @@ extern double PT_multiplier = 2.0;  //>> Multiplier
 
 class ProfitTargetModels {
 private:
-  int defaultModel;
   double nextPatiLevel(Enum_SIDE side,double);
   
 public:
@@ -28,7 +27,6 @@ public:
 };
 
 ProfitTargetModels::ProfitTargetModels() {
-  defaultModel = PT_OneR;
 }
 
 ProfitTargetModels::~ProfitTargetModels() {
@@ -36,11 +34,13 @@ ProfitTargetModels::~ProfitTargetModels() {
 
 double ProfitTargetModels::getTargetPrice(Position *trade,
                                          Enum_PROFIT_TARGET_TYPES _model=PT_None) {
-  int model = (_model>PT_None ? _model : defaultModel);
+  Debug(__FUNCTION__,__LINE__,"Entered");
+  Enum_PROFIT_TARGET_TYPES model = (_model>PT_None ? _model : PT_Model);
   double entryPrice;
   double price;
   
   entryPrice = trade.OpenPrice;
+  Debug(__FUNCTION__,__LINE__,"model="+EnumToString(model));
   switch(model) {
     case PT_CandleTrail:
         price = entryPrice;
@@ -49,6 +49,7 @@ double ProfitTargetModels::getTargetPrice(Position *trade,
         price = entryPrice;
       break;
     case PT_OneR:
+        Debug(__FUNCTION__,__LINE__,"price = "+DoubleToString(entryPrice,Digits)+" + "+string(trade.SideX)+"*"+string(trade.OneRpips)+"*"+string(PT_multiplier)+"*"+string(OnePoint));
         price = entryPrice + trade.SideX*trade.OneRpips*PT_multiplier*OnePoint;
       break;
     case PT_PATI_Level:
@@ -62,6 +63,7 @@ double ProfitTargetModels::getTargetPrice(Position *trade,
     default:
       price = NULL;
   }
+  Debug(__FUNCTION__,__LINE__,"price="+DoubleToString(price,Digits));
   return(price);
 }
 

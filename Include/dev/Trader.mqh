@@ -17,14 +17,14 @@
 #include <dev\MagicNumber.mqh>
 #include <dev\EntryModels.mqh>
 #include <dev\PriceModels.mqh>
+#include <dev\PriceModelsFake.mqh>
 
 class Trader {
 private:
   PositionSizer *sizer;
   MagicNumber *magic;
   EntryModels *entry;
-  PriceModels *price;
-  //ProfitTargetModels *ptgt;
+  PriceModelsBase *price;
   ExitManager *exitMgr;
   InitialRisk *initRisk;
   ProfitTargetModels *profitTgt;
@@ -40,7 +40,10 @@ Trader::Trader(ExitManager* em,InitialRisk* ir, ProfitTargetModels *pt) {
   sizer = new PositionSizer();
   magic = new MagicNumber();
   entry = new EntryModels();
-  price = new PriceModels();
+  if(Testing)
+    price = new PriceModelsFake();
+  else
+    price = new PriceModels();
   profitTgt = pt;
   exitMgr = em;
   initRisk = ir;
@@ -57,14 +60,24 @@ Trader::~Trader() {
 //+------------------------------------------------------------------+
 
 Position *Trader::newTrade(Setup *setup) {
-  //Debug4(__FUNCTION__,__LINE__,"Entered");
+  Debug(__FUNCTION__,__LINE__,"Entered");
+  Debug(__FUNCTION__,__LINE__,"setup.side="+EnumToString(setup.side));
 
   Position *trade = new Position();
-  trade.OrderType = OP_BUYSTOP;
+  if(setup.side == Long) {
+    Debug(__FUNCTION__,__LINE__,"Long");
+    trade.OrderType = OP_BUYSTOP;
+    trade.SideX = 1;
+  }
+  if(setup.side == Short) {
+    Debug(__FUNCTION__,__LINE__,"Short");
+    trade.OrderType = OP_SELLSTOP;
+    trade.SideX = -1;
+  }
   trade.LotSize = sizer.lotSize(1);
   trade.Symbol = setup.symbol;
-  trade.Side = (trade.LotSize >= 0 ? Long : Short);
-  trade.SideX = (trade.LotSize >= 0 ? 1 : -1);
+  //trade.Side = (trade.LotSize >= 0 ? Long : Short);
+  trade.Side = setup.side;
 
   int oneR = initRisk.getInPips(trade);
   Debug(__FUNCTION__,__LINE__,"oneR="+IntegerToString(oneR));
@@ -85,8 +98,8 @@ Position *Trader::newTrade(Setup *setup) {
   trade.OneRpips = oneR;
   trade.Reference = __FILE__;
   trade.Magic = magic.get(setup.strategyName,oneR);
-  trade.TakeProfitPrice = profitTgt.getTargetPrice(trade,ProfitTargetModel);
-  trade.RewardPips = int((trade.TakeProfitPrice-entryPrice)*decimal2points_factor(setup.symbol));
+  trade.TakeProfitPrice = profitTgt.getTargetPrice(trade,PT_Model);
+  trade.RewardPips = int((trade.TakeProfitPrice-entryPrice)*trade.SideX*decimal2points_factor(setup.symbol));
   
   return(trade);
 };

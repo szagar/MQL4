@@ -33,13 +33,7 @@ class BollingerBand : public Setup {
   void bandPiercing();
   
 public:
-  //BollingerBand():Setup() {
-  //name = "BollingerBand";
-//};
-//  BollingerBand(string);
-//  BollingerBand(string,Enum_SIDE,int);
   BollingerBand(string,Enum_SIDE);
-//  BollingerBand(Enum_SIDE,int); // : setupBase(_symbol);
   ~BollingerBand();
   
   void OnTick(bool tradeWindow);
@@ -48,7 +42,6 @@ public:
   virtual void startOfDay();
 
   void reset();
-  //bool triggered();
   void triggerUpperBandPiercing(int);
   void triggerLowerBandPiercing(int);
 
@@ -92,6 +85,7 @@ BollingerBand::~BollingerBand() {
 void BollingerBand::reset() {
   BB_PiercedUpper = 0;
   BB_PiercedLower = 0;
+  triggered = false;
 }
 
 void BollingerBand::startOfDay() {
@@ -104,7 +98,8 @@ void BollingerBand::OnBar(void) {
   Debug4(__FUNCTION__,__LINE__,"BB_Model="+EnumToString(BB_Model));
   //bool pass = false;
   switch(BB_Model) {
-    case 1:
+    case BB_SETUP_01:
+    case BB_SETUP_02:
       if(goLong) triggered = longCriteria();
       if(goShort) triggered = shortCriteria();
       break;
@@ -142,22 +137,26 @@ void BollingerBand::bandPiercing() {
 }
 
 void BollingerBand::triggerUpperBandPiercing(int barN) {
+  Debug4(__FUNCTION__,__LINE__,"Entered");
   static int topCnt=0;
   string objname;
   BB_PiercedUpper = barN;
-  objname = "Pierce"+IntegerToString(topCnt++);
+  objname = "PierceUp"+IntegerToString(topCnt++);
   
   Debug4(__FUNCTION__,__LINE__,"BB_Model="+EnumToString(BB_Model)+"  objname="+objname+"  at="+DoubleToStr(High[1]+5*P2D,Digits));
-  ObjectCreate(objname,OBJ_ARROW,0,Time[1],High[1]+5*P2D);
+  ObjectCreate(objname,OBJ_ARROW,0,Time[1],High[1]);
   ObjectSet(objname, OBJPROP_ARROWCODE, SYMBOL_ARROWDOWN);
+  ObjectSetInteger(0,objname,OBJPROP_COLOR,clrBlack);
 }
 
 void BollingerBand::triggerLowerBandPiercing(int barN) {
+  Debug4(__FUNCTION__,__LINE__,"Entered");
   static int topCnt=0;
   string objname;
   BB_PiercedLower = barN;
-  objname = "Pierce"+IntegerToString(topCnt++);
-  ObjectCreate(objname,OBJ_ARROW,0,Time[1],Low[1]-5*P2D);
+  objname = "PierceLow"+IntegerToString(topCnt++);
+  ObjectCreate(objname,OBJ_ARROW,0,Time[1],Low[1]);
+  ObjectSetInteger(0,objname,OBJPROP_COLOR,clrBlack);
 }
 
 bool BollingerBand::longCriteria() {

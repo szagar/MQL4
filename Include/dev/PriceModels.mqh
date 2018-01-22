@@ -7,6 +7,9 @@
 #property link      "https://www..com"
 #property version   "1.00"
 #property strict
+
+#include <dev\PriceModelsBase.mqh>
+
 //+------------------------------------------------------------------+
 //|       Price Model:                                                                      EntryModel=0
 //|               when: after setup model confirms trade condition
@@ -22,7 +25,8 @@ extern Enum_PRICE_MODELS PM_Model = PM_BidAsk; //>> Price Model for entry
 extern int PM_BarShift = 1;         //>> Bar Offset
 extern double PM_PipAdj = 0.5;    //>> Price adjustment in pips
 extern int PM_Consecutive = 1;       //>> # of bars
-class PriceModels {
+
+class PriceModels : public PriceModelsBase {
 private:
 
 public:

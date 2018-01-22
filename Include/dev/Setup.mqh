@@ -30,7 +30,7 @@ public:
   Setup();
   Setup(string,Enum_SIDE);  // : symbol(_symbol) {};  //{} // constructor
 
-  void reset() {triggered=false;};  
+  virtual void reset() {triggered=false;};  
   virtual void OnInit()        { Debug4(__FUNCTION__,__LINE__,"Entered"); };
   virtual void OnTick()        { Debug4(__FUNCTION__,__LINE__,"Entered"); };
   virtual void OnBar()         { Debug4(__FUNCTION__,__LINE__,"Entered"); };
