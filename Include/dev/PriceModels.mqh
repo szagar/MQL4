@@ -33,10 +33,10 @@ public:
   PriceModels();
   ~PriceModels();
   
-  bool entrySignal(Position*);
-  void entryPrice(Position*);
-  void entryPriceLong(Position*);
-  void entryPriceShort(Position*);
+  //bool entrySignal(Position*);
+  double entryPrice(Position*);
+  double entryPriceLong(Position*);
+  double entryPriceShort(Position*);
 };
 
 PriceModels::PriceModels() {
@@ -45,35 +45,41 @@ PriceModels::PriceModels() {
 PriceModels::~PriceModels() {
 }
 
-void PriceModels::entryPrice(Position *trade) {
+double PriceModels::entryPrice(Position *trade) {
   Debug(__FUNCTION__,__LINE__,"Entered");
-  if(trade.Side==Long) entryPriceLong(trade);
-  if(trade.Side==Short) entryPriceShort(trade);
+  double price = NULL;
+  if(trade.Side==Long) price = entryPriceLong(trade);
+  if(trade.Side==Short) price = entryPriceShort(trade);
+  return(price);
 }
 
-void PriceModels::entryPriceLong(Position *trade) {
+double PriceModels::entryPriceLong(Position *trade) {
   Debug(__FUNCTION__,__LINE__,"Entered");
+  double price = NULL;
   Debug(__FUNCTION__,__LINE__,"PM_Model="+EnumToString(PM_Model));
   switch(PM_Model) {
     case PM_BidAsk:
-      trade.OpenPrice = Ask+PM_PipAdj;
+      price = Ask+PM_PipAdj;
       break;
     case PM_PrevHL:
-      trade.OpenPrice = iHigh(NULL,0,PM_BarShift)+PM_PipAdj;
+      price = iHigh(NULL,0,PM_BarShift)+PM_PipAdj;
       break;
   }
-  Debug(__FUNCTION__,__LINE__,"trade.OpenPrice="+DoubleToStr(trade.OpenPrice,Digits));
+  Debug(__FUNCTION__,__LINE__,"price="+DoubleToStr(price,Digits));
+  return(price);
 }
 
-void PriceModels::entryPriceShort(Position *trade) {
+double PriceModels::entryPriceShort(Position *trade) {
   Debug(__FUNCTION__,__LINE__,"Entered");
+  double price = NULL;
   switch(PM_Model) {
     case PM_BidAsk:
-      trade.OpenPrice = Bid-PM_PipAdj;
+      price = Bid-PM_PipAdj;
       break;
     case PM_PrevHL:
-      trade.OpenPrice = iLow(NULL,0,PM_BarShift)-PM_PipAdj;
+      price = iLow(NULL,0,PM_BarShift)-PM_PipAdj;
       break;
   }
+  return(price);
 }
 

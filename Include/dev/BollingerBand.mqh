@@ -100,8 +100,8 @@ void BollingerBand::OnBar(void) {
   switch(BB_Model) {
     case BB_SETUP_01:
     case BB_SETUP_02:
-      if(goLong) triggered = longCriteria();
-      if(goShort) triggered = shortCriteria();
+      if(GoLong) triggered = longCriteria();
+      if(GoShort) triggered = shortCriteria();
       break;
     default:;
       //pass = false;
@@ -118,6 +118,8 @@ void BollingerBand::bandPiercing() {
   double topPrev=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_UPPER,2);
   double lowCurr=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_LOWER,1);
   double lowPrev=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_LOWER,2);
+  Debug(__FUNCTION__,__LINE__,"BBtop Curr="+DoubleToString(topCurr,Digits)+"  Prev="+DoubleToString(topPrev,Digits));
+  Debug(__FUNCTION__,__LINE__,"BBlow Curr="+DoubleToString(lowCurr,Digits)+"  Prev="+DoubleToString(lowPrev,Digits));
   switch(BB_Model) {
     case BB_SETUP_01:
       if(Close[2]<topPrev && Close[1]>topCurr) 
@@ -154,7 +156,7 @@ void BollingerBand::triggerLowerBandPiercing(int barN) {
   static int topCnt=0;
   string objname;
   BB_PiercedLower = barN;
-  objname = "PierceLow"+IntegerToString(topCnt++);
+  objname = "PierceDn"+IntegerToString(topCnt++);
   ObjectCreate(objname,OBJ_ARROW,0,Time[1],Low[1]);
   ObjectSetInteger(0,objname,OBJPROP_COLOR,clrBlack);
 }

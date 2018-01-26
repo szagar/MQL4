@@ -59,13 +59,13 @@ int InitialRisk::getInPips(Position *trade, Enum_INITIAL_RISK _model=NULL) {
     case IR_ATR:
       atr = calc_ATR(trade.Symbol,IR_ATRperiod,IR_BarCount);
       //pips = int(oneR_calc_ATR(ATRperiod,ATRnumBars)*decimal2points_factor(symbol)*IR_ATRfactor);
-      pips = int(calc_ATR(trade.Symbol,IR_ATRperiod,IR_BarCount)*decimal2points_factor(trade.Symbol)*IR_ATRfactor);
+      pips = int(calc_ATR(trade.Symbol,IR_ATRperiod,IR_BarCount)*PipFact*IR_ATRfactor);
       Debug4(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips)+"  atr="+DoubleToStr(atr,Digits));
       break;
     case IR_PrevHL:
       px = (trade.Side==Long ? Bid : Ask);
       sl = (trade.Side==Long ? iLow(NULL,0,IR_BarCount) : iHigh(NULL,0,IR_BarCount));
-      pips = int((px-sl)*trade.Side * decimal2points_factor(trade.Symbol));
+      pips = int((px-sl)*trade.Side * PipFact);
       Debug4(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips));
       break;
     default:

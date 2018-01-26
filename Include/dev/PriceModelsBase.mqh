@@ -17,8 +17,8 @@ public:
   ~PriceModelsBase() {};
 
   //bool entrySignal(Position*);
-  virtual void entryPrice(Position*)      { Debug4(__FUNCTION__,__LINE__,"Entered"); };
-  virtual void entryPriceLong(Position*)  { Debug4(__FUNCTION__,__LINE__,"Entered"); };
-  virtual void entryPriceShort(Position*) { Debug4(__FUNCTION__,__LINE__,"Entered"); };
+  virtual double entryPrice(Position*)      { Debug4(__FUNCTION__,__LINE__,"Entered");return(NULL); };
+  virtual double entryPriceLong(Position*)  { Debug4(__FUNCTION__,__LINE__,"Entered");return(NULL); };
+  virtual double entryPriceShort(Position*) { Debug4(__FUNCTION__,__LINE__,"Entered");return(NULL); };
 };
 

@@ -42,6 +42,8 @@ public:
   bool IsPending;
   string Reference;    //smz
   int Magic;
+  datetime Expiration;
+  color ArrowColor;
 };
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -101,6 +103,8 @@ string Position::inspect() {
   str += "IsPending         = "+string(IsPending) + "\n";
   str += "Reference         = "+Reference + "\n";
   str += "Magic             = "+IntegerToString(Magic) + "\n";
+  str += "Expiration        = "+string(Expiration) + "\n";
+  str += "ArrowColor        = "+IntegerToString(ArrowColor) + "\n";
   str += "SideX             = "+IntegerToString(SideX) + "\n";
   return(str);
 }

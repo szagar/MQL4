@@ -9,6 +9,20 @@
 
 #include <dev/enum_types.mqh>
 
+void setSomeConstants() {
+  TickSize = MarketInfo(Symbol(),MODE_TICKSIZE);
+  PipSize = TickSize;
+  if(TickSize == 0.00001 || TickSize == 0.001)
+    PipSize *= 10;
+  PipFact = int(1/TickSize);
+}
+
+double TickSize;
+double PipSize;
+int PipFact;
+//setSomeConstants();
+
+
 int GetSlippage() {
   if(Digits() == 2 || Digits() == 4)
     return(Slippage);
@@ -32,7 +46,7 @@ double pips2dollars(string sym, double pips, double lots) {
    return ( result );
 }
 
-int decimal2points_factor(string sym) {
+int decimal2pips(string sym) {
   int factor = 10000;
   if(StringFind(sym,"JPY",0)>0) factor = 100;         // JPY pairs
   Debug(__FUNCTION__,__LINE__,": sym="+sym+"  factor="+string(factor)); 

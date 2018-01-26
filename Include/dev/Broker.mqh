@@ -84,6 +84,7 @@ public:
     newTrade.Side = (newTrade.LotSize > 0 ? Long : Short);
     newTrade.SideX = (newTrade.LotSize > 0 ? 1 : -1);
     newTrade.Magic = OrderMagicNumber();
+    newTrade.Expiration = OrderExpiration();
     return newTrade;
   }
 
@@ -145,7 +146,9 @@ public:
                       trade.StopPrice,  //stop loss
                       trade.TakeProfitPrice,  //take profit
                       trade.Reference,   //smz comment
-                      trade.Magic);   // magic
+                      trade.Magic,   // magic
+                      trade.Expiration,
+                      trade.ArrowColor);
   }
 
   virtual void DeletePendingTrade ( Position * trade) {

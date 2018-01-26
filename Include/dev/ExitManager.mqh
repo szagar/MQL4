@@ -5,17 +5,17 @@
 
 extern string commentString_7 = "";  //*****************************************
 extern string commentString_8 = "";  //EXIT MANAGER SETTINGS
-extern Enum_EXITMODEL EX_Model = EX_SL_TP;     //- Exit Model
-extern Enum_YESNO     EX_TimedExit = YN_NO;    //- add Timed Exit ?
-extern Enum_YESNO     EX_BarCount = YN_NO;     //- add Bar Count Exit ?
-extern Enum_TS_TYPES  TS_Model = TS_ATR;       //- Trailing Stop Model
-extern double         TS_MinDelta  = 2.0;      //   >> Min pips for SL change
-extern int            TS_BarCount  = 3;        //   >> Bar Count or Bars back
-extern int            TS_PadAmount = 10;       //   >> Pips to pad TS
-extern Enum_TS_WHEN   TS_When      = TS_OneRx; //   >> When to start trailing
-extern int            TS_WhenX     = 1;        //   >> When parameter (1Rx, pips)
-extern ENUM_TIMEFRAMES TS_ATRperiod= 0;        //   >> ATR Period
-extern double         TS_ATRfactor = 2.7;      //   >> ATR Factor
+extern Enum_EXIT_MODELS EX_Model = EX_SL_TP;     //- Exit Model
+extern Enum_YESNO       EX_TimedExit = YN_NO;    //- add Timed Exit ?
+extern Enum_YESNO       EX_BarCount = YN_NO;     //- add Bar Count Exit ?
+extern Enum_TS_TYPES    TS_Model = TS_ATR;       //- Trailing Stop Model
+extern double           TS_MinDelta  = 2.0;      //   >> Min pips for SL change
+extern int              TS_BarCount  = 3;        //   >> Bar Count or Bars back
+extern int              TS_PadAmount = 10;       //   >> Pips to pad TS
+extern Enum_TS_WHEN     TS_When      = TS_OneRx; //   >> When to start trailing
+extern int              TS_WhenX     = 1;        //   >> When parameter (1Rx, pips)
+extern ENUM_TIMEFRAMES  TS_ATRperiod= 0;         //   >> ATR Period
+extern double           TS_ATRfactor = 2.7;      //   >> ATR Factor
 
 
 class ExitManager {
@@ -46,7 +46,7 @@ public:
 ExitManager::ExitManager() {
   symbol = Symbol();
 
-  d2p = decimal2points_factor(symbol);
+  d2p = PipFact;
   configParams();
 }
 
@@ -79,46 +79,6 @@ int ExitManager::pips2startTS(Position *pos) {
   return (pips);
 }
 
-//double ExitManager::availableFunds() {
-//  double dollars;
-//
-//  switch(EquityModel){
-//    case 1:
-//      dollars = account.freeMargin();
-//      break;
-//    default:
-//      dollars = 0.0;
-//  }
-//  return(dollars);
-//}
-
-/**
-int ExitManager::oneR_calc_PATI() {
-  int __defaultStopPips = 12;
-  string __exceptionPairs = "EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10";
-  
-  int stop = __defaultStopPips;
-  int pairPosition = StringFind(__exceptionPairs, symbol, 0);
-  if (pairPosition >=0) {
-     int slashPosition = StringFind(__exceptionPairs, "/", pairPosition) + 1;
-     stop =int( StringToInteger(StringSubstr(__exceptionPairs,slashPosition)));
-  }
-  Debug4(__FUNCTION__,__LINE__,"pips="+IntegerToString(stop));
-  return stop;
-}
-
-double ExitManager::oneR_calc_ATR(int _period, int _numBars) {
-  double atr = iATR(symbol,     // symbol
-                    _period,     // timeframe
-                    _numBars,    // averaging period
-                    0);          // shift
-  atr = NormalizeDouble(atr, int(MarketInfo(symbol, MODE_DIGITS)-1));
-  Debug4(__FUNCTION__,__LINE__,"atr "+string(_numBars)+" bars. period = "+string(_period)+"  atr="+string(atr));
-  return(atr);
-}
-*/
-
-
 double ExitManager::getTrailingStop(Position *pos) {
   double currentPrice, newTrailingStop;
   double currStopLoss=OrderStopLoss();
@@ -132,7 +92,7 @@ double ExitManager::getTrailingStop(Position *pos) {
                                             iHigh(NULL,0,TS_BarCount));
       break;
     case TS_ATR:
-      pips = int(atr(TS_ATRperiod,TS_BarCount)*decimal2points_factor(symbol) * TS_ATRfactor);
+      pips = int(atr(TS_ATRperiod,TS_BarCount)*PipFact * TS_ATRfactor);
       newTrailingStop = currentPrice + pips * OnePoint * pos.Side;
       break;
     case TS_OneR:

@@ -14,10 +14,10 @@
 //--- The base class Setup
 class Setup {
 protected:
+  void markOnChart(datetime,double);
 public:
   string symbol;
   Enum_SIDE side;
-  bool goLong;
   bool goShort;
   bool callOnTick;
   bool callOnBar;
@@ -35,10 +35,10 @@ public:
   virtual void OnTick()        { Debug4(__FUNCTION__,__LINE__,"Entered"); };
   virtual void OnBar()         { Debug4(__FUNCTION__,__LINE__,"Entered"); };
   virtual void startOfDay()    { Debug4(__FUNCTION__,__LINE__,"Entered"); }
-  virtual bool entrySignaled() {
-    Debug4(__FUNCTION__,__LINE__,"Entered");
-    return(false);
-  }
+  //virtual bool entrySignaled() {
+  //  Debug4(__FUNCTION__,__LINE__,"Entered");
+  //  return(false);
+  //}
 };
 
 
@@ -51,14 +51,19 @@ Setup::Setup() {
 Setup::Setup(string _symbol,Enum_SIDE _side) {
   symbol = _symbol;
   side = _side;
-  goLong = false;
-  goShort = false;
   callOnTick = false;
   callOnBar = false;
-  if(side == Long) goLong = true;
-  if(side == Short) goShort = true;
   magic = new MagicNumber();
   triggered = false;
 }
 
+void Setup::markOnChart(datetime time, double price) {
+  Debug(__FUNCTION__,__LINE__,"Entered");
+  static int objCnt=0;
+  string objname;
+  objname = strategyName+"_"+IntegerToString(objCnt++);
+  Comment("Draw Object: "+objname);
+  ObjectCreate(objname,OBJ_ARROW,0,time,price);
+  ObjectSetInteger(0,objname,OBJPROP_COLOR,clrBlack);
+}
   

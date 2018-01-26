@@ -24,46 +24,52 @@ public:
   PriceModelsFake() {};
   ~PriceModelsFake() {};
   
-  bool entrySignal(Position*);
-  void entryPrice(Position*);
-  void entryPriceLong(Position*);
-  void entryPriceShort(Position*);
+  //bool entrySignal(Position*);
+  double entryPrice(Position*);
+  double entryPriceLong(Position*);
+  double entryPriceShort(Position*);
 };
 
-void PriceModelsFake::entryPrice(Position *trade) {
+double PriceModelsFake::entryPrice(Position *trade) {
   Debug(__FUNCTION__,__LINE__,"Entered");
-  if(trade.Side==Long) entryPriceLong(trade);
-  if(trade.Side==Short) entryPriceShort(trade);
+  double price = NULL;
+  if(trade.Side==Long) price = entryPriceLong(trade);
+  if(trade.Side==Short) price = entryPriceShort(trade);
+  return(price);
 }
 
-void PriceModelsFake::entryPriceLong(Position *trade) {
+double PriceModelsFake::entryPriceLong(Position *trade) {
   Debug(__FUNCTION__,__LINE__,"Entered");
+  double price = NULL;
   Debug(__FUNCTION__,__LINE__,"PM_Model="+EnumToString(PM_Model));
   double spread;
   switch(PM_Model) {
     case PM_BidAsk:
       spread = MarketInfo(Symbol(),MODE_SPREAD)*Point;
-      trade.OpenPrice = Close[0]+spread+PM_PipAdj*Point;     // fake ask
+      price = Close[0]+spread+PM_PipAdj*Point;     // fake ask
       Debug(__FUNCTION__,__LINE__,"spread="+DoubleToString(spread,Digits)+"  Close="+DoubleToString(Close[0],Digits)+"  Adj="+DoubleToString(PM_PipAdj*Point,Digits)+"  OP="+DoubleToString(trade.OpenPrice,Digits));
       break;
     case PM_PrevHL:
-      trade.OpenPrice = iHigh(NULL,0,PM_BarShift)+PM_PipAdj*Point;
+      price = iHigh(NULL,0,PM_BarShift)+PM_PipAdj*Point;
       break;
   }
   Debug(__FUNCTION__,__LINE__,"trade.OpenPrice="+DoubleToStr(trade.OpenPrice,Digits));
+  return(price);
 }
 
-void PriceModelsFake::entryPriceShort(Position *trade) {
+double PriceModelsFake::entryPriceShort(Position *trade) {
   Debug(__FUNCTION__,__LINE__,"Entered");
+  double price = NULL;
   Debug(__FUNCTION__,__LINE__,"PM_Model="+EnumToString(PM_Model));
   switch(PM_Model) {
     case PM_BidAsk:
-      trade.OpenPrice = Close[0]-PM_PipAdj*Point;          // fake bid
+      price = Close[0]-PM_PipAdj*Point;          // fake bid
       Debug(__FUNCTION__,__LINE__,"Close="+DoubleToString(Close[0],Digits)+"  Adj="+DoubleToString(PM_PipAdj*Point,Digits)+"  OP="+DoubleToString(trade.OpenPrice,Digits));
       break;
     case PM_PrevHL:
-      trade.OpenPrice = iLow(NULL,0,PM_BarShift)-PM_PipAdj*Point;
+      price = iLow(NULL,0,PM_BarShift)-PM_PipAdj*Point;
       break;
   }
+  return(price);
 }
 

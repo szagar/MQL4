@@ -54,10 +54,10 @@ double ProfitTargetModels::getTargetPrice(Position *trade,
       break;
     case PT_PATI_Level:
       price = nextPatiLevel(trade.Side,(trade.Side==Long ? Bid : Ask));
-      trade.RewardPips = int((price-trade.OpenPrice)*decimal2points_factor(trade.Symbol) * trade.Side);
+      trade.RewardPips = int((price-trade.OpenPrice)*PipFact * trade.Side);
       while(trade.RewardPips/trade.OneRpips < MinReward2RiskRatio) {
         price = nextPatiLevel(trade.Side,price);
-        trade.RewardPips = int((price-trade.OpenPrice)*decimal2points_factor(trade.Symbol) * trade.Side);
+        trade.RewardPips = int((price-trade.OpenPrice)*PipFact * trade.Side);
       }
       break;
     default:

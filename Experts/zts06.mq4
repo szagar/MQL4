@@ -17,7 +17,7 @@ extern bool GoLong = true;                //>> Go Long ?
 extern bool GoShort = false;              //>> Go Short ?
 extern int Slippage=5;                    //>> Slippage in pips 
 extern double MinReward2RiskRatio = 1.5;  //>> Min Reward / Risk 
-//extern string commentString_3 = "";  //*****************************************
+//extern string commentString_3 = "";     //*****************************************
 
 #include <dev\robo1.mqh>
 //#include <dev\stats_eod.mqh>
@@ -37,6 +37,7 @@ datetime now;
 
 int OnInit() {
   //EventSetTimer(60);
+  setSomeConstants();
   robo = new Robo();
   session = new TradingSessions();
   
@@ -49,7 +50,7 @@ int OnInit() {
   dtStruct.sec = 0;
   endOfDay = session.endOfDay;             //StructToTime(dtStruct) + 17*60*60;         // 5pm NY
   startOfDay = session.startOfDay;         //StructToTime(dtStruct) + 9*60*60;;       // 9am NY
-  Info(__FUNCTION__,__LINE__,"Day start to end: "+string(startOfDay)+" - "+string(string(endOfDay)));
+  Info("Day start to end: "+string(startOfDay)+" - "+string(string(endOfDay)));
 
   DrawSystemStatus();
 
@@ -101,7 +102,7 @@ double OnTester() {
 bool isEOD() {
   if(now >= endOfDay) {
     endOfDay = session.addDay(endOfDay);
-    Info(__FUNCTION__,__LINE__,"EOD bar");
+    Info("EOD bar");
     return(true);
   }
   return(false);
@@ -111,13 +112,14 @@ bool isSOD() {
   if(now >= startOfDay) {
     startOfDay = session.addDay(startOfDay);
     dayBarNumber = 1;
-      Info(__FUNCTION__,__LINE__,"SOD bar");
+    Info("SOD bar");
     return true;
   }
   return(false);
 }
 
 void cleanUpEOD() {
+  Info("EOD cleanup");
 }
 
 //void startOfDay() {

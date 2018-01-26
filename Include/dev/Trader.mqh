@@ -15,7 +15,6 @@
 #include <dev\ProfitTargetModels.mqh>
 #include <dev\Setup.mqh>
 #include <dev\MagicNumber.mqh>
-#include <dev\EntryModels.mqh>
 #include <dev\PriceModels.mqh>
 #include <dev\PriceModelsFake.mqh>
 
@@ -23,7 +22,6 @@ class Trader {
 private:
   PositionSizer *sizer;
   MagicNumber *magic;
-  EntryModels *entry;
   PriceModelsBase *price;
   ExitManager *exitMgr;
   InitialRisk *initRisk;
@@ -39,7 +37,6 @@ public:
 Trader::Trader(ExitManager* em,InitialRisk* ir, ProfitTargetModels *pt) {
   sizer = new PositionSizer();
   magic = new MagicNumber();
-  entry = new EntryModels();
   if(Testing)
     price = new PriceModelsFake();
   else
@@ -53,7 +50,6 @@ Trader::~Trader() {
  if (CheckPointer(sizer)    == POINTER_DYNAMIC) delete sizer;
  if (CheckPointer(initRisk) == POINTER_DYNAMIC) delete initRisk;
  if (CheckPointer(magic)    == POINTER_DYNAMIC) delete magic;
- if (CheckPointer(entry)    == POINTER_DYNAMIC) delete entry;
  if (CheckPointer(price)    == POINTER_DYNAMIC) delete price;
  //if (CheckPointer(ptgt)     == POINTER_DYNAMIC) delete ptgt;
 }
@@ -80,18 +76,14 @@ Position *Trader::newTrade(Setup *setup) {
   trade.Side = setup.side;
 
   int oneR = initRisk.getInPips(trade);
-  Debug(__FUNCTION__,__LINE__,"oneR="+IntegerToString(oneR));
-  double entryPrice = (setup.side==Long ? entry.entryPriceLong() : entry.entryPriceShort());
+  double entryPrice = price.entryPrice(trade);
 
   trade.IsPending = true;
   trade.OpenPrice = entryPrice;
-  price.entryPrice(trade);
-  Debug(__FUNCTION__,__LINE__,"trade.OpenPrice="+DoubleToStr(trade.OpenPrice,Digits));
 
   if(exitMgr.useStopLoss) {
-    double stopLoss =  (setup.side==Long ? trade.OpenPrice - oneR*points2decimal_factor(setup.symbol) : trade.OpenPrice + oneR*points2decimal_factor(setup.symbol));
-    trade.StopPrice = stopLoss;
-    Debug(__FUNCTION__,__LINE__,"trade.StopPrice="+DoubleToStr(trade.StopPrice,Digits));
+    trade.StopPrice = (setup.side==Long ? trade.OpenPrice - oneR*PipSize :
+                                          trade.OpenPrice + oneR*PipSize);
   }
   
   trade.Symbol = setup.symbol;
@@ -99,7 +91,7 @@ Position *Trader::newTrade(Setup *setup) {
   trade.Reference = __FILE__;
   trade.Magic = magic.get(setup.strategyName,oneR);
   trade.TakeProfitPrice = profitTgt.getTargetPrice(trade,PT_Model);
-  trade.RewardPips = int((trade.TakeProfitPrice-entryPrice)*trade.SideX*decimal2points_factor(setup.symbol));
+  trade.RewardPips = int((trade.TakeProfitPrice-entryPrice)*trade.SideX*PipFact);
   
   return(trade);
 };

@@ -84,8 +84,8 @@ public:
 };
 
 TradingSessions::TradingSessions(Enum_Sessions _tradingSession=NewYork, Enum_Seasons _season=Winter) {
-  Info(__FUNCTION__,__LINE__,"TimeCurrent() = "+string(TimeCurrent()));
-  Info(__FUNCTION__,__LINE__,"TimeLocal() = "+string(TimeLocal()));
+  Info("TimeCurrent() = "+string(TimeCurrent()));
+  Info("TimeLocal() = "+string(TimeLocal()));
   tradingSession= _tradingSession;
   season = _season;
   datetime local,current,gmt;
@@ -114,10 +114,10 @@ TradingSessions::TradingSessions(Enum_Sessions _tradingSession=NewYork, Enum_Sea
   local2gmtOffsetHrs = int(local2gmtOffset / (60*60));
   local2serverOffsetHrs = int(local2serverOffset / (60*60));
   
-  Info(__FUNCTION__,__LINE__,"SanityCheck:  gmt2serverOffsetHrs  ="+string(gmt2serverOffsetHrs));
-  Info(__FUNCTION__,__LINE__,"SanityCheck:  local2gmtOffsetHrs      ="+string(local2gmtOffsetHrs));
-  Info(__FUNCTION__,__LINE__,"SanityCheck:  local2serverOffsetHrs="+string(local2serverOffsetHrs));
-  Info(__FUNCTION__,__LINE__,"SanityCheck:  "+string(local2gmtOffsetHrs)+" + "+string(gmt2serverOffsetHrs)+" = "+string(local2serverOffsetHrs));
+  Info("SanityCheck:  gmt2serverOffsetHrs  ="+string(gmt2serverOffsetHrs));
+  Info("SanityCheck:  local2gmtOffsetHrs      ="+string(local2gmtOffsetHrs));
+  Info("SanityCheck:  local2serverOffsetHrs="+string(local2serverOffsetHrs));
+  Info("SanityCheck:  "+string(local2gmtOffsetHrs)+" + "+string(gmt2serverOffsetHrs)+" = "+string(local2serverOffsetHrs));
   
   startOfDay = StructToTime(dtStruct) + 1*60*60;;
     endOfDay = StructToTime(dtStruct) + 23*60*60;
@@ -138,11 +138,11 @@ TradingSessions::TradingSessions(Enum_Sessions _tradingSession=NewYork, Enum_Sea
   SessionTimes_End[London]    = StructToTime(dtStruct) + int(LocalOffsets[season][London][End]*60*60);
   SessionTimes_Start[NewYork] = StructToTime(dtStruct) + int(LocalOffsets[season][NewYork][Start]*60*60);
   SessionTimes_End[NewYork]   = StructToTime(dtStruct) + int(LocalOffsets[season][NewYork][End]*60*60);
-  Print("StructToTime(dtStruct) = "+TimeToString(StructToTime(dtStruct)));
-  Print("LocalOffsets[season][NYSE][Start] = "+string(LocalOffsets[season][NYSE][Start]));
-  Print("LocalOffsets[season][NYSE][Start]*60*60 = "+string(LocalOffsets[season][NYSE][Start]*60*60));
+  Debug(__FUNCTION__,__LINE__,"StructToTime(dtStruct) = "+TimeToString(StructToTime(dtStruct)));
+  Debug(__FUNCTION__,__LINE__,"LocalOffsets[season][NYSE][Start] = "+string(LocalOffsets[season][NYSE][Start]));
+  Debug(__FUNCTION__,__LINE__,"LocalOffsets[season][NYSE][Start]*60*60 = "+string(LocalOffsets[season][NYSE][Start]*60*60));
   SessionTimes_Start[NYSE] = datetime(StructToTime(dtStruct) + LocalOffsets[season][NYSE][Start]*60*60);
-  Print("SessionTimes_Start[NYSE] = "+string(SessionTimes_Start[NYSE]));
+  Debug(__FUNCTION__,__LINE__,"SessionTimes_Start[NYSE] = "+string(SessionTimes_Start[NYSE]));
   SessionTimes_End[NYSE]   = StructToTime(dtStruct) + int(LocalOffsets[season][NYSE][End]*60*60);
   SessionTimes_Start[NYlast1] = StructToTime(dtStruct) + int(LocalOffsets[season][NYlast1][Start]*60*60);
   SessionTimes_End[NYlast1]   = StructToTime(dtStruct) + int(LocalOffsets[season][NYlast1][End]*60*60);
@@ -198,12 +198,11 @@ void TradingSessions::showAllSessions(string tz = "server") {
   if(StringCompare(tz,"gmt",false)==0)
     adj = -gmt2serverOffset;
   Enum_Sessions save = tradingSession;
-  Info(__FUNCTION__,__LINE__,tz+" ("+string(adj/60/60)+")");
+  Info(tz+" ("+string(adj/60/60)+")");
   for(Enum_Sessions i=0; i<EnumLast; i++ ) {
     setSession(i);
     str = StringFormat("Session: %-10s: %s - %s",EnumToString(i),TimeToStr(startTradingSession_Server+adj),TimeToString(endTradingSession_Server+adj));
-    Info(__FUNCTION__,__LINE__,str);
-    //Info("Session: "+EnumToString(i)+": "+string(startTradingSession_Server+adj)+" - "+string(endTradingSession_Server+adj));
+    Info(str);
   }
   setSession(save);
 }

@@ -24,6 +24,7 @@ public:
 
 #include <dev\InitialRisk.mqh>
 #include <dev\ExitManager.mqh>
+#include <dev\EntryModels.mqh>
 #include <dev\ProfitTargetModels.mqh>
 
 #include <dev\MarketModel.mqh>
@@ -43,6 +44,7 @@ extern bool Setup_BollingerBand = false; //>>   Use BollingerBand setup?
 extern bool Setup_Finch = true;          //>>   Use Finch setup?
 extern bool Setup_MovingAvg = false;     //>>   Use Moving Avg Cross setup?
 extern bool Setup_Rsi = false;           //>>   Use RSI setup?
+extern ENUM_COLOR_FORMAT ColorSetupDebug = clrBlack;   //>>  Arrow color
 
 #include <dev\BollingerBand.mqh>
 #include <dev\Finch.mqh>
@@ -93,6 +95,7 @@ private:
   double rangeLower, rangeUpper;
   InitialRisk *initRisk;
   ExitManager *exitMgr;
+  EntryModels *entry;
   ProfitTargetModels *profitTgt;
   Account *account;
   Broker *broker;
@@ -107,7 +110,7 @@ private:
 
   void initLongSetupStrategies();       //(Setup* &_longSetups[]);
   void initShortSetupStrategies();      //(Setup* &_shortSetups[]);
-  void checkSignals(Setup* &setups[],int);
+  void checkTriggeredSetups(Setup* &setups[],int);
 
   //void tradeLong();
   //void tradeShort();
@@ -145,6 +148,7 @@ Robo::Robo() {
   exitStratCnt = 0;
   initRisk = new InitialRisk();
   exitMgr = new ExitManager();
+  entry = new EntryModels();
   profitTgt = new ProfitTargetModels();
   account = new Account();
   broker = new Broker();
@@ -189,6 +193,7 @@ Robo::~Robo() {
   if (CheckPointer(account) == POINTER_DYNAMIC) delete account;
   //if (CheckPointer(riskMgr) == POINTER_DYNAMIC) delete riskMgr;
   if (CheckPointer(exitMgr) == POINTER_DYNAMIC) delete exitMgr;
+  if (CheckPointer(entry) == POINTER_DYNAMIC) delete entry;
   if (CheckPointer(profitTgt) == POINTER_DYNAMIC) delete profitTgt;
 }
 
@@ -196,7 +201,6 @@ int Robo::OnInit() {
   D2P = (StringFind(Symbol(),"JPY",0)>0 ? 100 : 10000);
   P2D = 1.0/D2P;
   session.setSession(TradingSession);
-  session.setSession(NYSE);
   Debug(__FUNCTION__,__LINE__,session.showSession());
   Debug(__FUNCTION__,__LINE__,session.showSession(true));
 
@@ -231,11 +235,11 @@ void Robo::OnTick() {
     setup.OnTick();
   }
   //Debug4(__FUNCTION__,__LINE__,"2");
-  //if(session.tradeWindow() && canTradeSymbol()) {
+  //if(session.tradeWindow(TradingSession) && canTradeSymbol()) {
   //  if(market.canGoLong())
-  //    checkSignals(longSetupsOnTick,longSetupOnTickCnt);
+  //    checkTriggeredSetups(longSetupsOnTick,longSetupOnTickCnt);
   //  if(market.canGoShort())
-  //    checkSignals(shortSetupsOnTick,shortSetupOnTickCnt);
+  //    checkTriggeredSetups(shortSetupsOnTick,shortSetupOnTickCnt);
   //}
   //Debug4(__FUNCTION__,__LINE__,"3");
 }
@@ -260,7 +264,7 @@ void Robo::OnNewBar() {   //bool tradeWindow) {
   //  setup = shortSetupsOnTick[i];
   //  setup.OnTick();
   //}
-  if(session.tradeWindow() && canTradeSymbol()) {
+  if(session.tradeWindow(TradingSession) && canTradeSymbol()) {
     if(GoLong) {
       for(int i=0;i<longSetupOnBarCnt;i++) {
         setup = longSetupsOnBar[i];
@@ -274,9 +278,9 @@ void Robo::OnNewBar() {   //bool tradeWindow) {
       }
     }
     if(market.canGoLong())
-      checkSignals(longSetupsOnBar,longSetupOnBarCnt);
+      checkTriggeredSetups(longSetupsOnBar,longSetupOnBarCnt);
     if(market.canGoShort())
-      checkSignals(shortSetupsOnBar,shortSetupOnBarCnt);
+      checkTriggeredSetups(shortSetupsOnBar,shortSetupOnBarCnt);
   }
 }
 
@@ -387,7 +391,7 @@ void Robo::initLongSetupStrategies() {       // (Setup* &_setups[]) {
 
   if(Setup_MovingAvg) {
     Debug4(__FUNCTION__,__LINE__,"Add MovingAvg Long Setup");
-    setup = new MovingAvgCross(Symbol(),Long);
+    setup = new MovingAvgCross(Long);
     if(setup.callOnTick) longSetupsOnTick[t_cnt++] = setup;
     if(t_cnt==t_size) {
       ArrayResize(longSetupsOnTick, 2*t_size);
@@ -430,6 +434,7 @@ void Robo::initShortSetupStrategies() {       //(Setup* &_setups[]) {
   if(Setup_BollingerBand) {
     Debug4(__FUNCTION__,__LINE__,"Add Bollinger Short Setup");
     setup = new BollingerBand(symbol,Short);   //Symbol(),Long,BollingerBandModel);
+    Info("Initialize "+setup.strategyName);
     if(setup.callOnTick) shortSetupsOnTick[t_cnt++] = setup;
     if(t_cnt==t_size) {
       ArrayResize(shortSetupsOnTick, 2*t_size);
@@ -444,7 +449,8 @@ void Robo::initShortSetupStrategies() {       //(Setup* &_setups[]) {
 
   if(Setup_MovingAvg) {
     Debug4(__FUNCTION__,__LINE__,"Add MovingAvg Short Setup");
-    setup = new MovingAvgCross(Symbol(),Short);
+    setup = new MovingAvgCross(Short);
+    Info("Initialize "+setup.strategyName);
     if(setup.callOnTick) shortSetupsOnTick[t_cnt++] = setup;
     if(t_cnt==t_size) {
       ArrayResize(shortSetupsOnTick, 2*t_size);
@@ -460,6 +466,7 @@ void Robo::initShortSetupStrategies() {       //(Setup* &_setups[]) {
   if(Setup_Rsi) {
     Debug4(__FUNCTION__,__LINE__,"Add RSI Short Setup");
     setup = new Rsi(Symbol(),Short);
+    Info("Initialize "+setup.strategyName);
     if(setup.callOnTick) shortSetupsOnTick[t_cnt++] = setup;
     if(t_cnt==t_size) {
       ArrayResize(shortSetupsOnTick, 2*t_size);
@@ -483,46 +490,33 @@ bool Robo::isStartOfNewSession() {
   return false;
 }
 
-void Robo::checkSignals(Setup* &setups[],int size) {
+void Robo::checkTriggeredSetups(Setup* &setups[],int size) {
   Debug4(__FUNCTION__,__LINE__,"Entered, size="+string(size));
   Position *trade;
   Setup *setup;
   for(int i=0;i<size;i++) {
     setup = setups[i];
     if(setup.triggered) {
-      Debug4(__FUNCTION__,__LINE__,"Triggered");
-      trade = trader.newTrade(setup);
-      setup.reset();
-      if(trade.RewardPips/trade.OneRpips < MinReward2RiskRatio) {
-        Info(__FUNCTION__,__LINE__,"Trade did not meet min reward-to-risk ratio");
+      Info("Setup triggered");
+      Debug4(__FUNCTION__,__LINE__,"Setup triggered");
+      if(entry.signaled(setup)) {
+        Info("Entry triggered");
+        Debug4(__FUNCTION__,__LINE__,"Entry signaled");
+        trade = trader.newTrade(setup);
+        Info("New trade created: "+trade.toHuman());
+        setup.reset();
+        if(trade.RewardPips/trade.OneRpips < MinReward2RiskRatio) {
+          Info("Trade did not meet min reward-to-risk ratio");
+          if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
+          continue;
+        }
+        Info("Send Trade");
+        broker.CreateOrder(trade);
         if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
-        continue;
       }
-      Info(__FUNCTION__,__LINE__,": T R A D E Long:  "+trade.toHuman());
-      broker.CreateOrder(trade);
-      if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
-    } else {
-      Debug4(__FUNCTION__,__LINE__,"Not Triggered");
     }
   }
 }
-
-/**
-void Robo::tradeShort() {
-  Position *trade;
-  Setup *setup;
-  for(int i=0;i<shortSetupCnt;i++) {
-    setup = shortSetups[i];
-    if(setup.triggered()) {
-      trade = trader.newTrade(setup);
-      broker.CreateOrder(trade);
-      if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
-    }
-      //Info(__FUNCTION__+": T R A D E Short:  "+trade.toHuman());
-    //}
-  }
-}
-**/
 
 bool Robo::canTradeSymbol() {
   Debug4(__FUNCTION__,__LINE__,"Entered");
