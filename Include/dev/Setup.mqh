@@ -18,7 +18,7 @@ protected:
 public:
   string symbol;
   Enum_SIDE side;
-  bool goShort;
+  //bool goShort;
   bool callOnTick;
   bool callOnBar;
   string strategyName;
@@ -61,6 +61,7 @@ void Setup::markOnChart(datetime time, double price) {
   Debug(__FUNCTION__,__LINE__,"Entered");
   static int objCnt=0;
   string objname;
+  Info("Draw arrow "+TimeToStr(time)+ "@ "+DoubleToStr(price,Digits));
   objname = strategyName+"_"+IntegerToString(objCnt++);
   Comment("Draw Object: "+objname);
   ObjectCreate(objname,OBJ_ARROW,0,time,price);

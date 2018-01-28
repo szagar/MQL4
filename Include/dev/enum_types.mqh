@@ -11,6 +11,10 @@ enum Enum_ENTRY_MODELS {
   EM_Engulfing, // Engulfing candle
   EM_RBO        //RBO of current session (w/ pip offset)
 };
+enum Enum_POS_SIZE_MODELS {
+  PS_VanTharp,  // Van Tharp basic
+  PS_OneMini    // 0.10 lots
+};
 enum Enum_PRICE_MODELS {
   PM_BidAsk=0,  //Enter long at Ask, short at Bid (pip buffer)
   PM_PrevHL,    //Previous high/low price
@@ -21,7 +25,8 @@ enum Enum_RSI_MODELS {
 };
 //########## Moving Average Cross Models
 enum Enum_MX_MODELS {
-  MX_SETUP_01       // SMA cross: fast vs slow
+  MX_SETUP_01,
+  MX_SETUP_02 
 };
 //########## Bollinger Band Models
 enum Enum_BOLLINGER_MODELS {

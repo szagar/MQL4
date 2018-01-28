@@ -56,6 +56,7 @@ extern ENUM_COLOR_FORMAT ColorSetupDebug = clrBlack;   //>>  Arrow color
 //extern int EntryModel = 0;
 //extern int YellowLineBarShift = 1;
 
+int barNumber;
 int dayBarNumber;
 int sessionBarNumber;
   
@@ -124,7 +125,7 @@ public:
   datetime startTradingDay_Server;
   datetime endTradingDay_Server;
 
-  Robo();
+  Robo(TradingSessions*);
   ~Robo();
   
   int OnInit();
@@ -142,7 +143,9 @@ public:
   bool canTradeSymbol();
 };
 
-Robo::Robo() {
+Robo::Robo(TradingSessions *_session=NULL) {
+  if(_session == NULL) _session = new TradingSessions(TradingSession);
+  session = _session;
   pendingSetup = false;
   rangeIsSet = false;
   exitStratCnt = 0;
@@ -156,7 +159,6 @@ Robo::Robo() {
   about = new Describe();
   magic = new MagicNumber();
   market = new MarketModel();
-  session = new TradingSessions(TradingSession);
   trader = new Trader(exitMgr,initRisk,profitTgt);
   symbol = broker.NormalizeSymbol(Symbol());
 
@@ -185,7 +187,7 @@ Robo::~Robo() {
   if (CheckPointer(initRisk) == POINTER_DYNAMIC) delete initRisk;
   if (CheckPointer(sizer) == POINTER_DYNAMIC) delete sizer;
   if (CheckPointer(trader) == POINTER_DYNAMIC) delete trader;
-  if (CheckPointer(session) == POINTER_DYNAMIC) delete session;
+  //if (CheckPointer(session) == POINTER_DYNAMIC) delete session;
   if (CheckPointer(market) == POINTER_DYNAMIC) delete market;
   if (CheckPointer(magic) == POINTER_DYNAMIC) delete magic;
   if (CheckPointer(about) == POINTER_DYNAMIC) delete about;
@@ -200,11 +202,13 @@ Robo::~Robo() {
 int Robo::OnInit() {
   D2P = (StringFind(Symbol(),"JPY",0)>0 ? 100 : 10000);
   P2D = 1.0/D2P;
-  session.setSession(TradingSession);
+  //session.setSession(TradingSession);
   Debug(__FUNCTION__,__LINE__,session.showSession());
   Debug(__FUNCTION__,__LINE__,session.showSession(true));
 
+  barNumber = 1;
   dayBarNumber = barsSince(session.startOfDay);
+  Info(__FUNCTION__+": set dayBarNumber to "+dayBarNumber);
   sessionBarNumber = barsSince(session.startTradingSession_Server);
   Debug(__FUNCTION__,__LINE__,"Bars since: SOD: "+string(dayBarNumber) + "   Bars since: SOS: "+string(sessionBarNumber));
   
@@ -245,8 +249,7 @@ void Robo::OnTick() {
 }
 
 void Robo::OnNewBar() {   //bool tradeWindow) {
-  Debug4(__FUNCTION__,__LINE__,DoubleToStr(positionLong,2)+" / "+DoubleToStr(positionShort,2)+
-                                       " / "+DoubleToStr(posPendingLong,2)+" / "+DoubleToStr(posPendingShort,2));
+  barNumber++;
   dayBarNumber++;
   sessionBarNumber++;
   if(isStartOfNewSession())
@@ -287,6 +290,7 @@ void Robo::OnNewBar() {   //bool tradeWindow) {
 void Robo::cleanUpEOD() { }
 
 void Robo::startOfDay() { 
+  dayBarNumber = 1;
   Setup *setup;
   for(int i=0;i<longSetupCnt;i++) {
     setup = longSetups[i];
@@ -338,7 +342,7 @@ void Robo::updateStopLoss(Position *pos) {
   newStopLoss = trader.calcStopLoss(pos);
 
   if(newStopLoss > 0) {
-    Debug4(__FUNCTION__,__LINE__,IntegerToString(OrderTicket())+" update stop loss: "+
+    Info("Update StopLoss: "+OrderType()+" "+IntegerToString(OrderTicket())+" "+
                          DoubleToStr(OrderStopLoss(),Digits)+" => "+DoubleToStr(newStopLoss,Digits));
     broker.modifyStopLoss(OrderTicket(),newStopLoss);
   } else
@@ -497,20 +501,30 @@ void Robo::checkTriggeredSetups(Setup* &setups[],int size) {
   for(int i=0;i<size;i++) {
     setup = setups[i];
     if(setup.triggered) {
-      Info("Setup triggered");
+      Info("Setup triggered "+TimeToStr(TimeCurrent()));
       Debug4(__FUNCTION__,__LINE__,"Setup triggered");
+
+      if(ReverseLongShort) setup.side *= -1;
+      //if(ReverseLongShort) {
+      //  if(setup.side == Short)
+      //    setup.side = Long;
+      //  else
+      //    setup.side = Short;
+     // }
       if(entry.signaled(setup)) {
-        Info("Entry triggered");
+        Info("Entry triggered "+TimeToStr(TimeCurrent()));
+        Info("Side Reversed.");
         Debug4(__FUNCTION__,__LINE__,"Entry signaled");
         trade = trader.newTrade(setup);
         Info("New trade created: "+trade.toHuman());
+        if(ReverseLongShort) setup.side *= -1;
         setup.reset();
         if(trade.RewardPips/trade.OneRpips < MinReward2RiskRatio) {
           Info("Trade did not meet min reward-to-risk ratio");
           if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
           continue;
         }
-        Info("Send Trade");
+        Info("Send Trade: "+trade.toHuman());
         broker.CreateOrder(trade);
         if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
       }

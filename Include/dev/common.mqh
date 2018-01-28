@@ -14,7 +14,7 @@ void setSomeConstants() {
   PipSize = TickSize;
   if(TickSize == 0.00001 || TickSize == 0.001)
     PipSize *= 10;
-  PipFact = int(1/TickSize);
+  PipFact = int(1/PipSize);
 }
 
 double TickSize;

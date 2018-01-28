@@ -93,6 +93,7 @@ int MagicNumber::encodeStrategyName(string name) {
   if(StringCompare(name,"Finch",false)==0) return 5;
   if(StringCompare(name,"BollingerBand",false)==0) return 6;
   if(StringCompare(name,"RSI",false)==0) return 7;
+  if(StringCompare(name,"MovingAvgCross",false)==0) return 8;
   Info("Strategy '"+name+"' NOT coded for in MagicNumber");
   return 0;
 }

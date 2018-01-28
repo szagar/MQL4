@@ -7,21 +7,23 @@
 #include <dev\logger.mqh>
 #include <dev\common.mqh>
 
-string f1(){return("########");}
+#include <dev\TradingSessions.mqh>
 
 extern string commentString_1 = "";  //*****************************************
 extern string commentString_2 = "";  //zts06
-extern bool Testing = false;              //>> Testing ?
-extern Enum_LogLevels LogLevel = LogInfo; //>> Log Level
-extern bool GoLong = true;                //>> Go Long ?
-extern bool GoShort = false;              //>> Go Short ?
-extern int Slippage=5;                    //>> Slippage in pips 
-extern double MinReward2RiskRatio = 1.5;  //>> Min Reward / Risk 
-//extern string commentString_3 = "";     //*****************************************
+extern bool Testing = false;               //>> Testing ?
+extern Enum_LogLevels LogLevel = LogInfo;  //>> Log Level
+extern bool GoLong = true;                 //>> Go Long ?
+extern bool GoShort = false;               //>> Go Short ?
+extern Enum_Sessions TradingSession = All; //>> Trading Session
+extern bool ReverseLongShort = false;      //>> Reverse Long/Short Criteria
+extern int Slippage=5;                     //>> Slippage in pips 
+extern double MinReward2RiskRatio = 1.5;   //>> Min Reward / Risk 
+extern double PercentRiskPerPosition=0.5; //>> Percent to risk per position
+//extern string commentString_3 = "";      //*****************************************
 
 #include <dev\robo1.mqh>
 //#include <dev\stats_eod.mqh>
-#include <dev\TradingSessions.mqh>
 
 string Prefix="ZTS_";
 string Version="0.001";
@@ -38,8 +40,9 @@ datetime now;
 int OnInit() {
   //EventSetTimer(60);
   setSomeConstants();
-  robo = new Robo();
-  session = new TradingSessions();
+  session = new TradingSessions(TradingSession);
+  session.showAllSessions("local");
+  robo = new Robo(session);
   
   robo.OnInit();
   
@@ -111,7 +114,6 @@ bool isEOD() {
 bool isSOD() {
   if(now >= startOfDay) {
     startOfDay = session.addDay(startOfDay);
-    dayBarNumber = 1;
     Info("SOD bar");
     return true;
   }

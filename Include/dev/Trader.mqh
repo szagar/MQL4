@@ -70,9 +70,7 @@ Position *Trader::newTrade(Setup *setup) {
     trade.OrderType = OP_SELLSTOP;
     trade.SideX = -1;
   }
-  trade.LotSize = sizer.lotSize(1);
   trade.Symbol = setup.symbol;
-  //trade.Side = (trade.LotSize >= 0 ? Long : Short);
   trade.Side = setup.side;
 
   int oneR = initRisk.getInPips(trade);
@@ -88,6 +86,7 @@ Position *Trader::newTrade(Setup *setup) {
   
   trade.Symbol = setup.symbol;
   trade.OneRpips = oneR;
+  trade.LotSize = sizer.lotSize(trade);
   trade.Reference = __FILE__;
   trade.Magic = magic.get(setup.strategyName,oneR);
   trade.TakeProfitPrice = profitTgt.getTargetPrice(trade,PT_Model);
