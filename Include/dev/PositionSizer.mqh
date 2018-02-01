@@ -11,9 +11,9 @@
 //|                                                                  |
 //+------------------------------------------------------------------+
 
-extern string commentString_ps1 = ""; //*****************************************
-extern string commentString_ps2 = ""; //Setup: Position Sizer
-extern Enum_POS_SIZE_MODELS PS_Model = PS_OneMini;
+extern string commentString_ps0 = ""; //---------------------------------------------
+extern string commentString_ps1 = ""; //*** Position Sizer setup
+extern Enum_POS_SIZE_MODELS PS_Model = PS_OneMini;  // Sizer Model
 
 class PositionSizer {
 private:

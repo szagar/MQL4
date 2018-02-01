@@ -8,9 +8,9 @@
 #property version   "1.00"
 #property strict
 
-extern string commentString_MM_01 = ""; //*****************************************
-extern string commentString_MM_02 = "";          //MARKET MODEL SETTINGS
-extern Enum_MARKET_MODELS MM_Model = MM_200DMA;  //- Market Model
+extern string commentString_mm0 = ""; //---------------------------------------------
+extern string commentString_MM_01 = ""; //** Market Model settings:
+extern Enum_MARKET_MODELS MM_Model = MM_200DMA;  //>> Market Model
 
 class MarketModel {
 private:

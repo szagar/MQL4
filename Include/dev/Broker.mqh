@@ -53,8 +53,10 @@ public:
       Warn(__FUNCTION__+": could not select ticket");
       return;
     }
-    if(!OrderModify(OrderTicket(), OrderOpenPrice(), NormalizeDouble(price,Digits), OrderTakeProfit(), 0, Pink))
-                    Warn(OrderSymbol() +" (OrderModify Error) "+ ErrorDescription(GetLastError()));
+    Debug(__FUNCTION__,__LINE__,"OrderModify("+OrderTicket()+", "+OrderOpenPrice()+", "+NormalizeDouble(price,Digits)+", "+OrderTakeProfit()+", 0, Pink))");
+    if(!OrderModify(OrderTicket(), OrderOpenPrice(), NormalizeDouble(price,Digits),
+                    OrderTakeProfit(), 0, Pink))
+      Warn(OrderSymbol() +" (OrderModify Error) "+ ErrorDescription(GetLastError()));
   }
   
 

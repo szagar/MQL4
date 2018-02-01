@@ -11,13 +11,12 @@
 #include <dev\common.mqh>
 #include <dev\Setup.mqh>
   
-extern string commentString_19 = "";  //*****************************************
-extern string commentString_20 = ""; //Setup: Bollinger Bands params 
-extern Enum_BOLLINGER_MODELS BB_Model = BB_SETUP_01; //- Bollinger Band Model
-extern int BB_Period = 200;          //>> Period of the Bollinger Bands
-extern double BB_Deviation = 2;      //>> Deviation of the Bollinger Bands
-extern int BB_BarsSincePierce = 5;   //>> Bars Since Pierce
-//extern string commentString_21 = "";  //*****************************************
+extern string commentString_BB_01 = ""; //---------------------------------------------
+extern string commentString_BB_02 = "";  //*** Bollinger Bands setup:
+extern Enum_BOLLINGER_MODELS BB_Model = BB_SETUP_01; //>> Bollinger Band Model
+extern int BB_Period = 200;          //- Period of the Bollinger Bands
+extern double BB_Deviation = 2;      //- Deviation of the Bollinger Bands
+extern int BB_BarsSincePierce = 5;   //- Bars Since Pierce
 
 class BollingerBand : public Setup {
 //private:

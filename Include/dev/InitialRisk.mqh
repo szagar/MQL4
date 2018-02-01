@@ -13,13 +13,12 @@
 
 enum Enum_INITIAL_RISK { IR_PATI_Pips, IR_ATR, IR_PrevHL};
 
-extern string commentString_13 = "";  //*****************************************
-extern string commentString_14 = ""; //1R - INITIAL RISK SETTINGS
-extern Enum_INITIAL_RISK OneRmodel = IR_ATR;
-extern int IR_BarCount = 3;
-extern ENUM_TIMEFRAMES IR_ATRperiod = 0;
-extern double IR_ATRfactor = 2.7;
-//extern string commentString_15 = "";  //*****************************************
+extern string commentString_IR_0 = ""; //---------------------------------------------
+extern string commentString_IR_1 = "";  //*** 1R settings
+extern Enum_INITIAL_RISK OneRmodel = IR_ATR;  //>> 1R model
+extern int IR_BarCount = 3;                   //- BarCount
+extern ENUM_TIMEFRAMES IR_ATRperiod = 0;      //- ATR period
+extern double IR_ATRfactor = 2.7;             //- ATR muliplier
 
 class InitialRisk {
 private:
@@ -50,6 +49,7 @@ int InitialRisk::getInPips(Position *trade, Enum_INITIAL_RISK _model=NULL) {
   Enum_INITIAL_RISK model = (_model>0 ? _model : OneRmodel); 
   double px, sl;
   double atr;
+  int val_index;
   
   switch(model) {
     case IR_PATI_Pips:      // PATI static pips
@@ -63,8 +63,15 @@ int InitialRisk::getInPips(Position *trade, Enum_INITIAL_RISK _model=NULL) {
       Debug4(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips)+"  atr="+DoubleToStr(atr,Digits));
       break;
     case IR_PrevHL:
-      px = (trade.Side==Long ? Bid : Ask);
-      sl = (trade.Side==Long ? iLow(NULL,0,IR_BarCount) : iHigh(NULL,0,IR_BarCount));
+      if(trade.Side==Long) {
+        px = Bid;
+        val_index=iHighest(NULL,0,MODE_HIGH,IR_BarCount+1,1);
+        sl = iHigh(NULL,0,val_index);
+      } else {
+        px = Ask;
+        val_index=iLowest(NULL,0,MODE_LOW,IR_BarCount+1,1);
+        sl = iLow(NULL,0,val_index);
+      }
       pips = int((px-sl)*trade.Side * PipFact);
       Debug4(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips));
       break;

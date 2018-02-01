@@ -8,22 +8,18 @@
 #property version   "1.00"
 #property strict
 
-extern string commentString_22 = "";  //*****************************************
-extern string commentString_23 = "";  //Setup: Moving Average Cross Settings
-extern Enum_MX_MODELS MX_Model = MX_SETUP_01;
-              //> Model
-extern ENUM_MA_METHOD     MX_1_Type = MODE_SMMA;
-            //> MA-1 type (fast)
-extern ENUM_APPLIED_PRICE MX_1_Price = PRICE_CLOSE;
-        //> MA-1 price to use
-extern int                MX_1_Periods = 5;
-                //> MA-1 #periods
-extern ENUM_TIMEFRAMES    MX_1_TimeFrame = PERIOD_CURRENT; //> MA-1 timeframe
-extern ENUM_MA_METHOD     MX_2_Type = MODE_EMA;            //> MA-2 type (slow)
-extern ENUM_APPLIED_PRICE MX_2_Price = PRICE_CLOSE;        //> MA-2 price to use
-extern int                MX_2_Periods = 21;               //> MA-2 #periods
-extern ENUM_TIMEFRAMES    MX_2_TimeFrame = PERIOD_CURRENT; //> MA-2 timeframe
-extern int                MX_BarsSetupActive = 5;   
+extern string commentString_MX_01 = ""; //---------------------------------------------
+extern string commentString_MX_22 = "";  //*** Moving Average Cross setting:
+extern Enum_MX_MODELS MX_Model = MX_SETUP_01;       //a>Model
+extern ENUM_MA_METHOD     MX_1_Type = MODE_SMMA;    //- MA-1 type (fast)
+extern ENUM_APPLIED_PRICE MX_1_Price = PRICE_CLOSE; //- MA-1 price to use
+extern int                MX_1_Periods = 5;         //- MA-1 #periods
+extern ENUM_TIMEFRAMES    MX_1_TimeFrame = PERIOD_CURRENT; //- MA-1 timeframe
+extern ENUM_MA_METHOD     MX_2_Type = MODE_EMA;            //- MA-2 type (slow)
+extern ENUM_APPLIED_PRICE MX_2_Price = PRICE_CLOSE;        //- MA-2 price to use
+extern int                MX_2_Periods = 21;               //- MA-2 #periods
+extern ENUM_TIMEFRAMES    MX_2_TimeFrame = PERIOD_CURRENT; //- MA-2 timeframe
+extern int                MX_BarsSetupActive = 5;          //- Bars active
 
 #include <dev\common.mqh>
 #include <dev\Setup.mqh>
@@ -62,9 +58,9 @@ MovingAvgCross::~MovingAvgCross() {
 }
 
 void MovingAvgCross::reset() {
+  Setup::reset();
   crossFastUp = -100;
   crossFastDn = -100;
-  triggered = false;
 }
 
 void MovingAvgCross::startOfDay() {

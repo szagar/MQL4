@@ -89,15 +89,17 @@ Position *Trader::newTrade(Setup *setup) {
   trade.LotSize = sizer.lotSize(trade);
   trade.Reference = __FILE__;
   trade.Magic = magic.get(setup.strategyName,oneR);
-  trade.TakeProfitPrice = profitTgt.getTargetPrice(trade,PT_Model);
+  if(exitMgr.useTakeProfit) 
+    trade.TakeProfitPrice = profitTgt.getTargetPrice(trade,PT_Model);
   trade.RewardPips = int((trade.TakeProfitPrice-entryPrice)*trade.SideX*PipFact);
   
   return(trade);
 };
 
 double Trader::calcStopLoss(Position *pos) {
+  Debug(__FUNCTION__,__LINE__,"Entered");
   double newStopLoss;
-  double px = (pos.Side==Long?Bid:Ask);
+  double px = iClose(NULL,0,1);
   if(px-OrderOpenPrice()>exitMgr.pips2startTS(pos)*P2D)
     return(NULL);
   newStopLoss = exitMgr.getTrailingStop(pos);

@@ -16,17 +16,14 @@
 //|                                                                  |
 //+------------------------------------------------------------------+
 
-extern string commentString_EM_01 = "";  //*****************************************
-extern string commentString_EM_02 = ""; //ENTRY MODEL SETTINGS
+extern string commentString_EN_0 = ""; //---------------------------------------------
+extern string commentString_EN_01 = "";  //*** Entry Model settings:
 extern Enum_ENTRY_MODELS EM_Model = EM_HLest; //- Entry Model
-extern int EM_BarOffset = 1;         //>> Bar Offset
-extern double EM_PipOffset = 0.5;    //>> Pip offset
-extern int EM_Consecutive = 1;       //>> # of bars
-enum Enum_EM_ENGULFINGS {
-  EM_EG_Body,  //Engulfing Body
-  EM_EG_Wicks  //Engulfing Bar
-};
-extern Enum_EM_ENGULFINGS EM_EngulfingModel = EM_EG_Body;
+extern int EM_BarOffset = 1;                  //- Bar Offset
+extern double EM_PipOffset = 0.5;             //- Pip offset
+extern int EM_Consecutive = 1;                //- # of bars
+extern Enum_EM_ENGULFINGS EM_EngulfingModel = EM_EG_Body; //- Engulfing type
+
 class EntryModels {
 private:
   //double prevBarHigh();

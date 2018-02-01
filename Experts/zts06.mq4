@@ -9,20 +9,19 @@
 
 #include <dev\TradingSessions.mqh>
 
-extern string commentString_1 = "";  //*****************************************
-extern string commentString_2 = "";  //zts06
-extern bool Testing = false;               //>> Testing ?
-extern Enum_LogLevels LogLevel = LogInfo;  //>> Log Level
-extern bool GoLong = true;                 //>> Go Long ?
-extern bool GoShort = false;               //>> Go Short ?
-extern Enum_Sessions TradingSession = All; //>> Trading Session
-extern bool ReverseLongShort = false;      //>> Reverse Long/Short Criteria
-extern int Slippage=5;                     //>> Slippage in pips 
-extern double MinReward2RiskRatio = 1.5;   //>> Min Reward / Risk 
-extern double PercentRiskPerPosition=0.5; //>> Percent to risk per position
-//extern string commentString_3 = "";      //*****************************************
+extern string commentString_0 = ""; //---------------------------------------------
+extern string commentString_1 = "";  //*** zts06 settings:
+extern bool Testing = false;               //- Testing ?
+extern Enum_LogLevels LogLevel = LogInfo;  //- Log Level
+extern bool GoLong = true;                 //- Go Long ?
+extern bool GoShort = false;               //- Go Short ?
+extern Enum_Sessions TradingSession = All; //- Trading Session
+extern bool ReverseLongShort = false;      //- Reverse Long/Short Criteria
+extern int Slippage=5;                     //- Slippage in pips 
+extern double MinReward2RiskRatio = 1.5;   //- Min Reward / Risk 
+extern double PercentRiskPerPosition=0.5; //>- Percent to risk per position
 
-#include <dev\robo1.mqh>
+#include <dev\Robo_01.mqh>
 //#include <dev\stats_eod.mqh>
 
 string Prefix="ZTS_";

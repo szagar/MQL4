@@ -1,12 +1,12 @@
 #property strict
 
 
-extern string commentString_28 = ""; //*****************************************
-extern string commentString_29 = ""; //NOTIFICATIONS SETTINGS
-extern bool Mail_Alert = false;             //>> Mail Alert?
-extern bool PopUp_Alert = false;            //>> Popup Alert?
-extern bool Sound_Alert = false;            //>> Sound Alert?
-extern bool SmartPhone_Notifications=false; //>> SmartPhone Notification?
+extern string commentString_not_0 = ""; //---------------------------------------------
+extern string commentString_not_1 = ""; //*** Nofication settings:
+extern bool Mail_Alert = false;             //- Mail Alert?
+extern bool PopUp_Alert = false;            //- Popup Alert?
+extern bool Sound_Alert = false;            //- Sound Alert?
+extern bool SmartPhone_Notifications=false; //- SmartPhone Notification?
 
 void SendAlert(string Message)
 {

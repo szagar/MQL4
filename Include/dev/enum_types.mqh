@@ -2,7 +2,8 @@
 
 enum Enum_EXIT_MODELS {
   EX_Fitch,     // Fitch strategy
-  EX_SL_TP      // use stop loss and limit orders
+  EX_SL_TP,     // use stop loss and limit orders
+  EX_SL_TS,     // use stop loss and trailing stop
 };
 enum Enum_ENTRY_MODELS {
   EM_GO4IT,
@@ -23,10 +24,25 @@ enum Enum_RSI_MODELS {
   RSI_SETUP_01,  // Long: up thru Upper, Short: dn thru lower
   RSI_SETUP_02,  // Long: dn thru Upper, Short: up thru lower
 };
+enum Enum_EM_ENGULFINGS {
+  EM_EG_Body,  //Engulfing Body
+  EM_EG_Wicks  //Engulfing Bar
+};
+//########## Moving Average Cross Models
+enum Enum_MA_MODELS {
+  MA_200_DMA,       // 200 day SMA
+  MA_CurrentTF,     // current TF, custom  period
+  MA_OtherTF,       // custom TF, cutom period MA 
+  MA_MultiMA,       // Multiple MAs
+};
 //########## Moving Average Cross Models
 enum Enum_MX_MODELS {
   MX_SETUP_01,
   MX_SETUP_02 
+};
+//########## Channel Models
+enum Enum_CH_MODELS {
+  CH_MovingAvg,
 };
 //########## Bollinger Band Models
 enum Enum_BOLLINGER_MODELS {

@@ -17,6 +17,24 @@ public:
 
 #property strict
 
+extern string commentString_r0 = ""; //--------------------------------------------
+extern string commentString_r1 = ""; //*** Robot settings:
+//extern string commentString_17 = ""; //ROBO SETTINGS
+extern int RoboID = 1;                 //- robot ID
+extern bool CanPyramid = false;        //- can pyramid ?
+
+extern string commentString_r2 = "";     //>>  Setups
+extern bool Setup_BollingerBand = false; //-   Use BollingerBand setup?
+extern bool Setup_Finch = false;          //-   Use Finch setup?
+extern bool Setup_MovingAverage = true; //-   Use Moving Avg setup?
+extern bool Setup_MovingAvgX = false;    //-   Use Moving Avg Cross setup?
+extern bool Setup_Rsi = false;           //-   Use RSI setup?
+extern int ColorSetupDebug = clrBlack;   //-  Arrow color
+
+extern string commentString_r3 = "";     //>>  Entry Filters:
+extern bool Filter_Macd = false;         //-   Use MACD filter?
+extern bool Filter_RSI = false;          //-   Use RSI filter?
+
 #include <dev\common.mqh>
 #include <dev\MagicNumber.mqh>
 #include <dev\TradingSessions.mqh>
@@ -33,21 +51,11 @@ public:
 #include <dev\Broker.mqh>
 #include <dev\PositionSizer.mqh>
 
-
-extern string commentString_16 = ""; //*****************************************
-extern string commentString_17 = ""; //ROBO SETTINGS
-extern int RoboID = 1;
-extern bool CanPyramid = false;
-
-extern string commentString17a = "";     //-  Setup Params
-extern bool Setup_BollingerBand = false; //>>   Use BollingerBand setup?
-extern bool Setup_Finch = true;          //>>   Use Finch setup?
-extern bool Setup_MovingAvg = false;     //>>   Use Moving Avg Cross setup?
-extern bool Setup_Rsi = false;           //>>   Use RSI setup?
-extern ENUM_COLOR_FORMAT ColorSetupDebug = clrBlack;   //>>  Arrow color
+#include<dev/notify.mqh>
 
 #include <dev\BollingerBand.mqh>
 #include <dev\Finch.mqh>
+#include <dev\MovingAverage.mqh>
 #include <dev\MovingAvgCross.mqh>
 #include <dev\Rsi.mqh>
 
@@ -80,7 +88,7 @@ private:
   Setup *shortSetupsOnTick[10];
   Setup *longSetupsOnBar[10];
   Setup *shortSetupsOnBar[10];
-  int longSetupCnt;
+  //int longSetupCnt;
   int shortSetupCnt;
   int longSetupOnTickCnt;
   int shortSetupOnTickCnt;
@@ -91,7 +99,6 @@ private:
 
   
   ///int MagicNumber;
-  bool useTrailingStop;
 
   double rangeLower, rangeUpper;
   InitialRisk *initRisk;
@@ -289,12 +296,26 @@ void Robo::OnNewBar() {   //bool tradeWindow) {
 
 void Robo::cleanUpEOD() { }
 
-void Robo::startOfDay() { 
+void Robo::startOfDay() {
+  Debug(__FUNCTION__,__LINE__,"Entered"); 
   dayBarNumber = 1;
   Setup *setup;
-  for(int i=0;i<longSetupCnt;i++) {
-    setup = longSetups[i];
-    setup.startOfDay();
+  //for(int i=0;i<longSetupCnt;i++) {
+  //  setup = longSetups[i];
+  //  setup.startOfDay();
+  //}
+  
+  if(GoLong) {
+    for(int i=0;i<longSetupOnBarCnt;i++) {
+      setup = longSetupsOnBar[i];
+      setup.startOfDay();
+    }
+  }
+  if(GoShort) {
+    for(int i=0;i<shortSetupOnBarCnt;i++) {
+      setup = shortSetupsOnBar[i];
+      setup.startOfDay();
+    }
   }
 }
 
@@ -310,8 +331,8 @@ void Robo::handleOpenPositions() {
       continue;
     }
     trade = broker.GetPosition();
-    if(StringCompare(OrderSymbol(),Symbol())==0 &&
-       magic.roboID(OrderMagicNumber()) == RoboID) {
+    if(StringCompare(OrderSymbol(),Symbol())==0) {  // &&
+       //magic.roboID(OrderMagicNumber()) == RoboID) {
       if(OrderType() == OP_BUY ) {
         totalPositions++;
         position += double(OrderLots());
@@ -393,8 +414,23 @@ void Robo::initLongSetupStrategies() {       // (Setup* &_setups[]) {
     }
   }
 
-  if(Setup_MovingAvg) {
-    Debug4(__FUNCTION__,__LINE__,"Add MovingAvg Long Setup");
+  if(Setup_MovingAverage) {
+    Debug4(__FUNCTION__,__LINE__,"Add MovingAverage Long Setup");
+    setup = new MovingAverage(Long);
+    if(setup.callOnTick) longSetupsOnTick[t_cnt++] = setup;
+    if(t_cnt==t_size) {
+      ArrayResize(longSetupsOnTick, 2*t_size);
+      t_size *= 2;
+    }
+    if(setup.callOnBar) longSetupsOnBar[b_cnt++] = setup;
+    if(b_cnt==b_size) {
+      ArrayResize(longSetupsOnBar, 2*b_size);
+      b_size *= 2;
+    }
+  }
+
+  if(Setup_MovingAvgX) {
+    Debug4(__FUNCTION__,__LINE__,"Add MovingAvgCross Long Setup");
     setup = new MovingAvgCross(Long);
     if(setup.callOnTick) longSetupsOnTick[t_cnt++] = setup;
     if(t_cnt==t_size) {
@@ -451,8 +487,24 @@ void Robo::initShortSetupStrategies() {       //(Setup* &_setups[]) {
     }
   }
 
-  if(Setup_MovingAvg) {
-    Debug4(__FUNCTION__,__LINE__,"Add MovingAvg Short Setup");
+  if(Setup_MovingAverage) {
+    Debug4(__FUNCTION__,__LINE__,"Add MovingAverage Short Setup");
+    setup = new MovingAverage(Short);
+    Info("Initialize "+setup.strategyName);
+    if(setup.callOnTick) shortSetupsOnTick[t_cnt++] = setup;
+    if(t_cnt==t_size) {
+      ArrayResize(shortSetupsOnTick, 2*t_size);
+      t_size *= 2;
+    }
+    if(setup.callOnBar) shortSetupsOnBar[b_cnt++] = setup;
+    if(b_cnt==b_size) {
+      ArrayResize(shortSetupsOnBar, 2*b_size);
+      b_size *= 2;
+    }
+  }
+
+  if(Setup_MovingAvgX) {
+    Debug4(__FUNCTION__,__LINE__,"Add MovingAvgCross Short Setup");
     setup = new MovingAvgCross(Short);
     Info("Initialize "+setup.strategyName);
     if(setup.callOnTick) shortSetupsOnTick[t_cnt++] = setup;
@@ -505,19 +557,12 @@ void Robo::checkTriggeredSetups(Setup* &setups[],int size) {
       Debug4(__FUNCTION__,__LINE__,"Setup triggered");
 
       if(ReverseLongShort) setup.side *= -1;
-      //if(ReverseLongShort) {
-      //  if(setup.side == Short)
-      //    setup.side = Long;
-      //  else
-      //    setup.side = Short;
-     // }
       if(entry.signaled(setup)) {
         Info("Entry triggered "+TimeToStr(TimeCurrent()));
         Info("Side Reversed.");
         Debug4(__FUNCTION__,__LINE__,"Entry signaled");
         trade = trader.newTrade(setup);
         Info("New trade created: "+trade.toHuman());
-        if(ReverseLongShort) setup.side *= -1;
         setup.reset();
         if(trade.RewardPips/trade.OneRpips < MinReward2RiskRatio) {
           Info("Trade did not meet min reward-to-risk ratio");

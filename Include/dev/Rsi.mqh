@@ -8,13 +8,13 @@
 #property version   "1.00"
 #property strict
 
-extern string commentString_rsi1 = ""; //*****************************************
-extern string commentString_rsi2 = ""; //Setup: RSI params
-extern Enum_RSI_MODELS RSI_Model = RSI_SETUP_01; //- RSI Model
-extern int RSI_period = 21;          //>> RSI period
-extern double RSI_upperLevel = 70.0; //>> upper trigger level
-extern double RSI_lowerLevel = 30.0; //>> lower trigger level
-extern int RSI_bars2expiry; //>> #bars setup trigger active
+extern string commentString_rsi_01 = ""; //---------------------------------------------
+extern string commentString_rsi1 = ""; //*** RSI settings:
+extern Enum_RSI_MODELS RSI_Model = RSI_SETUP_01; //>> RSI Model
+extern int RSI_period = 21;          //- RSI period
+extern double RSI_upperLevel = 70.0; //- upper trigger level
+extern double RSI_lowerLevel = 30.0; //- lower trigger level
+extern int RSI_bars2expiry;          //- #bars setup trigger active
 
 #include <dev\common.mqh>
 #include <dev\Setup.mqh>
@@ -58,11 +58,11 @@ void Rsi::startOfDay() {
 }
 
 void Rsi::reset() {
+  Setup::reset();
   crossUpUpper = 0;
   crossDnUpper = 0;
   crossUpLower = 0;
   crossDnLower = 0;
-  triggered = false;
 }
 
 void Rsi::OnBar() {
