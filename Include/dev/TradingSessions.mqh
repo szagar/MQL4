@@ -41,7 +41,6 @@ enum Enum_Seasons{ Winter, Summer };
 
 class TradingSessions {
 private:
-  Enum_Sessions tradingSession;
   int gmt2serverOffset;
   int gmt2serverOffsetHrs;
   int local2gmtOffset;
@@ -50,7 +49,7 @@ private:
   int local2serverOffsetHrs;
 
   double LocalOffsets[NumSeasons][NumSessions][2];
-  Enum_Sessions session;
+  //Enum_Sessions session;
   Enum_Seasons season;
   
   datetime SessionTimes_Start[NumSessions];
@@ -61,10 +60,11 @@ public:
   TradingSessions(Enum_Sessions _tradingSession=NewYork, Enum_Seasons _season=Winter);
   ~TradingSessions();
 
-  void initSessionTimes_method1();
+  void initSessionTimes();
   
   datetime addDay(datetime);
   void setSession(Enum_Sessions);
+  void setSessionMinMax();
   datetime previousSessionStart(datetime t=0);
   bool tradeWindow(Enum_Sessions);
   bool tradeWindow(datetime ts, Enum_Sessions ts);
@@ -73,6 +73,13 @@ public:
   string showSession(bool);
   void showAllSessions(string);
   
+  datetime startTimeForSession(Enum_Sessions,string);
+  datetime endTimeForSession(Enum_Sessions,string);
+  
+  Enum_Sessions tradingSession;
+  double hiPrice, loPrice;
+  datetime hiPriceDT,loPriceDT;
+
   datetime startOfDay;
   datetime endOfDay;
   
@@ -117,15 +124,14 @@ TradingSessions::TradingSessions(Enum_Sessions _tradingSession=NewYork, Enum_Sea
   Info("SanityCheck:  "+string(local2gmtOffsetHrs)+" + "+string(gmt2serverOffsetHrs)+" = "+string(local2serverOffsetHrs));
   
   startOfDay = StructToTime(dtStruct) + 1*60*60;;
-    endOfDay = StructToTime(dtStruct) + 23*60*60;
+    endOfDay = local2serverOffset + 17;
 
-  initSessionTimes_method1();
-  //initSessionTimes_method2();
+  initSessionTimes();
   
-  setSession(session);
+  setSession(tradingSession);
 }
 
-void TradingSessions::initSessionTimes_method1() {
+void TradingSessions::initSessionTimes() {
   /*                  EST                  GMT              */
   /*    Asia          6pm - 3am            11pm - 8am       */
   /*    London        3am - 12pm           8am - 5pm        */
@@ -187,8 +193,10 @@ void TradingSessions::initOffsets() {
 
 void TradingSessions::setSession(Enum_Sessions ts) {
   tradingSession = ts;
+  Debug(__FUNCTION__,__LINE__,"session:"+EnumToString(ts));
   startTradingSession_Server = SessionTimes_Start[tradingSession] + gmt2serverOffset;
   endTradingSession_Server = SessionTimes_End[tradingSession] + gmt2serverOffset;
+  Debug(__FUNCTION__,__LINE__,"server:"+TimeToStr(startTradingSession_Server)+" - "+TimeToStr(endTradingSession_Server));  
 }
 
 string TradingSessions::showSession(bool detail=false) {
@@ -307,4 +315,51 @@ bool TradingSessions::tradeWindow(Enum_Sessions ts = tbd) {
 
 datetime TradingSessions::addDay(datetime to) {
   return(to + 24*60*60);
+}
+
+void TradingSessions::setSessionMinMax() {
+  Debug(__FUNCTION__,__LINE__,"Entered");
+
+  datetime start = startTradingSession_Server;
+  datetime end = endTradingSession_Server;
+  
+  datetime TimeCopy[];
+  double HighPrices[];
+  double LowPrices[];
+
+  ArrayCopy(TimeCopy, Time, 0, 0, WHOLE_ARRAY);
+  ArrayCopy(HighPrices, High, 0, 0, WHOLE_ARRAY);
+  ArrayCopy(LowPrices, Low, 0, 0, WHOLE_ARRAY);
+
+  hiPrice = 0.0;
+  loPrice = 9999.99;
+  datetime nowDt = TimeCopy[0];
+  if (nowDt < end) end = nowDt;
+  int candlePeriod = int(TimeCopy[0] - TimeCopy[1]);
+  int interval = int((nowDt - start)/ candlePeriod);
+  while(TimeCopy[interval] <= end && interval > 0) {
+    if (HighPrices[interval] > hiPrice) {
+      hiPrice = HighPrices[interval];
+      hiPriceDT = TimeCopy[interval];
+    }
+    if (LowPrices[interval] < loPrice) {
+      loPrice = LowPrices[interval];
+      loPriceDT = TimeCopy[interval];
+    }
+    interval--;
+  }
+}
+
+datetime TradingSessions::startTimeForSession(Enum_Sessions thisSession,string tz="Server") {
+  //initSessionTimes();
+  if(StringCompare(tz,"Server")==0)
+    return SessionTimes_Start[thisSession] + gmt2serverOffset;
+  return NULL;
+}
+
+datetime TradingSessions::endTimeForSession(Enum_Sessions thisSession,string tz="Server") {
+  //initSessionTimes();
+  if(StringCompare(tz,"Server")==0)
+    return SessionTimes_End[thisSession] + gmt2serverOffset;
+  return NULL;
 }

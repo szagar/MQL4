@@ -1,6 +1,8 @@
 #property strict
 
 enum Enum_EXIT_MODELS {
+  EX_EOD,       // End of day
+  EX_EOS,       // End of session
   EX_Fitch,     // Fitch strategy
   EX_SL_TP,     // use stop loss and limit orders
   EX_SL_TS,     // use stop loss and trailing stop
@@ -28,6 +30,14 @@ enum Enum_EM_ENGULFINGS {
   EM_EG_Body,  //Engulfing Body
   EM_EG_Wicks  //Engulfing Bar
 };
+//########## Trend Following Models
+enum Enum_TF_MODELS {
+  TF_200_DMA,       // 200 day SMA
+  TF_MA_CurrentTF,     // current TF, custom  period
+  TF_MA_OtherTF,       // custom TF, cutom period MA 
+  TF_MA_MultiMA,       // Multiple MAs
+  TF_HLHB,             // HLHB Trend-Catcher
+};
 //########## Moving Average Cross Models
 enum Enum_MA_MODELS {
   MA_200_DMA,       // 200 day SMA
@@ -41,8 +51,8 @@ enum Enum_MX_MODELS {
   MX_SETUP_02 
 };
 //########## Channel Models
-enum Enum_CH_MODELS {
-  CH_MovingAvg,
+enum Enum_CS_MODELS {
+  CS_MovingAvg,
 };
 //########## Bollinger Band Models
 enum Enum_BOLLINGER_MODELS {
@@ -91,4 +101,29 @@ enum Enum_PROFIT_TARGET_TYPES {
   PT_PATI_Level,  // next PATI level
 };
 
-
+//  Breakout System
+enum Enum_BREAKOUT_PIO {
+  BO_PreviousOpen,   // Previous Open, BO_BarsBack
+  BO_PreviousHigh,   // Previous High, BO_BarsBack
+  BO_PreviousLow,    // Previous Low, BO_BarsBack
+  BO_HighestHigh,    // Highest High, BO_BarsBack
+  BO_LowestLow,      // Lowest Low, BO_BarsBack
+  BO_PreviousClose,  // Previous Close, BO_BarsBack
+  BO_MovingAvg,      // MovAvg, BO_MAperiod, BO_MAtype, BO_MAshift
+  BO_Retracement,    // Retracement, BO_PercentAway
+};
+enum Enum_BREAKOUT_DIST {
+  BO_Atr,            // ATR(BO_AtrPeriod) * BO_AtrFactor
+  BO_Pips,           // BO_Pips pips
+};
+enum Enum_BREAKOUT_TIME {
+  BO_SessionSegment, // Use BO_SegmentNum segment number(1-3)
+  BO_SOD,            // SOD + BO_TimeOffset
+  BO_EOD,            // SOD + BO_TimeOffset
+  BO_SOS,            // Start Of Session + BO_TimeOffset
+  BO_EOS,            // End Of Session + BO_TimeOffset
+};
+enum Enum_BREAKOUT_FILTER {
+  BO_DM_pm,          // DM+ / DM- cross, BO_DMplus,BO_DMneg, BO_FiletInverse to inverse
+  BO_ADX,            // ADX, BO_ADXperiod, BO_ADXlevelLo, BO_ADXlevelHi
+};

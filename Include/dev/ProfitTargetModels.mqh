@@ -8,11 +8,11 @@
 #property version   "1.00"
 #property strict
 
-//extern string commentString_10 = "";  //*****************************************
-//extern string commentString_11 = ""; //PROFIT TARGET MODEL SETTINGS
-extern Enum_PROFIT_TARGET_TYPES PT_Model = PT_OneR;  //- Profit Target Model
-extern double PT_multiplier = 2.0;  //>> Multiplier
-//extern string commentString_12 = "";  //*****************************************
+extern string commentString_PT_1 = ""; //----------------------------------
+extern string commentString_PT_2 = ""; //---------- Profit Target settings
+extern string commentString_PT_3 = ""; //----------------------------------
+extern Enum_PROFIT_TARGET_TYPES PT_Model = PT_OneR; //>> Profit Target Model
+extern double PT_multiplier = 2.0;                  //-   PT: Multiplier
 
 #include <dev\common.mqh>;
 

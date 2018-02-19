@@ -25,46 +25,54 @@ public:
   ~PriceModelsFake() {};
   
   //bool entrySignal(Position*);
-  double entryPrice(Position*);
-  double entryPriceLong(Position*);
-  double entryPriceShort(Position*);
+  double entryPrice(Position*,Enum_PRICE_MODELS);
+  double entryPrice(SetupStruct*,Enum_PRICE_MODELS);
+  double entryPriceLong(Enum_PRICE_MODELS);
+  double entryPriceShort(Enum_PRICE_MODELS);
 };
 
-double PriceModelsFake::entryPrice(Position *trade) {
+double PriceModelsFake::entryPrice(SetupStruct *setup,Enum_PRICE_MODELS model=NULL) {
   Debug(__FUNCTION__,__LINE__,"Entered");
+  if(!model) model = PM_Model;
   double price = NULL;
-  if(trade.Side==Long) price = entryPriceLong(trade);
-  if(trade.Side==Short) price = entryPriceShort(trade);
+  if(setup.side==Long) price = entryPriceLong(model);
+  if(setup.side==Short) price = entryPriceShort(model);
   return(price);
 }
 
-double PriceModelsFake::entryPriceLong(Position *trade) {
+double PriceModelsFake::entryPrice(Position *trade,Enum_PRICE_MODELS model=NULL) {
+  Debug(__FUNCTION__,__LINE__,"Entered");
+  if(!model) model = PM_Model;
+  double price = NULL;
+  if(trade.Side==Long) price = entryPriceLong(model);
+  if(trade.Side==Short) price = entryPriceShort(model);
+  return(price);
+}
+
+double PriceModelsFake::entryPriceLong(Enum_PRICE_MODELS model) {
   Debug(__FUNCTION__,__LINE__,"Entered");
   double price = NULL;
-  Debug(__FUNCTION__,__LINE__,"PM_Model="+EnumToString(PM_Model));
+  Debug(__FUNCTION__,__LINE__,"PM_Model="+EnumToString(model));
   double spread;
-  switch(PM_Model) {
+  switch(model) {
     case PM_BidAsk:
       spread = MarketInfo(Symbol(),MODE_SPREAD)*Point;
       price = Close[0]+spread+PM_PipAdj*Point;     // fake ask
-      Debug(__FUNCTION__,__LINE__,"spread="+DoubleToString(spread,Digits)+"  Close="+DoubleToString(Close[0],Digits)+"  Adj="+DoubleToString(PM_PipAdj*Point,Digits)+"  OP="+DoubleToString(trade.OpenPrice,Digits));
       break;
     case PM_PrevHL:
       price = iHigh(NULL,0,PM_BarShift)+PM_PipAdj*Point;
       break;
   }
-  Debug(__FUNCTION__,__LINE__,"trade.OpenPrice="+DoubleToStr(trade.OpenPrice,Digits));
   return(price);
 }
 
-double PriceModelsFake::entryPriceShort(Position *trade) {
+double PriceModelsFake::entryPriceShort(Enum_PRICE_MODELS model) {
   Debug(__FUNCTION__,__LINE__,"Entered");
   double price = NULL;
-  Debug(__FUNCTION__,__LINE__,"PM_Model="+EnumToString(PM_Model));
-  switch(PM_Model) {
+  Debug(__FUNCTION__,__LINE__,"PM_Model="+EnumToString(model));
+  switch(model) {
     case PM_BidAsk:
       price = Close[0]-PM_PipAdj*Point;          // fake bid
-      Debug(__FUNCTION__,__LINE__,"Close="+DoubleToString(Close[0],Digits)+"  Adj="+DoubleToString(PM_PipAdj*Point,Digits)+"  OP="+DoubleToString(trade.OpenPrice,Digits));
       break;
     case PM_PrevHL:
       price = iLow(NULL,0,PM_BarShift)-PM_PipAdj*Point;

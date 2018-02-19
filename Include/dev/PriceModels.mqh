@@ -34,9 +34,10 @@ public:
   ~PriceModels();
   
   //bool entrySignal(Position*);
-  double entryPrice(Position*);
-  double entryPriceLong(Position*);
-  double entryPriceShort(Position*);
+  double entryPrice(SetupStruct*,Enum_PRICE_MODELS);
+  double entryPrice(Position*,Enum_PRICE_MODELS);
+  double entryPriceLong(Enum_PRICE_MODELS);
+  double entryPriceShort(Enum_PRICE_MODELS);
 };
 
 PriceModels::PriceModels() {
@@ -45,19 +46,29 @@ PriceModels::PriceModels() {
 PriceModels::~PriceModels() {
 }
 
-double PriceModels::entryPrice(Position *trade) {
+double PriceModels::entryPrice(SetupStruct *setup, Enum_PRICE_MODELS model=NULL) {
   Debug(__FUNCTION__,__LINE__,"Entered");
   double price = NULL;
-  if(trade.Side==Long) price = entryPriceLong(trade);
-  if(trade.Side==Short) price = entryPriceShort(trade);
+  if(!model) model = PM_Model;
+  if(setup.side==Long) price = entryPriceLong(model);
+  if(setup.side==Short) price = entryPriceShort(model);
   return(price);
 }
 
-double PriceModels::entryPriceLong(Position *trade) {
+double PriceModels::entryPrice(Position *trade, Enum_PRICE_MODELS model=NULL) {
   Debug(__FUNCTION__,__LINE__,"Entered");
   double price = NULL;
-  Debug(__FUNCTION__,__LINE__,"PM_Model="+EnumToString(PM_Model));
-  switch(PM_Model) {
+  if(!model) model = PM_Model;
+  if(trade.Side==Long) price = entryPriceLong(model);
+  if(trade.Side==Short) price = entryPriceShort(model);
+  return(price);
+}
+
+double PriceModels::entryPriceLong(Enum_PRICE_MODELS model) {
+  Debug(__FUNCTION__,__LINE__,"Entered");
+  double price = NULL;
+  Debug(__FUNCTION__,__LINE__,"PM_Model="+EnumToString(model));
+  switch(model) {
     case PM_BidAsk:
       price = Ask+PM_PipAdj;
       break;
@@ -69,10 +80,10 @@ double PriceModels::entryPriceLong(Position *trade) {
   return(price);
 }
 
-double PriceModels::entryPriceShort(Position *trade) {
+double PriceModels::entryPriceShort(Enum_PRICE_MODELS model) {
   Debug(__FUNCTION__,__LINE__,"Entered");
   double price = NULL;
-  switch(PM_Model) {
+  switch(model) {
     case PM_BidAsk:
       price = Bid-PM_PipAdj;
       break;

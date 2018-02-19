@@ -59,9 +59,9 @@ Position::~Position() {
 
 //Robo::tradeLong: T R A D E Long:  0: EURUSD(0) Type: OP_BUYSTOP Size: 0.10 @1.17362 SL: 1.17343 PT: 0.00000
 string Position::toHuman() {
-  string str = string(TicketId)+": "+Symbol;
+  string str = string(TicketId)+": "+Symbol+" ";
   str += EnumToString(Side);
-  str += "("+IntegerToString(OneRpips)+"/"+IntegerToString(RewardPips)+")";
+  str += "("+IntegerToString(RewardPips)+"/"+IntegerToString(OneRpips)+")";
   str += " Type: "+orderType_toHuman(OrderType);
   str += " Size: "+DoubleToStr(LotSize,2);
   str += " @"+DoubleToStr(OpenPrice,Digits);

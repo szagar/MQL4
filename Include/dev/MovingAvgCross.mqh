@@ -22,9 +22,9 @@ extern ENUM_TIMEFRAMES    MX_2_TimeFrame = PERIOD_CURRENT; //- MA-2 timeframe
 extern int                MX_BarsSetupActive = 5;          //- Bars active
 
 #include <dev\common.mqh>
-#include <dev\Setup.mqh>
+#include <dev\SetupBase.mqh>
   
-class MovingAvgCross : public Setup {
+class MovingAvgCross : public SetupBase {
 
   int crossFastUp;
   int crossFastDn;
@@ -45,7 +45,7 @@ public:
   void OnTick();
 };
 
-MovingAvgCross::MovingAvgCross(Enum_SIDE _side):Setup(Symbol(),_side) {
+MovingAvgCross::MovingAvgCross(Enum_SIDE _side):SetupBase(Symbol(),_side) {
   strategyName = "MovingAvgCross";
   side = _side;
   callOnTick = false;
@@ -58,7 +58,7 @@ MovingAvgCross::~MovingAvgCross() {
 }
 
 void MovingAvgCross::reset() {
-  Setup::reset();
+  SetupBase::reset();
   crossFastUp = -100;
   crossFastDn = -100;
 }

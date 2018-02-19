@@ -45,9 +45,9 @@ extern ENUM_TIMEFRAMES    MA_7_TimeFrame = PERIOD_D1;      //- MA-7 timeframe
 extern int                MA_BarsSetupActive = 5;          //- Bars active
 
 #include <dev\common.mqh>
-#include <dev\Setup.mqh>
+#include <dev\SetupBase.mqh>
   
-class MovingAverage : public Setup {
+class MovingAverage : public SetupBase {
 
   int crossFastUp;
   int crossFastDn;
@@ -73,7 +73,7 @@ public:
   void OnTick();
 };
 
-MovingAverage::MovingAverage(Enum_SIDE _side):Setup(Symbol(),_side) {
+MovingAverage::MovingAverage(Enum_SIDE _side):SetupBase(Symbol(),_side) {
   strategyName = "MovingAverage";
   side = _side;
   callOnTick = false;
@@ -86,7 +86,7 @@ MovingAverage::~MovingAverage() {
 }
 
 void MovingAverage::reset() {
-  Setup::reset();
+  SetupBase::reset();
   crossFastUp = -100;
   crossFastDn = -100;
 }

@@ -21,7 +21,7 @@ extern int Slippage=5;                     //- Slippage in pips
 extern double MinReward2RiskRatio = 1.5;   //- Min Reward / Risk 
 extern double PercentRiskPerPosition=0.5; //>- Percent to risk per position
 
-#include <dev\Robo_02.mqh>
+#include <dev\Robo_Patterns.mqh>
 //#include <dev\stats_eod.mqh>
 
 string Prefix="ZTS_";
@@ -41,17 +41,17 @@ int OnInit() {
   setSomeConstants();
   session = new TradingSessions(TradingSession);
   session.showAllSessions("local");
-  robo = new Robo(session);
   
+  robo = new Robo(session);
   robo.OnInit();
   
-  MqlDateTime dtStruct;
-  TimeToStruct(TimeCurrent(), dtStruct);
-  dtStruct.hour = 0;
-  dtStruct.min = 0;
-  dtStruct.sec = 0;
-  endOfDay = session.endOfDay;             //StructToTime(dtStruct) + 17*60*60;         // 5pm NY
-  startOfDay = session.startOfDay;         //StructToTime(dtStruct) + 9*60*60;;       // 9am NY
+  //MqlDateTime dtStruct;
+  //TimeToStruct(TimeCurrent(), dtStruct);
+  //dtStruct.hour = 0;
+  //dtStruct.min = 0;
+  //dtStruct.sec = 0;
+  endOfDay = session.endOfDay;
+  startOfDay = session.startOfDay;
   Info("Day start to end: "+string(startOfDay)+" - "+string(string(endOfDay)));
 
   DrawSystemStatus();

@@ -17,9 +17,9 @@ extern double RSI_lowerLevel = 30.0; //- lower trigger level
 extern int RSI_bars2expiry;          //- #bars setup trigger active
 
 #include <dev\common.mqh>
-#include <dev\Setup.mqh>
+#include <dev\SetupBase.mqh>
   
-class Rsi : public Setup {
+class Rsi : public SetupBase {
 
   int crossUpUpper;
   int crossDnUpper;
@@ -41,7 +41,7 @@ public:
   void OnTick();
 };
 
-Rsi::Rsi(string _symbol, Enum_SIDE _side):Setup(_symbol,_side) {
+Rsi::Rsi(string _symbol, Enum_SIDE _side):SetupBase(_symbol,_side) {
   strategyName = "RSI";
   symbol = _symbol;
   side = _side;
@@ -58,7 +58,7 @@ void Rsi::startOfDay() {
 }
 
 void Rsi::reset() {
-  Setup::reset();
+  SetupBase::reset();
   crossUpUpper = 0;
   crossDnUpper = 0;
   crossUpLower = 0;

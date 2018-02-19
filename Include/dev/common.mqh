@@ -9,18 +9,24 @@
 
 #include <dev/enum_types.mqh>
 
+double TickSize, PipSize;
+int PipFact;
+double P2D, D2P;
+
 void setSomeConstants() {
   TickSize = MarketInfo(Symbol(),MODE_TICKSIZE);
   PipSize = TickSize;
   if(TickSize == 0.00001 || TickSize == 0.001)
     PipSize *= 10;
   PipFact = int(1/PipSize);
-}
 
-double TickSize;
-double PipSize;
-int PipFact;
-//setSomeConstants();
+  D2P = (StringFind(Symbol(),"JPY",0)>0 ? 100 : 10000);
+  P2D = 1.0/D2P;
+
+  Info2(__FUNCTION__,__LINE__,"TickSize = "+string(TickSize));
+  Info2(__FUNCTION__,__LINE__,"PipSize  = "+string(PipSize));
+  Info2(__FUNCTION__,__LINE__,"PipFact  = "+string(PipFact));
+}
 
 
 int GetSlippage() {

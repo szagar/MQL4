@@ -17,8 +17,9 @@ public:
   ~PriceModelsBase() {};
 
   //bool entrySignal(Position*);
-  virtual double entryPrice(Position*)      { Debug4(__FUNCTION__,__LINE__,"Entered");return(NULL); };
-  virtual double entryPriceLong(Position*)  { Debug4(__FUNCTION__,__LINE__,"Entered");return(NULL); };
-  virtual double entryPriceShort(Position*) { Debug4(__FUNCTION__,__LINE__,"Entered");return(NULL); };
+  virtual double entryPrice(SetupStruct*,Enum_PRICE_MODELS model=NULL)      { Debug4(__FUNCTION__,__LINE__,"Entered");return(NULL); };
+  virtual double entryPrice(Position*,Enum_PRICE_MODELS model=NULL)      { Debug4(__FUNCTION__,__LINE__,"Entered");return(NULL); };
+  virtual double entryPriceLong(Enum_PRICE_MODELS)  { Debug4(__FUNCTION__,__LINE__,"Entered");return(NULL); };
+  virtual double entryPriceShort(Enum_PRICE_MODELS) { Debug4(__FUNCTION__,__LINE__,"Entered");return(NULL); };
 };
 

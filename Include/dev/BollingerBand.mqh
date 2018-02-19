@@ -9,7 +9,7 @@
 #property strict
 
 #include <dev\common.mqh>
-#include <dev\Setup.mqh>
+#include <dev\SetupBase.mqh>
   
 extern string commentString_BB_01 = ""; //---------------------------------------------
 extern string commentString_BB_02 = "";  //*** Bollinger Bands setup:
@@ -18,9 +18,9 @@ extern int BB_Period = 200;          //- Period of the Bollinger Bands
 extern double BB_Deviation = 2;      //- Deviation of the Bollinger Bands
 extern int BB_BarsSincePierce = 5;   //- Bars Since Pierce
 
-class BollingerBand : public Setup {
+class BollingerBand : public SetupBase {
 //private:
-  //Setup setupBase;
+  //SetupBase setupBase;
   int model;
   bool longCriteria();
   bool shortCriteria();
@@ -47,7 +47,7 @@ public:
 };
 
 
-void BollingerBand::BollingerBand(string _symbol,Enum_SIDE _side):Setup(_symbol,_side) {
+void BollingerBand::BollingerBand(string _symbol,Enum_SIDE _side):SetupBase(_symbol,_side) {
   strategyName = "BollingerBand";
   side = _side;
   triggered = false;
@@ -56,21 +56,21 @@ void BollingerBand::BollingerBand(string _symbol,Enum_SIDE _side):Setup(_symbol,
 }
 
 /**
-void BollingerBand::BollingerBand(string _symbol):Setup() {
+void BollingerBand::BollingerBand(string _symbol):SetupBase() {
   name = "BollingerBand";
   side = Long;
   model = 1;
   movingPeriod = 100;
 }
 
-BollingerBand::BollingerBand(string _symbol, Enum_SIDE _side, int _model):Setup(_symbol) {
+BollingerBand::BollingerBand(string _symbol, Enum_SIDE _side, int _model):SetupBase(_symbol) {
   name = "BollingerBand";
   side = _side;
   model = _model;
   movingPeriod = 100;
 }
 
-BollingerBand::BollingerBand(Enum_SIDE _side, int _model):Setup() {
+BollingerBand::BollingerBand(Enum_SIDE _side, int _model):SetupBase() {
   name = "BollingerBand";
   side = _side;
   model = _model;

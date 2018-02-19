@@ -3,19 +3,20 @@
 //+------------------------------------------------------------------+
 #property strict
 
-extern string commentString_EM_0 = ""; //---------------------------------------------
-extern string commentString_EM_1 = "";  //*** Exit Manager settings
-extern Enum_EXIT_MODELS EX_Model = EX_SL_TP;     //>> Exit Model
+extern string commentString_EM_1 = ""; //---------------------------------------------
+extern string commentString_EM_2 = ""; //-------- Exit Manager settings
+extern string commentString_EM_3 = ""; //---------------------------------------------
+extern Enum_EXIT_MODELS EX_Model = EX_EOS;       //>> Exit Model
 extern Enum_TS_TYPES    TS_Model = TS_ATR;       //>> Trailing Stop Model
-extern Enum_YESNO       EX_TimedExit = YN_NO;    //- add Timed Exit ?
-extern Enum_YESNO       EX_BarCount = YN_NO;     //- add Bar Count Exit ?
-extern double           TS_MinDeltaPips  = 2.0;      //   - TS: Min pips for SL change
-extern int              TS_BarCount  = 3;        //   - TS: Bar Count or Bars back
-extern int              TS_PadAmount = 10;       //   - TS: Pips to pad TS
-extern Enum_TS_WHEN     TS_When      = TS_OneRx; //   - TS: When to start trailing
-extern int              TS_WhenX     = 1;        //   - TS: When parameter (1Rx, pips)
-extern ENUM_TIMEFRAMES  TS_ATRperiod= 0;         //   - TS: ATR Period
-extern double           TS_ATRfactor = 2.7;      //   - TS: ATR Factor
+//extern bool             EX_TimedExit = YN_NO;    //-   use Timed Exit ?
+extern bool             EX_BarCount = YN_NO;     //-   add Bar Count Exit ?
+extern double           TS_MinDeltaPips  = 2.0;  //-   TS: Min pips for SL change
+extern int              TS_BarCount  = 3;        //-   TS: Bar Count or Bars back
+extern int              TS_PadAmount = 10;       //-   TS: Pips to pad TS
+extern Enum_TS_WHEN     TS_When      = TS_OneRx; //-   TS: When to start trailing
+extern int              TS_WhenX     = 1;        //-   TS: When parameter (1Rx, pips)
+extern ENUM_TIMEFRAMES  TS_ATRperiod= 0;         //-   TS: ATR Period
+extern double           TS_ATRfactor = 2.7;      //-   TS: ATR Factor
 
 
 class ExitManager {
@@ -105,10 +106,10 @@ double ExitManager::getTrailingStop(Position *pos) {
       break;
     case TS_ATR:
       Info("pips = int(atr(TS_ATRperiod,TS_BarCount)*PipFact * TS_ATRfactor);");
-      Info("pips = int("+atr(TS_ATRperiod,TS_BarCount)+"*"+PipFact+" * "+TS_ATRfactor+")");
+      Info("pips = int("+DoubleToStr(atr(TS_ATRperiod,TS_BarCount),Digits)+"*"+string(PipFact)+" * "+DoubleToStr(TS_ATRfactor,2)+")");
       pips = int(atr(TS_ATRperiod,TS_BarCount)*PipFact * TS_ATRfactor);
       Debug(__FUNCTION__,__LINE__,"pips="+string(pips));
-      Info("newTrailingStop = "+currentPrice+" + "+pips+" * "+OnePoint+" * "+pos.Side);
+      Info("newTrailingStop = "+DoubleToStr(currentPrice,Digits)+" + "+string(pips)+" * "+string(OnePoint)+" * "+EnumToString(pos.Side));
       newTrailingStop = currentPrice - pips * OnePoint * pos.Side;
       Debug(__FUNCTION__,__LINE__,"newTrailingStop="+string(newTrailingStop));
       break;
@@ -125,9 +126,9 @@ double ExitManager::getTrailingStop(Position *pos) {
       Debug(__FUNCTION__,__LINE__,"newTrailingStop="+string(newTrailingStop));
 
   Debug(__FUNCTION__,__LINE__,"(newTrailingStop-currStopLoss)= "+DoubleToStr((newTrailingStop-currStopLoss),Digits));
-  Debug(__FUNCTION__,__LINE__,"pos.Side= "+pos.Side);
-  Debug(__FUNCTION__,__LINE__,"PipFact= "+PipFact);
-  Debug(__FUNCTION__,__LINE__,"TS_MinDeltaPips="+TS_MinDeltaPips);
+  Debug(__FUNCTION__,__LINE__,"pos.Side= "+EnumToString(pos.Side));
+  Debug(__FUNCTION__,__LINE__,"PipFact= "+DoubleToStr(PipFact,Digits));
+  Debug(__FUNCTION__,__LINE__,"TS_MinDeltaPips="+DoubleToStr(TS_MinDeltaPips,2));
   if(currStopLoss==0 || (newTrailingStop-currStopLoss)*pos.Side*PipFact >= TS_MinDeltaPips) {
     return(newTrailingStop);
   }
