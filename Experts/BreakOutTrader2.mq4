@@ -28,10 +28,10 @@ extern string ExitTimeOnFriday = "17:00";
 
 extern bool SimulateStopEntry = false;
 extern bool SimulateStopExit = false;
-#include <dev\BreakOutATS.mqh>
+#include <dev\BreakOutATS2.mqh>
 
 #include <dev\ChartTools.mqh>
-#include <dev\TradingSessions.mqh>
+#include <dev\TradingSessions2.mqh>
 #include <dev\logger.mqh>
 #include <dev\Broker.mqh>
 #include <dev\Trader.mqh>
@@ -66,7 +66,7 @@ int OnInit() {
   ats = new BreakOutATS(trader);
   ats.OnInit();
  
-  startOfDay = sessionTool.startOfDay;
+  startOfDay = sessionTxool.startOfDay;
   endOfDay = sessionTool.endOfDay;
   Info("Day start: "+string(startOfDay));
   Info("Day end: "+string(endOfDay));
@@ -119,7 +119,7 @@ void OnTick() {
 }
 
 void OnNewBar() {
-  //Info("iBarShift="+string(iBarShift(NULL,0, submitTime)));
+  Info("iBarShift="+string(iBarShift(NULL,0, submitTime)));
 
   if(isSOD()) ats.startOfDay();
   if(isEOD()) {

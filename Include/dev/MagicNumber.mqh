@@ -96,7 +96,8 @@ int MagicNumber::encodeStrategyName(string name) {
   if(StringCompare(name,"MovingAvgCross",false)==0) return 8;
   if(StringCompare(name,"MovingAverage",false)==0)  return 9;
   if(StringCompare(name,"MovingAvgChannel",false)==0) return 10;
-  if(StringCompare(name,"RboSetup",false)==0)         return 10;
+  if(StringCompare(name,"RboSetup",false)==0)         return 11;
+  if(StringCompare(name,"BreakOutATS",false)==0)      return 12;
   Info("Strategy '"+name+"' NOT coded for in MagicNumber");
   return 0;
 }
@@ -116,7 +117,8 @@ string MagicNumber::decodeStrategyName(int magicNumber) {
   if(id == 8) return "MovingAvgCross";
   if(id == 9) return "MovingAverage";
   if(id == 10) return "MovingAvgChannel";
-  if(id == 10) return "RboSetup";
+  if(id == 11) return "RboSetup";
+  if(id == 12) return "BreakOutATS";
   return "";
 }
 

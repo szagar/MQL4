@@ -29,6 +29,7 @@ public:
   MagicNumber *magic;
   
   SetupBase();
+  ~SetupBase();
   SetupBase(string,Enum_SIDE);  // : symbol(_symbol) {};  //{} // constructor
 
   void closeOpenTrades();
@@ -39,7 +40,7 @@ public:
   virtual void OnBar()         { Debug(__FUNCTION__,__LINE__,"Entered"); };
   virtual void defaultParameters() { Debug(__FUNCTION__,__LINE__,"Entered"); };
   virtual void reset();
-
+  virtual string to_human();
 };
 
 
@@ -57,6 +58,10 @@ SetupBase::SetupBase(string _symbol,Enum_SIDE _side) {
   callOnBar = false;
   magic = new MagicNumber();
   triggered = false;
+}
+
+SetupBase::~SetupBase() {
+   if (CheckPointer(magic) == POINTER_DYNAMIC) delete magic;
 }
 
 void SetupBase::closeOpenTrades() {
@@ -89,3 +94,19 @@ void SetupBase::markOnChart(datetime time, double price) {
   ObjectSetInteger(0,objname,OBJPROP_COLOR,clrBlack);
 }
   
+string SetupBase::to_human() {
+  string str = "";
+  str += "strategyName : "+strategyName +"\n";
+  str += "callOnTick   : "+(string)callOnTick   +"\n";
+  str += "tradeNumber  : "+(string)tradeNumber  +"\n";
+  str += "callOnBar    : "+(string)callOnBar    +"\n";
+  str += "triggered    : "+(string)triggered    +"\n";
+  str += "side         : "+EnumToString(side) +"\n";
+  str += "sideSave     : "+EnumToString(sideSave) +"\n";;
+
+  str += "symbol       : "+symbol       +"\n";
+  str += "roboID       : "+(string)roboID       +"\n";
+  str += "tradeNumber  : "+(string)tradeNumber  +"\n";
+  str += "rboPrice     : "+DoubleToStr(rboPrice,Digits)     +"\n";
+  return str;
+}

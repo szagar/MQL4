@@ -12,15 +12,15 @@
 #include <dev\zts_lib.mqh>
 #include <dev\SetupStruct.mqh>
 
-enum Enum_INITIAL_RISK { IR_PATI_Pips, IR_ATR, IR_PrevHL};
+enum Enum_INITIAL_RISK { IR_PATI_Pips, IR_DayATR,IR_ATR,IR_PrevHL};
 
 extern string commentString_IR_1 = ""; //---------------------------------------------
 extern string commentString_IR_2 = ""; //--------- Initial Risk (1R) settings 
 extern string commentString_IR_3 = ""; //---------------------------------------------
-extern Enum_INITIAL_RISK OneRmodel = IR_ATR;  //>> 1R model
-extern int IR_BarCount = 3;                   //-    BarCount
-extern ENUM_TIMEFRAMES IR_ATRperiod = 0;      //-    ATR period
-extern double IR_ATRfactor = 2.7;             //-    ATR multiplier
+extern Enum_INITIAL_RISK OneRmodel = IR_DayATR;  //>> 1R model
+extern int IR_BarCount = 3;                      //-    BarCount   5-60,5
+extern int IR_AtrTF = 0;                         //-    ATR TimeFrame       
+extern double IR_ATRfactor = 2.7;                //-    ATR multiplier  0.6-3.5, 0.1
 
 class InitialRisk {
 private:
@@ -59,13 +59,23 @@ int InitialRisk::getInPips(SetupStruct *setup, Enum_INITIAL_RISK _model=NULL) {
       pips = calcPatiPips(setup.symbol);
       Debug(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips));
       break;
-    case IR_ATR:
-      atr = calc_ATR(setup.symbol,IR_ATRperiod,IR_BarCount);
-      Info2(__FUNCTION__,__LINE__,"atr="+DoubleToStr(atr,2));
+    case IR_DayATR:
+      atr = calc_ATR(setup.symbol,PERIOD_D1,IR_BarCount);
+      Info2(__FUNCTION__,__LINE__,"day atr="+DoubleToStr(atr,Digits));
       //pips = int(oneR_calc_ATR(ATRperiod,ATRnumBars)*decimal2points_factor(symbol)*IR_ATRfactor);
       Info2(__FUNCTION__,__LINE__,"PipFact="+string(PipFact));
       Info2(__FUNCTION__,__LINE__,"IR_ATRfactor="+string(IR_ATRfactor));
-      pips = int(calc_ATR(setup.symbol,IR_ATRperiod,IR_BarCount)*PipFact*IR_ATRfactor);
+      pips = int(calc_ATR(setup.symbol,PERIOD_D1,IR_BarCount)*PipFact*IR_ATRfactor);
+      Info2(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips)+"  atr="+DoubleToStr(atr,Digits));
+      break;
+    case IR_ATR:
+      Debug(__FUNCSIG__,__LINE__,"calc atr for:"+setup.symbol+", "+string(IR_AtrTF)+", "+string(IR_BarCount));
+      atr = calc_ATR(setup.symbol,IR_AtrTF,IR_BarCount);
+      Info2(__FUNCTION__,__LINE__,"atr="+DoubleToStr(atr,Digits));
+      //pips = int(oneR_calc_ATR(ATRperiod,ATRnumBars)*decimal2points_factor(symbol)*IR_ATRfactor);
+      Info2(__FUNCTION__,__LINE__,"PipFact="+string(PipFact));
+      Info2(__FUNCTION__,__LINE__,"IR_ATRfactor="+string(IR_ATRfactor));
+      pips = int(calc_ATR(setup.symbol,IR_AtrTF,IR_BarCount)*PipFact*IR_ATRfactor);
       Info2(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips)+"  atr="+DoubleToStr(atr,Digits));
       break;
     case IR_PrevHL:
@@ -103,12 +113,12 @@ int InitialRisk::getInPips(Position *trade, Enum_INITIAL_RISK _model=NULL) {
       Debug(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips));
       break;
     case IR_ATR:
-      atr = calc_ATR(trade.Symbol,IR_ATRperiod,IR_BarCount);
+      atr = calc_ATR(trade.Symbol,IR_AtrTF,IR_BarCount);
       Info2(__FUNCTION__,__LINE__,"atr="+DoubleToStr(atr,2));
       //pips = int(oneR_calc_ATR(ATRperiod,ATRnumBars)*decimal2points_factor(symbol)*IR_ATRfactor);
       Info2(__FUNCTION__,__LINE__,"PipFact="+string(PipFact));
       Info2(__FUNCTION__,__LINE__,"IR_ATRfactor="+string(IR_ATRfactor));
-      pips = int(calc_ATR(trade.Symbol,IR_ATRperiod,IR_BarCount)*PipFact*IR_ATRfactor);
+      pips = int(calc_ATR(trade.Symbol,IR_AtrTF,IR_BarCount)*PipFact*IR_ATRfactor);
       Info2(__FUNCTION__,__LINE__,"model="+EnumToString(model)+"  pips="+IntegerToString(pips)+"  atr="+DoubleToStr(atr,Digits));
       break;
     case IR_PrevHL:

@@ -40,9 +40,7 @@ public:
 
   double calcTrailingStopLoss(string,int);
   double getTrailingStop(Position *pos);
-  bool useStopLoss;
-  bool useTrailingStop;
-  bool useTakeProfit;
+  //bool useTakeProfit;
   int pips2startTS(Position*);
 };
 
@@ -59,18 +57,14 @@ ExitManager::~ExitManager() {
 ExitManager::configParams() {
   switch(EX_Model) {
     case EX_Fitch:
-      useStopLoss = false;
-      useTrailingStop = false;
+      //useStopLoss = false;
+      //useTrailingStop = false;
       break;
     case EX_SL_TP:
-      useStopLoss = true;
-      useTrailingStop = false;
-      useTakeProfit = true;
+      UseTakeProfit = true;
       break;
     case EX_SL_TS:
-      useStopLoss = true;
-      useTrailingStop = true;
-      useTakeProfit = true;
+      UseTakeProfit = true;
       break;
   }
 }

@@ -27,8 +27,23 @@ extern bool UseTimeInExit   = false;
 extern bool UseBarsInExit   = false;
 extern bool UseTODexit      = false;
 
-#include <dev\Poi.mqh>
-#include <dev\Distance.mqh>
+enum Enum_POI {POI_Close,POI_HighLow,POI_High,POI_Low,POI_Open,POI_Median,POI_Typical,POI_Weighted,
+                 POI_MovAvg,POI_HHLL};
+extern Enum_POI POI_Model   = POI_HighLow;
+extern string commentString_POIO3 = ""; //---------------------------------------------
+extern ENUM_APPLIED_PRICE POI_price = PRICE_CLOSE;
+extern ENUM_MA_METHOD     POI_ma_method = MODE_SMA;
+extern int                POI_ma_period = 20;
+extern ENUM_APPLIED_PRICE POI_ma_price = PRICE_CLOSE;
+
+enum Enum_DIST {DIST_DayAtr,DIST_Atr,DIST_Pips};
+extern Enum_DIST Dist_Model   = DIST_DayAtr;
+extern ENUM_TIMEFRAMES    DIST_atr_timeframe = 0; //>> ATR timeframe
+extern int                DIST_atr_period = 14;   //>> ATR period
+extern double             DIST_atr_factor = 0.10; //>> ATR factor 1-15%
+
+//#include <dev\Poi.mqh>
+//#include <dev\Distance.mqh>
 /**
 extern string commentString_BO3 = ""; //---------------------------------------------
 extern ENUM_APPLIED_PRICE POI_price = PRICE_CLOSE;
@@ -42,6 +57,7 @@ extern int                DIST_atr_period = 14;
 extern double             DIST_atr_factor = 0.10;   // 1-15%
 **/
 
+#include <dev\commonConstants.mqh>
 #include <dev\common.mqh>
 #include <dev\candle_patterns.mqh>
 #include <dev\ATS.mqh>
@@ -53,13 +69,16 @@ class BreakOutATS : public ATS {
   void reset();
   void defaultParameters();
   void checkForNewEntry(double bid, double ask);
+  //void checkForLongEntry();
+  //void checkForShortEntry();
 
-  //double distance;
+  //double POI_Long,POI_Short;
+  double distance;
   bool barPOI, tickPOI;
   bool barDist, tickDist;
   int tradeCnt;
-  Distance *dist;
-  Poi *poi;
+  //Distance *dist;
+  //Poi *poi;
   
   //void setPOI();
   //void setDistance();
@@ -82,28 +101,25 @@ BreakOutATS::BreakOutATS(Trader *t):ATS(t) {
   strategyName = "BreakOutATS";
   callOnTick = true;
   callOnBar = false;
-  barPOI = true;
-  dist = new Distance();
-  poi = new Poi();
+  //dist = new Distance();
+  //poi = new Poi();
   reset();
 }
 
 
 BreakOutATS::~BreakOutATS() {
-  if (CheckPointer(poi) == POINTER_DYNAMIC) delete poi;
-  if (CheckPointer(dist) == POINTER_DYNAMIC) delete dist;
+
+}
+
+void BreakOutATS::OnInit() {
+  Debug(__FUNCTION__,__LINE__,"Entered");
+  ATS::OnInit();  
 }
 
 void BreakOutATS::reset() {
   Debug(__FUNCTION__,__LINE__,"Entered");
   ATS::reset();
   tradeCnt = 0;
-}
-
-
-void BreakOutATS::OnInit() {
-  Debug(__FUNCTION__,__LINE__,"Entered");
-  ATS::OnInit();  
 }
 
 void BreakOutATS::defaultParameters() {
@@ -121,17 +137,17 @@ void BreakOutATS::OnTick() {
       checkForNewEntry(Close[0],Close[0]+Spread*P2D);
     else
       checkForNewEntry(Bid,Ask);
-  if(tickPOI)
-    poi.setPOI(0);
+  //if(tickPOI)
+  //  poi.setPOI(0);
     //updatePOI();
-  if(tickDist)
-    dist.getDistance();
-    //distance = dist.distance;
+  //if(tickDist)
+  //  distance = dist.distance;
+    //updateDistance();
 
 }
 
 void BreakOutATS::OnBar() {
-  //Debug(__FUNCTION__,__LINE__,"Entered");
+  Debug(__FUNCTION__,__LINE__,"Entered");
   ATS::OnBar();
 
 //extern bool UseTimeInExit   = false;
@@ -145,33 +161,23 @@ void BreakOutATS::OnBar() {
     broker.deletePendingOrders(Symbol(),strategyName); 
   }
   if(inTradeWindow()) {
-    Info2(__FUNCTION__,__LINE__,"inTradeWindow()");
-    if(barPOI) {
-      Info2(__FUNCTION__,__LINE__,"barPOI");
-      if(sessionTool.isSOS(Time[0])) {
-        Info2(__FUNCTION__,__LINE__,"isSOS("+(string)Time[0]+")");
-        poi.setPOI(1);
-      }
-      //updatePOI();
-    }
-    if(barEntry && poi.poiIsSet && tradeCnt<MaxTradesPerDay) {
-      Info2(__FUNCTION__,__LINE__,"barEntry && tradeCnt<MaxTradesPerDay");
+    if(barEntry && tradeCnt<MaxTradesPerDay)
       checkForNewEntry(Close[0],Close[0]);
-    }
-    if(barDist) {
-      Info2(__FUNCTION__,__LINE__,"barDist");
-      dist.getDistance();
-      //distance = dist.distance;
-    }
+    //if(barPOI)
+      //if(sessionTool.isSOS(Time[0]))
+      //  poi.setPOI(0);
+      //updatePOI();
+    //if(barDist)
+    //  distance = dist.distance;
+      //updateDistance();
   }
 }
 
 void BreakOutATS::startOfDay() {
   Debug(__FUNCTION__,__LINE__,"Entered");
   reset();
-  sessionTool.setTradeWindow(Session,SessionSegment);
-  //poi.reset();
-  dist.getDistance();
+  //poi.setPOI();
+  //distance = dist.distance;
   filters.setDaily();
 }
 
@@ -189,15 +195,38 @@ void BreakOutATS::endOfDay() {
 
 void BreakOutATS::checkForNewEntry(double b, double a) {
   Info2(__FUNCTION__,__LINE__,"Entered");
-  //double boLong, boShort;
+  double boLong, boShort;
   SetupStruct *setup;
   if(GoLong) {
-    Info2(__FUNCTION__,__LINE__,"if("+string(NormalizeDouble(b,Digits))+" >= "+
-               string(NormalizeDouble(poi.POI_Long,Digits))+" + "+
-               string(NormalizeDouble(dist.distance,Digits)));
+
+    Print("POI_Model         ="+POI_Model          +"\n"+
+          "POI_price         ="+POI_price          +"\n"+
+          "POI_ma_method     ="+POI_ma_method      +"\n"+
+          "POI_ma_period     ="+POI_ma_period      +"\n"+
+          "POI_ma_price      ="+POI_ma_price       +"\n"+
+          "Dist_Model        ="+Dist_Model         +"\n"+
+          "DIST_atr_timeframe="+DIST_atr_timeframe +"\n"+
+          "DIST_atr_period   ="+DIST_atr_period    +"\n"+
+          "DIST_atr_factor   ="+DIST_atr_factor);
+
+    boLong = iCustom(NULL,0,"BreakOutPOI_NoIn",0,0);
+//                       POI_Model,POI_price,POI_ma_method,POI_ma_period,POI_ma_price,
+//                       Dist_Model,DIST_atr_timeframe,DIST_atr_period,DIST_atr_factor,
+//                       0,0);
+    Print("boLong(0)="+DoubleToStr(boLong,Digits));
+    boLong = iCustom(NULL,0,"BreakOutPOI_NoIn",0,1);
+//                       POI_Model,POI_price,POI_ma_method,POI_ma_period,POI_ma_price,
+//                       Dist_Model,DIST_atr_timeframe,DIST_atr_period,DIST_atr_factor,
+//                       0,1);
+    Print("boLong(1)="+DoubleToStr(boLong,Digits));
+    
+    //Info("if("+string(NormalizeDouble(b,Digits))+" >= "+
+    //           string(NormalizeDouble(poi.POI_Long,Digits))+" + "+
+    //           string(NormalizeDouble(distance,Digits)));
     if(filtersPassed(Long)) {
       Info2(__FUNCTION__,__LINE__,"Long filter passed");
-      if(b >= poi.POI_Long+dist.distance) {
+      //if(b >= poi.POI_Long+distance) {
+      if(b >= boLong) {
         setup = new SetupStruct();
         setup.strategyName = strategyName;
         setup.side         = Long;
@@ -208,13 +237,14 @@ void BreakOutATS::checkForNewEntry(double b, double a) {
       }
     }
   }
+/*
   if(GoShort) {
     Info("if("+string(NormalizeDouble(a,Digits))+" >= "+
                string(NormalizeDouble(poi.POI_Short,Digits))+" + "+
-               string(NormalizeDouble(dist.distance,Digits)));
+               string(NormalizeDouble(distance,Digits)));
     if(filtersPassed(Short)) {
       Info2(__FUNCTION__,__LINE__,"Short filter passed");
-      if(a <= poi.POI_Short-dist.distance) {
+      if(a <= poi.POI_Short-distance) {
         setup = new SetupStruct();
         setup.strategyName = strategyName;
         setup.side         = Short;
@@ -226,6 +256,7 @@ void BreakOutATS::checkForNewEntry(double b, double a) {
       }
     }
   }
+**/
 }
 
 /**

@@ -8,13 +8,17 @@
 #property version   "1.00"
 #property strict
 
-#include <dev/Trader.mqh>
 #include <dev/Filters.mqh>
+#include <dev/Trader.mqh>
 #include <dev/MagicNumber.mqh>
 #include <dev/TradingSessions.mqh>
 
+extern Enum_Sessions Session = NewYork;
+extern Enum_SessionSegments SessionSegment = all;
 extern bool tickEntry = false;  // check new entry on tick
 extern bool barEntry = true;    // check new entry on bar
+
+extern int HoursInTrade, MinutesInTrade, BarsInTrade;
 
 class ATS {
 protected:
@@ -22,8 +26,9 @@ protected:
   int barNumber;
   int dayBarNumber;
   int sessionBarNumber;
+  int entryBar; 
+  datetime entryTime, Time2CloseTrades;
   
-
   void initialize();
   bool isStartOfNewSession();
 
@@ -61,7 +66,7 @@ public:
   virtual void cleanUpEOD()    { Debug(__FUNCTION__,__LINE__,"Entered"); };
   
   virtual bool inTradeWindow();
-  virtual bool filtersPassed(Enum_SIDE side) { return(filters.passFail(side)); };
+  virtual bool filtersPassed(Enum_SIDE side) { return(filters.pass(side)); };
   void stopExitSignaled(Enum_SIDE);
   void stopEntrySignaled(Enum_SIDE);
 };
@@ -79,7 +84,9 @@ ATS::ATS(string _symbol, Trader *t) {
 }
 
 ATS::~ATS() {
+  if (CheckPointer(sessionTool) == POINTER_DYNAMIC) delete sessionTool;
   if (CheckPointer(magic) == POINTER_DYNAMIC) delete magic;
+  if (CheckPointer(filters) == POINTER_DYNAMIC) delete filters;
 }
 
 void ATS::initialize() {
@@ -129,9 +136,19 @@ void ATS::stopExitSignaled(Enum_SIDE side) {
 }
 
 void ATS::stopEntrySignaled(Enum_SIDE side) {
-  trader.enterCurrentMarket(side);
+  SetupStruct *setup;
+  setup = new SetupStruct();
+  setup.strategyName = strategyName;
+  setup.side         = Long;
+  setup.symbol       = Symbol();
+  int tid=trader.marketEntryOrder(setup);
+  if (CheckPointer(setup) == POINTER_DYNAMIC) delete setup;
+  entryBar = barNumber;
+  entryTime = Time[0];
+  if(UseTODexit)
+    Time2CloseTrades = Time[0] + HoursInTrade*3600 + MinutesInTrade*60;;
 }
 
  bool ATS::inTradeWindow() {
-  return true;
+  return sessionTool.tradeWindow(Session,SessionSegment);
 }

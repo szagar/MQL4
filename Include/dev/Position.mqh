@@ -21,6 +21,7 @@ public:
   ~Position();
   
   string toHuman();
+  string to_human();
   string inspect();
 
   int TicketId;
@@ -62,6 +63,7 @@ string Position::toHuman() {
   string str = string(TicketId)+": "+Symbol+" ";
   str += EnumToString(Side);
   str += "("+IntegerToString(RewardPips)+"/"+IntegerToString(OneRpips)+")";
+  str += " OrderType: "+string(OrderType);
   str += " Type: "+orderType_toHuman(OrderType);
   str += " Size: "+DoubleToStr(LotSize,2);
   str += " @"+DoubleToStr(OpenPrice,Digits);
@@ -70,18 +72,41 @@ string Position::toHuman() {
   return(str);
 }
 
+string Position::to_human() {
+  //Info2(__FUNCTION__,__LINE__,"[0] = "+OP_BUY);       //  - buy order,
+  //Info2(__FUNCTION__,__LINE__,"[1] = "+OP_SELL);      //  - sell order,
+  //Info2(__FUNCTION__,__LINE__,"[2] = "+OP_BUYLIMIT);  //  - buy limit pending order,
+  //Info2(__FUNCTION__,__LINE__,"[3] = "+OP_SELLLIMIT);   //  - buy stop pending order,
+  //Info2(__FUNCTION__,__LINE__,"[4] = "+OP_BUYSTOP); //  - sell limit pending order,
+  //Info2(__FUNCTION__,__LINE__,"[5] = "+OP_SELLSTOP);  // - sell stop pending order.
+
+
+  string str = "\n"+
+  "tickerID=   "+string(TicketId)                          +"\n"+
+  "Symbol    = "+Symbol                                    +"\n"+
+  "Side      = "+EnumToString(Side)                        +"\n"+
+  "RewardPips= "+IntegerToString(RewardPips)               +"\n"+
+  "OneRpips  = "+IntegerToString(OneRpips)                 +"\n"+
+  "OrderType = "+string(OrderType)                                 +"\n"+
+  "Type      = "+orderType_toHuman(OrderType)              +"\n"+
+  "Size      = "+DoubleToStr(LotSize,2)                    +"\n"+
+  "OpenPrice = "+DoubleToStr(OpenPrice,Digits)             +"\n"+
+  "StopPrice = "+DoubleToStr(StopPrice,Digits)             +"\n"+
+  "TakeProfitPrice = "+DoubleToStr(TakeProfitPrice,Digits) +"\n";
+  return(str);
+}
+
 string Position::orderType_toHuman(int ot) {
   return(orderTypeStr[ot]);
 }
 
 void Position::initOrderTypeLookup() {
-  orderTypeStr[0] = "DNK";
-  orderTypeStr[1] = "OP_BUY";       //  - buy order,
-  orderTypeStr[2] = "OP_SELL";      //  - sell order,
-  orderTypeStr[3] = "OP_BUYLIMIT";  //  - buy limit pending order,
+  orderTypeStr[0] = "OP_BUY";       //  - buy order,
+  orderTypeStr[1] = "OP_SELL";      //  - sell order,
+  orderTypeStr[2] = "OP_BUYLIMIT";  //  - buy limit pending order,
+  orderTypeStr[3] = "OP_SELLLIMIT"; //  - sell limit pending order,
   orderTypeStr[4] = "OP_BUYSTOP";   //  - buy stop pending order,
-  orderTypeStr[5] = "OP_SELLLIMIT"; //  - sell limit pending order,
-  orderTypeStr[6] = "OP_SELLSTOP";  // - sell stop pending order.
+  orderTypeStr[5] = "OP_SELLSTOP";  // - sell stop pending order.
 }
 
 string Position::inspect() {

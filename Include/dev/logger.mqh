@@ -10,6 +10,8 @@ enum Enum_LogLevels{
   LogInfo,
   LogDebug
 };
+//extern Enum_LogLevels LogLevel = LogDebug;  //> Log Level
+Enum_LogLevels LogLevel = LogDebug;  //> Log Level
 
 #define LOG(level,text)  Print(level+": ",text)
 #define LOG2(level,func,line,text)  Print(level+"::"+func+"("+IntegerToString(line)+"): ",text)

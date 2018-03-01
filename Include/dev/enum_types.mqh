@@ -1,7 +1,6 @@
 #property strict
 
 enum Enum_EXIT_MODELS {
-  EX_EOD,       // End of day
   EX_EOS,       // End of session
   EX_Fitch,     // Fitch strategy
   EX_SL_TP,     // use stop loss and limit orders

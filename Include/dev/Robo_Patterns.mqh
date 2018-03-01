@@ -422,7 +422,7 @@ void Robo::checkTriggeredSetups(Setup* &setups[],int size) {
         Info("New trade created: "+trade.toHuman());
         setup.reset();
         if(trade.RewardPips/trade.OneRpips < MinReward2RiskRatio) {
-          Info("Trade did not meet min reward-to-risk ratio");
+          Info("c Trade did not meet min reward-to-risk ratio");
           if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
           continue;
         }
