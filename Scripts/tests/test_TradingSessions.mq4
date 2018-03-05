@@ -11,23 +11,27 @@
 
 extern bool Testing=false;
 
-#include <dev\TradingSessions2.mqh>
+#include <ATS\TradingSessions.mqh>
+extern Enum_LogLevels LogLevel = LogDebug;    //>> Log Level
 
 TradingSessions *obj;
 
 void OnStart() {
   obj = new TradingSessions();
   obj.setSession(NewYork); 
-  Print("GMT    : "+obj.showSession(true,GMT));
-  Print("Server : "+obj.showSession(true,Server));
-  Print("Local  : "+obj.showSession(true,Local));
+  Print("GMT    : "+obj.showSession(true,"GMT"));
+  Print("Server : "+obj.showSession(true,"Server"));
+  Print("Local  : "+obj.showSession(true,"Local"));
   Print(obj.showSession(true));  
   obj.setSession(London); 
   Print(obj.showSession(true));  
-  Print(obj.showAllSessions());  
+  obj.showAllSessions();  
   Print(obj.showSession(true));  
-  Print("startOfDayLocal="+(string)obj.startOfDayLocal);
-  Print("endOfDayLocal="+(string)obj.endOfDayLocal);
-
+  Print("startOfDay="+(string)obj.startOfDay);
+  Print("endOfDay="+(string)obj.endOfDay);
+  Print("nextStartTradeWindow="+(string)obj.nextStartTradeWindow);
+  Print("nextEndTradeWindow="+(string)obj.nextEndTradeWindow);
+  obj.setTradeWindow(NewYork,1);
+  
   if (CheckPointer(obj) == POINTER_DYNAMIC) delete obj;
 }
