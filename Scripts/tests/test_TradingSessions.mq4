@@ -18,20 +18,27 @@ TradingSessions *obj;
 
 void OnStart() {
   obj = new TradingSessions();
-  obj.setSession(NewYork); 
+  Print("test: instantiated");
+  ////obj.setSession(NewYork); 
+  ////Print("session set to NewYork");
   Print("GMT    : "+obj.showSession(true,"GMT"));
-  Print("Server : "+obj.showSession(true,"Server"));
+  //Print("Server : "+obj.showSession(true,"Server"));
   Print("Local  : "+obj.showSession(true,"Local"));
-  Print(obj.showSession(true));  
-  obj.setSession(London); 
-  Print(obj.showSession(true));  
-  obj.showAllSessions();  
-  Print(obj.showSession(true));  
-  Print("startOfDay="+(string)obj.startOfDay);
-  Print("endOfDay="+(string)obj.endOfDay);
-  Print("nextStartTradeWindow="+(string)obj.nextStartTradeWindow);
-  Print("nextEndTradeWindow="+(string)obj.nextEndTradeWindow);
-  obj.setTradeWindow(NewYork,1);
+  //Print(obj.showSession(true));  
+  //obj.setSession(London); 
+  //Print(obj.showSession(true)); 
+  Print("Session in local time zone:"); 
+  obj.showAllSessions("local");  
+  Print("Session in  gmt time zone:"); 
+  obj.showAllSessions("gmt");  
+  Print("Session in server time zone:"); 
+  obj.showAllSessions("server");  
+  //Print(obj.showSession(true));  
+  //Print("startOfDay="+(string)obj.startOfDay);
+  //Print("endOfDay="+(string)obj.endOfDay);
+  //Print("nextStartTradeWindow="+(string)obj.nextStartTradeWindow);
+  //Print("nextEndTradeWindow="+(string)obj.nextEndTradeWindow);
+  //obj.setTradeWindow(NewYork,1);
   
   if (CheckPointer(obj) == POINTER_DYNAMIC) delete obj;
 }

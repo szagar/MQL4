@@ -45,7 +45,7 @@ private:
   bool inSession;
   bool newDay;
 
-  double LocalOffsets[NumSeasons][NumSessions][2];
+  double LocalTime[NumSeasons][NumSessions][2];
   int getTZadj(string tz);
 
   Enum_Seasons season;
@@ -54,6 +54,7 @@ private:
   datetime SessionTimes_End[NumSessions];
 
   void initOffsets();
+  void setTZoffsets();
   datetime today0time();
   //void initSessionTimes();
 public:
@@ -98,8 +99,8 @@ public:
   datetime nextStartTradeWindow;
   datetime nextEndTradeWindow;
 
-  datetime getStartTime(Enum_Sessions);
-  datetime getEndTime(Enum_Sessions);
+  datetime getStartTime(Enum_Sessions);    // local time
+  datetime getEndTime(Enum_Sessions);      // local time
 
 
 };
@@ -107,19 +108,28 @@ public:
 TradingSessions::TradingSessions(Enum_Sessions _tradingSession=NewYork, Enum_Seasons _season=Winter) {
   Print("TimeCurrent() = "+string(TimeCurrent()));
   Print("TimeLocal() = "+string(TimeLocal()));
-  tradingSession= _tradingSession;
+  tradingSession = _tradingSession;
   season = _season;
-  datetime local,current,gmt;
 
-  MqlDateTime dtStruct;
-  TimeToStruct(TimeCurrent(), dtStruct);
-  dtStruct.hour = 0;
-  dtStruct.min = 0;
-  dtStruct.sec = 0;
+  datetime today0 = today0time(); 
+
+  startOfDay = today0 + 1*60*60;;
+    endOfDay = today0 + 17*60*60;
+
+  setTZoffsets();
+  initOffsets();
   
+  setSession(tradingSession);
+  Print("TradingSessions::  nextStartTradeWindow="+(string)nextStartTradeWindow);
+  Print("TradingSessions::  nextEndTradeWindow="+(string)nextEndTradeWindow);
+}
 
+void TradingSessions::setTZoffsets() {
+  Print("setTZoffsets() Entered");
+  datetime local,current,gmt;
   if(Testing) {
-    gmt = StructToTime(dtStruct);
+    datetime today0 = today0time(); 
+    gmt = today0;   //StructToTime(dtStruct);
     local = gmt - 5*60*60;
     current = gmt + 2*60*60;
   } else {
@@ -127,30 +137,56 @@ TradingSessions::TradingSessions(Enum_Sessions _tradingSession=NewYork, Enum_Sea
     current = TimeCurrent();
     gmt = TimeGMT();
   }
-  gmt2serverOffset = int(current-gmt);  //    server = GMT + 2
-  local2gmtOffset = int(gmt - local);  //TimeGMTOffset();   local = GMT - 5
-  local2serverOffset = int(current - local);
+  gmt2serverOffset = int((current-gmt)/60)*60;  //    server = GMT + 2
+  local2gmtOffset = int((gmt - local)/60)*60;  //TimeGMTOffset();   local = GMT - 5
+  local2serverOffset = int((current - local)/60)*60;
 
   gmt2serverOffsetHrs = int(gmt2serverOffset / (60*60));
   local2gmtOffsetHrs = int(local2gmtOffset / (60*60));
   local2serverOffsetHrs = int(local2serverOffset / (60*60));
+
+  Print("SanityCheck:  gmt2serverOffset  ="+string(gmt2serverOffset));
+  Print("SanityCheck:  local2gmtOffset   ="+string(local2gmtOffset));
+  Print("SanityCheck:  local2serverOffset="+string(local2serverOffset));
+  Print("SanityCheck:  "+string(local2gmtOffset)+" + "+string(gmt2serverOffset)+" = "+string(local2serverOffset));
   
   Print("SanityCheck:  gmt2serverOffsetHrs  ="+string(gmt2serverOffsetHrs));
   Print("SanityCheck:  local2gmtOffsetHrs      ="+string(local2gmtOffsetHrs));
   Print("SanityCheck:  local2serverOffsetHrs="+string(local2serverOffsetHrs));
   Print("SanityCheck:  "+string(local2gmtOffsetHrs)+" + "+string(gmt2serverOffsetHrs)+" = "+string(local2serverOffsetHrs));
-  
-  startOfDay = StructToTime(dtStruct) + 1*60*60;;
-    endOfDay = StructToTime(dtStruct) + 17*60*60;
+}  
 
-  //initSessionTimes();
-  initOffsets();
-  
-  setSession(tradingSession);
-  setTradeWindow();
+void TradingSessions::setSession(Enum_Sessions ts) {
+  //Print("setSession() Entered");
+  tradingSession = ts;
+  setTradeWindow(tradingSession);
 }
 
+void TradingSessions::setTradeWindow(Enum_Sessions ts = tbd, Enum_SessionSegments seg=all) {
+  //Print("setTradeWindow() Entered");
+  nextStartTradeWindow = getStartTime(ts);   //  local time 
+  nextEndTradeWindow   = getEndTime(ts);     //  local time
+  //Print(__FUNCTION__,__LINE__,"session("+EnumToString(ts)+")  time: "
+  //      +(string)nextStartTradeWindow+" :: "
+  //      +(string)nextEndTradeWindow);
+  if(seg>all) {
+    int segDuration = (int)(nextEndTradeWindow - nextStartTradeWindow)/3;
+    segDuration = int(segDuration/60 - MathMod(segDuration/60,Period()))*60;
+    if(seg>first) {
+      nextStartTradeWindow += segDuration*(seg-1);
+    }
+    if(seg<third) {
+      nextEndTradeWindow -= segDuration*(3-seg);
+    }
+  }
+}
+
+
+
+
+
 datetime TradingSessions::today0time() {
+  //Print("today0time() Entered");
   MqlDateTime dtStruct;
   TimeToStruct(TimeCurrent(), dtStruct);
   dtStruct.hour = 0;
@@ -159,115 +195,78 @@ datetime TradingSessions::today0time() {
   return StructToTime(dtStruct);
 }
 
+// local time of next session start
 datetime TradingSessions::getStartTime(Enum_Sessions ts) {
-  return today0time() + int(LocalOffsets[season][ts][Start]*60*60);
+  //Print("getStartTime() Entered");
+  return(datetime((int)today0time() + int(LocalTime[season][ts][Start]*60*60)));
 }
 
+// local time of next session end
 datetime TradingSessions::getEndTime(Enum_Sessions ts) {
-  return today0time() + int(LocalOffsets[season][ts][End]*60*60);
+  //Print("getEndTime() Entered");
+  return(datetime((int)today0time() + int(LocalTime[season][ts][End]*60*60)));
 }
-
-//void TradingSessions::initSessionTimes() {
-//  /*                  EST                  GMT              */
-//  /*    Asia          6pm - 3am            11pm - 8am       */
-//  /*    London        3am - 12pm           8am - 5pm        */
-//  /*    NewYork       8am - 5pm            1pm - 10pm       */
-//  /*    NYSE          9.5am - 4pm          2.5pm - 9pm      */
-//  /*    LondonClose   11am - 1pm           4pm - 6pm        */
-//  initOffsets();    //  GMT zone
-//  
-//  MqlDateTime dtStruct;
-//  TimeToStruct(TimeCurrent(), dtStruct);
-//  dtStruct.hour = 0;
-//  dtStruct.min = 0;
-//  dtStruct.sec = 0;
-//
-//  SessionTimes_Start[Asia]    = StructToTime(dtStruct) + int(LocalOffsets[season][Asia][Start]*60*60);
-//  SessionTimes_End[Asia]      = StructToTime(dtStruct) + int(LocalOffsets[season][Asia][End]*60*60);
-//  SessionTimes_Start[AsiaLast1] = StructToTime(dtStruct) + int(LocalOffsets[season][AsiaLast1][Start]*60*60);
-//  SessionTimes_End[AsiaLast1]   = StructToTime(dtStruct) + int(LocalOffsets[season][AsiaLast1][End]*60*60);
-//  SessionTimes_Start[London]  = StructToTime(dtStruct) + int(LocalOffsets[season][London][Start]*60*60);
-//  SessionTimes_End[London]    = StructToTime(dtStruct) + int(LocalOffsets[season][London][End]*60*60);
-//  SessionTimes_Start[NewYork] = StructToTime(dtStruct) + int(LocalOffsets[season][NewYork][Start]*60*60);
-//  SessionTimes_End[NewYork]   = StructToTime(dtStruct) + int(LocalOffsets[season][NewYork][End]*60*60);
-//  //Debug(__FUNCTION__,__LINE__,"StructToTime(dtStruct) = "+TimeToString(StructToTime(dtStruct)));
-//  //Debug(__FUNCTION__,__LINE__,"LocalOffsets[season][NYSE][Start] = "+string(LocalOffsets[season][NYSE][Start]));
-//  //Debug(__FUNCTION__,__LINE__,"LocalOffsets[season][NYSE][Start]*60*60 = "+string(LocalOffsets[season][NYSE][Start]*60*60));
-//  SessionTimes_Start[NYSE] = datetime(StructToTime(dtStruct) + LocalOffsets[season][NYSE][Start]*60*60);
-//  //Debug(__FUNCTION__,__LINE__,"SessionTimes_Start[NYSE] = "+string(SessionTimes_Start[NYSE]));
-//  SessionTimes_End[NYSE]   = StructToTime(dtStruct) + int(LocalOffsets[season][NYSE][End]*60*60);
-//  SessionTimes_Start[NYlast1] = StructToTime(dtStruct) + int(LocalOffsets[season][NYlast1][Start]*60*60);
-//  SessionTimes_End[NYlast1]   = StructToTime(dtStruct) + int(LocalOffsets[season][NYlast1][End]*60*60);
-//  SessionTimes_Start[LondonClose] = StructToTime(dtStruct) + int(LocalOffsets[season][LondonClose][Start]*60*60);
-//  SessionTimes_End[LondonClose]   = StructToTime(dtStruct) + int(LocalOffsets[season][LondonClose][End]*60*60);
-//
-//  //startTradingDay_Server = StructToTime(dtStruct);
-//  //endTradingDay_Server = StructToTime(dtStruct) + 24*60*60;
-//}
 
 TradingSessions::~TradingSessions() {
+  Print("~TradingSessions() Entered");
 }
   
 void TradingSessions::initOffsets() {
-  // GMT based !!
+  //Print("initOffsets() Entered");
   season = Winter;
-  LocalOffsets[season][Asia][Start] = 0;
-  LocalOffsets[season][Asia][End]   = 9;
-  LocalOffsets[season][AsiaLast1][Start] = 5;
-  LocalOffsets[season][AsiaLast1][End]   = 6;
-  LocalOffsets[season][London][Start] = 8;
-  LocalOffsets[season][London][End]   = 17;
-  LocalOffsets[season][NewYork][Start] = 13;
-  LocalOffsets[season][NewYork][End]   = 21;
-  LocalOffsets[season][NYSE][Start] = 14.5;
-  LocalOffsets[season][NYSE][End]   = 21;
-  LocalOffsets[season][NYlast1][Start] = 20;
-  LocalOffsets[season][NYlast1][End]   = 21;
-  LocalOffsets[season][LondonClose][Start] = 15;
-  LocalOffsets[season][LondonClose][End]   = 17;
-}
-
-void TradingSessions::setSession(Enum_Sessions ts) {
-  tradingSession = ts;
-  setTradeWindow(tradingSession);
-  //Debug(__FUNCTION__,__LINE__,"session:"+EnumToString(ts));
-  //startTradingSession_Server = SessionTimes_Start[tradingSession] + gmt2serverOffset;
-  //endTradingSession_Server = SessionTimes_End[tradingSession] + gmt2serverOffset;
-  //Debug(__FUNCTION__,__LINE__,"server:"+TimeToStr(startTradingSession_Server)+" - "+TimeToStr(endTradingSession_Server));  
+  LocalTime[season][Asia][Start]      = 19;
+  LocalTime[season][Asia][End]        =  4;
+  LocalTime[season][AsiaLast1][Start] =  3;
+  LocalTime[season][AsiaLast1][End]   =  4;
+  LocalTime[season][London][Start]    =  3;
+  LocalTime[season][London][End]      = 12;
+  LocalTime[season][NewYork][Start]   =  8;
+  LocalTime[season][NewYork][End]     = 16;
+  LocalTime[season][NYSE][Start]      =  9.5;
+  LocalTime[season][NYSE][End]        = 16;
+  LocalTime[season][NYlast1][Start]   = 15;
+  LocalTime[season][NYlast1][End]     = 16;
+  LocalTime[season][LondonClose][Start] = 11;
+  LocalTime[season][LondonClose][End]   = 12;
 }
 
 int TradingSessions::getTZadj(string tz) {
+  //Print("getTZadj() Entered");
+  if(StringCompare(tz,"server",false)==0)
+    return(local2serverOffset);
   if(StringCompare(tz,"local",false)==0)
-    return(-local2serverOffset);
+    return(0);
   if(StringCompare(tz,"gmt",false)==0)
-    return(-gmt2serverOffset);
+    return(-local2gmtOffset);
   return(0);
 }
 
 string TradingSessions::showSession(bool detail=false,string tz="Server") {
+  //Print("showSession() Entered");
   string rtn = EnumToString(tradingSession);
   int adj = getTZadj(tz);
   Print("adj="+string(adj));
   if(detail)
-    rtn += ":  "+string(startTradingSession_Server)+" - "+string(endTradingSession_Server);
+    rtn += ":  "+string(getStartTime(tradingSession)+adj)+" - "+string(getEndTime(tradingSession)+adj);
     
   return rtn;
 }
 
 void TradingSessions::showAllSessions(string tz = "server") {
-  //Debug(__FUNCTION__,__LINE__,"Entered");
+  //Print("showAllSessions() Entered");
   int adj = getTZadj(tz);
   string str;
   Enum_Sessions save = tradingSession;
   for(Enum_Sessions i=0; i<EnumLast; i++ ) {
-    setSession(i);
-    str = StringFormat("Session: %-10s: %s - %s",EnumToString(i),TimeToStr(startTradingSession_Server+adj),TimeToString(endTradingSession_Server+adj));
+    //setSession(i);
+    str = StringFormat("Session: %-10s: %s - %s",EnumToString(i),TimeToStr(getStartTime(i)+adj),TimeToString(getEndTime(i)+adj));
     Print(str);
   }
   setSession(save);
 }
 
 datetime TradingSessions::previousSessionStart(datetime t=0) {
+  Print("previousSessionStart() Entered");
   if(t==0) t = TimeCurrent();
   MqlDateTime dtStruct;
   TimeToStruct(t, dtStruct);
@@ -278,6 +277,7 @@ datetime TradingSessions::previousSessionStart(datetime t=0) {
 }
 
 bool TradingSessions::tradeWindowHr(Enum_Sessions ts = tbd, Enum_SessionSegments seg=all) {
+  Print("tradeWindowHr() Entered");
   int startTime,stopTime;
   if(ts == All) return true;
   if(ts == tbd) ts = tradingSession;
@@ -306,25 +306,8 @@ bool TradingSessions::tradeWindowHr(Enum_Sessions ts = tbd, Enum_SessionSegments
   return (TRUE);
 }
 
-void TradingSessions::setTradeWindow(Enum_Sessions ts = tbd, Enum_SessionSegments seg=all) {
-  nextStartTradeWindow = getStartTime(ts)/60/60;
-  nextEndTradeWindow   = getEndTime(ts)/60/60;
-  Info2(__FUNCTION__,__LINE__,"session("+EnumToString(ts)+")  time: "
-        +(string)(datetime)nextStartTradeWindow+" :: "
-        +(string)(datetime)nextEndTradeWindow);
-  if(seg>all) {
-    int segDuration = (int)(nextEndTradeWindow - nextStartTradeWindow)/3;
-    segDuration = int(segDuration/60 - MathMod(segDuration/60,Period()))*60;
-    if(seg>first) {
-      nextStartTradeWindow += segDuration*(seg-1);
-    }
-    if(seg<third) {
-      nextEndTradeWindow -= segDuration*(3-seg);
-    }
-  }
-}
-
 bool TradingSessions::tradeWindow(Enum_Sessions ts = tbd, Enum_SessionSegments seg=all) {
+  Print("tradeWindow() Entered");
   int startTime,startMinute,stopTime;
   if(ts == All) return true;
   if(ts == tbd) ts = tradingSession;
@@ -351,11 +334,13 @@ bool TradingSessions::tradeWindow(Enum_Sessions ts = tbd, Enum_SessionSegments s
 }
 
 datetime TradingSessions::addDay(datetime to) {
+  Print("addDay() Entered");
   //Debug(__FUNCTION__,__LINE__,string(to)+" -> "+string(to + 24*60*60));
   return(to + 24*60*60);
 }
 
 void TradingSessions::setSessionMinMax() {
+  Print("setSessionMinMax() Entered");
   //Debug(__FUNCTION__,__LINE__,"Entered");
 
   datetime start = startTradingSession_Server;
@@ -389,18 +374,21 @@ void TradingSessions::setSessionMinMax() {
 }
 
 datetime TradingSessions::startTimeForSession(Enum_Sessions thisSession,string tz="Server") {
+  Print("startTimeForSession() Entered");
   if(StringCompare(tz,"Server")==0)
     return SessionTimes_Start[thisSession] + gmt2serverOffset;
   return NULL;
 }
 
 datetime TradingSessions::endTimeForSession(Enum_Sessions thisSession,string tz="Server") {
+  Print("endTimeForSession() Entered");
   if(StringCompare(tz,"Server")==0)
     return SessionTimes_End[thisSession] + gmt2serverOffset;
   return NULL;
 }
 
 bool TradingSessions::isSOD(datetime t=0) {
+  Print("isSOD() Entered");
   if(t==0) t = TimeCurrent();
   //Info2(__FUNCTION__,__LINE__,"t="+(string)t+"   startOfDay="+(string)startOfDay);
   if(t >= startOfDay) {
@@ -411,6 +399,7 @@ bool TradingSessions::isSOD(datetime t=0) {
 }
 
 bool TradingSessions::isSOS(datetime t=0) {
+  Print("isSOS() Entered");
   //Info2(__FUNCTION__,__LINE__,"Entered");
   if(t==0) t = TimeCurrent();
   //Info2(__FUNCTION__,__LINE__,(string)t+" == "+(string)(datetime)nextStartTradeWindow);
@@ -423,6 +412,7 @@ bool TradingSessions::isSOS(datetime t=0) {
 }
 
 void TradingSessions::onNewBar(datetime barStart) {
+  Print("onNewBar() Entered");
   if(barStart>nextEndTradeWindow)
     inSession = false;
   if(inSession)
@@ -432,6 +422,7 @@ void TradingSessions::onNewBar(datetime barStart) {
 }
 
 void TradingSessions::closeOfBar() {
+  Print("closeOfBar() Entered");
   if(newDay) {
     newDay = false;
     startOfDay = addDay(startOfDay);
