@@ -16,14 +16,14 @@
 #include <ATS\BreakOutATS.mqh>
 
 #include <ATS\logger.mqh>
-#include <ATS\ChartTools.mqh>
+//#include <ATS\ChartTools.mqh>
 #include <ATS\TradingSessions.mqh>
 #include <ATS\Broker.mqh>
 #include <ATS\Trader.mqh>
 #include <ATS\Filters.mqh>
 #include <ATS\OptimizerOutput.mqh>
 
-ChartTools *chart;
+//ChartTools *chart;
 TradingSessions *sessionTool;
 Broker *broker;
 Trader *trader;
@@ -45,7 +45,7 @@ int OnInit() {
   Info2(__FUNCTION__,__LINE__,"Entered");
   setSomeConstants();
 
-  chart = new ChartTools();
+  //chart = new ChartTools();
   sessionTool = new TradingSessions(Session);
   broker = new Broker();
   exitMgr = new ExitManager();
@@ -60,8 +60,10 @@ int OnInit() {
  
   startOfDay = sessionTool.startOfDay;
   endOfDay = sessionTool.endOfDay;
-  Info("Day start: "+string(startOfDay));
+  Info("Day start: "+string(sessionTool.startOfDay));
   Info("Day end: "+string(endOfDay));
+  Info("Session start: "+string(sessionTool.nextStartTradeWindow));
+  Info("Session end: "+string(sessionTool.nextEndTradeWindow));
  
   optcnt++;
   return(INIT_SUCCEEDED);
@@ -81,7 +83,7 @@ void OnDeinit(const int reason) {
   if (CheckPointer(exitMgr) == POINTER_DYNAMIC) delete exitMgr;      
   if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;      
   if (CheckPointer(sessionTool) == POINTER_DYNAMIC) delete sessionTool;      
-  if (CheckPointer(chart) == POINTER_DYNAMIC) delete chart;
+  //if (CheckPointer(chart) == POINTER_DYNAMIC) delete chart;
   if (CheckPointer(optOut) == POINTER_DYNAMIC) delete optOut;
   EventKillTimer();
 }
@@ -94,7 +96,7 @@ void OnTick() {
   }
   if(tickEntry 
      && ats.tradeCnt<=MaxTradesPerDay 
-     && sessionTool.tradeWindow(Session,SessionSegment)) {   //inTradeWindow())
+     && sessionTool.tradeWindow2()) {
     if(GoLong)
       if(filters.pass(Long)) {
         if(Testing)
@@ -111,8 +113,6 @@ void OnTick() {
       }
   }     
   ats.OnTick();   
-  if(isNewBar())
-    OnNewBar();
   if(SimulateStopEntry) {
     if(ats.pendingLongEntry && Bid >= ats.pendingLongEntryPrice)
       ats.stopEntrySignaled(Long);
@@ -127,29 +127,34 @@ void OnTick() {
     OnNewBar();
 }
 
+void runSOD() {
+  filters.setDaily();
+  ats.startOfDay();
+}
+
+void runEOD() {
+  if(UseEODexit) { 
+    broker.closeOpenTrades(Symbol(),ats.strategyName);
+    broker.deletePendingOrders(Symbol(),ats.strategyName);
+  }
+  broker.PrintOpenTrades();
+  broker.PrintPendingOrders();
+
+  ats.endOfDay();
+  //writeDailySummary();
+}
+
 void OnNewBar() {
   //Info("iBarShift="+string(iBarShift(NULL,0, submitTime)));
   barNumber++;
-  dayBarNumber++;
   sessionTool.onNewBar(Time[0]);
+  if(sessionTool.newDayBar) runSOD();
   
-  pendingOrders = broker.cntPendingOrders(Symbol(),ats.strategyName);
-  if(isSOD()) {
-    //sessionTool.setTradeWindow(Session,SessionSegment);
-    filters.setDaily();
-    ats.startOfDay();
-  }
-  if(isEOD()) {
-    if(UseEODexit) { 
-      broker.closeOpenTrades(Symbol(),ats.strategyName);
-      broker.deletePendingOrders(Symbol(),ats.strategyName);
-    }
-    broker.PrintOpenTrades();
-    broker.PrintPendingOrders();
+  Print("barNumber=",barNumber,"  dayBarNumber=",sessionTool.dayBarNumber,"  sessionBarNumber=",sessionTool.sessionBarNumber);
 
-    ats.endOfDay();
-    //writeDailySummary();
-  }
+  pendingOrders = broker.cntPendingOrders(Symbol(),ats.strategyName);
+  Print("Pending orders =",pendingOrders);
+
   if(UseBarsInExit) {
     //// for each open trade ...
     //  if(barNumber-entryBar)>BarsInTrade) {
@@ -170,9 +175,11 @@ void OnNewBar() {
     pendingOrders = false;
     broker.deletePendingOrders(Symbol(),ats.strategyName); 
   }
+  if(UseTrailingStop) {
+  }
   if(barEntry
      && ats.tradeCnt<MaxTradesPerDay
-     && sessionTool.tradeWindow(Session,SessionSegment)) {
+     && sessionTool.tradeWindow2()) {
     ats.OnBar(true);
     if(GoLong)
       if(filters.pass(Long)) {
@@ -192,32 +199,16 @@ void OnNewBar() {
     ats.OnBar(false);
   }
   sessionTool.closeOfBar();
+  if(sessionTool.isEOD()) runEOD();
 }
 
-bool isSOD() {
-  if(now >= startOfDay) {
-    startOfDay = sessionTool.addDay(startOfDay);
-    //sessionTool.initSessionTimes();
-    return true;
-  }
-  return(false);
-}
-
-bool isEOD() {
-  if(now >= endOfDay) {
-    endOfDay = sessionTool.addDay(endOfDay);
-    return true;
-  }
-  return(false);
-}
-
-bool isStartOfNewSession() {
-  if(Time[0] >= sessionTool.startTradingSession_Server) {
-    sessionTool.startTradingSession_Server = sessionTool.addDay(sessionTool.startTradingSession_Server);
-    return true;
-  }
-  return false;
-}
+//bool isStartOfNewSession() {
+//  if(Time[0] >= sessionTool.startTradingSession_Server) {
+//    sessionTool.startTradingSession_Server = sessionTool.addDay(sessionTool.startTradingSession_Server);
+//    return true;
+//  }
+//  return false;
+//}
 
 bool isNewBar() {
   static datetime time0;

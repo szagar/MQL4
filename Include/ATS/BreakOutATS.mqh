@@ -86,11 +86,14 @@ void BreakOutATS::OnBar(bool tradeable=false) {
 
   if(tradeable) {
     Info2(__FUNCTION__,__LINE__,"tradeable()");
-    Info("barPOI="+DoubleToStr(barPOI,Digits)+"  isSOS="+(string)sessionTool.isSOS(Time[0]));
-    if(barPOI && sessionTool.isSOS(Time[0]))
+    Info("barPOI="+(string)barPOI+"  newSessionBar="+(string)sessionTool.newSessionBar);
+    if(barPOI && sessionTool.newSessionBar)
       poi.setPOI(1);
     if(barDist)
       dist.getDistance();
+    Info2(__FUNCTION__,__LINE__,"POI_Long="+DoubleToString(poi.POI_Long,Digits));
+    Info2(__FUNCTION__,__LINE__,"POI_Short="+DoubleToString(poi.POI_Short,Digits));
+    Info2(__FUNCTION__,__LINE__,"Distance="+DoubleToString(dist.distance,Digits));
   }
 }
 

@@ -79,7 +79,7 @@ double ExitManager::getTrailingStop(Position *pos) {
 
   currentPrice = NormalizeDouble((pos.Side == Long ? Bid : Ask),Digits);
    
-  Debug(__FUNCTION__,__LINE__,"model="+EnumToString(TS_Model)+"  price="+DoubleToStr(currentPrice,Digits)+" currSL="+DoubleToStr(currStopLoss,Digits));
+  Info2(__FUNCTION__,__LINE__,"model="+EnumToString(TS_Model)+"  price="+DoubleToStr(currentPrice,Digits)+" currSL="+DoubleToStr(currStopLoss,Digits));
   switch(TS_Model) {
     case TS_CandleTrail:
       newTrailingStop = ((pos.Side==Long) ? iLow(NULL,0,TS_BarCount) :

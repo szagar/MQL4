@@ -9,6 +9,11 @@ enum Enum_LogLevels{
   LogInfo,
   LogDebug
 };
+enum Enum_TIME_ZONES {
+  local,
+  gmt,
+  server
+};
 enum Enum_EXIT_MODELS {
   EX_EOS,       // End of session
   EX_Fitch,     // Fitch strategy
