@@ -176,6 +176,7 @@ void OnNewBar() {
     broker.deletePendingOrders(Symbol(),ats.strategyName); 
   }
   if(UseTrailingStop) {
+    exitMgr.updateTrailingStops();
   }
   if(barEntry
      && ats.tradeCnt<MaxTradesPerDay
@@ -200,6 +201,28 @@ void OnNewBar() {
   }
   sessionTool.closeOfBar();
   if(sessionTool.isEOD()) runEOD();
+}
+
+void handleOpenPositions() {
+  Position *pos;
+  for(int i=OrdersTotal()-1, i>=0; i--) {
+    if(!OrderSelect(i,SELECT_BY_POS)) {
+      lastError = GetLastError();
+      Warn(__FUNCTION__+"("+__LINE__+"): "+lastError);
+      continue;
+    }
+    pos = broker.GetPosition();
+    if(StringCompare(magic.getStrategy(OrderMagicNumber()),strategyName,false)!=0)
+      continue
+    if(OrderType()==0) {
+      if(useTrailingStop)
+        exitMgr.getTrailingStop(pos);
+    }
+    if(OrderType()==1) {
+      if(useTrailingStop)
+        exitMgr.getTrailingStop(pos);
+    }
+  }
 }
 
 //bool isStartOfNewSession() {

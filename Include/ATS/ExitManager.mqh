@@ -124,3 +124,14 @@ double ExitManager::atr(int _period, int _numBars) {
   atr = NormalizeDouble(atr, int(MarketInfo(symbol, MODE_DIGITS)-1));
   return(atr);
 }
+
+
+void ExitManager::updateTrailingStops(string strategyName) {
+  if(OrdersTotal()==0) return;
+  for(int i=OrdersTotal()-1; i>=0; i--) {
+    if(OrderSelect(i,SELECT_BY_POS,MODE_TRADES)==true) {
+      if(StringCompare(magic.getStrategy(OrderMagicNumber()),strategyName,false)<>0) continue;
+
+    }
+  }
+}
