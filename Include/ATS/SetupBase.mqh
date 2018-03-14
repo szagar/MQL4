@@ -8,7 +8,7 @@
 #property version   "1.00"
 #property strict
 
-#include <ATS/MagicNumber.mqh>
+//#include <ATS/MagicNumber.mqh>
 
 class SetupBase {
 protected:
@@ -26,7 +26,7 @@ public:
   int tradeNumber;
   
   double rboPrice;
-  MagicNumber *magic;
+  //MagicNumber *magic;
   
   SetupBase();
   ~SetupBase();
@@ -46,7 +46,7 @@ public:
 
 SetupBase::SetupBase() {
   symbol = Symbol();
-  magic = new MagicNumber();
+  //magic = new MagicNumber();
   triggered = false;
 }
 
@@ -56,7 +56,7 @@ SetupBase::SetupBase(string _symbol,Enum_SIDE _side) {
   sideSave = _side;
   callOnTick = false;
   callOnBar = false;
-  magic = new MagicNumber();
+  //magic = new MagicNumber();
   triggered = false;
 }
 

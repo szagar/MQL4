@@ -29,7 +29,7 @@ enum Enum_ENTRY_MODELS {
 };
 enum Enum_POS_SIZE_MODELS {
   PS_VanTharp,  // Van Tharp basic
-  PS_OneMini    // 0.10 lots
+  PS_Fixed    // Fixed size
 };
 enum Enum_PRICE_MODELS {
   PM_BidAsk=0,  //Enter long at Ask, short at Bid (pip buffer)
@@ -101,10 +101,12 @@ enum Enum_TS_WHEN {
 };
 enum Enum_TS_TYPES { 
   TS_None=0,      // Not Applicable
+  TS_PATI_PIPS,   // PATI Pips
   TS_CandleTrail, // Candle Trail
   TS_SwingHL,     // Swing High or Low
   TS_ATR,         // ATR factor
   TS_OneR,        // OneR X
+  TS_PrevHL,      // Prev H/L x bars back
 };
 enum Enum_PROFIT_TARGET_TYPES { 
   PT_None=0,      // Not Applicable

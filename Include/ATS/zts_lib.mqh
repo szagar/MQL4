@@ -12,10 +12,19 @@ double calc_ATR(string symbol, int period, int numBars) {
                     period,     // timeframe
                     numBars,    // averaging period
                     0);         // shift
-  Debug(__FUNCTION__,__LINE__,"atr="+DoubleToStr(atr,2));
-  Debug(__FUNCTION__,__LINE__,"period="+string(period));
-  Debug(__FUNCTION__,__LINE__,"numBars="+string(numBars));
   atr = NormalizeDouble(atr, int(MarketInfo(symbol, MODE_DIGITS)-1));
-  //Info(__FUNCTION__+": atr "+string(numBars)+" bars. period = "+string(period)+"  atr="+string(atr));
   return(atr);
+}
+
+int calcPatiPips(string symbol) {
+  int defaultStopPips = 12;
+  string PatiExceptionPairs = "EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10";
+
+  int stop = defaultStopPips;
+  int pairPosition = StringFind(PatiExceptionPairs, symbol, 0);
+  if (pairPosition >=0) {
+    int slashPosition = StringFind(PatiExceptionPairs, "/", pairPosition) + 1;
+    stop =int( StringToInteger(StringSubstr(PatiExceptionPairs,slashPosition)));
+  }
+  return stop;
 }

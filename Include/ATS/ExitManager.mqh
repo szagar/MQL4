@@ -3,6 +3,7 @@
 //+------------------------------------------------------------------+
 #property strict
 
+#include <ATS\zts_lib.mqh>
 #include <ATS\exit_externs.mqh>
 
 
@@ -15,7 +16,7 @@ private:
 
   int oneR_calc_PATI();
   //double oneR_calc_ATR(int,int);
-  double atr(int, int);
+  //double atr(int, int);
 
   double availableFunds();
   //void configParams();
@@ -25,6 +26,7 @@ public:
   //ExitManager(const int=1, const int=1);
   ~ExitManager();
 
+  void updateTrailingStops(string strategyName);
   double calcTrailingStopLoss(string,int);
   double getTrailingStop(Position *pos);
   //bool useTakeProfit;
@@ -75,62 +77,57 @@ double ExitManager::getTrailingStop(Position *pos) {
   Debug(__FUNCTION__,__LINE__,"Entered");
   double currentPrice, newTrailingStop;
   double currStopLoss=OrderStopLoss();
-  int pips=0;
+  int pips,val_index;
+  double delta;
 
   currentPrice = NormalizeDouble((pos.Side == Long ? Bid : Ask),Digits);
+  currentPrice = Close[1];
    
-  Info2(__FUNCTION__,__LINE__,"model="+EnumToString(TS_Model)+"  price="+DoubleToStr(currentPrice,Digits)+" currSL="+DoubleToStr(currStopLoss,Digits));
   switch(TS_Model) {
+    case TS_PATI_PIPS:
+      pips = calcPatiPips(pos.Symbol);
+      newTrailingStop = currentPrice - pips * P2D * pos.SideX;
+      break;
     case TS_CandleTrail:
       newTrailingStop = ((pos.Side==Long) ? iLow(NULL,0,TS_BarCount) :
                                             iHigh(NULL,0,TS_BarCount));
       break;
     case TS_ATR:
-      Info("pips = int(atr(TS_ATRperiod,TS_BarCount)*PipFact * TS_ATRfactor);");
-      Info("pips = int("+DoubleToStr(atr(TS_ATRperiod,TS_BarCount),Digits)+"*"+string(PipFact)+" * "+DoubleToStr(TS_ATRfactor,2)+")");
-      pips = int(atr(TS_ATRperiod,TS_BarCount)*PipFact * TS_ATRfactor);
-      Debug(__FUNCTION__,__LINE__,"pips="+string(pips));
-      Info("newTrailingStop = "+DoubleToStr(currentPrice,Digits)+" + "+string(pips)+" * "+string(OnePoint)+" * "+EnumToString(pos.Side));
-      newTrailingStop = currentPrice - pips * OnePoint * pos.Side;
-      Debug(__FUNCTION__,__LINE__,"newTrailingStop="+string(newTrailingStop));
+      delta = (int)calc_ATR(pos.Symbol,TS_ATRperiod,TS_BarCount) * TS_ATRfactor;
+      newTrailingStop = currentPrice - delta * pos.SideX;
       break;
     case TS_OneR:
-      pips = pos.OneRpips;
-      newTrailingStop = currentPrice + pips * OnePoint * pos.Side;
+      newTrailingStop = currentPrice + pos.OneRpips * P2D * pos.SideX;
+      break;
+    case TS_PrevHL:
+      if(pos.Side==Long) {
+        val_index=iHighest(NULL,0,MODE_HIGH,TS_BarCount+1,1);
+        newTrailingStop=iHigh(NULL,0,val_index);
+      } else {
+        val_index=iLowest(NULL,0,MODE_LOW,TS_BarCount+1,1);
+        newTrailingStop=iLow(NULL,0,val_index);
+      }
       break;
     default:
-      newTrailingStop = currentPrice;;
+      return(-1);
   }
   newTrailingStop -= TS_PadAmount*PipSize*pos.SideX;
-      Debug(__FUNCTION__,__LINE__,"newTrailingStop="+string(newTrailingStop));
   newTrailingStop = NormalizeDouble(newTrailingStop,Digits);
-      Debug(__FUNCTION__,__LINE__,"newTrailingStop="+string(newTrailingStop));
 
-  Debug(__FUNCTION__,__LINE__,"(newTrailingStop-currStopLoss)= "+DoubleToStr((newTrailingStop-currStopLoss),Digits));
-  Debug(__FUNCTION__,__LINE__,"pos.Side= "+EnumToString(pos.Side));
-  Debug(__FUNCTION__,__LINE__,"PipFact= "+DoubleToStr(PipFact,Digits));
-  Debug(__FUNCTION__,__LINE__,"TS_MinDeltaPips="+DoubleToStr(TS_MinDeltaPips,2));
-  if(currStopLoss==0 || (newTrailingStop-currStopLoss)*pos.Side*PipFact >= TS_MinDeltaPips) {
+  LogTrade(__FUNCTION__,__LINE__,(string)pos.TicketId+" currentStopLoss="+DoubleToStr(currStopLoss,Digits)+"  newTrailingStop="+DoubleToStr(newTrailingStop,Digits)+"  OrderStopLoss="+DoubleToStr(pos.StopPrice,Digits));
+  if(currStopLoss==0 ||
+     (newTrailingStop-currStopLoss)*pos.SideX*D2P >= TS_MinDeltaPips) {
+    LogTrade(__FUNCTION__,__LINE__,"return("+DoubleToStr(newTrailingStop,Digits)+")");
     return(newTrailingStop);
   }
   return(-1);
 }
 
-double ExitManager::atr(int _period, int _numBars) {
-  double atr = iATR(symbol,     // symbol
-                    _period,     // timeframe
-                    _numBars,    // averaging period
-                    0);          // shift
-  atr = NormalizeDouble(atr, int(MarketInfo(symbol, MODE_DIGITS)-1));
-  return(atr);
-}
-
-
 void ExitManager::updateTrailingStops(string strategyName) {
   if(OrdersTotal()==0) return;
   for(int i=OrdersTotal()-1; i>=0; i--) {
     if(OrderSelect(i,SELECT_BY_POS,MODE_TRADES)==true) {
-      if(StringCompare(magic.getStrategy(OrderMagicNumber()),strategyName,false)<>0) continue;
+      if(!magic.matchStrategyName(strategyName)) continue;
 
     }
   }

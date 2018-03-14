@@ -60,13 +60,13 @@ int InitialRisk::getInPips(string symbol, Enum_SIDE side, Enum_INITIAL_RISK _mod
       pips = int(calc_ATR(symbol,IR_AtrTF,IR_BarCount)*PipFact*IR_ATRfactor);
       break;
     case IR_PrevHL:
-      if(side==Short) {
-        px = Close[1];   //Bid;
-        sidex = -1;
+      if(side==Long) {
+        px = Bid;
+        sidex = 1;
         val_index=iHighest(NULL,0,MODE_HIGH,IR_BarCount+1,1);
         sl = iHigh(NULL,0,val_index);
       } else {
-        px = Close[1];   //Ask;
+        px = Ask;
         sidex = 1;
         val_index=iLowest(NULL,0,MODE_LOW,IR_BarCount+1,1);
         sl = iLow(NULL,0,val_index);

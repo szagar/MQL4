@@ -15,14 +15,14 @@
 #include <ATS\ProfitTargetModels.mqh>
 #include <ATS\SetupBase.mqh>
 #include <ATS\setupStruct.mqh>
-#include <ATS\MagicNumber.mqh>
+//#include <ATS\MagicNumber.mqh>
 #include <ATS\PriceModels.mqh>
 #include <ATS\PriceModelsFake.mqh>
 
 class Trader {
 private:
   PositionSizer      *sizer;
-  MagicNumber        *magic;
+  //MagicNumber        *magic;
   PriceModelsBase    *price;
   ExitManager        *exitMgr;
   InitialRisk        *initRisk;
@@ -49,7 +49,7 @@ public:
 
 Trader::Trader(ExitManager* em,InitialRisk* ir, ProfitTargetModels *pt) {
   sizer = new PositionSizer();
-  magic = new MagicNumber();
+  //magic = new MagicNumber();
   if(Testing)
     price = new PriceModelsFake();
   else
@@ -85,7 +85,7 @@ Position *Trader::newTrade(SetupBase *setup) {
   trade.Symbol = setup.symbol;
   trade.Side = setup.side;
 
-  int oneR = initRisk.getInPips(trade);
+  int oneR = initRisk.getInPips(trade.Symbol,trade.Side);
   double entryPrice = price.entryPrice(trade);
   Info2(__FUNCTION__,__LINE__,"strategyName="+setup.strategyName);
   if(StringCompare(setup.strategyName,"RboSetup")==0) {
@@ -99,6 +99,7 @@ Position *Trader::newTrade(SetupBase *setup) {
   if(UseStopLoss) {
     trade.StopPrice = (setup.side==Long ? trade.OpenPrice - oneR*PipSize :
                                           trade.OpenPrice + oneR*PipSize);
+    LogTrade(__FUNCTION__,__LINE__,"set Stop Loss: "+DoubleToString(trade.StopPrice,Digits));
   }
   
   trade.Symbol = setup.symbol;
@@ -138,7 +139,6 @@ int Trader::limitEntryOrder(SetupStruct *setup) {
   }  
   setup.isPending = true;
   Info2(__FUNCTION__,__LINE__,"setup="+setup.to_human());
-  //if(!setup.oneRpips) setup.oneRpips = initRisk.getInPips(setup);
 
   Position *trade = createTrade(setup);
   if (CheckPointer(setup)    == POINTER_DYNAMIC) delete setup;
@@ -149,6 +149,8 @@ int Trader::limitEntryOrder(SetupStruct *setup) {
     if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
       return(-1);
   }
+  LogTrade(__FUNCTION__,__LINE__,"Limit Entry: "+EnumToString(trade.Side)+" "+trade.Symbol);
+  LogTrade(__FUNCTION__,__LINE__,"Limit Entry: "+trade.to_human());
   int tid=broker.CreateOrder(trade);
   if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
   return(tid);
@@ -169,7 +171,6 @@ int Trader::stopEntryOrder(SetupStruct *setup) {
     setup.sideX = -1;
   }  
   setup.isPending = true;
-  //if(!setup.oneRpips) setup.oneRpips = initRisk.getInPips(setup);
 
   Info2(__FUNCTION__,__LINE__,setup.to_human());
   Position *trade = createTrade(setup);
@@ -192,6 +193,9 @@ int Trader::stopEntryOrder(SetupStruct *setup) {
     }
   }
   //Info2(__FUNCTION__,__LINE__,"Bid/Ask: "+Bid+"/"+Ask);
+  LogTrade(__FUNCTION__,__LINE__,"Stop Entry: "+EnumToString(trade.Side)+" "+trade.Symbol);
+  LogTrade(__FUNCTION__,__LINE__,"Limit Entry: "+trade.to_human());
+
   int tid=broker.CreateOrder(trade);
   if (CheckPointer(trade) == POINTER_DYNAMIC) delete trade;
   return(tid);
@@ -201,7 +205,10 @@ double Trader::calcStopLoss(Position *pos) {
   Debug(__FUNCTION__,__LINE__,"Entered");
   double newStopLoss;
   double px = iClose(NULL,0,1);
-  if(px-OrderOpenPrice()>exitMgr.pips2startTS(pos)*P2D)
+  LogTrade(__FUNCTION__,__LINE__,"TID:"+(string)pos.TicketId+"   if("+(string)pos.SideX+
+              "*("+DoubleToStr(px,Digits)+"-"+DoubleToStr(OrderOpenPrice(),Digits)+")<"+
+              (string)exitMgr.pips2startTS(pos)+"*"+DoubleToStr(P2D,Digits)+")");
+  if(pos.SideX*(px-OrderOpenPrice())<exitMgr.pips2startTS(pos)*P2D)
     return(NULL);
   newStopLoss = exitMgr.getTrailingStop(pos);
   if(newStopLoss > 0) {
@@ -213,6 +220,7 @@ double Trader::calcStopLoss(Position *pos) {
 
 void Trader::closeOpenPositions(Enum_SIDE side, int magicN=0) {
   Info2(__FUNCTION__,__LINE__,"Entered.");
+  LogTrade(__FUNCTION__,__LINE__,"Close Trade: symbol="+OrderSymbol()+"  lots="+DoubleToStr(OrderLots(),2));
   broker.closeOpenTrades(Symbol(),side,magicN);
 }
 
@@ -225,15 +233,17 @@ Position *Trader::createTrade(SetupStruct *setup) {
   trade.SideX = setup.sideX;
   trade.OrderType = setup.orderType;
   trade.OpenPrice = setup.entryPrice;
-  if(!setup.oneRpips) setup.oneRpips = initRisk.getInPips(setup);
+  if(!setup.oneRpips) setup.oneRpips = initRisk.getInPips(setup.symbol,setup.side);
   trade.OneRpips = setup.oneRpips;
   trade.LotSize = sizer.lotSize(trade);
   trade.Reference = __FILE__;
   trade.Magic = magic.get(setup.strategyName,setup.oneRpips);
 
-  if(UseStopLoss)
+  if(UseStopLoss) {
     trade.StopPrice = (setup.side==Long ? trade.OpenPrice - setup.oneRpips*PipSize :
                                           trade.OpenPrice + setup.oneRpips*PipSize);
+    LogTrade(__FUNCTION__,__LINE__,"set Stop Loss: "+DoubleToString(trade.StopPrice,Digits));
+  }
   Info2(__FUNCTION__,__LINE__,"mark");
   if(UseTakeProfit) {
     Info2(__FUNCTION__,__LINE__,"mark");

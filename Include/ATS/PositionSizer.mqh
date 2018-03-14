@@ -13,10 +13,6 @@
 
 #include <ATS\positionSizer_externs.mqh>
 
-//extern string commentString_ps0 = ""; //---------------------------------------------
-//extern string commentString_ps1 = ""; //*** Position Sizer setup
-//extern Enum_POS_SIZE_MODELS PS_Model = PS_OneMini;  // Sizer Model
-
 class PositionSizer {
 private:
 public:
@@ -40,8 +36,8 @@ double PositionSizer::lotSize(Position *trade, Enum_POS_SIZE_MODELS _model = NUL
     case PS_VanTharp:
       lots = sizer_vantharp(trade);
       break;
-    case PS_OneMini:
-      lots = 0.1;
+    case PS_Fixed:
+      lots = PS_FixedLotSize;
       break;
   }
  lots = MathRound(lots/MarketInfo(Symbol(),MODE_LOTSTEP)) * MarketInfo(Symbol(),MODE_LOTSTEP);

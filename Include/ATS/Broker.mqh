@@ -9,9 +9,7 @@
 #property strict
 #include <ATS\Position.mqh>
 #include <ATS\OrderReliable.mqh>
-//#include <ATS\common.mqh>
-//#include <ATS\commonConstants.mqh>
-#include <ATS\MagicNumber.mqh>
+//#include <ATS\MagicNumber.mqh>
 
 //+------------------------------------------------------------------+
 //|                 OrdersTotal                                                 |
@@ -19,7 +17,7 @@
 class Broker
   {
 private:
-  MagicNumber *magic;
+  //MagicNumber *magic;
   
   int startingPos;
   string symbolPrefix;
@@ -80,7 +78,7 @@ public:
 //+------------------------------------------------------------------+
 Broker::Broker(int symbolOffset = 0) {
   TypeName = "RealBroker";
-  magic = new MagicNumber();
+  //magic = new MagicNumber();
   cancelColor = clrPeru;
   startingPos = symbolOffset;
   string symbol = Symbol();

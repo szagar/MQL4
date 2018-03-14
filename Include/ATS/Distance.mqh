@@ -4,7 +4,7 @@
 #property version   "1.00"
 #property strict
 
-#include <ATS\distance_externs.mqh>
+//#include <ATS\distance_externs.mqh>
 
 class Distance {
 public:

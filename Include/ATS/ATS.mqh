@@ -9,13 +9,10 @@
 #property strict
 
 #include <ATS/entry_externs.mqh>
-
 #include <ATS/Filters.mqh>
-#include <ATS/Trader.mqh>
-#include <ATS/MagicNumber.mqh>
 #include <ATS/TradingSessions.mqh>
+#include <ATS/Trader.mqh>
 
-extern int HoursInTrade, MinutesInTrade, BarsInTrade;
 
 class ATS {
 protected:
@@ -45,7 +42,7 @@ public:
   virtual void checkForNewEntry(double bid, double ask);
   
   Trader *trader;
-  MagicNumber *magic;
+  //MagicNumber *magic;
   Filters *filters;
   TradingSessions *sessionTool;
   
@@ -90,7 +87,7 @@ ATS::~ATS() {
 
 void ATS::initialize() {
   filters = new Filters();
-  magic = new MagicNumber();
+  //magic = new MagicNumber();
   //sessionTool = new TradingSessions();
   callOnTick = false;
   callOnBar = false;

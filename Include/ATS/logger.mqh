@@ -39,6 +39,7 @@
   void Debug4(string f,int l,string msg) { if(DEBUG3()) LOG2("DEBUG",f,l,msg); }
   void Info(string msg) { if(INFO()) LOG("INFO",msg); }
   void Info2(string f,int l,string msg) { if(INFO()) LOG2("INFO",f,l,msg); }
+  void LogTrade(string f,int l,string msg) { if(INFO()) LOG2("TRADE",f,l,msg); }
   void Zalert(string msg) { Alert(msg); }
 #endif
 

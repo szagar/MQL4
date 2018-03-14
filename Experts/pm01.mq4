@@ -15,6 +15,7 @@
 
 #include <ATS\BreakOutATS.mqh>
 
+#include <ATS\MagicNumber.mqh>
 #include <ATS\logger.mqh>
 //#include <ATS\ChartTools.mqh>
 #include <ATS\TradingSessions.mqh>
@@ -32,6 +33,7 @@ InitialRisk *initRisk;
 ProfitTargetModels *profitTgt;
 BreakOutATS *ats;
 Filters *filters;
+MagicNumber *magic;
 OptimizerOutput *optOut;
 
 datetime startOfDay, endOfDay, now, submitTime;
@@ -53,6 +55,7 @@ int OnInit() {
   profitTgt = new ProfitTargetModels();
   trader = new Trader(exitMgr,initRisk,profitTgt);
   filters = new Filters();
+  magic = new MagicNumber();
   optOut = new OptimizerOutput();
   
   ats = new BreakOutATS(sessionTool,trader);
@@ -83,6 +86,7 @@ void OnDeinit(const int reason) {
   if (CheckPointer(exitMgr) == POINTER_DYNAMIC) delete exitMgr;      
   if (CheckPointer(broker) == POINTER_DYNAMIC) delete broker;      
   if (CheckPointer(sessionTool) == POINTER_DYNAMIC) delete sessionTool;      
+  if (CheckPointer(magic) == POINTER_DYNAMIC) delete magic;      
   //if (CheckPointer(chart) == POINTER_DYNAMIC) delete chart;
   if (CheckPointer(optOut) == POINTER_DYNAMIC) delete optOut;
   EventKillTimer();
@@ -175,9 +179,11 @@ void OnNewBar() {
     pendingOrders = false;
     broker.deletePendingOrders(Symbol(),ats.strategyName); 
   }
-  if(UseTrailingStop) {
-    exitMgr.updateTrailingStops();
-  }
+  handleOpenPositions();
+  //if(UseTrailingStop) {
+  //  Info2(__FUNCTION__,__LINE__,"UseTrailingStop");
+  //  exitMgr.updateTrailingStops(ats.strategyName);
+ // }
   if(barEntry
      && ats.tradeCnt<MaxTradesPerDay
      && sessionTool.tradeWindow2()) {
@@ -205,25 +211,32 @@ void OnNewBar() {
 
 void handleOpenPositions() {
   Position *pos;
-  for(int i=OrdersTotal()-1, i>=0; i--) {
+  double price;
+  for(int i=OrdersTotal()-1; i>=0; i--) {
     if(!OrderSelect(i,SELECT_BY_POS)) {
-      lastError = GetLastError();
-      Warn(__FUNCTION__+"("+__LINE__+"): "+lastError);
+      int lastError = GetLastError();
+      Warn(__FUNCTION__+"("+(string)__LINE__+"): "+(string)lastError);
       continue;
     }
     pos = broker.GetPosition();
-    if(StringCompare(magic.getStrategy(OrderMagicNumber()),strategyName,false)!=0)
-      continue
-    if(OrderType()==0) {
-      if(useTrailingStop)
-        exitMgr.getTrailingStop(pos);
-    }
-    if(OrderType()==1) {
-      if(useTrailingStop)
-        exitMgr.getTrailingStop(pos);
+    LogTrade(__FUNCTION__,__LINE__,magic.getStrategy(OrderMagicNumber())+"  ==  "+ats.strategyName);
+    if(StringCompare(magic.getStrategy(OrderMagicNumber()),ats.strategyName,false)!=0)
+      continue;
+    if(OrderType()==0 || OrderType()==1) {
+      LogTrade(__FUNCTION__,__LINE__,"open position found");
+      LogTrade(__FUNCTION__,__LINE__,"UseTrailingStop="+(string)UseTrailingStop);
+      if(UseTrailingStop) {
+        LogTrade(__FUNCTION__,__LINE__,"calc new stop loss");
+        price = trader.calcStopLoss(pos);
+        if(price > 0) {
+          LogTrade(__FUNCTION__,__LINE__,"Update Stop Loss: "+DoubleToString(price,Digits));
+          broker.modifyStopLoss(OrderTicket(),price);
+        }
+      }
     }
   }
 }
+
 
 //bool isStartOfNewSession() {
 //  if(Time[0] >= sessionTool.startTradingSession_Server) {

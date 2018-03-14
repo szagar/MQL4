@@ -15,14 +15,12 @@
 #property strict
 
 #include <ATS\logger.mqh>
-
-//#include <ATS/logger.mqh>
+#include <ATS\tradingSessions_externs.mqh>
 
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
 
-#include <ATS\tradingSessions_externs.mqh>
 
 #ifndef TRADINGSESSIONS
 #define TRADINGSESSIONS

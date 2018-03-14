@@ -50,6 +50,7 @@ public:
   int getOneR(int);
   int getBarNumber(int);
   string getStrategy(int);
+  bool matchStrategyName(string);
   int roboID(int);
 };
 
@@ -142,3 +143,8 @@ int MagicNumber::getBarNumber(int magicNumber) {
   int rtn = magicNumber / BarNumber_mult;
   return(int((rtn % int(MathPow(10,BarNumber_digits)))  ));
 }
+
+bool MagicNumber::matchStrategyName(string name) {
+  return(StringCompare(magic.getStrategy(OrderMagicNumber()),name,false)==0);
+}
+

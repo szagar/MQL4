@@ -8,8 +8,6 @@
 #property version   "1.00"
 #property strict
 
-#include <ATS\ats_externs.mqh>
-
 #include <ATS\Poi.mqh>
 #include <ATS\Distance.mqh>
 

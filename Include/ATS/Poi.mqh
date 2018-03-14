@@ -4,7 +4,7 @@
 #property version   "1.00"
 #property strict
 
-#include <ATS\poi_externs.mqh>
+//#include <ATS\poi_externs.mqh>
 
 class Poi {
 public:
