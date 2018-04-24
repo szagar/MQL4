@@ -7,21 +7,22 @@
 #include <dev\logger.mqh>
 #include <dev\common.mqh>
 
-string f1(){return("########");}
-
-extern string commentString_1 = "";  //*****************************************
-extern string commentString_2 = "";  //zts06
-extern bool Testing = false;              //>> Testing ?
-extern Enum_LogLevels LogLevel = LogInfo; //>> Log Level
-extern bool GoLong = true;                //>> Go Long ?
-extern bool GoShort = false;              //>> Go Short ?
-extern int Slippage=5;                    //>> Slippage in pips 
-extern double MinReward2RiskRatio = 1.5;  //>> Min Reward / Risk 
-//extern string commentString_3 = "";  //*****************************************
-
-#include <dev\robo1.mqh>
-//#include <dev\stats_eod.mqh>
 #include <dev\TradingSessions.mqh>
+
+extern string commentString_0 = ""; //---------------------------------------------
+extern string commentString_1 = "";  //*** zts06 settings:
+extern bool Testing = false;               //- Testing ?
+extern Enum_LogLevels LogLevel = LogInfo;  //- Log Level
+extern bool GoLong = true;                 //- Go Long ?
+extern bool GoShort = false;               //- Go Short ?
+extern Enum_Sessions TradingSession = All; //- Trading Session
+extern bool ReverseLongShort = false;      //- Reverse Long/Short Criteria
+extern int Slippage=5;                     //- Slippage in pips 
+extern double MinReward2RiskRatio = 1.5;   //- Min Reward / Risk 
+extern double PercentRiskPerPosition=0.5; //>- Percent to risk per position
+
+#include <dev\Robo_02.mqh>
+//#include <dev\stats_eod.mqh>
 
 string Prefix="ZTS_";
 string Version="0.001";
@@ -37,8 +38,10 @@ datetime now;
 
 int OnInit() {
   //EventSetTimer(60);
-  robo = new Robo();
-  session = new TradingSessions();
+  setSomeConstants();
+  session = new TradingSessions(TradingSession);
+  session.showAllSessions("local");
+  robo = new Robo(session);
   
   robo.OnInit();
   
@@ -49,7 +52,7 @@ int OnInit() {
   dtStruct.sec = 0;
   endOfDay = session.endOfDay;             //StructToTime(dtStruct) + 17*60*60;         // 5pm NY
   startOfDay = session.startOfDay;         //StructToTime(dtStruct) + 9*60*60;;       // 9am NY
-  Info(__FUNCTION__,__LINE__,"Day start to end: "+string(startOfDay)+" - "+string(string(endOfDay)));
+  Info("Day start to end: "+string(startOfDay)+" - "+string(string(endOfDay)));
 
   DrawSystemStatus();
 
@@ -101,7 +104,7 @@ double OnTester() {
 bool isEOD() {
   if(now >= endOfDay) {
     endOfDay = session.addDay(endOfDay);
-    Info(__FUNCTION__,__LINE__,"EOD bar");
+    Info("EOD bar");
     return(true);
   }
   return(false);
@@ -110,14 +113,14 @@ bool isEOD() {
 bool isSOD() {
   if(now >= startOfDay) {
     startOfDay = session.addDay(startOfDay);
-    dayBarNumber = 1;
-      Info(__FUNCTION__,__LINE__,"SOD bar");
+    Info("SOD bar");
     return true;
   }
   return(false);
 }
 
 void cleanUpEOD() {
+  Info("EOD cleanup");
 }
 
 //void startOfDay() {

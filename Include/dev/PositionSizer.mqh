@@ -10,41 +10,50 @@
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
+
+extern string commentString_ps0 = ""; //---------------------------------------------
+extern string commentString_ps1 = ""; //*** Position Sizer setup
+extern Enum_POS_SIZE_MODELS PS_Model = PS_OneMini;  // Sizer Model
+
 class PositionSizer {
 private:
-  int model;
 public:
-  PositionSizer(int);
+  PositionSizer();
   ~PositionSizer();
   
-  double lotSize(int);
-  double sizer_vantharp();
+  double lotSize(Position*,Enum_POS_SIZE_MODELS);
+  double sizer_vantharp(Position*);
 };
 
-PositionSizer::PositionSizer(int _model=0) {
-  model = _model;
+PositionSizer::PositionSizer() {
 }
 
 PositionSizer::~PositionSizer() {
 }
 
-double PositionSizer::lotSize(int _model = 0) {
-  if(_model > 0) model = _model;
-  double lots;
+double PositionSizer::lotSize(Position *trade, Enum_POS_SIZE_MODELS _model = NULL) {
+  Enum_POS_SIZE_MODELS model = (_model == NULL) ? PS_Model : _model;
+  double lots=0.0;
   switch(model) {
-    case 0:
-      lots = sizer_vantharp();
+    case PS_VanTharp:
+      lots = sizer_vantharp(trade);
       break;
-    case 1:
+    case PS_OneMini:
       lots = 0.1;
       break;
-    default:
-      sizer_vantharp();
   }
-  lots = NormalizeDouble(lots,2);
+ lots = MathRound(lots/MarketInfo(Symbol(),MODE_LOTSTEP)) * MarketInfo(Symbol(),MODE_LOTSTEP);
   return(lots);
 }
 
-double PositionSizer::sizer_vantharp(void) {
-  return(0.0);
+double PositionSizer::sizer_vantharp(Position *trade) {
+  double dollarRisk = AccountFreeMargin() * PercentRiskPerPosition/100.0;
+
+  //double nTickValue=MarketInfo(Symbol(),MODE_TICKVALUE);
+
+  double LotSize = dollarRisk /(trade.OneRpips * PipSize);
+  LotSize = LotSize * Point;
+  //LotSize=MathRound(LotSize/MarketInfo(Symbol(),MODE_LOTSTEP)) * MarketInfo(Symbol(),MODE_LOTSTEP);
+
+  return(LotSize);
 }

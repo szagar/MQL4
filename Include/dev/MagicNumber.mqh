@@ -86,13 +86,19 @@ int MagicNumber::get(string _strategy="",int _oneR=0, int _barNumber=0) {
 }
 
 int MagicNumber::encodeStrategyName(string name) {
-  if(StringCompare(name,"CDM-YL",false)==0) return(1);
-  if(StringCompare(name,"RBO",false)==0) return 2;
-  if(StringCompare(name,"MOMO",false)==0) return 3;
-  if(StringCompare(name,"COD",false)==0) return 4;
-  if(StringCompare(name,"Finch",false)==0) return 5;
-  if(StringCompare(name,"BollingerBand",false)==0) return 6;
-  Info(__FUNCTION__,__LINE__,"Strategy '"+name+"' NOT coded for in MagicNumber");
+  if(StringCompare(name,"CDM-YL",false)==0)         return 1 ;
+  if(StringCompare(name,"RBO",false)==0)            return 2;
+  if(StringCompare(name,"MOMO",false)==0)           return 3;
+  if(StringCompare(name,"COD",false)==0)            return 4;
+  if(StringCompare(name,"Finch",false)==0)          return 5;
+  if(StringCompare(name,"BollingerBand",false)==0)  return 6;
+  if(StringCompare(name,"RSI",false)==0)            return 7;
+  if(StringCompare(name,"MovingAvgCross",false)==0) return 8;
+  if(StringCompare(name,"MovingAverage",false)==0)  return 9;
+  if(StringCompare(name,"MovingAvgChannel",false)==0) return 10;
+  if(StringCompare(name,"RboSetup",false)==0)         return 11;
+  if(StringCompare(name,"BreakOutATS",false)==0)      return 12;
+  Info("Strategy '"+name+"' NOT coded for in MagicNumber");
   return 0;
 }
 
@@ -105,6 +111,14 @@ string MagicNumber::decodeStrategyName(int magicNumber) {
   if(id == 2) return "RBO";
   if(id == 3) return "MOMO";
   if(id == 4) return "COD";
+  if(id == 5) return "Finch";
+  if(id == 6) return "BollingerBand";
+  if(id == 7) return "RSI";
+  if(id == 8) return "MovingAvgCross";
+  if(id == 9) return "MovingAverage";
+  if(id == 10) return "MovingAvgChannel";
+  if(id == 11) return "RboSetup";
+  if(id == 12) return "BreakOutATS";
   return "";
 }
 

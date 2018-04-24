@@ -3,19 +3,20 @@
 //+------------------------------------------------------------------+
 #property strict
 
-extern string commentString_7 = "";  //*****************************************
-extern string commentString_8 = "";  //EXIT MANAGER SETTINGS
-extern Enum_EXITMODEL EX_Model = EX_SL_TP;     //- Exit Model
-extern Enum_YESNO     EX_TimedExit = YN_NO;    //- add Timed Exit ?
-extern Enum_YESNO     EX_BarCount = YN_NO;     //- add Bar Count Exit ?
-extern Enum_TS_TYPES  TS_Model = TS_ATR;       //- Trailing Stop Model
-extern double         TS_MinDelta  = 2.0;      //   >> Min pips for SL change
-extern int            TS_BarCount  = 3;        //   >> Bar Count or Bars back
-extern int            TS_PadAmount = 10;       //   >> Pips to pad TS
-extern Enum_TS_WHEN   TS_When      = TS_OneRx; //   >> When to start trailing
-extern int            TS_WhenX     = 1;        //   >> When parameter (1Rx, pips)
-extern ENUM_TIMEFRAMES TS_ATRperiod= 0;        //   >> ATR Period
-extern double         TS_ATRfactor = 2.7;      //   >> ATR Factor
+extern string commentString_EM_1 = ""; //---------------------------------------------
+extern string commentString_EM_2 = ""; //-------- Exit Manager settings
+extern string commentString_EM_3 = ""; //---------------------------------------------
+extern Enum_EXIT_MODELS EX_Model = EX_EOS;       //>> Exit Model
+extern Enum_TS_TYPES    TS_Model = TS_ATR;       //>> Trailing Stop Model
+//extern bool             EX_TimedExit = YN_NO;    //-   use Timed Exit ?
+extern bool             EX_BarCount = YN_NO;     //-   add Bar Count Exit ?
+extern double           TS_MinDeltaPips  = 2.0;  //-   TS: Min pips for SL change
+extern int              TS_BarCount  = 3;        //-   TS: Bar Count or Bars back
+extern int              TS_PadAmount = 10;       //-   TS: Pips to pad TS
+extern Enum_TS_WHEN     TS_When      = TS_OneRx; //-   TS: When to start trailing
+extern int              TS_WhenX     = 1;        //-   TS: When parameter (1Rx, pips)
+extern ENUM_TIMEFRAMES  TS_ATRperiod= 0;         //-   TS: ATR Period
+extern double           TS_ATRfactor = 2.7;      //-   TS: ATR Factor
 
 
 class ExitManager {
@@ -39,14 +40,14 @@ public:
 
   double calcTrailingStopLoss(string,int);
   double getTrailingStop(Position *pos);
-  bool useStopLoss;
+  //bool useTakeProfit;
   int pips2startTS(Position*);
 };
 
 ExitManager::ExitManager() {
   symbol = Symbol();
 
-  d2p = decimal2points_factor(symbol);
+  d2p = PipFact;
   configParams();
 }
 
@@ -56,10 +57,14 @@ ExitManager::~ExitManager() {
 ExitManager::configParams() {
   switch(EX_Model) {
     case EX_Fitch:
-      useStopLoss = false;
+      //useStopLoss = false;
+      //useTrailingStop = false;
       break;
     case EX_SL_TP:
-      useStopLoss = true;
+      UseTakeProfit = true;
+      break;
+    case EX_SL_TS:
+      UseTakeProfit = true;
       break;
   }
 }
@@ -79,61 +84,28 @@ int ExitManager::pips2startTS(Position *pos) {
   return (pips);
 }
 
-//double ExitManager::availableFunds() {
-//  double dollars;
-//
-//  switch(EquityModel){
-//    case 1:
-//      dollars = account.freeMargin();
-//      break;
-//    default:
-//      dollars = 0.0;
-//  }
-//  return(dollars);
-//}
-
-/**
-int ExitManager::oneR_calc_PATI() {
-  int __defaultStopPips = 12;
-  string __exceptionPairs = "EURUSD/8;AUDUSD,GBPUSD,EURJPY,USDJPY,USDCAD/10";
-  
-  int stop = __defaultStopPips;
-  int pairPosition = StringFind(__exceptionPairs, symbol, 0);
-  if (pairPosition >=0) {
-     int slashPosition = StringFind(__exceptionPairs, "/", pairPosition) + 1;
-     stop =int( StringToInteger(StringSubstr(__exceptionPairs,slashPosition)));
-  }
-  Debug4(__FUNCTION__,__LINE__,"pips="+IntegerToString(stop));
-  return stop;
-}
-
-double ExitManager::oneR_calc_ATR(int _period, int _numBars) {
-  double atr = iATR(symbol,     // symbol
-                    _period,     // timeframe
-                    _numBars,    // averaging period
-                    0);          // shift
-  atr = NormalizeDouble(atr, int(MarketInfo(symbol, MODE_DIGITS)-1));
-  Debug4(__FUNCTION__,__LINE__,"atr "+string(_numBars)+" bars. period = "+string(_period)+"  atr="+string(atr));
-  return(atr);
-}
-*/
-
-
 double ExitManager::getTrailingStop(Position *pos) {
+  Debug(__FUNCTION__,__LINE__,"Entered");
   double currentPrice, newTrailingStop;
   double currStopLoss=OrderStopLoss();
   int pips=0;
 
   currentPrice = NormalizeDouble((pos.Side == Long ? Bid : Ask),Digits);
-    
+   
+  Debug(__FUNCTION__,__LINE__,"model="+EnumToString(TS_Model)+"  price="+DoubleToStr(currentPrice,Digits)+" currSL="+DoubleToStr(currStopLoss,Digits));
   switch(TS_Model) {
     case TS_CandleTrail:
       newTrailingStop = ((pos.Side==Long) ? iLow(NULL,0,TS_BarCount) :
                                             iHigh(NULL,0,TS_BarCount));
       break;
     case TS_ATR:
-      pips = int(atr(TS_ATRperiod,TS_BarCount)*decimal2points_factor(symbol) * TS_ATRfactor);
-      newTrailingStop = currentPrice + pips * OnePoint * pos.Side;
+      Info("pips = int(atr(TS_ATRperiod,TS_BarCount)*PipFact * TS_ATRfactor);");
+      Info("pips = int("+DoubleToStr(atr(TS_ATRperiod,TS_BarCount),Digits)+"*"+string(PipFact)+" * "+DoubleToStr(TS_ATRfactor,2)+")");
+      pips = int(atr(TS_ATRperiod,TS_BarCount)*PipFact * TS_ATRfactor);
+      Debug(__FUNCTION__,__LINE__,"pips="+string(pips));
+      Info("newTrailingStop = "+DoubleToStr(currentPrice,Digits)+" + "+string(pips)+" * "+string(OnePoint)+" * "+EnumToString(pos.Side));
+      newTrailingStop = currentPrice - pips * OnePoint * pos.Side;
+      Debug(__FUNCTION__,__LINE__,"newTrailingStop="+string(newTrailingStop));
       break;
     case TS_OneR:
       pips = pos.OneRpips;
@@ -142,11 +114,16 @@ double ExitManager::getTrailingStop(Position *pos) {
     default:
       newTrailingStop = currentPrice;;
   }
-  newTrailingStop -= TS_PadAmount*pos.SideX;
+  newTrailingStop -= TS_PadAmount*PipSize*pos.SideX;
+      Debug(__FUNCTION__,__LINE__,"newTrailingStop="+string(newTrailingStop));
   newTrailingStop = NormalizeDouble(newTrailingStop,Digits);
+      Debug(__FUNCTION__,__LINE__,"newTrailingStop="+string(newTrailingStop));
 
-  double tmp = newTrailingStop-currStopLoss;
-  if(currStopLoss==0 || (newTrailingStop-currStopLoss)*pos.Side >= TS_MinDelta * BaseCcyTickValue * OnePoint) {
+  Debug(__FUNCTION__,__LINE__,"(newTrailingStop-currStopLoss)= "+DoubleToStr((newTrailingStop-currStopLoss),Digits));
+  Debug(__FUNCTION__,__LINE__,"pos.Side= "+EnumToString(pos.Side));
+  Debug(__FUNCTION__,__LINE__,"PipFact= "+DoubleToStr(PipFact,Digits));
+  Debug(__FUNCTION__,__LINE__,"TS_MinDeltaPips="+DoubleToStr(TS_MinDeltaPips,2));
+  if(currStopLoss==0 || (newTrailingStop-currStopLoss)*pos.Side*PipFact >= TS_MinDeltaPips) {
     return(newTrailingStop);
   }
   return(-1);

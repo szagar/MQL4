@@ -9,19 +9,18 @@
 #property strict
 
 #include <dev\common.mqh>
-#include <dev\Setup.mqh>
+#include <dev\SetupBase.mqh>
   
-extern string commentString_19 = "";  //*****************************************
-extern string commentString_20 = ""; //Setup: Bollinger Bands params 
-extern Enum_BOLLINGER_MODELS BB_Model = BB_SETUP_01; //- Bollinger Band Model
-extern int BB_Period = 200;          //>> Period of the Bollinger Bands
-extern double BB_Deviation = 2;      //>> Deviation of the Bollinger Bands
-extern int BB_BarsSincePierce = 5;   //>> Bars Since Pierce
-//extern string commentString_21 = "";  //*****************************************
+extern string commentString_BB_01 = ""; //---------------------------------------------
+extern string commentString_BB_02 = "";  //*** Bollinger Bands setup:
+extern Enum_BOLLINGER_MODELS BB_Model = BB_SETUP_01; //>> Bollinger Band Model
+extern int BB_Period = 200;          //- Period of the Bollinger Bands
+extern double BB_Deviation = 2;      //- Deviation of the Bollinger Bands
+extern int BB_BarsSincePierce = 5;   //- Bars Since Pierce
 
-class BollingerBand : public Setup {
+class BollingerBand : public SetupBase {
 //private:
-  //Setup setupBase;
+  //SetupBase setupBase;
   int model;
   bool longCriteria();
   bool shortCriteria();
@@ -48,7 +47,7 @@ public:
 };
 
 
-void BollingerBand::BollingerBand(string _symbol,Enum_SIDE _side):Setup(_symbol,_side) {
+void BollingerBand::BollingerBand(string _symbol,Enum_SIDE _side):SetupBase(_symbol,_side) {
   strategyName = "BollingerBand";
   side = _side;
   triggered = false;
@@ -57,21 +56,21 @@ void BollingerBand::BollingerBand(string _symbol,Enum_SIDE _side):Setup(_symbol,
 }
 
 /**
-void BollingerBand::BollingerBand(string _symbol):Setup() {
+void BollingerBand::BollingerBand(string _symbol):SetupBase() {
   name = "BollingerBand";
   side = Long;
   model = 1;
   movingPeriod = 100;
 }
 
-BollingerBand::BollingerBand(string _symbol, Enum_SIDE _side, int _model):Setup(_symbol) {
+BollingerBand::BollingerBand(string _symbol, Enum_SIDE _side, int _model):SetupBase(_symbol) {
   name = "BollingerBand";
   side = _side;
   model = _model;
   movingPeriod = 100;
 }
 
-BollingerBand::BollingerBand(Enum_SIDE _side, int _model):Setup() {
+BollingerBand::BollingerBand(Enum_SIDE _side, int _model):SetupBase() {
   name = "BollingerBand";
   side = _side;
   model = _model;
@@ -100,8 +99,8 @@ void BollingerBand::OnBar(void) {
   switch(BB_Model) {
     case BB_SETUP_01:
     case BB_SETUP_02:
-      if(goLong) triggered = longCriteria();
-      if(goShort) triggered = shortCriteria();
+      if(GoLong) triggered = longCriteria();
+      if(GoShort) triggered = shortCriteria();
       break;
     default:;
       //pass = false;
@@ -118,6 +117,8 @@ void BollingerBand::bandPiercing() {
   double topPrev=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_UPPER,2);
   double lowCurr=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_LOWER,1);
   double lowPrev=iBands(Symbol(),0,BB_Period,BB_Deviation,0,PRICE_CLOSE,MODE_LOWER,2);
+  Debug(__FUNCTION__,__LINE__,"BBtop Curr="+DoubleToString(topCurr,Digits)+"  Prev="+DoubleToString(topPrev,Digits));
+  Debug(__FUNCTION__,__LINE__,"BBlow Curr="+DoubleToString(lowCurr,Digits)+"  Prev="+DoubleToString(lowPrev,Digits));
   switch(BB_Model) {
     case BB_SETUP_01:
       if(Close[2]<topPrev && Close[1]>topCurr) 
@@ -154,7 +155,7 @@ void BollingerBand::triggerLowerBandPiercing(int barN) {
   static int topCnt=0;
   string objname;
   BB_PiercedLower = barN;
-  objname = "PierceLow"+IntegerToString(topCnt++);
+  objname = "PierceDn"+IntegerToString(topCnt++);
   ObjectCreate(objname,OBJ_ARROW,0,Time[1],Low[1]);
   ObjectSetInteger(0,objname,OBJPROP_COLOR,clrBlack);
 }
