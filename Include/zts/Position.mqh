@@ -7,6 +7,9 @@
 #property link      "http://nohypeforexrobotreview.com"
 #property version   "1.00"
 #property strict
+
+#include <zts\common.mqh>
+
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+

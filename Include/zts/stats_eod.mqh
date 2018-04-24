@@ -10,6 +10,7 @@
 #include <zts\daily_pnl.mqh>
 #include <zts\daily_pips.mqh>
 
+
 void StatsEndOfDay(string fname="") {
   int fh = FileOpen(fname, FILE_TXT | FILE_ANSI | FILE_WRITE | FILE_READ | FILE_CSV);
   if (fh != -1) {

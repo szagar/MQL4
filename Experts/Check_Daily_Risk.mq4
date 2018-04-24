@@ -17,9 +17,14 @@ datetime endOfDay;
 string FnEodStats = "DailySummary.csv";
 
 extern string General = "===Risk Management===";
+extern bool UsePipCutoff = false;
+extern bool UseRiskCutoff = true;
 extern int DailyPipCutoff = 50;
+extern double DailyRiskPercentCutoff = 3.0;
 extern int Slippage=5;
 extern Enum_LogLevels LogLevel = LogInfo; //>> Log Level
+
+double freeMargin;
 
 //+------------------------------------------------------------------+
 //| Expert initialization function                                   |
@@ -30,7 +35,7 @@ int OnInit()
    EventSetTimer(60);
    MqlDateTime dtStruct;
    endOfDay = StructToTime(dtStruct) +(24*60*60) + (_endOfDayOffsetHours * 60 * 60);
-
+   freeMargin = AccountFreeMargin();
       
 //---
    return(INIT_SUCCEEDED);
@@ -50,6 +55,7 @@ void OnDeinit(const int reason)
 void OnTick() {
   if(Time[0] >= endOfDay) {
     endOfDay += 24*60*60;
+    freeMargin = AccountFreeMargin();
     //StatsEndOfDay(FnEodStats);
   }
 }
@@ -60,7 +66,8 @@ void OnTick() {
 void OnTimer() {
   //StatsEndOfDay(FnEodStats);
   //float pips = dailyPips_worstCase();
-  string str = "Pesty pips = "   + DoubleToString(dailyPips_worstCase(),2) + "\n" +
+  string str = "port risk = " + DoubleToStr(dailyPnL_live()/freeMargin*100.0,2) + "\n" +
+               "Pesty pips = "   + DoubleToString(dailyPips_worstCase(),2) + "\n" +
                "Live Pips="    + DoubleToString(dailyPips_live(),2) + 
                "  RealPips= " + DoubleToStr(RealizedPipsToday(),2) + 
                "  UnRealPips= " + DoubleToStr(UnRealizedPipsToday(),2) + "\n" +
@@ -69,9 +76,17 @@ void OnTimer() {
                "  UnReal $  = "   + DoubleToString(UnRealizedProfitToday(),2);
   Print(str);
   Comment(str);
-  if (dailyPips_live() < -1 * DailyPipCutoff) {
-    int cnt = CloseAllPendingOrders();
-    if (cnt>0) Alert("Closed "+ string(cnt) + " pending orders");
+  if(UsePipCutoff) {
+    if (dailyPips_live() < -1 * DailyPipCutoff) {
+      int cnt = CloseAllPendingOrders();
+      if (cnt>0) Alert("Closed "+ string(cnt) + " pending orders");
+    }
+  }
+  if(UseRiskCutoff) {
+    if (dailyPnL_live()/freeMargin*100.0 < -1 * DailyRiskPercentCutoff) {
+      int cnt = CloseAllPendingOrders();
+      if (cnt>0) Alert("Closed "+ string(cnt) + " pending orders");
+    }
   }
 }
 //+------------------------------------------------------------------+

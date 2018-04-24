@@ -14,6 +14,13 @@
 #include <Assert.mqh>
 #include "NTI_RunTests.mqh"
 
+extern int Slippage=5;
+#include <zts\logger.mqh>
+
+extern Enum_LogLevels LogLevel = LogInfo; //>> Log Level
+
+#include <zts\logger.mqh>
+
 string Title="New Trade Indicator"; 
 string Prefix="NTI_";
 string Version="v0.33";

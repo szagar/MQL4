@@ -5,9 +5,11 @@
 #property link      "https://"
 #property version   "1.00"
 #property strict
-#include <Position.mqh>
+//#include <Position.mqh>
 #include <zts/Broker.mqh>
 
+extern int Slippage=5;
+extern Enum_LogLevels LogLevel = LogInfo; //>> Log Level
 
 string Prefix = "PAT_";
 double AdjPoint;

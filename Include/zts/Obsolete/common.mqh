@@ -58,6 +58,20 @@ double BaseCcyTickValue = MarketInfo(Symbol(),MODE_TICKVALUE); // Tick value in 
 
 #endif
 
+enum Enum_YESNO {
+  YN_NO=0,    //No
+  YN_YES      //Yes
+};
+enum Enum_ENTRY_MODELS {
+  EM_BidAsk=0,    //Enter long at Ask, short at Bid (pip buffer)
+  EM_Pullback,      //Enter on Pullback to prev H/L (bar offset)
+  EM_RBO            //RBO of current session (w/ pip offset)
+};
+enum Enum_MARKET_MODELS{
+  MM_200DMA=0,   //200 DMA Market Indicator
+  MM_MidPoint=1  //Range MidPoint Market Indicator
+};
+
 enum Enum_SIDE{ Long=1, Short=-1 };
 enum Enum_OP_ORDER_TYPES { 
   Z_BUY=0,        //Buy operation
@@ -67,13 +81,27 @@ enum Enum_OP_ORDER_TYPES {
   Z_BUYSTOP=4,    //Buy stop pending order
   Z_SELLSTOP=5,   //Sell stop pending order
 };
+enum Enum_EXITMODEL {
+  EX_Fitch,    // Fitch strategy
+  EX_SL_TP     // use stop loss and limit orders
+};
 enum Enum_TRAILING_STOP_TYPES { 
-  None=0,      // Not Applicable
-  PrevHL=1,  // Previous Hi/Lo
-  ATR=2,     // ATR factor
-  OneR=3,    // One R pips
+  TS_None=0,    // Not Applicable
+  TS_PrevHL=1,  // Previous Hi/Lo
+  TS_ATR=2,     // ATR factor
+  TS_OneR=3,    // One R pips
+};
+enum Enum_PROFIT_TARGET_TYPES { 
+  PT_None=0,         // Not Applicable
+  PT_PrevHL=1,       // Previous Hi/Lo
+  PT_ATR=2,          // ATR factor
+  PT_OneR=3,         // One R factor
+  PT_PATI_Level=4,   // next PATI level
 };
 
+//#include <zts/logger.mqh>
+
+/****
 #ifndef LOGGING
 #define LOGGING
 enum Enum_LogLevels{
@@ -112,6 +140,8 @@ enum Enum_LogLevels{
 void SetLogLevel(Enum_LogLevels level) {
   LogLevel = level;
 }
+****/
+
 
 /**
 enum ENUM_PERSISTER {

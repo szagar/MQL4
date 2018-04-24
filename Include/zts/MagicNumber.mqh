@@ -91,7 +91,7 @@ int MagicNumber::encodeStrategyName(string name) {
   if(StringCompare(name,"MOMO",false)==0) return 3;
   if(StringCompare(name,"COD",false)==0) return 4;
   if(StringCompare(name,"Finch",false)==0) return 5;
-  Info("Strategy '"+name+"' NOT coded for in MagicNumber");
+  Info(__FUNCTION__,__LINE__,"Strategy '"+name+"' NOT coded for in MagicNumber");
   return 0;
 }
 

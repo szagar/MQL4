@@ -13,7 +13,8 @@
 //#include <zts\common.mqh>
 #include <zts\yellow_line.mqh>
 
-
+extern Enum_LogLevels LogLevel = LogInfo;
+extern int Slippage=5;
 //string Prefix = "PAT_";
 
 //+------------------------------------------------------------------+

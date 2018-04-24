@@ -60,6 +60,8 @@ extern string General = "===General===";
 extern bool Testing = false;
 extern int PairOffsetWithinSymbol = 0;
 extern bool AlertOnTrade=true;
+extern int Slippage=5;
+extern Enum_LogLevels LogLevel = LogInfo; //>> Log Level
 extern bool MakeTickVisible = false;
 extern bool SaveConfiguration = false;
 extern string ConfigureStops = "===Configure Stop Loss Levels===";
